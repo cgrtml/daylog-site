@@ -213,6 +213,20 @@ section.stop{background:var(--card);border:1px solid var(--line);border-radius:v
 
 /* yer sayfasi: puan + aspect + yorum */
 .yerlink{color:var(--pine);cursor:pointer;text-decoration:underline}
+.noktalar{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:9px;margin:4px 0}
+.nokta{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:12px 14px;
+  box-shadow:var(--sh1);text-align:left}
+.nokta-ad{font-family:var(--disp);font-weight:700;font-size:.95rem}
+.nokta-tur{font-weight:400;font-size:.72rem;color:var(--pine);background:var(--tint);
+  border-radius:999px;padding:1px 8px;margin-left:4px;vertical-align:middle}
+.nokta-say{color:var(--mut);font-size:.8rem;margin-top:3px}
+.nokta-ekle{border:1.5px dashed var(--line);background:none;color:var(--pine);cursor:pointer;
+  font:inherit;font-weight:600;display:flex;align-items:center;justify-content:center}
+.nokta-ekle:hover{border-color:var(--pine);background:var(--tint)}
+.nokta-form{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.nokta-form input,.nokta-form select{border:1px solid var(--line);background:var(--bg);color:var(--ink);
+  border-radius:10px;padding:9px 12px;font:inherit}
+.nokta-form input{flex:1;min-width:160px}
 .ratingrow{display:flex;align-items:center;gap:11px;margin:8px 0 14px;flex-wrap:wrap}
 .ratingrow b{font-family:var(--disp);font-size:1.5rem;letter-spacing:-.02em}
 .stars{color:var(--line);font-size:1.15rem;letter-spacing:1.5px}
@@ -1045,7 +1059,7 @@ async function yerGoster(place) {
   $("#detayout").innerHTML = `<button class="back">&larr; Geri</button>${iskeletKart()}`;
   $("#detayout .back").addEventListener("click", sekmeyeDon);
   await sosyalDurumYukle();
-  const { data: gunler } = await SB.from("days").select("id,user_id,cover_path,timeline,photo_count,km")
+  const { data: gunler } = await SB.from("days").select("id,user_id,cover_path,timeline,photo_count,km,lat,lon")
     .eq("place", place).eq("privacy", "herkes");
   const { data: yorumlar } = await SB.from("reviews").select("*, profiles(username,name)")
     .eq("place", place).order("created_at", { ascending: false });
@@ -1056,9 +1070,13 @@ async function yerGoster(place) {
     aspectSay[k] = aspectSay[k] || { iyi: 0, kotu: 0 };
     if (v > 0) aspectSay[k].iyi++; else aspectSay[k].kotu++;
   }
-  const nokta = {};
-  for (const g of gunler) for (const t of (g.timeline || [])) if (t.type === "stop" && t.name) nokta[t.name] = (nokta[t.name] || 0) + 1;
-  const topNokta = Object.entries(nokta).sort((a, b) => b[1] - a[1]).slice(0, 12);
+  // ziyaret sayaci: gunlerin duraklarindan isim bazli
+  const ziySay = {};
+  for (const g of gunler) for (const t of (g.timeline || [])) if (t.type === "stop" && t.name) ziySay[t.name] = (ziySay[t.name] || 0) + 1;
+  // noktalar: veritabanindan (gercek varliklar), ziyaret sayisiyla birlikte
+  const { data: noktalar } = await SB.from("points").select("id,name,kind,lat,lon").eq("place", place);
+  const topNokta = (noktalar || []).map(n => ({ ...n, c: ziySay[n.name] || 0 }))
+    .sort((a, b) => b.c - a.c);
   const ziyaretci = new Set(gunler.map(g => g.user_id)).size;
 
   // fotograflar
@@ -1087,8 +1105,14 @@ async function yerGoster(place) {
       <span class="aspect"><b>${esc(ASPECT_AD[k] || k)}</b>
       ${v.iyi ? `<i class="pos">iyi ${v.iyi}</i>` : ""}${v.kotu ? `<i class="neg">zayif ${v.kotu}</i>` : ""}</span>`).join("")}</div>` : ""}
 
-    ${topNokta.length ? `<h2 class="sec">En cok gidilen noktalar</h2>
-      <div class="frow">${topNokta.map(([n, c]) => `<span class="pill">${esc(n)} <b>&times;${c}</b></span>`).join("")}</div>` : ""}
+    <h2 class="sec">Noktalar <span class="pasay">${topNokta.length}</span></h2>
+    <div class="noktalar">${topNokta.map(n => `
+      <div class="nokta" data-nokta="${esc(n.name)}">
+        <div class="nokta-ad">${esc(n.name)}${n.kind ? ` <span class="nokta-tur">${esc(n.kind)}</span>` : ""}</div>
+        <div class="nokta-say">${n.c ? n.c + " ziyaret" : "yeni"}</div>
+      </div>`).join("")}
+      <button class="nokta nokta-ekle" id="noktaEkleBtn">+ Nokta ekle</button>
+    </div>
 
     ${uniq.length ? `<h2 class="sec">Ziyaretci fotograflari</h2>
       <div class="grid">${uniq.map(pp => imzali[pp] ? `<img src="${imzali[pp]}" alt="">` : "").join("")}</div>` : ""}
@@ -1107,6 +1131,31 @@ async function yerGoster(place) {
   $("#detayout .back").addEventListener("click", sekmeyeDon);
   if (kapak) imzaliUrl(kapak).then(u => { const el = $("#yerKapak"); if (el && u) el.src = u; });
   yorumFormCiz(place, benim);
+  // nokta ekleme
+  const merkez = (noktalar && noktalar.length)
+    ? [noktalar.reduce((a, n) => a + n.lat, 0) / noktalar.length, noktalar.reduce((a, n) => a + n.lon, 0) / noktalar.length]
+    : (gunler.length ? [gunler[0].lat, gunler[0].lon] : [0, 0]);
+  const ekleBtn = $("#noktaEkleBtn");
+  if (ekleBtn) ekleBtn.addEventListener("click", () => {
+    if (!girisli()) return authGoster("Nokta eklemek icin uyelik gerekli.");
+    ekleBtn.outerHTML = `<div class="nokta-form">
+      <input id="yeniNoktaAd" placeholder="Nokta adi (orn. Panorama Point)" autocomplete="off">
+      <select id="yeniNoktaTur">
+        <option value="">tur (istege bagli)</option>
+        <option>manzara</option><option>selale</option><option>kamp</option>
+        <option>zirve</option><option>tarihi</option><option>gol/deniz</option></select>
+      <button class="btn primary" id="yeniNoktaKaydet">Ekle</button></div>`;
+    $("#yeniNoktaAd").focus();
+    $("#yeniNoktaKaydet").addEventListener("click", async () => {
+      const ad = $("#yeniNoktaAd").value.trim();
+      if (!ad) return;
+      const tur = $("#yeniNoktaTur").value;
+      const jit = () => (Math.random() - 0.5) * 0.004;
+      await SB.from("points").insert({ place, name: ad, kind: tur,
+        lat: +(merkez[0] + jit()).toFixed(5), lon: +(merkez[1] + jit()).toFixed(5), created_by: ME.id });
+      yerGoster(place);
+    });
+  });
 }
 
 function yorumFormCiz(place, mevcut) {
