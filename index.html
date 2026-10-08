@@ -121,6 +121,15 @@ h2.sec{font-family:var(--disp);font-weight:700;font-size:1.15rem;letter-spacing:
   padding:7px 14px;font:inherit;font-size:.85rem;cursor:pointer;transition:all .15s}
 .chip-sec:hover{background:var(--chipbg)}
 .chip-sec.on{background:var(--pine);border-color:var(--pine);color:#fff}
+.chip-multi{display:inline-flex;align-items:center;gap:6px}
+.chip-multi .tik{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;
+  border-radius:50%;background:var(--line);color:var(--mut);font-size:.7rem;line-height:1}
+.chip-multi.on .tik{background:#fff;color:var(--pine)}
+.chip-multi .yenirozet{background:rgba(255,255,255,.25);border-radius:999px;padding:0 6px;font-size:.66rem}
+.chip-sec:not(.on) .yenirozet{background:var(--tint);color:var(--pine)}
+.elle-ipucu{font-family:var(--body);font-weight:400;font-size:.78rem;color:var(--mut)}
+.priv-rozet{text-transform:capitalize;font-weight:600}
+.priv-herkes{color:var(--pine)} .priv-arkadaslar{color:var(--gold)} .priv-ozel{color:var(--mut)}
 .elle-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:10px}
 .elle-ph{position:relative;border-radius:var(--r-md);overflow:hidden;border:2px solid transparent}
 .elle-ph.cover{border-color:var(--gold)}
@@ -404,17 +413,14 @@ footer{color:var(--mut);font-size:.8rem;text-align:center;margin-top:34px;line-h
     </div>
   </section>
   <div class="drop" id="drop" role="button" tabindex="0">
-    <b>Bir gezinin fotograflarini buraya birak</b> ya da tikla ve sec
-    <p>JPG ve HEIC; konum (GPS) etiketli kareler kullanilir. Coklu secim serbest.</p>
+    <b>Gun olustur: fotograflarini ekle</b>
+    <p>Konumlu (GPS) karelerde yer ve noktalar otomatik gelir; konum yoksa kendin secersin.
+    JPG ve HEIC, coklu secim serbest.</p>
     <input type="file" id="file" multiple accept="image/*,.heic,.heif" hidden>
   </div>
   <p class="notice">Fotograflar once bu cihazda islenir. Yalnizca "herkes" ya da "arkadaslar" yaptigin
-  gunlerin kareleri hesabina yuklenir; "ozel" gunler cihazinda kalir. Geziyi internetsiz cekip
-  sonra (bilgisayardan ya da telefondan) istedigin zaman yukleyebilirsin; konum fotografin icinde gelir.</p>
-  <div class="elle-ayrac"><span>ya da</span></div>
-  <button class="btn elle-btn" id="elleBtn">Elle gun olustur &middot; konum gerekmez</button>
-  <p class="notice" style="margin-top:8px">Fotografinda konum yoksa dert etme: nereye gittigini,
-  hangi noktalara ugradigini ve ne yaptigini kendin secersin.</p>
+  gunlerin kareleri hesabina yuklenir; "ozel" gunler cihazinda kalir. Geziyi internetsiz cekip sonra
+  istedigin zaman yukleyebilirsin; konum fotografin icinde gelir.</p>
   <div id="out"></div>
 </div>
 
@@ -900,7 +906,7 @@ async function kesfetCiz() {
   bagla("#view-kesfet");
 }
 
-function profilCiz() {
+async function profilCiz() {
   if (SB && !girisli()) {
     $("#profout").innerHTML = `<h1>Profil</h1>
       <div class="empty"><b>Henuz giris yapmadin.</b><br>
@@ -908,40 +914,61 @@ function profilCiz() {
       <button class="btn primary" onclick="authGoster()">Kayit ol / Giris yap</button></div>`;
     return;
   }
-  const trips = tripsOku(), wish = ls("wishlist", []), fol = ls("follows", []);
-  const km = trips.reduce((a, t) => a + t.km, 0), foto = trips.reduce((a, t) => a + t.photos, 0);
+  // kendi gunlerini sunucudan (sahip hepsini gorur)
+  let gunler = [], wish = [];
+  if (SB && girisli()) {
+    const { data: g } = await SB.from("days").select("id,place,date,km,photo_count,privacy,cover_path")
+      .eq("user_id", ME.id).order("date", { ascending: false });
+    gunler = g || [];
+    const { data: w } = await SB.from("wishlist").select("place,source").eq("user_id", ME.id);
+    wish = (w || []).map(x => ({ place: x.place, from: x.source || "" }));
+  } else { wish = ls("wishlist", []); }
+  const km = gunler.reduce((a, t) => a + (+t.km || 0), 0), foto = gunler.reduce((a, t) => a + (t.photo_count || 0), 0);
+  const fol = ls("follows", []).length || SRV_FOLLOWS.length;
+  const AY = (iso) => { const d = new Date(iso); return d.getDate() + " " + AYLAR[d.getMonth()]; };
   $("#profout").innerHTML = `
     <div class="fhead" style="padding:14px 0 4px">
-      <span class="avatar" style="width:52px;height:52px;font-size:1.3rem">${esc((ME && ME.name || "M")[0])}</span>
-      <div class="who"><b style="font-size:1.15rem">${esc(ME && ME.name || "Misafir")}</b>
-      <span>${fol.length} takip &middot; ${trips.length} gun &middot; ${arsivOku().length} kayitli yer</span></div></div>
+      <span class="avatar" style="width:56px;height:56px;font-size:1.4rem">${esc((ME && ME.name || "M")[0])}</span>
+      <div class="who"><b style="font-size:1.2rem">${esc(ME && ME.name || "Misafir")}</b>
+      ${ME && ME.username ? `<span>@${esc(ME.username)}</span>` : ""}</div></div>
     <div class="stats" style="margin-top:14px">
-      <div><b>${new Set(trips.map(t => t.place)).size}</b><span>bolge</span></div>
-      <div><b>${trips.length}</b><span>gun</span></div>
+      <div><b>${new Set(gunler.map(t => t.place)).size}</b><span>bolge</span></div>
+      <div><b>${gunler.length}</b><span>gun</span></div>
       <div><b>${km.toFixed(0)}</b><span>km</span></div>
       <div><b>${foto}</b><span>fotograf</span></div></div>
+
+    <h2 class="sec">Gunlerim ${gunler.length ? `<span class="pasay">${gunler.length}</span>` : ""}</h2>
+    ${gunler.length ? `<div class="daygrid">${gunler.map(g => `
+      <div class="daytile" data-day="${g.id}">
+        <img src="${kareSvg(g.place.length, 12)}" alt=""${g.cover_path ? ` data-cover="${esc(g.cover_path)}"` : ""}>
+        <div class="dt"><b>${esc(g.place)}</b><span>${AY(g.date)} &middot; <span class="priv-rozet priv-${g.privacy}">${g.privacy}</span></span></div>
+      </div>`).join("")}</div>` : `<div class="empty">Henuz gun yok. Gunlerim sekmesinde fotograf ekleyip ilk gununu olustur.</div>`}
+
+    ${gunler.length ? `<h2 class="sec">Gizlilik</h2>
+    ${gunler.map(g => `<div class="ucard" style="margin-bottom:8px"><div class="who"><b>${esc(g.place)}</b>
+        <span>${AY(g.date)}</span></div>
+        ${["ozel","arkadaslar","herkes"].map(pr => `
+          <button class="privchip" aria-pressed="${g.privacy === pr}" data-pid="${g.id}" data-ppr="${pr}">${pr}</button>`).join("")}
+      </div>`).join("")}
+    <p class="privline">Degerlendirmelerin her zaman herkese aciktir; yalnizca fotograf ve gun detaylari gizlilige gore gorunur.</p>` : ""}
+
     <h2 class="sec">Gitmek istediklerim</h2>
     ${wish.length ? `<ul class="wish">${wish.map((w, i) => `
       <li><span class="wname">${esc(w.place)}</span>
-      <span class="from">${esc(w.from)} onerisi</span>
-      <button data-wdel="${i}" aria-label="listeden cikar">&#10005;</button></li>`).join("")}</ul>`
-    : `<div class="empty">Listen bos. Akista veya Kesfet'te bir yerin yanindaki
-       <b>+</b> dugmesine basinca buraya eklenir.</div>`}
-    <h2 class="sec">Gunlerimin gizliligi</h2>
-    ${trips.length ? trips.map(t => `
-      <div class="ucard" style="margin-bottom:8px"><div class="who"><b>${esc(t.place)}</b>
-        <span>${t.date} &middot; ${t.photos} foto</span></div>
-        ${["ozel","arkadaslar","herkes"].map(p => `
-          <button class="privchip" aria-pressed="${(t.priv || "ozel") === p}"
-            data-priv="${p}" data-pd="${t.date}" data-pp="${esc(t.place)}">${p}</button>`).join("")}
-      </div>`).join("") + `<p class="privline">Varsayilan: ozel. Paylasim bu prototipte temsilidir;
-      gercek surumde yalnizca sectigin gunler, sectigin kitleye acilir.</p>`
-    : `<div class="empty">Henuz islenmis gun yok. Gunlerim sekmesinde fotograflarini birak.</div>`}`;
-  document.querySelectorAll("[data-wdel]").forEach(b => b.addEventListener("click", () => {
-    const w = ls("wishlist", []); w.splice(+b.dataset.wdel, 1); lsSet("wishlist", w); profilCiz();
+      <span class="from">${esc(w.from)}${w.from ? " onerisi" : ""}</span>
+      <button data-wdel="${esc(w.place)}" aria-label="listeden cikar">&#10005;</button></li>`).join("")}</ul>`
+    : `<div class="empty">Listen bos. Bir yerin yanindaki <b>+ / Kaydet</b> ile buraya eklenir.</div>`}`;
+
+  document.querySelectorAll("#profout .daytile").forEach(b => b.addEventListener("click", () => gunGoster(b.dataset.day)));
+  document.querySelectorAll("#profout .daytile img[data-cover]").length && kapaklariGetir("#profout");
+  document.querySelectorAll("[data-wdel]").forEach(b => b.addEventListener("click", async () => {
+    if (SB && girisli()) await SB.from("wishlist").delete().eq("user_id", ME.id).eq("place", b.dataset.wdel);
+    else { const w = ls("wishlist", []).filter(x => x.place !== b.dataset.wdel); lsSet("wishlist", w); }
+    profilCiz();
   }));
-  document.querySelectorAll("#profout .privchip").forEach(b => b.addEventListener("click", () => {
-    privAyarla(b.dataset.pd, b.dataset.pp, b.dataset.priv); profilCiz();
+  document.querySelectorAll("#profout .privchip").forEach(b => b.addEventListener("click", async () => {
+    if (SB) await SB.from("days").update({ privacy: b.dataset.ppr }).eq("id", b.dataset.pid);
+    profilCiz();
   }));
 }
 
@@ -1164,8 +1191,8 @@ async function yerGoster(place) {
     ${uniq.length ? `<h2 class="sec">Ziyaretci fotograflari</h2>
       <div class="grid">${uniq.map(pp => imzali[pp] ? `<img src="${imzali[pp]}" alt="">` : "").join("")}</div>` : ""}
 
-    <h2 class="sec">Degerlendirmeler</h2>
-    <div id="yorumForm"></div>
+    <h2 class="sec">Degerlendirmeler <span class="pasay">${yorumlar.length}</span></h2>
+    <p class="sub" style="margin-top:-6px">Degerlendirmeler herkese aciktir; gizliligi "ozel" olan gunlerin fotograflari gizli kalir.</p>
     ${yorumlar.length ? yorumlar.map(r => {
       const p = r.profiles || {};
       const asp = Object.entries(r.aspects || {}).map(([k, v]) =>
@@ -1174,7 +1201,9 @@ async function yerGoster(place) {
         <b>${esc(p.name || p.username || "gezgin")}</b><span class="stars sm">${yildizlar(r.rating)}</span></div>
         ${asp ? `<div class="miniaspects">${asp}</div>` : ""}
         ${r.body ? `<p>${esc(r.body)}</p>` : ""}</div>`;
-    }).join("") : `<div class="empty">Henuz degerlendirme yok. Ilk degerlendiren sen ol.</div>`}`;
+    }).join("") : `<div class="empty">Henuz degerlendirme yok. Ilk degerlendiren sen ol.</div>`}
+    <h3 class="elle-lbl" style="margin-top:22px">${benim ? "Degerlendirmeni guncelle" : "Sen de degerlendir"}</h3>
+    <div id="yorumForm"></div>`;
   $("#detayout .back").addEventListener("click", sekmeyeDon);
   if (kapak) imzaliUrl(kapak).then(u => { const el = $("#yerKapak"); if (el && u) el.src = u; });
   yorumFormCiz(place, benim);
@@ -1389,43 +1418,45 @@ function gunCiz() {
     }));
 }
 
+// TEK AKIS: fotograflari oku, GPS varsa yer+noktalari on-doldur, yoksa bos; her durumda kilavuzlu form
 async function dosyalariIsle(files) {
-  const imgs = [...files].filter(f => /\.(jpe?g|png|tiff?|heic|heif)$/i.test(f.name) || f.type.startsWith("image/"));
+  const imgs = [...files].filter(f => /\.(jpe?g|png|tiff?|heic|heif)$/i.test(f.name) || (f.type || "").startsWith("image/"));
   if (!imgs.length) return;
-  $("#out").innerHTML = `<p class="sub">Okunuyor: ${imgs.length} dosya&hellip;</p>`;
-  const pts = []; let atlanan = 0;
+  if (SB && !girisli()) return authGoster("Gun olusturmak icin uyelik gerekli.", "kayit");
+  $("#out").innerHTML = `<p class="sub">Fotograflar okunuyor&hellip;</p>`;
+  const pts = [];
   for (const f of imgs) {
+    let lat = null, lon = null, time = null;
     try {
-      const ex = await exifr.parse(f, {tiff: true, gps: true,
-        pick: ["DateTimeOriginal", "CreateDate", "ModifyDate"]});
+      const ex = await exifr.parse(f, { tiff: true, gps: true, pick: ["DateTimeOriginal", "CreateDate", "ModifyDate"] });
       const t = ex && (ex.DateTimeOriginal || ex.CreateDate || ex.ModifyDate);
-      if (!ex || ex.latitude == null || ex.longitude == null || !t) { atlanan++; continue; }
-      pts.push({time: new Date(t), lat: ex.latitude, lon: ex.longitude,
-                url: URL.createObjectURL(f), file: f});
-    } catch { atlanan++; }
+      if (ex && ex.latitude != null) { lat = ex.latitude; lon = ex.longitude; }
+      if (t) time = new Date(t);
+    } catch {}
+    pts.push({ file: f, url: URL.createObjectURL(f), lat, lon, time });
   }
-  if (pts.length < 1) {
-    $("#out").innerHTML = `<div class="empty"><b>Bu fotograflarda konum bilgisi yok.</b><br>
-      ${atlanan ? atlanan + " fotograf konumsuz. " : ""}daylog otomatik gunu, fotografin icindeki
-      GPS konumundan kurar (telefon kamerasiyla konum acikken cekilmis orijinaller). WhatsApp kopyalari,
-      ekran goruntuleri ve indirilmis gorseller konum tasimaz.<br><br>
-      <b>Sorun degil:</b> nereye gittigini kendin secerek yine de gun olusturabilirsin.<br>
-      <button class="btn primary" id="elleDevam" style="margin-top:12px">Bu fotograflarla elle devam et</button></div>`;
-    const ed = $("#elleDevam");
-    if (ed) ed.addEventListener("click", () => elleBasla(imgs));
-    return;
+  ELLE = { place: "", activity: "", date: new Date().toISOString().slice(0, 10),
+           points: [], photos: pts.map(p => ({ file: p.file, url: p.url, point: "" })), cover: 0, note: "", priv: "ozel" };
+  // GPS'li karelerden on-doldur
+  const konumlu = pts.filter(p => p.lat != null && p.time);
+  if (konumlu.length) {
+    const sorted = [...konumlu].sort((a, b) => a.time - b.time);
+    const mid = sorted[Math.floor(sorted.length / 2)];
+    ELLE.place = placeName(mid.lat, mid.lon);
+    ELLE.date = sorted[0].time.toISOString().slice(0, 10);
+    await elleNoktaYukle();
+    const tl = cluster(konumlu.map(p => ({ lat: p.lat, lon: p.lon, time: p.time })));
+    for (const t of tl) {
+      if (t.type !== "stop") continue;
+      let best = null, bd = 500;
+      for (const pt of ELLE.points) { const d = hav(t.lat, t.lon, pt.lat, pt.lon); if (d < bd) { best = pt; bd = d; } }
+      if (best) best.sel = true;
+      else ELLE.points.push({ name: "Yeni nokta " + (ELLE.points.filter(x => x.new).length + 1),
+        lat: +t.lat.toFixed(5), lon: +t.lon.toFixed(5), sel: true, new: true });
+    }
   }
-  DB.byDate = new Map(); DB.sample = false; DB.saved = new Set();
-  for (const p of pts.sort((a, b) => a.time - b.time)) {
-    const k = p.time.toISOString().slice(0, 10);
-    if (!DB.byDate.has(k)) DB.byDate.set(k, []);
-    DB.byDate.get(k).push(p);
-  }
-  if (!DB.byDate.size) { $("#out").innerHTML = `<p class="err">Gun olusturulamadi.</p>`; return; }
-  if (atlanan) console.log(atlanan + " fotograf konumsuz, atlandi");
-  DB.current = [...DB.byDate.keys()].sort()
-    .reduce((a, b) => DB.byDate.get(b).length > DB.byDate.get(a).length ? b : a);
-  gunCiz();
+  elleRender();
+  document.getElementById("out").scrollIntoView({ behavior: "smooth" });
 }
 
 /* ---------- manual day creation (no GPS needed): guided, Swarm-style ---------- */
@@ -1469,9 +1500,9 @@ async function elleRender(hata) {
     <label class="elle-lbl">3 &middot; Tarih</label>
     <input id="elleDate" type="date" value="${ELLE.date}">
 
-    <label class="elle-lbl">4 &middot; Hangi noktalara ugradin?</label>
+    <label class="elle-lbl">4 &middot; Hangi noktalara ugradin? <span class="elle-ipucu">birden fazla secebilirsin</span></label>
     ${ELLE.place
-      ? (ELLE.points.length ? `<div class="frow">${ELLE.points.map((p, i) => `<button class="chip-sec ${p.sel ? "on" : ""}" data-pt="${i}">${esc(p.name)}</button>`).join("")}</div>`
+      ? (ELLE.points.length ? `<div class="frow">${ELLE.points.map((p, i) => `<button class="chip-sec chip-multi ${p.sel ? "on" : ""}" data-pt="${i}"><span class="tik">${p.sel ? "&#10003;" : "+"}</span>${esc(p.name)}${p.new ? ' <span class="yenirozet">yeni</span>' : ""}</button>`).join("")}</div>`
           : `<p class="notice" style="margin:4px 0">Bu yerde kayitli nokta yok, asagidan ekle.</p>`)
         + `<div class="nokta-form" style="margin-top:8px"><input id="elleYeniNokta" placeholder="Yeni nokta (orn. Panorama Point)"><button class="btn" id="elleNoktaEkle">Ekle</button></div>`
       : `<p class="notice" style="margin:4px 0">Once yeri yaz.</p>`}
@@ -1560,9 +1591,10 @@ async function elleKaydet() {
     await SB.from("days").update({ cover_path: coverPath, timeline }).eq("id", gun.id);
     tripKaydet({ date: ELLE.date, place: ELLE.place, photos: ELLE.photos.length, stops: stops.length, km: 0,
       lat: (stops[0].lat ?? merkez[0]) || 0, lon: (stops[0].lon ?? merkez[1]) || 0, priv: ELLE.priv });
+    const yeniId = gun.id;
     ELLE = null;
-    $("#out").innerHTML = `<div class="empty"><b>Gun kaydedildi.</b><br>
-      Harita'da ve profilinde gorebilirsin.${snapshot.priv !== "ozel" ? " Herkese/arkadaslara acik oldugu icin akista da gorunur." : ""}</div>`;
+    $("#out").innerHTML = "";
+    gunGoster(yeniId);   // kaydedilen gunu post olarak goster
   } catch (e) {
     ELLE.photos = ELLE.photos; // koru
     await elleRender("Kaydedilemedi: " + (e.message || e));
@@ -1748,7 +1780,6 @@ file.addEventListener("change", () => dosyalariIsle(file.files));
   e.preventDefault(); drop.classList.remove("on");
 }));
 drop.addEventListener("drop", (e) => dosyalariIsle(e.dataTransfer.files));
-$("#elleBtn").addEventListener("click", () => elleBasla([]));
 
 /* ---------- auth: landing-first, modal only on demand ---------- */
 const girisli = () => !!(ME && ME.id);
