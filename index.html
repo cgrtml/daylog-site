@@ -592,6 +592,49 @@ function cluster(points) {
 const ENV = window.DAYLOG_ENV || null;
 const SB = (ENV && window.supabase) ? window.supabase.createClient(ENV.url, ENV.anon) : null;
 if (SB) window.__SB = SB;  // gelistirme/test icin
+
+// AI katmani (kademeli iyilestirme): Edge Function'i cagirir. Fonksiyon yoksa,
+// anahtar yoksa ya da herhangi bir hata olursa { enabled:false } doner ve cagiran
+// bugunku akisina geri duser. AI hicbir zaman akisi kirmaz ya da bloklamaz.
+let AI_CAPS = null;  // ping sonucu onbellekte; { vision, text, embed }
+// Tek giris noktasi; test icin window.__ai.call ile degistirilebilir.
+const _ai = {
+  async call(action, payload = {}) {
+    if (!SB) return { enabled: false, reason: "sunucu yok" };
+    try {
+      const { data, error } = await SB.functions.invoke("ai", { body: { action, ...payload } });
+      if (error) return { enabled: false, reason: "invoke hatasi" };
+      return data || { enabled: false, reason: "bos yanit" };
+    } catch { return { enabled: false, reason: "istisna" }; }
+  },
+};
+const aiCall = (action, payload) => _ai.call(action, payload);
+async function aiCaps() {
+  if (AI_CAPS) return AI_CAPS;
+  const p = await _ai.call("ping");
+  AI_CAPS = p.capabilities || { vision: false, text: false, embed: false };
+  return AI_CAPS;
+}
+window.__ai = _ai;                       // test: __ai.call'i stub'la
+window.__resetAiCaps = () => { AI_CAPS = null; };
+// Dosyayi base64 data-url'e cevir (vision/embed girdisi icin). Buyuk kareleri kuculten
+// yardimci: AI icin 1024px yeterli, token/bant tasarrufu.
+function fileToDataUrl(file, maxPx = 1024) {
+  return new Promise((resolve) => {
+    const img = new Image(); const url = URL.createObjectURL(file);
+    img.onload = () => {
+      const scale = Math.min(1, maxPx / Math.max(img.width, img.height));
+      const w = Math.round(img.width * scale), h = Math.round(img.height * scale);
+      const c = document.createElement("canvas"); c.width = w; c.height = h;
+      c.getContext("2d").drawImage(img, 0, 0, w, h);
+      URL.revokeObjectURL(url);
+      try { resolve(c.toDataURL("image/jpeg", 0.8)); } catch { resolve(null); }
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); resolve(null); };
+    img.src = url;
+  });
+}
+window.__aiCall = aiCall;  // test icin
 window.addEventListener("error", (e) => {
   const a = document.querySelector("#authArea");
   if (a) a.innerHTML = `<span class="err">sayfa hatasi: ${String(e.message).slice(0, 80)}</span>`;
@@ -1557,7 +1600,90 @@ async function dosyalariIsle(files) {
   }
   elleRender();
   document.getElementById("out").scrollIntoView({ behavior: "smooth" });
+  elleAiOner(pts);   // arka planda AI zenginlestirme; anahtar yoksa sessizce hicbir sey yapmaz
 }
+
+// AI ALGI KATMANI (kademeli): fotograflardan aktivite/aspect ve GPS yoksa yer onerir.
+// Yalnizca BOS alanlari doldurur, kullanici girdisini asla ezmez; odak formdaysa yeniden cizmez.
+async function elleAiOner(pts) {
+  if (!ELLE || !pts || !pts.length) return;
+  let caps;
+  try { caps = await aiCaps(); } catch { return; }
+  if (!caps.vision) return;                 // anahtar yok -> bugunku akis aynen kalir
+  const sample = pts.slice(0, 3).map(p => p.file || p);
+  let urls;
+  try { urls = (await Promise.all(sample.map(f => fileToDataUrl(f)))).filter(Boolean); } catch { return; }
+  if (!urls.length || !ELLE) return;
+
+  // 1) Sahne tanima: aktivite + aspect sinyali (yalnizca net gorulenler)
+  const sc = await _ai.call("scene", { images: urls });
+  if (sc && sc.enabled && ELLE) {
+    if (!ELLE.activities.length && Array.isArray(sc.activities) && sc.activities.length) ELLE.activities = sc.activities;
+    if (sc.aspects) for (const [k, v] of Object.entries(sc.aspects)) if (ELLE.aspects[k] === undefined) ELLE.aspects[k] = v;
+    if (sc.kind) ELLE.aiKind = sc.kind;
+    if (sc.caption) ELLE.aiCaption = sc.caption;
+  }
+
+  // 2) GPS yoksa fotograftan yer tahmini (yalnizca yer bos ve guven yeterliyse)
+  if (ELLE && !ELLE.place) {
+    let known = [];
+    try { if (SB) { const { data } = await SB.from("days").select("place").eq("privacy", "herkes").limit(300); known = [...new Set((data || []).map(d => d.place))]; } } catch {}
+    const lo = await _ai.call("locate", { images: urls, knownPlaces: known });
+    if (lo && lo.enabled && lo.place && (+lo.confidence || 0) >= 0.4 && ELLE && !ELLE.place) {
+      ELLE.place = lo.place;
+      try { await elleNoktaYukle(); } catch {}
+    }
+  }
+
+  // Kullanici formda bir alana yaziyorsa yeniden cizme (girdiyi kaybetmemek icin)
+  const af = document.activeElement;
+  const yaziyor = af && document.getElementById("out") && document.getElementById("out").contains(af);
+  if (ELLE && !yaziyor) elleRender();
+}
+
+// ADIM 5: yer adi normallestirme. Kullanicinin yazdigi yeri bilinen yerlerle
+// anlamsal eslestirir (Mount Rainier ~ Mount Rainier National Park). Eslesirse
+// ELLE.place kanonik ada cekilir; boylece noktalar ve degerlendirmeler ayni yerde toplanir.
+async function elleYerNormalize() {
+  if (!ELLE || !ELLE.place) return;
+  let caps; try { caps = await aiCaps(); } catch { return; }
+  if (!caps.text) return;
+  let known = [];
+  try { if (SB) { const { data } = await SB.from("days").select("place").eq("privacy", "herkes").limit(300); known = [...new Set((data || []).map(d => d.place))]; } } catch {}
+  if (!known.length) return;
+  const r = await _ai.call("canon", { name: ELLE.place, candidates: known });
+  if (r && r.enabled && r.matched && r.canonical) ELLE.place = r.canonical;
+}
+
+// ADIM 6: serbest yorumdan yapisal aspect sinyali. Kullanici degerlendirme notu
+// yazinca, bos birakilan aspect'leri metinden cikarip isaretler (ezmeden).
+async function elleReviewAspect() {
+  if (!ELLE || !(ELLE.reviewNote || "").trim()) return;
+  let caps; try { caps = await aiCaps(); } catch { return; }
+  if (!caps.text) return;
+  const r = await _ai.call("aspects", { text: ELLE.reviewNote });
+  if (!r || !r.enabled || !r.aspects) return;
+  let degisti = false;
+  for (const [k, v] of Object.entries(r.aspects)) if (ELLE.aspects[k] === undefined) { ELLE.aspects[k] = v; degisti = true; }
+  const af = document.activeElement;
+  const yaziyor = af && document.getElementById("out") && document.getElementById("out").contains(af);
+  if (degisti && ELLE && !yaziyor) elleRender();
+}
+
+// ADIM 4: kapak embedding'i. Kaydedilen gunun kapak fotografini vektore cevirip
+// days.embedding'e yazar (gorsel korpus; ayni-yer/kumeleme ileride buradan). Ateşle-unut.
+async function aiKapakEmbed(dayId, photo) {
+  if (!dayId || !photo || !photo.file) return;
+  let caps; try { caps = await aiCaps(); } catch { return; }
+  if (!caps.embed) return;
+  let url; try { url = await fileToDataUrl(photo.file); } catch { return; }
+  if (!url) return;
+  const r = await _ai.call("embed", { inputs: [{ image: url }] });
+  if (r && r.enabled && Array.isArray(r.embeddings) && r.embeddings[0]) {
+    try { await SB.from("days").update({ embedding: r.embeddings[0] }).eq("id", dayId); } catch {}
+  }
+}
+window.__aiKapakEmbed = aiKapakEmbed;   // test icin
 
 /* ---------- manual day creation (no GPS needed): guided, Swarm-style ---------- */
 const AKTIVITELER = ["Hiking", "Trekking", "Kamp", "Doga yuruyusu", "Sehir turu", "Bisiklet", "Tirmanis", "Tekne/su", "Gezi"];
@@ -1632,7 +1758,11 @@ async function elleRender(hata) {
 }
 function elleBagla() {
   const place = $("#ellePlace");
-  place.addEventListener("change", async () => { ELLE.place = place.value.trim(); await elleNoktaYukle(); elleRender(); });
+  place.addEventListener("change", async () => {
+    ELLE.place = place.value.trim();
+    await elleYerNormalize();   // AI: "Mount Rainier" ~ "Mount Rainier National Park" -> kanonik ada esle
+    await elleNoktaYukle(); elleRender();
+  });
   document.querySelectorAll("[data-akt]").forEach(b => b.addEventListener("click", () => {
     const a = b.dataset.akt;
     ELLE.activities = ELLE.activities.includes(a) ? ELLE.activities.filter(x => x !== a) : [...ELLE.activities, a];
@@ -1661,13 +1791,29 @@ function elleBagla() {
     if (ELLE.aspects[k] === undefined) delete ELLE.aspects[k];
     elleRender();
   }));
-  const rn = $("#elleReview"); if (rn) rn.addEventListener("input", e => ELLE.reviewNote = e.target.value);
+  const rn = $("#elleReview"); if (rn) {
+    rn.addEventListener("input", e => ELLE.reviewNote = e.target.value);
+    rn.addEventListener("blur", () => elleReviewAspect());   // AI: yorumdan aspect cikar
+  }
   $("#elleKaydetBtn").addEventListener("click", elleKaydet);
   $("#elleVazgec").addEventListener("click", () => { ELLE = null; $("#out").innerHTML = ""; });
 }
 async function elleKaydet() {
   if (!ELLE.place) return elleRender("Once nereye gittigini yaz.");
   if (!girisli()) return authGoster("Kaydetmek icin uyelik gerekli.", "kayit");
+  // ADIM 7: moderasyon. Kapak fotografi uygun mu? Anahtar yoksa atlanir (kaydet devam).
+  try {
+    const caps = await aiCaps();
+    if (caps.vision && ELLE.photos.length) {
+      const kapak = ELLE.photos[ELLE.cover] || ELLE.photos[0];
+      const url = await fileToDataUrl(kapak.file);
+      if (url) {
+        const m = await _ai.call("moderate", { images: [url] });
+        if (m && m.enabled && m.ok === false)
+          return elleRender("Kapak fotografi uygun gorunmuyor" + (m.reason ? " (" + m.reason + ")" : "") + ". Baska bir kapak sec.");
+      }
+    }
+  } catch {}
   const secP = ELLE.points.filter(p => p.sel);
   const snapshot = JSON.parse(JSON.stringify({ ...ELLE, photos: [] }));
   $("#out").innerHTML = `<p class="sub">Kaydediliyor&hellip;</p>`;
@@ -1708,6 +1854,9 @@ async function elleKaydet() {
     const timeline = stops.map(s => ({ type: "stop", name: s.name, foto: (noktaPaths[s.name] || []).length,
       lat: s.lat ?? merkez[0], lon: s.lon ?? merkez[1], paths: noktaPaths[s.name] || [] }));
     await SB.from("days").update({ cover_path: coverPath, timeline }).eq("id", gun.id);
+    // ADIM 4: embedding korpusu. Kapak vektoru saklanir (ayni-yer tespiti/kumeleme
+    // bunun uzerine kurulur). Anahtar yoksa atlanir; kayit zaten tamam, bloklamaz.
+    aiKapakEmbed(gun.id, ELLE.photos[ELLE.cover] || ELLE.photos[0]);
     tripKaydet({ date: ELLE.date, place: ELLE.place, photos: ELLE.photos.length, stops: stops.length, km: 0,
       lat: (stops[0].lat ?? merkez[0]) || 0, lon: (stops[0].lon ?? merkez[1]) || 0, priv: ELLE.priv });
     const yeniId = gun.id;
