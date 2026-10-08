@@ -42,9 +42,26 @@ header.top{display:flex;align-items:center;gap:12px;padding:4px 0 2px}
 .brand i{color:var(--blaze);font-style:normal}
 .tag{color:var(--mut);font-size:.88rem;flex:1;min-width:0}
 @media (max-width:560px){.tag{display:none}}
-.authbtns{margin-left:auto;display:flex;gap:8px;align-items:center}
-.userchip{display:flex;gap:9px;align-items:center;color:var(--ink);font-size:.9rem;font-weight:500}
-.userchip .avatar{width:32px;height:32px;font-size:.85rem}
+.authbtns{margin-left:auto;display:flex;gap:8px;align-items:center;position:relative}
+.userchip{display:flex;gap:9px;align-items:center;color:var(--ink);font:inherit;font-size:.9rem;font-weight:500;
+  background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px 5px 6px;cursor:pointer;box-shadow:var(--sh1)}
+.userchip:hover{background:var(--chipbg)}
+.userchip .avatar{width:30px;height:30px;font-size:.82rem}
+.userchip .chev{color:var(--mut);flex:none}
+.userchip .uname{max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.usermenu{position:absolute;top:calc(100% + 8px);right:0;width:230px;background:var(--card);
+  border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh2);padding:6px;z-index:60}
+.usermenu[hidden]{display:none}
+.um-head{display:flex;gap:10px;align-items:center;padding:10px 10px 12px}
+.um-head .avatar{width:40px;height:40px}
+.um-who{min-width:0} .um-who b{display:block;font-size:.95rem} .um-who span{color:var(--mut);font-size:.8rem}
+.um-item{display:flex;align-items:center;gap:10px;width:100%;border:none;background:none;color:var(--ink);
+  font:inherit;font-size:.9rem;text-align:left;padding:10px 10px;border-radius:9px;cursor:pointer}
+.um-item:hover{background:var(--chipbg)}
+.um-item svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.um-sep{height:1px;background:var(--line);margin:6px 4px}
+.um-cikis{color:var(--blaze)}
+@media (max-width:560px){.userchip .uname{max-width:80px}}
 .hero{background:var(--card);border:1px solid var(--line);border-radius:18px;
   padding:26px 24px;margin:4px 0 16px}
 .hero h1{margin:0 0 6px}
@@ -867,8 +884,7 @@ function profilCiz() {
     <div class="fhead" style="padding:14px 0 4px">
       <span class="avatar" style="width:52px;height:52px;font-size:1.3rem">${esc((ME && ME.name || "M")[0])}</span>
       <div class="who"><b style="font-size:1.15rem">${esc(ME && ME.name || "Misafir")}</b>
-      <span>${fol.length} takip &middot; ${trips.length} gun &middot; ${arsivOku().length} kayitli yer</span></div>
-      <button class="btn" id="cikis">Cikis</button></div>
+      <span>${fol.length} takip &middot; ${trips.length} gun &middot; ${arsivOku().length} kayitli yer</span></div></div>
     <div class="stats" style="margin-top:14px">
       <div><b>${new Set(trips.map(t => t.place)).size}</b><span>bolge</span></div>
       <div><b>${trips.length}</b><span>gun</span></div>
@@ -891,10 +907,6 @@ function profilCiz() {
       </div>`).join("") + `<p class="privline">Varsayilan: ozel. Paylasim bu prototipte temsilidir;
       gercek surumde yalnizca sectigin gunler, sectigin kitleye acilir.</p>`
     : `<div class="empty">Henuz islenmis gun yok. Gunlerim sekmesinde fotograflarini birak.</div>`}`;
-  $("#cikis").addEventListener("click", async () => {
-    if (SB) await SB.auth.signOut();
-    localStorage.removeItem("me"); location.reload();
-  });
   document.querySelectorAll("[data-wdel]").forEach(b => b.addEventListener("click", () => {
     const w = ls("wishlist", []); w.splice(+b.dataset.wdel, 1); lsSet("wishlist", w); profilCiz();
   }));
@@ -1604,7 +1616,30 @@ function ustBar() {
   const a = $("#authArea");
   if (!SB) { a.innerHTML = `<span class="userchip">yerel kip</span>`; return; }
   if (girisli()) {
-    a.innerHTML = `<span class="userchip"><span class="avatar">${esc(ME.name[0] || "g")}</span>${esc(ME.name)}</span>`;
+    a.innerHTML = `<button class="userchip" id="userBtn" aria-haspopup="true" aria-expanded="false">
+        <span class="avatar">${esc(ME.name[0] || "g")}</span>
+        <span class="uname">${esc(ME.name)}</span>
+        <svg class="chev" viewBox="0 0 24 24" width="16" height="16"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="usermenu" id="userMenu" hidden>
+        <div class="um-head"><span class="avatar">${esc(ME.name[0] || "g")}</span>
+          <div class="um-who"><b>${esc(ME.name)}</b>${ME.username ? `<span>@${esc(ME.username)}</span>` : ""}</div></div>
+        <button class="um-item" data-um="profil"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg>Profilim</button>
+        <button class="um-item" data-um="gunlerim"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>Gun ekle</button>
+        <div class="um-sep"></div>
+        <button class="um-item um-cikis" data-um="cikis"><svg viewBox="0 0 24 24"><path d="M14 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-2M10 12h10M17 9l3 3-3 3"/></svg>Cikis yap</button>
+      </div>`;
+    const btn = $("#userBtn"), menu = $("#userMenu");
+    const ac = (goster) => { menu.hidden = !goster; btn.setAttribute("aria-expanded", goster ? "true" : "false"); };
+    btn.addEventListener("click", (e) => { e.stopPropagation(); ac(menu.hidden); });
+    document.addEventListener("click", () => ac(false));
+    menu.addEventListener("click", (e) => e.stopPropagation());
+    menu.querySelectorAll("[data-um]").forEach(it => it.addEventListener("click", async () => {
+      ac(false);
+      const v = it.dataset.um;
+      if (v === "cikis") { if (SB) await SB.auth.signOut(); localStorage.removeItem("me"); location.reload(); }
+      else { const nb = document.querySelector(`#nav button[data-v="${v}"]`); if (nb) nb.click(); }
+    }));
   } else {
     a.innerHTML = `<button class="btn" id="ustGiris">Giris yap</button>
       <button class="btn primary" id="ustKayit">Kayit ol</button>`;
