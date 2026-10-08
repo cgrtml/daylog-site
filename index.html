@@ -1435,8 +1435,9 @@ async function dosyalariIsle(files) {
     } catch {}
     pts.push({ file: f, url: URL.createObjectURL(f), lat, lon, time });
   }
-  ELLE = { place: "", activity: "", date: new Date().toISOString().slice(0, 10),
-           points: [], photos: pts.map(p => ({ file: p.file, url: p.url, point: "" })), cover: 0, note: "", priv: "ozel" };
+  ELLE = { place: "", activities: [], date: new Date().toISOString().slice(0, 10),
+           points: [], photos: pts.map(p => ({ file: p.file, url: p.url, point: "" })), cover: 0, note: "", priv: "ozel",
+           rating: 0, aspects: {}, reviewNote: "" };
   // GPS'li karelerden on-doldur
   const konumlu = pts.filter(p => p.lat != null && p.time);
   if (konumlu.length) {
@@ -1463,14 +1464,6 @@ async function dosyalariIsle(files) {
 const AKTIVITELER = ["Hiking", "Trekking", "Kamp", "Doga yuruyusu", "Sehir turu", "Bisiklet", "Tirmanis", "Tekne/su", "Gezi"];
 let ELLE = null;
 
-function elleBasla(files) {
-  if (SB && !girisli()) return authGoster("Gun olusturmak icin uyelik gerekli.", "kayit");
-  ELLE = { place: "", activity: "", date: new Date().toISOString().slice(0, 10),
-           points: [], photos: [], cover: 0, note: "", priv: "ozel" };
-  if (files && files.length) elleFotoEkle(files);
-  elleRender();
-  document.getElementById("out").scrollIntoView({ behavior: "smooth" });
-}
 function elleFotoEkle(files) {
   for (const f of files) {
     if (!/\.(jpe?g|png|tiff?|heic|heif)$/i.test(f.name) && !(f.type || "").startsWith("image/")) continue;
@@ -1494,8 +1487,8 @@ async function elleRender(hata) {
     <input id="ellePlace" list="yerListe" placeholder="Yer ara ya da yaz (orn. Mount Rainier)" value="${esc(ELLE.place)}">
     <datalist id="yerListe">${yerler.map(y => `<option value="${esc(y)}"></option>`).join("")}</datalist>
 
-    <label class="elle-lbl">2 &middot; Ne yaptin?</label>
-    <div class="frow">${AKTIVITELER.map(a => `<button class="chip-sec ${ELLE.activity === a ? "on" : ""}" data-akt="${a}">${a}</button>`).join("")}</div>
+    <label class="elle-lbl">2 &middot; Ne yaptin? <span class="elle-ipucu">birden fazla secebilirsin</span></label>
+    <div class="frow">${AKTIVITELER.map(a => `<button class="chip-sec chip-multi ${ELLE.activities.includes(a) ? "on" : ""}" data-akt="${a}"><span class="tik">${ELLE.activities.includes(a) ? "&#10003;" : "+"}</span>${a}</button>`).join("")}</div>
 
     <label class="elle-lbl">3 &middot; Tarih</label>
     <input id="elleDate" type="date" value="${ELLE.date}">
@@ -1524,6 +1517,15 @@ async function elleRender(hata) {
     <label class="elle-lbl">7 &middot; Kim gorebilir?</label>
     <div class="frow">${["ozel", "arkadaslar", "herkes"].map(p => `<button class="privchip" aria-pressed="${ELLE.priv === p}" data-epriv="${p}">${p}</button>`).join("")}</div>
 
+    <label class="elle-lbl">8 &middot; Bu yeri puanla <span class="elle-ipucu">istege bagli &middot; degerlendirmeler her zaman herkese acik</span></label>
+    <div class="formrow"><span>Puanin:</span><span class="stars big" id="ellePuan">${yildizlar(ELLE.rating, true)}</span></div>
+    <div class="aspgrid">${ASPECTS.map(([k, ad]) => `
+      <div class="aspsel"><span>${ad}</span>
+        <button class="miniasp ${ELLE.aspects[k] === 1 ? "pos on" : ""}" data-easp="${k}" data-ev="1">iyi</button>
+        <button class="miniasp ${ELLE.aspects[k] === -1 ? "neg on" : ""}" data-easp="${k}" data-ev="-1">zayif</button>
+      </div>`).join("")}</div>
+    <textarea id="elleReview" placeholder="Degerlendirme notun (istege bagli): tuvalet, kamp alani, kalabalik...">${esc(ELLE.reviewNote)}</textarea>
+
     <div class="elle-kaydet"><button class="btn primary" id="elleKaydetBtn">Gunu kaydet</button>
       <button class="btn" id="elleVazgec">Vazgec</button></div>
   </section>`;
@@ -1532,7 +1534,11 @@ async function elleRender(hata) {
 function elleBagla() {
   const place = $("#ellePlace");
   place.addEventListener("change", async () => { ELLE.place = place.value.trim(); await elleNoktaYukle(); elleRender(); });
-  document.querySelectorAll("[data-akt]").forEach(b => b.addEventListener("click", () => { ELLE.activity = ELLE.activity === b.dataset.akt ? "" : b.dataset.akt; elleRender(); }));
+  document.querySelectorAll("[data-akt]").forEach(b => b.addEventListener("click", () => {
+    const a = b.dataset.akt;
+    ELLE.activities = ELLE.activities.includes(a) ? ELLE.activities.filter(x => x !== a) : [...ELLE.activities, a];
+    elleRender();
+  }));
   $("#elleDate").addEventListener("change", e => ELLE.date = e.target.value);
   document.querySelectorAll("[data-pt]").forEach(b => b.addEventListener("click", () => { ELLE.points[+b.dataset.pt].sel = !ELLE.points[+b.dataset.pt].sel; elleRender(); }));
   const yn = $("#elleNoktaEkle"); if (yn) yn.addEventListener("click", () => {
@@ -1549,6 +1555,14 @@ function elleBagla() {
   document.querySelectorAll("[data-phpt]").forEach(s => s.addEventListener("change", () => { ELLE.photos[+s.dataset.phpt].point = s.value; }));
   $("#elleNote").addEventListener("input", e => ELLE.note = e.target.value);
   document.querySelectorAll("[data-epriv]").forEach(b => b.addEventListener("click", () => { ELLE.priv = b.dataset.epriv; elleRender(); }));
+  document.querySelectorAll("#ellePuan [data-star]").forEach(s => s.addEventListener("click", () => { ELLE.rating = +s.dataset.star; elleRender(); }));
+  document.querySelectorAll("[data-easp]").forEach(btn => btn.addEventListener("click", () => {
+    const k = btn.dataset.easp, v = +btn.dataset.ev;
+    ELLE.aspects[k] = ELLE.aspects[k] === v ? undefined : v;
+    if (ELLE.aspects[k] === undefined) delete ELLE.aspects[k];
+    elleRender();
+  }));
+  const rn = $("#elleReview"); if (rn) rn.addEventListener("input", e => ELLE.reviewNote = e.target.value);
   $("#elleKaydetBtn").addEventListener("click", elleKaydet);
   $("#elleVazgec").addEventListener("click", () => { ELLE = null; $("#out").innerHTML = ""; });
 }
@@ -1572,9 +1586,14 @@ async function elleKaydet() {
       user_id: ME.id, date: ELLE.date, place: ELLE.place, km: 0,
       photo_count: ELLE.photos.length, stop_count: stops.length,
       lat: (stops[0].lat ?? merkez[0]) || 0, lon: (stops[0].lon ?? merkez[1]) || 0,
-      privacy: ELLE.priv, activity: ELLE.activity, note: ELLE.note, timeline: []
+      privacy: ELLE.priv, activity: ELLE.activities.join(", "), note: ELLE.note, timeline: []
     }).select("id").single();
     if (error) throw error;
+    // puanlama varsa yer degerlendirmesi (herkese acik)
+    if (ELLE.rating > 0) {
+      await SB.from("reviews").upsert({ user_id: ME.id, place: ELLE.place,
+        rating: ELLE.rating, body: ELLE.reviewNote, aspects: ELLE.aspects }, { onConflict: "user_id,place" });
+    }
     let coverPath = null; const noktaPaths = {};
     if (ELLE.priv !== "ozel") {
       for (let i = 0; i < ELLE.photos.length; i++) {
