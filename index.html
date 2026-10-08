@@ -107,6 +107,33 @@ h2.sec{font-family:var(--disp);font-weight:700;font-size:1.15rem;letter-spacing:
 .drop b{font-family:var(--disp);font-weight:700;font-size:1.02rem}
 .drop p{margin:7px 0 0;color:var(--mut);font-size:.86rem}
 .notice{color:var(--mut);font-size:.78rem;text-align:center;margin:10px 0 16px}
+.elle-ayrac{display:flex;align-items:center;gap:12px;color:var(--mut);font-size:.82rem;margin:16px 0 12px}
+.elle-ayrac::before,.elle-ayrac::after{content:"";flex:1;border-top:1px solid var(--line)}
+.elle-btn{width:100%;padding:13px;border-style:solid;border-color:var(--pine);color:var(--pine);font-weight:600}
+.elle-btn:hover{background:var(--tint)}
+.elle{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px;box-shadow:var(--sh1)}
+.elle-lbl{display:block;font-family:var(--disp);font-weight:700;font-size:.92rem;margin:16px 0 7px}
+.elle input[type=text],.elle input[list],.elle input[type=date],.elle textarea,.elle #ellePlace{
+  width:100%;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;padding:11px 13px;font:inherit}
+.elle input:focus,.elle textarea:focus{outline:2px solid var(--pine);outline-offset:-1px;border-color:var(--pine)}
+.elle textarea{min-height:64px;resize:vertical}
+.chip-sec{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;
+  padding:7px 14px;font:inherit;font-size:.85rem;cursor:pointer;transition:all .15s}
+.chip-sec:hover{background:var(--chipbg)}
+.chip-sec.on{background:var(--pine);border-color:var(--pine);color:#fff}
+.elle-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:10px}
+.elle-ph{position:relative;border-radius:var(--r-md);overflow:hidden;border:2px solid transparent}
+.elle-ph.cover{border-color:var(--gold)}
+.elle-ph img{width:100%;height:110px;object-fit:cover;display:block;background:var(--chipbg)}
+.elle-cover{position:absolute;left:6px;bottom:6px;background:rgba(0,0,0,.6);color:#fff;border:none;
+  border-radius:999px;padding:3px 10px;font:inherit;font-size:.72rem;cursor:pointer}
+.elle-ph.cover .elle-cover{background:var(--gold)}
+.elle-sil{position:absolute;right:6px;top:6px;width:24px;height:24px;border-radius:50%;border:none;
+  background:rgba(0,0,0,.55);color:#fff;cursor:pointer;font-size:1rem;line-height:1}
+.elle-ph select{position:absolute;left:6px;right:6px;top:6px;max-width:calc(100% - 38px);
+  border:none;border-radius:8px;padding:3px 6px;font:inherit;font-size:.72rem;background:rgba(255,255,255,.92);color:#1b2820}
+.elle-kaydet{display:flex;gap:10px;margin-top:20px}
+.elle-kaydet .btn.primary{flex:1}
 
 .days{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 6px}
 .day-chip,.privchip{border:1px solid var(--line);background:var(--card);color:var(--ink);
@@ -383,8 +410,11 @@ footer{color:var(--mut);font-size:.8rem;text-align:center;margin-top:34px;line-h
   </div>
   <p class="notice">Fotograflar once bu cihazda islenir. Yalnizca "herkes" ya da "arkadaslar" yaptigin
   gunlerin kareleri hesabina yuklenir; "ozel" gunler cihazinda kalir. Geziyi internetsiz cekip
-  sonra (bilgisayardan ya da telefondan) istedigin zaman yukleyebilirsin; konum fotografin icinde gelir.
-  En iyi deneyim bilgisayarda; bazi telefon tarayicilari yuklerken konumu silebilir.</p>
+  sonra (bilgisayardan ya da telefondan) istedigin zaman yukleyebilirsin; konum fotografin icinde gelir.</p>
+  <div class="elle-ayrac"><span>ya da</span></div>
+  <button class="btn elle-btn" id="elleBtn">Elle gun olustur &middot; konum gerekmez</button>
+  <p class="notice" style="margin-top:8px">Fotografinda konum yoksa dert etme: nereye gittigini,
+  hangi noktalara ugradigini ve ne yaptigini kendin secersin.</p>
   <div id="out"></div>
 </div>
 
@@ -1376,12 +1406,13 @@ async function dosyalariIsle(files) {
   }
   if (pts.length < 1) {
     $("#out").innerHTML = `<div class="empty"><b>Bu fotograflarda konum bilgisi yok.</b><br>
-      ${atlanan ? atlanan + " fotograf konumsuz oldugu icin atlandi.<br>" : ""}
-      daylog gunu, fotografin icindeki GPS konumundan kurar. Konumu tasiyan kareler:
-      telefon kamerasiyla <b>konum acikken</b> cekilmis <b>orijinaller</b>.
-      Konum tasimayanlar: WhatsApp'tan gelen kopyalar, ekran goruntuleri, indirilmis gorseller.<br><br>
-      Not: internetsiz cekmen sorun degil; konum fotografa cekildigi anda islenir, sonra istedigin
-      zaman yukleyebilirsin.</div>`;
+      ${atlanan ? atlanan + " fotograf konumsuz. " : ""}daylog otomatik gunu, fotografin icindeki
+      GPS konumundan kurar (telefon kamerasiyla konum acikken cekilmis orijinaller). WhatsApp kopyalari,
+      ekran goruntuleri ve indirilmis gorseller konum tasimaz.<br><br>
+      <b>Sorun degil:</b> nereye gittigini kendin secerek yine de gun olusturabilirsin.<br>
+      <button class="btn primary" id="elleDevam" style="margin-top:12px">Bu fotograflarla elle devam et</button></div>`;
+    const ed = $("#elleDevam");
+    if (ed) ed.addEventListener("click", () => elleBasla(imgs));
     return;
   }
   DB.byDate = new Map(); DB.sample = false; DB.saved = new Set();
@@ -1395,6 +1426,147 @@ async function dosyalariIsle(files) {
   DB.current = [...DB.byDate.keys()].sort()
     .reduce((a, b) => DB.byDate.get(b).length > DB.byDate.get(a).length ? b : a);
   gunCiz();
+}
+
+/* ---------- manual day creation (no GPS needed): guided, Swarm-style ---------- */
+const AKTIVITELER = ["Hiking", "Trekking", "Kamp", "Doga yuruyusu", "Sehir turu", "Bisiklet", "Tirmanis", "Tekne/su", "Gezi"];
+let ELLE = null;
+
+function elleBasla(files) {
+  if (SB && !girisli()) return authGoster("Gun olusturmak icin uyelik gerekli.", "kayit");
+  ELLE = { place: "", activity: "", date: new Date().toISOString().slice(0, 10),
+           points: [], photos: [], cover: 0, note: "", priv: "ozel" };
+  if (files && files.length) elleFotoEkle(files);
+  elleRender();
+  document.getElementById("out").scrollIntoView({ behavior: "smooth" });
+}
+function elleFotoEkle(files) {
+  for (const f of files) {
+    if (!/\.(jpe?g|png|tiff?|heic|heif)$/i.test(f.name) && !(f.type || "").startsWith("image/")) continue;
+    ELLE.photos.push({ file: f, url: URL.createObjectURL(f), point: "" });
+  }
+}
+async function elleNoktaYukle() {
+  if (!ELLE.place || !SB) { ELLE.points = []; return; }
+  const { data } = await SB.from("points").select("name,lat,lon").eq("place", ELLE.place);
+  ELLE.points = (data || []).map(p => ({ name: p.name, lat: p.lat, lon: p.lon, sel: false, new: false }));
+}
+async function elleRender(hata) {
+  let yerler = [];
+  if (SB) { const { data } = await SB.from("days").select("place").eq("privacy", "herkes").limit(300);
+    yerler = [...new Set((data || []).map(d => d.place))]; }
+  const secP = ELLE.points.filter(p => p.sel);
+  $("#out").innerHTML = `<section class="elle">
+    <h2 class="sec" style="margin-top:0">Elle gun olustur</h2>
+    ${hata ? `<p class="err">${esc(hata)}</p>` : ""}
+    <label class="elle-lbl">1 &middot; Nereye gittin?</label>
+    <input id="ellePlace" list="yerListe" placeholder="Yer ara ya da yaz (orn. Mount Rainier)" value="${esc(ELLE.place)}">
+    <datalist id="yerListe">${yerler.map(y => `<option value="${esc(y)}"></option>`).join("")}</datalist>
+
+    <label class="elle-lbl">2 &middot; Ne yaptin?</label>
+    <div class="frow">${AKTIVITELER.map(a => `<button class="chip-sec ${ELLE.activity === a ? "on" : ""}" data-akt="${a}">${a}</button>`).join("")}</div>
+
+    <label class="elle-lbl">3 &middot; Tarih</label>
+    <input id="elleDate" type="date" value="${ELLE.date}">
+
+    <label class="elle-lbl">4 &middot; Hangi noktalara ugradin?</label>
+    ${ELLE.place
+      ? (ELLE.points.length ? `<div class="frow">${ELLE.points.map((p, i) => `<button class="chip-sec ${p.sel ? "on" : ""}" data-pt="${i}">${esc(p.name)}</button>`).join("")}</div>`
+          : `<p class="notice" style="margin:4px 0">Bu yerde kayitli nokta yok, asagidan ekle.</p>`)
+        + `<div class="nokta-form" style="margin-top:8px"><input id="elleYeniNokta" placeholder="Yeni nokta (orn. Panorama Point)"><button class="btn" id="elleNoktaEkle">Ekle</button></div>`
+      : `<p class="notice" style="margin:4px 0">Once yeri yaz.</p>`}
+
+    <label class="elle-lbl">5 &middot; Fotograflar ${ELLE.photos.length ? `(${ELLE.photos.length})` : ""}</label>
+    <div class="drop" id="elleDrop" style="padding:16px"><b>Fotograf ekle</b> &middot; konum gerekmez
+      <input type="file" id="elleFile" multiple accept="image/*,.heic,.heif" hidden></div>
+    ${ELLE.photos.length ? `<div class="elle-grid">${ELLE.photos.map((ph, i) => `
+      <div class="elle-ph ${ELLE.cover === i ? "cover" : ""}">
+        <img src="${ph.url}" alt="">
+        <button class="elle-sil" data-phsil="${i}" title="Kaldir">&times;</button>
+        <button class="elle-cover" data-cover="${i}">${ELLE.cover === i ? "&#9733; Kapak" : "Kapak yap"}</button>
+        ${secP.length ? `<select data-phpt="${i}"><option value="">(nokta)</option>${secP.map(p => `<option ${ph.point === p.name ? "selected" : ""}>${esc(p.name)}</option>`).join("")}</select>` : ""}
+      </div>`).join("")}</div>` : ""}
+
+    <label class="elle-lbl">6 &middot; Aciklama (istege bagli)</label>
+    <textarea id="elleNote" placeholder="Bu gun hakkinda birkac kelime...">${esc(ELLE.note)}</textarea>
+
+    <label class="elle-lbl">7 &middot; Kim gorebilir?</label>
+    <div class="frow">${["ozel", "arkadaslar", "herkes"].map(p => `<button class="privchip" aria-pressed="${ELLE.priv === p}" data-epriv="${p}">${p}</button>`).join("")}</div>
+
+    <div class="elle-kaydet"><button class="btn primary" id="elleKaydetBtn">Gunu kaydet</button>
+      <button class="btn" id="elleVazgec">Vazgec</button></div>
+  </section>`;
+  elleBagla();
+}
+function elleBagla() {
+  const place = $("#ellePlace");
+  place.addEventListener("change", async () => { ELLE.place = place.value.trim(); await elleNoktaYukle(); elleRender(); });
+  document.querySelectorAll("[data-akt]").forEach(b => b.addEventListener("click", () => { ELLE.activity = ELLE.activity === b.dataset.akt ? "" : b.dataset.akt; elleRender(); }));
+  $("#elleDate").addEventListener("change", e => ELLE.date = e.target.value);
+  document.querySelectorAll("[data-pt]").forEach(b => b.addEventListener("click", () => { ELLE.points[+b.dataset.pt].sel = !ELLE.points[+b.dataset.pt].sel; elleRender(); }));
+  const yn = $("#elleNoktaEkle"); if (yn) yn.addEventListener("click", () => {
+    const ad = $("#elleYeniNokta").value.trim(); if (!ad || !ELLE.place) return;
+    ELLE.points.push({ name: ad, lat: null, lon: null, sel: true, new: true }); elleRender();
+  });
+  const ed = $("#elleDrop"), ef = $("#elleFile");
+  if (ed) { ed.addEventListener("click", () => ef.click()); ef.addEventListener("change", () => { elleFotoEkle(ef.files); elleRender(); });
+    ["dragover", "dragenter"].forEach(ev => ed.addEventListener(ev, e => { e.preventDefault(); ed.classList.add("on"); }));
+    ["dragleave", "drop"].forEach(ev => ed.addEventListener(ev, e => { e.preventDefault(); ed.classList.remove("on"); }));
+    ed.addEventListener("drop", e => { elleFotoEkle(e.dataTransfer.files); elleRender(); }); }
+  document.querySelectorAll("[data-cover]").forEach(b => b.addEventListener("click", () => { ELLE.cover = +b.dataset.cover; elleRender(); }));
+  document.querySelectorAll("[data-phsil]").forEach(b => b.addEventListener("click", () => { ELLE.photos.splice(+b.dataset.phsil, 1); if (ELLE.cover >= ELLE.photos.length) ELLE.cover = 0; elleRender(); }));
+  document.querySelectorAll("[data-phpt]").forEach(s => s.addEventListener("change", () => { ELLE.photos[+s.dataset.phpt].point = s.value; }));
+  $("#elleNote").addEventListener("input", e => ELLE.note = e.target.value);
+  document.querySelectorAll("[data-epriv]").forEach(b => b.addEventListener("click", () => { ELLE.priv = b.dataset.epriv; elleRender(); }));
+  $("#elleKaydetBtn").addEventListener("click", elleKaydet);
+  $("#elleVazgec").addEventListener("click", () => { ELLE = null; $("#out").innerHTML = ""; });
+}
+async function elleKaydet() {
+  if (!ELLE.place) return elleRender("Once nereye gittigini yaz.");
+  if (!girisli()) return authGoster("Kaydetmek icin uyelik gerekli.", "kayit");
+  const secP = ELLE.points.filter(p => p.sel);
+  const snapshot = JSON.parse(JSON.stringify({ ...ELLE, photos: [] }));
+  $("#out").innerHTML = `<p class="sub">Kaydediliyor&hellip;</p>`;
+  try {
+    const mevcut = ELLE.points.filter(p => !p.new && p.lat != null);
+    const merkez = mevcut.length ? [mevcut.reduce((a, p) => a + p.lat, 0) / mevcut.length, mevcut.reduce((a, p) => a + p.lon, 0) / mevcut.length] : [0, 0];
+    for (const p of secP) if (p.new) {
+      const jit = () => (Math.random() - 0.5) * 0.004;
+      const lat = +(merkez[0] + jit()).toFixed(5), lon = +(merkez[1] + jit()).toFixed(5);
+      await SB.from("points").insert({ place: ELLE.place, name: p.name, lat, lon, created_by: ME.id });
+      p.lat = lat; p.lon = lon;
+    }
+    const stops = secP.length ? secP : [{ name: "Ziyaret", lat: merkez[0], lon: merkez[1] }];
+    const { data: gun, error } = await SB.from("days").insert({
+      user_id: ME.id, date: ELLE.date, place: ELLE.place, km: 0,
+      photo_count: ELLE.photos.length, stop_count: stops.length,
+      lat: (stops[0].lat ?? merkez[0]) || 0, lon: (stops[0].lon ?? merkez[1]) || 0,
+      privacy: ELLE.priv, activity: ELLE.activity, note: ELLE.note, timeline: []
+    }).select("id").single();
+    if (error) throw error;
+    let coverPath = null; const noktaPaths = {};
+    if (ELLE.priv !== "ozel") {
+      for (let i = 0; i < ELLE.photos.length; i++) {
+        const ph = ELLE.photos[i];
+        const path = `${ME.id}/${gun.id}/${i}.jpg`;
+        const { error: e2 } = await SB.storage.from("day-photos").upload(path, ph.file, { contentType: ph.file.type || "image/jpeg", upsert: true });
+        if (!e2) { const key = ph.point || stops[0].name; (noktaPaths[key] = noktaPaths[key] || []).push(path);
+          if (i === ELLE.cover) coverPath = path; }
+      }
+      if (!coverPath) { const f = Object.values(noktaPaths)[0]; if (f) coverPath = f[0]; }
+    }
+    const timeline = stops.map(s => ({ type: "stop", name: s.name, foto: (noktaPaths[s.name] || []).length,
+      lat: s.lat ?? merkez[0], lon: s.lon ?? merkez[1], paths: noktaPaths[s.name] || [] }));
+    await SB.from("days").update({ cover_path: coverPath, timeline }).eq("id", gun.id);
+    tripKaydet({ date: ELLE.date, place: ELLE.place, photos: ELLE.photos.length, stops: stops.length, km: 0,
+      lat: (stops[0].lat ?? merkez[0]) || 0, lon: (stops[0].lon ?? merkez[1]) || 0, priv: ELLE.priv });
+    ELLE = null;
+    $("#out").innerHTML = `<div class="empty"><b>Gun kaydedildi.</b><br>
+      Harita'da ve profilinde gorebilirsin.${snapshot.priv !== "ozel" ? " Herkese/arkadaslara acik oldugu icin akista da gorunur." : ""}</div>`;
+  } catch (e) {
+    ELLE.photos = ELLE.photos; // koru
+    await elleRender("Kaydedilemedi: " + (e.message || e));
+  }
 }
 
 function ornekGun() {
@@ -1576,6 +1748,7 @@ file.addEventListener("change", () => dosyalariIsle(file.files));
   e.preventDefault(); drop.classList.remove("on");
 }));
 drop.addEventListener("drop", (e) => dosyalariIsle(e.dataTransfer.files));
+$("#elleBtn").addEventListener("click", () => elleBasla([]));
 
 /* ---------- auth: landing-first, modal only on demand ---------- */
 const girisli = () => !!(ME && ME.id);
