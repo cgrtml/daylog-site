@@ -311,6 +311,9 @@ footer{color:var(--mut);font-size:.8rem;text-align:center;margin-top:34px;line-h
 #login .btn{width:100%;padding:13px}
 #login .guest{background:none;border:none;color:var(--mut);font:inherit;font-size:.85rem;
   cursor:pointer;margin-top:14px;text-decoration:underline}
+.authtoggle{color:var(--mut);font-size:.86rem;margin-top:14px}
+.authtoggle button{background:none;border:none;color:var(--pine);font:inherit;font-weight:600;
+  cursor:pointer;text-decoration:underline;padding:0}
 #login .mock{font-size:.73rem;color:var(--mut);margin-top:16px}
 @media (max-width:540px){.stats{grid-template-columns:repeat(2,1fr)}.feedcard .cover{height:200px}}
 </style>
@@ -361,8 +364,10 @@ footer{color:var(--mut);font-size:.8rem;text-align:center;margin-top:34px;line-h
     <p>JPG ve HEIC; konum (GPS) etiketli kareler kullanilir. Coklu secim serbest.</p>
     <input type="file" id="file" multiple accept="image/*,.heic,.heif" hidden>
   </div>
-  <p class="notice">Fotograflarin bu sekmeden cikmaz: yukleme yok, sunucu yok, harita karosu bile inmez.
-  En iyi deneyim bilgisayarda; telefon tarayicilari yuklerken konum verisini silebilir.</p>
+  <p class="notice">Fotograflar once bu cihazda islenir. Yalnizca "herkes" ya da "arkadaslar" yaptigin
+  gunlerin kareleri hesabina yuklenir; "ozel" gunler cihazinda kalir. Geziyi internetsiz cekip
+  sonra (bilgisayardan ya da telefondan) istedigin zaman yukleyebilirsin; konum fotografin icinde gelir.
+  En iyi deneyim bilgisayarda; bazi telefon tarayicilari yuklerken konumu silebilir.</p>
   <div id="out"></div>
 </div>
 
@@ -380,12 +385,12 @@ paylasmayi sectigin gunler disinda hicbir fotograf sunucuya gitmez.</footer>
     <p id="authNeden">Hesabinla gunlerini saklar, arkadaslarini takip eder,
     gitmek istediklerini listelersin.</p>
     <div id="authForm">
-      <input id="adin" type="text" placeholder="Adin" autocomplete="name">
+      <input id="adin" type="text" placeholder="Adin" autocomplete="name" hidden>
       <input id="eposta" type="email" placeholder="E-posta" autocomplete="email">
-      <input id="sifre" type="password" placeholder="Sifre (en az 6 karakter)" autocomplete="new-password">
-      <button class="btn primary" id="kayitBtn">Kayit ol</button>
-      <button class="btn" id="girisBtn" style="width:100%;margin-top:8px">Giris yap</button>
+      <input id="sifre" type="password" placeholder="Sifre (en az 6 karakter)" autocomplete="current-password">
+      <button class="btn primary" id="authGonder" style="width:100%">Giris yap</button>
       <div class="err" id="authErr" hidden></div>
+      <div class="authtoggle" id="authToggle"></div>
     </div>
     <button class="guest" id="kapatBtn">Vazgec</button>
     <div class="mock" id="authMode"></div>
@@ -1358,10 +1363,13 @@ async function dosyalariIsle(files) {
     } catch { atlanan++; }
   }
   if (pts.length < 1) {
-    $("#out").innerHTML = `<p class="err">Secilen fotograflarda konum (GPS) bilgisi yok.
-      ${atlanan ? atlanan + " fotograf konumsuz oldugu icin atlandi. " : ""}
-      WhatsApp ya da ekran goruntusu kopyalari konum tasimaz; telefon kamerasiyla
-      konum acikken cekilmis orijinalleri sec.</p>`;
+    $("#out").innerHTML = `<div class="empty"><b>Bu fotograflarda konum bilgisi yok.</b><br>
+      ${atlanan ? atlanan + " fotograf konumsuz oldugu icin atlandi.<br>" : ""}
+      daylog gunu, fotografin icindeki GPS konumundan kurar. Konumu tasiyan kareler:
+      telefon kamerasiyla <b>konum acikken</b> cekilmis <b>orijinaller</b>.
+      Konum tasimayanlar: WhatsApp'tan gelen kopyalar, ekran goruntuleri, indirilmis gorseller.<br><br>
+      Not: internetsiz cekmen sorun degil; konum fotografa cekildigi anda islenir, sonra istedigin
+      zaman yukleyebilirsin.</div>`;
     return;
   }
   DB.byDate = new Map(); DB.sample = false; DB.saved = new Set();
@@ -1567,12 +1575,28 @@ function trHata(m) {
   if (/valid email/i.test(m)) return "Gecerli bir e-posta yaz.";
   return m;
 }
-function authGoster(neden) {
+let AUTH_MOD = "giris";  // "giris" | "kayit"
+function authModCiz() {
+  const kayit = AUTH_MOD === "kayit";
+  $("#adin").hidden = !kayit;
+  $("#authGonder").textContent = kayit ? "Kayit ol" : "Giris yap";
+  $("#sifre").setAttribute("autocomplete", kayit ? "new-password" : "current-password");
+  $("#authToggle").innerHTML = kayit
+    ? `Zaten hesabin var mi? <button type="button" id="authSwitch">Giris yap</button>`
+    : `Hesabin yok mu? <button type="button" id="authSwitch">Kayit ol</button>`;
+  $("#authSwitch").addEventListener("click", () => {
+    AUTH_MOD = kayit ? "giris" : "kayit"; $("#authErr").hidden = true; authModCiz();
+    (AUTH_MOD === "kayit" ? $("#adin") : $("#eposta")).focus();
+  });
+}
+function authGoster(neden, mod) {
   if (!SB || girisli()) return;
+  AUTH_MOD = mod === "kayit" ? "kayit" : "giris";
   if (neden) $("#authNeden").textContent = neden;
   $("#authErr").hidden = true;
+  authModCiz();
   $("#login").hidden = false;
-  $("#eposta").focus();
+  (AUTH_MOD === "kayit" ? $("#adin") : $("#eposta")).focus();
 }
 function authKapat() { $("#login").hidden = true; }
 
@@ -1584,10 +1608,9 @@ function ustBar() {
   } else {
     a.innerHTML = `<button class="btn" id="ustGiris">Giris yap</button>
       <button class="btn primary" id="ustKayit">Kayit ol</button>`;
-    $("#ustGiris").addEventListener("click", () => authGoster());
-    $("#ustKayit").addEventListener("click", () => authGoster());
+    $("#ustGiris").addEventListener("click", () => authGoster(null, "giris"));
+    $("#ustKayit").addEventListener("click", () => authGoster(null, "kayit"));
   }
-  // banner ana sayfa basligini ustlendi; hero kapali kalir
 }
 
 async function girisSonrasi(session) {
@@ -1598,44 +1621,44 @@ async function girisSonrasi(session) {
   if (!$("#view-profil").hidden) profilCiz();
 }
 
-if (SB) {
-  $("#authMode").textContent = "Sunucu: " + ENV.url.replace(/^https?:\/\//, "");
-  $("#kayitBtn").addEventListener("click", async () => {
-    const name = $("#adin").value.trim(), email = $("#eposta").value.trim(), pass = $("#sifre").value;
-    if (!email || pass.length < 6) return hataGoster("E-posta ve en az 6 karakterlik sifre gerekli.");
+async function authYap() {
+  const email = $("#eposta").value.trim(), pass = $("#sifre").value;
+  if (!email) return hataGoster("E-posta gir.");
+  if (AUTH_MOD === "kayit") {
+    if (pass.length < 6) return hataGoster("Sifre en az 6 karakter olmali.");
+    const name = $("#adin").value.trim();
     const { data, error } = await SB.auth.signUp({ email, password: pass, options: { data: { name } } });
     if (error) {
       if (/already registered/i.test(error.message)) {
-        // hesap zaten var: ayni bilgilerle dogrudan giris dene
         const r = await SB.auth.signInWithPassword({ email, password: pass });
         if (!r.error) return girisSonrasi(r.data.session);
-        return hataGoster("Bu e-posta zaten kayitli ama sifre eslesmiyor. Giris yap'i dene.");
+        return hataGoster("Bu e-posta zaten kayitli. 'Giris yap'a gec ve sifreni gir.");
       }
       return hataGoster(trHata(error.message));
     }
     if (data.session) await girisSonrasi(data.session);
     else hataGoster("Kayit alindi; e-postani dogrulaman gerekiyor.");
-  });
-  $("#girisBtn").addEventListener("click", async () => {
-    const { data, error } = await SB.auth.signInWithPassword({
-      email: $("#eposta").value.trim(), password: $("#sifre").value });
+  } else {
+    const { data, error } = await SB.auth.signInWithPassword({ email, password: pass });
     if (error) return hataGoster(trHata(error.message));
     await girisSonrasi(data.session);
-  });
-  $("#sifre").addEventListener("keydown", (e) => { if (e.key === "Enter") $("#girisBtn").click(); });
-  // acilista pencere her zaman kapali; yalnizca kullanici isterse acilir
+  }
+}
+
+if (SB) {
+  $("#authMode").textContent = "Sunucu: " + ENV.url.replace(/^https?:\/\//, "");
+  $("#authGonder").addEventListener("click", authYap);
+  $("#sifre").addEventListener("keydown", (e) => { if (e.key === "Enter") authYap(); });
   authKapat();
   SB.auth.getSession().then(({ data }) => {
     if (data.session) girisSonrasi(data.session); else { ME = null; lsSet("me", null); ustBar(); }
   });
 } else {
   ME = ME || { name: "Misafir" };
-  // hero yerine banner
 }
 $("#kapatBtn").addEventListener("click", authKapat);
 $("#login").addEventListener("click", (e) => { if (e.target.id === "login") authKapat(); });
-$("#heroKayit").addEventListener("click", () =>
-  SB ? authGoster() : null);
+$("#heroKayit").addEventListener("click", () => SB ? authGoster(null, "kayit") : null);
 $("#heroDene").addEventListener("click", () =>
   document.getElementById("drop").scrollIntoView({ behavior: "smooth" }));
 ustBar();
