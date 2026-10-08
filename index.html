@@ -1633,17 +1633,17 @@ async function elleKaydet() {
       await SB.from("reviews").upsert({ user_id: ME.id, place: ELLE.place,
         rating: ELLE.rating, body: ELLE.reviewNote, aspects: ELLE.aspects }, { onConflict: "user_id,place" });
     }
+    // Fotograflar HER ZAMAN yuklenir (sahip kendi gununu gorsun); kimin gorecegini
+    // gizlilik kurali (RLS) belirler: ozel = yalnizca sen, arkadaslar = arkadaslar, herkes = herkes.
     let coverPath = null; const noktaPaths = {};
-    if (ELLE.priv !== "ozel") {
-      for (let i = 0; i < ELLE.photos.length; i++) {
-        const ph = ELLE.photos[i];
-        const path = `${ME.id}/${gun.id}/${i}.jpg`;
-        const { error: e2 } = await SB.storage.from("day-photos").upload(path, ph.file, { contentType: ph.file.type || "image/jpeg", upsert: true });
-        if (!e2) { const key = ph.point || stops[0].name; (noktaPaths[key] = noktaPaths[key] || []).push(path);
-          if (i === ELLE.cover) coverPath = path; }
-      }
-      if (!coverPath) { const f = Object.values(noktaPaths)[0]; if (f) coverPath = f[0]; }
+    for (let i = 0; i < ELLE.photos.length; i++) {
+      const ph = ELLE.photos[i];
+      const path = `${ME.id}/${gun.id}/${i}.jpg`;
+      const { error: e2 } = await SB.storage.from("day-photos").upload(path, ph.file, { contentType: ph.file.type || "image/jpeg", upsert: true });
+      if (!e2) { const key = ph.point || stops[0].name; (noktaPaths[key] = noktaPaths[key] || []).push(path);
+        if (i === ELLE.cover) coverPath = path; }
     }
+    if (!coverPath) { const f = Object.values(noktaPaths)[0]; if (f) coverPath = f[0]; }
     const timeline = stops.map(s => ({ type: "stop", name: s.name, foto: (noktaPaths[s.name] || []).length,
       lat: s.lat ?? merkez[0], lon: s.lon ?? merkez[1], paths: noktaPaths[s.name] || [] }));
     await SB.from("days").update({ cover_path: coverPath, timeline }).eq("id", gun.id);
