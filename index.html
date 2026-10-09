@@ -583,11 +583,89 @@ body.ana-acik .userchip{background:rgba(250,248,243,.95);border-color:transparen
 .durak-kare b{display:block;font-size:.72rem;font-weight:700;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* ilk acilis ekraninda uygulama basligi gizli: fotograf en ustte, logo icinde */
+@media (max-width:899px){
 body:has(#view-gunlerim:not([hidden]) #ogGiris:not([hidden])) header.top{display:none}
-body:has(#view-gunlerim:not([hidden]) #ogGiris:not([hidden])) main{padding-top:0}
+body:has(#view-gunlerim:not([hidden]) #ogGiris:not([hidden])) main{padding-top:0}}
+@media (min-width:900px){.og-hero{margin:0 0 4px;border-radius:24px}}
 .btn.adim-ileri:hover{background:#2c3328;border-color:#2c3328;color:#f1eee6}
 .btn.adim-kaydet:hover{background:#a83b16;border-color:#a83b16;color:#fff}
 .ks-ic .tarih-yazi{white-space:normal}
+/* ---- tek kabuk: masaustunde ust menu, genis yerlesim; telefonda alt menu ---- */
+.ust-menu{display:none;align-items:center;gap:4px;flex:1}
+.ust-menu button{height:40px;padding:0 14px;border-radius:20px;border:0;background:transparent;color:var(--ink2);font:inherit;font-size:.95rem;font-weight:500;cursor:pointer}
+.ust-menu button:hover{background:var(--chipbg)}
+.ust-menu button[aria-current="page"]{background:var(--chipbg);color:var(--ink);font-weight:600}
+.ust-menu .ust-olustur{margin-left:auto;background:var(--blaze);color:#fff;font-weight:700;display:flex;align-items:center;gap:6px;padding:0 18px;height:44px;border-radius:22px}
+.ust-menu .ust-olustur:hover{background:#a83b16}
+@media (min-width:900px){
+  nav.nav{display:none!important}
+  main{max-width:1160px;padding-inline:24px;padding-bottom:60px}
+  body.olusturuyor main{padding-bottom:110px}
+  header.top{position:sticky;top:0;z-index:45;width:100vw;margin-left:calc(50% - 50vw);box-sizing:border-box;margin-bottom:10px;
+    padding:12px max(24px,calc((100vw - 1160px)/2 + 24px));background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  header.top .tag{display:none}
+  .ust-menu{display:flex}
+  header.top .authbtns{margin-left:12px}
+  #view-gunlerim,#view-profil,#view-detay{max-width:760px;margin-inline:auto}
+  #bugunKutu,#kesfetAlt{max-width:860px}
+}
+/* kahramanli sayfalar (tanitim + kisisel ana sayfa): menu fotografin ustunde, seffaf */
+body.hero-ust main{padding-top:0}
+body.hero-ust header.top{position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:20;width:min(1160px,100%);margin:0;padding:22px 24px;background:transparent;border:0;backdrop-filter:none;flex-wrap:wrap;row-gap:10px}
+body.hero-ust header.top .brand,body.hero-ust header.top .brand i{color:#faf8f3}
+body.hero-ust header.top .tag{display:none}
+body.hero-ust .ust-menu button{color:rgba(250,248,243,.9)}
+body.hero-ust .ust-menu button:hover,body.hero-ust .ust-menu button[aria-current="page"]{background:rgba(250,248,243,.16);color:#faf8f3}
+body.hero-ust .ust-menu .ust-olustur{background:var(--blaze);color:#fff}
+body.hero-ust .userchip{background:rgba(250,248,243,.95);border-color:transparent}
+body.hero-ust #ustGiris{background:transparent;border-color:rgba(250,248,243,.55);color:#faf8f3}
+body.hero-ust #ustKayit{background:#faf8f3;border-color:#faf8f3;color:#14170f}
+body.hero-ust .ana-hero{margin-top:0}
+body.hero-ust .ana-hero-ic{padding-top:150px}
+body.ana-acik .ust-menu{display:none}
+@media (max-width:700px){body.hero-ust .ana-hero-ic{padding-top:110px}}
+/* kisisel ana sayfa */
+.ev-hero{min-height:560px}
+.btn.ana-btn3{background:transparent;border-color:transparent;color:#faf8f3;padding:15px 12px;font-size:1rem}
+.btn.ana-btn3:hover{background:rgba(250,248,243,.12)}
+a.btn.ana-btn,a.btn.ana-btn2{text-decoration:none;display:inline-flex;align-items:center}
+.ev-kart{display:flex;flex-direction:column;gap:14px}
+.ev-seri{display:flex;align-items:center;gap:12px}
+.ev-seri b{display:block;font-size:1.05rem;font-weight:800}.ev-seri span{font-size:.82rem;color:#555a4e}
+.ev-alev{width:44px;height:44px;flex:none;border-radius:22px;background:#fbe3d6;display:flex;align-items:center;justify-content:center}
+.ev-alev svg{width:22px;height:22px;fill:var(--blaze)}
+.ev-son{display:flex;align-items:center;gap:12px;padding:14px 0 0;border:0;border-top:1px solid #ded9cc;background:none;font:inherit;color:#14170f;text-align:left;cursor:pointer}
+.ev-son img{width:56px;height:56px;border-radius:14px;object-fit:cover;flex:none}
+.ev-son .ana-mono{display:block;font-size:.62rem;color:#555a4e}
+.ev-son b{display:block;font-size:1.05rem;font-weight:800;letter-spacing:-.02em}
+.ev-son-alt{font-size:.8rem;color:#555a4e}
+.ev-toplam{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding-top:12px;border-top:1px solid #ded9cc;text-align:center}
+.ev-toplam b{display:block;font-size:1.15rem;font-weight:800}.ev-toplam span{font-size:.75rem;color:#555a4e}
+.ev-govde{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start;padding-top:40px}
+.ev-akis{flex:999 1 560px;min-width:0}
+.ev-akis-bas h2{margin:0;font-size:clamp(1.8rem,3vw,2.2rem);font-weight:800;letter-spacing:-.04em}
+.ev-akis-bas .sub{margin:4px 0 18px}
+.ev-izgara{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.ev-izgara .feedcard{margin:0}
+.ev-izgara .feedcard .cover{height:220px}
+.ev-yan{flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:16px}
+.ev-yan:empty{display:none}
+.ev-yan-kart{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:16px}
+.ev-yan-kart>b{display:block;font-size:1.05rem;font-weight:800}
+.ev-yan-kart.koyu{background:#1e3b2c;border-color:#1e3b2c;color:#f1eee6}
+.ev-oneri{display:flex;align-items:center;gap:12px;width:100%;margin-top:12px;border:0;background:none;padding:0;font:inherit;color:inherit;text-align:left;cursor:pointer}
+.ev-oneri img{width:56px;height:56px;border-radius:12px;object-fit:cover;flex:none}
+.ev-oneri b{display:block;font-size:.95rem}.ev-oneri span span{font-size:.8rem;opacity:.85}
+.ev-liste{list-style:none;margin:8px 0 0;padding:0}
+.ev-liste button{width:100%;min-height:40px;border:0;border-bottom:1px solid var(--line);background:none;font:inherit;text-align:left;cursor:pointer;color:var(--ink)}
+.ev-kisi{display:flex;align-items:center;gap:10px;margin-top:12px}
+.ev-kisi .avatar{width:36px;height:36px;font-size:.85rem}
+.ev-kisi-ad{flex:1;min-width:0;font-weight:600;font-size:.92rem;cursor:pointer}
+.ev-kisi .btn{padding:7px 12px;font-size:.8rem}
+/* menuler Leaflet denetimlerinin (z-index 1000) ustunde kalsin */
+nav.nav{z-index:1100}
+@media (min-width:900px){header.top{z-index:1100}}
+#fotoAdim,#login{z-index:1200}
 /* akis: editoryel kart - tam-tasan kapak ustte, iri baslik, yazar altta */
 .feedcard{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:24px;overflow:hidden;
   margin:20px 0;box-shadow:var(--sh1);transition:box-shadow .2s,transform .2s}
@@ -806,6 +884,10 @@ footer{color:var(--mut);font-size:.8rem;text-align:center;margin-top:40px;line-h
   <a class="brand" href="#" id="logoBtn" aria-label="ormaio ana sayfa">orma<i>io</i></a>
   <div class="tag">Gezinin hikâyesi, fotoğraflarından kendi kendine.</div>
   <nav class="ana-linkler" aria-label="Sayfa"><a href="#anaNasil">Nasıl çalışır</a><a href="#anaYerler">Yerler</a><a href="#anaGizlilik">Gizlilik</a></nav>
+  <nav class="ust-menu" id="ustMenu" aria-label="Uygulama">
+    <button data-uv="akis">Akış</button><button data-uv="kesfet">Bugün</button><button data-uv="harita">Haritam</button><button data-uv="profil">Profil</button>
+    <button class="ust-olustur" data-uv="gunlerim"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>Gün oluştur</button>
+  </nav>
   <div class="authbtns" id="authArea"></div>
 </header>
 
@@ -1306,13 +1388,129 @@ function gunFeedKart(d) {
     </div></div>`;
 }
 
+/* ---------- kisisel ana sayfa (girisli Akis): tanitim sayfasinin kisisel ikizi ---------- */
+async function bugunHesapla() {
+  const parkurlar = await parkurlariYukle();
+  const plan = bugunPlanBaslangic();
+  const bolgeler = {};
+  for (const t of parkurlar) (bolgeler[t.region] = bolgeler[t.region] || []).push(t);
+  const noktalar = Object.entries(bolgeler).map(([ad, ts]) => ({ ad, lat: ts.reduce((a, t) => a + t.lat, 0) / ts.length, lon: ts.reduce((a, t) => a + t.lon, 0) / ts.length }));
+  const sonuc = await Promise.allSettled([nwsSaatlik(BUGUN.konum.lat, BUGUN.konum.lon), ...noktalar.map(n => nwsSaatlik(n.lat, n.lon))]);
+  const yerelHava = sonuc[0].status === "fulfilled" ? sonuc[0].value : null;
+  const bolgeHava = {}; noktalar.forEach((n, i) => { if (sonuc[i + 1].status === "fulfilled") bolgeHava[n.ad] = sonuc[i + 1].value; });
+  const uygun = parkurlar.map(t => parkurPuanla(t, bolgeHava[t.region], plan)).filter(x => x.uygun).sort((a, b) => b.puan - a.puan);
+  try {
+    await yerleriYukle();
+    for (const r of uygun.slice(0, 3)) {
+      const n = yerNorm(r.t.name.replace(/\(.*\)/, ""));
+      const e = YERLER.filter(y => (y.tur === "r" || y.tur === "b") && y.ara.startsWith(n) && hav(y.lat, y.lon, r.t.lat, r.t.lon) < 3000).sort((a, b) => (b.p || 0) - (a.p || 0))[0];
+      if (e) r.yerId = e.id;
+    }
+  } catch {}
+  return { plan, uygun, yerelHava };
+}
+function seriHafta(gunler) {
+  const hafta = (d) => { const t = new Date(d); t.setHours(0, 0, 0, 0); t.setDate(t.getDate() - ((t.getDay() + 6) % 7)); return t.getTime(); };
+  const set = new Set(gunler.map(g => hafta(g.date)));
+  let h = hafta(new Date()), n = 0;
+  if (!set.has(h)) h -= 7 * 864e5;           // bu hafta henuz yoksa seri gecen haftadan sayilir
+  while (set.has(h)) { n++; h -= 7 * 864e5; }
+  return n;
+}
+function evHeroHtml() {
+  const s = new Date().getHours(), selam = s < 11 ? "Günaydın" : s < 18 ? "İyi günler" : "İyi akşamlar";
+  const ad = ((ME && ME.name) || "").split(" ")[0];
+  const tarih = new Date().toLocaleDateString("tr-TR", { day: "numeric", month: "long" }).toLocaleUpperCase("tr-TR");
+  return `<section class="ana-hero ev-hero">
+    <img src="ana-hero.jpg" alt="" class="ana-hero-img" id="evHeroImg">
+    <div class="ana-hero-ic">
+      <div class="ana-sol">
+        <div class="ana-koord" id="evUst">BUGÜN · ${tarih}</div>
+        <h1 id="evBaslik">${selam}${ad ? " " + esc(ad) : ""}.</h1>
+        <p id="evAlt">Bugün için önerin hazırlanıyor…</p>
+        <div class="ana-cta" id="evCta"><button class="btn ana-btn" data-evgit="gunlerim">+ Gün oluştur</button>
+          <button class="btn ana-btn2" data-evgit="kesfet">Bugün nereye? &rarr;</button></div>
+      </div>
+      <div class="ana-kart ev-kart" id="evKart"><div class="skel" style="height:150px"></div></div>
+    </div></section>`;
+}
+async function evDoldur() {
+  const s = new Date().getHours(), selam = s < 11 ? "Günaydın" : s < 18 ? "İyi günler" : "İyi akşamlar";
+  const ad = ((ME && ME.name) || "").split(" ")[0];
+  const bagla = () => document.querySelectorAll("[data-evgit]").forEach(b => b.onclick = () => $(`#nav button[data-v="${b.dataset.evgit}"]`).click());
+  bagla();
+  // sag kart: seri, son gun, toplamlar
+  (async () => {
+    const { data } = await SB.from("days").select("id,place,date,km,lat,lon,cover_path,stop_count,like_count").eq("user_id", ME.id).order("date", { ascending: false });
+    const g = data || [], kart = $("#evKart"); if (!kart) return;
+    const seri = seriHafta(g), son = g[0];
+    const ulke = new Set(g.map(ulkeAdi).filter(Boolean)).size, yer = new Set(g.map(x => x.place)).size;
+    const km = g.reduce((a, x) => a + (+x.km || 0), 0);
+    kart.innerHTML = `
+      <div class="ev-seri"><span class="ev-alev"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c1 4 5 5.5 5 11a5 5 0 0 1-10 0c0-2.5 1.2-4 2.5-5 .2 1.8 1 2.8 2 3.3C11 8 11 5 12 2z"/></svg></span>
+        <div><b>${seri ? `${seri} hafta üst üste` : "Seriyi başlat"}</b><span>${seri ? `Bu hafta sonu seriyi ${seri + 1}'e çıkar` : "Bu hafta bir gün ekle, serin başlasın"}</span></div></div>
+      ${son ? `<button class="ev-son" data-day="${son.id}"><img src="${kareSvg(son.place.length, 12)}" alt=""${son.cover_path ? ` data-cover="${esc(son.cover_path)}"` : ""}>
+        <span><span class="ana-mono">SON GÜNÜN · ${new Date(son.date).getDate()} ${AYLAR[new Date(son.date).getMonth()].slice(0, 3).toLocaleUpperCase("tr-TR")}</span>
+        <b>${esc(son.place)}</b><span class="ev-son-alt">${kmYaz(+son.km || 0)} km · ${son.stop_count || 0} durak · ${son.like_count || 0} beğeni</span></span></button>` : ""}
+      <div class="ev-toplam"><div><b>${yer}</b><span>yer</span></div><div><b>${Math.round(km)}</b><span>km</span></div><div><b>${ulke}</b><span>ülke</span></div></div>`;
+    kart.querySelectorAll("[data-day]").forEach(b => b.addEventListener("click", () => gunGoster(b.dataset.day)));
+    kapaklariGetir("#evKart");
+  })();
+  // kahraman: bugunun onerisi
+  let h;
+  try { h = await bugunHesapla(); } catch { h = null; }
+  const en = h && h.uygun[0];
+  const yakin = en && en.km < 400;
+  if (!$("#evBaslik")) return;
+  if (yakin) {
+    const t = en.t, gun = h.plan.yarin ? "Yarın" : "Bugün";
+    const ilk = h.yerelHava && h.yerelHava.find(x => x.t >= h.plan.b.getTime());
+    const durum = ilk ? `${BUGUN.konum.ad.toLocaleUpperCase("tr-TR")} ${ilk.c}°C · ${ilk.pop >= 40 ? "YAĞMUR %" + ilk.pop : ilk.pop >= 20 ? "PARÇALI" : "KURU"}` : "";
+    $("#evUst").textContent = `${gun.toLocaleUpperCase("tr-TR")} · ${h.plan.b.toLocaleDateString("tr-TR", { day: "numeric", month: "long" }).toLocaleUpperCase("tr-TR")}${durum ? " · " + durum : ""}`;
+    $("#evBaslik").textContent = `${selam}${ad ? " " + ad : ""}. ${en.puan >= 60 ? `${gun} ${t.name} için iyi bir gün.` : `${gun} en iyi seçenek ${t.name}.`}`;
+    $("#evAlt").textContent = `${sureYazi(en.surus)} sürüş · ${kmYaz(t.lengthKm)} km · ${t.gainM} m tırmanış. ${ss(h.plan.b)}'da çıkarsan ${ss(en.donus)} civarı dönersin${en.sonraYagmur ? `; yağmur ${ss(en.sonraYagmur)} civarı başlıyor` : ""}.`;
+    if (t.photo) { const im = $("#evHeroImg"); im.src = t.photo; im.alt = t.name; }
+    $("#evCta").innerHTML = `<a class="btn ana-btn" href="https://www.google.com/maps/dir/?api=1&destination=${t.lat},${t.lon}" target="_blank" rel="noopener">Yol tarifi</a>
+      ${en.yerId ? `<button class="btn ana-btn2" data-yerid="${en.yerId}">Parkur sayfası</button>` : ""}
+      <button class="btn ana-btn3" data-evgit="kesfet">Başka öneriler &rarr;</button>`;
+    bagla();
+    document.querySelectorAll("#evCta [data-yerid]").forEach(b => b.addEventListener("click", () => yerDetay(b.dataset.yerid)));
+  } else {
+    $("#evBaslik").textContent = `${selam}${ad ? " " + ad : ""}. Bugün nereye gidiyorsun?`;
+    $("#evAlt").textContent = "Fotoğraflarını seç, günün kendi kendine yazılsın.";
+  }
+  // yan kolon: diger oneriler, liste, takip onerileri
+  const yan = $("#evYan"); if (!yan) return;
+  const diger = yakin ? h.uygun.slice(1, 3) : [];
+  const { data: w } = await SB.from("wishlist").select("place").eq("user_id", ME.id).limit(5);
+  const { data: ps } = await SB.from("profiles").select("id,name,username,avatar_url").neq("id", ME.id).limit(20);
+  const oner = (ps || []).filter(p => !takipte(p.id)).slice(0, 3);
+  yan.innerHTML = `
+    ${diger.length ? `<section class="ev-yan-kart koyu"><b>${h.plan.yarin ? "Yarın" : "Bugün"} için diğer öneriler</b>${diger.map(r => `
+      <button class="ev-oneri" ${r.yerId ? `data-yerid="${r.yerId}"` : `data-evgit="kesfet"`}><img src="${r.t.photo || kareSvg(r.t.name.length, 12)}" alt="">
+        <span><b>${esc(r.t.name)}</b><span>${sureYazi(r.surus)} sürüş · ${kmYaz(r.t.lengthKm)} km</span></span></button>`).join("")}</section>` : ""}
+    <section class="ev-yan-kart"><b>Gitmek istediklerin</b>${(w || []).length ? `<ul class="ev-liste">${w.map(x => `<li><button data-yer="${esc(x.place)}">${esc(x.place)}</button></li>`).join("")}</ul>`
+      : `<p class="sub" style="margin:8px 0 0">Bir günün altındaki "Gitmek istiyorum" ile buraya eklenir.</p>`}</section>
+    ${oner.length ? `<section class="ev-yan-kart"><b>Takip edebileceğin gezginler</b>${oner.map(p => `
+      <div class="ev-kisi">${avatarHtml(p, "", `data-profil="${p.id}" style="cursor:pointer"`)}<span class="ev-kisi-ad" data-profil="${p.id}">${esc(p.name || p.username)}</span>
+        <button class="btn" data-takip="${p.id}">Takip et</button></div>`).join("")}</section>` : ""}`;
+  bagla();
+  yan.querySelectorAll("[data-yerid]").forEach(b => b.addEventListener("click", () => yerDetay(b.dataset.yerid)));
+  sosyalBagla("#evYan");
+}
+
 async function akisCiz() {
   if (SB) {
-    $("#view-akis").innerHTML = iskeletAkis();
+    const ev = girisli();
+    if (ev) {
+      $("#view-akis").innerHTML = evHeroHtml() + `<div class="ev-govde"><div class="ev-akis"><div class="ev-akis-bas"><h2>Akış</h2>
+        <div class="sub">Arkadaşlarının ve herkese açık paylaşanların günleri.</div></div><div class="ev-izgara" id="evIzgara">${iskeletKart().repeat(2)}</div></div>
+        <aside class="ev-yan" id="evYan"></aside></div>`;
+      document.body.classList.add("hero-ust");
+      evDoldur();
+    } else $("#view-akis").innerHTML = iskeletAkis();
     await sosyalDurumYukle();
-    let html = `<h1>Akış</h1><div class="sub">${girisli()
-      ? "Sana acik gunler: arkadaslarinin ve herkese acik paylasanlarin."
-      : "Gezginlerin herkese acik gunleri. Uyelikle arkadaslarininkiler de eklenir."}</div>`;
+    let html = ev ? "" : `<h1>Akış</h1><div class="sub">Gezginlerin herkese açık günleri. Üye olunca arkadaşlarınınkiler de eklenir.</div>`;
     const feedSorgu = (filtrele) => {
       let q = SB.from("days").select(`*, profiles!days_user_id_fkey(${PROF_ALAN})`)
         .order("date", { ascending: false }).limit(30);
@@ -1328,7 +1526,8 @@ async function akisCiz() {
     else if (!ds.length) html += `<div class="empty"><b>Akış şimdilik boş.</b><br>
       Henüz herkese açık gün paylaşan yok. İlk paylaşan sen ol:
       Günlerim'de fotoğraflarını bırak, günü "herkes" yap.</div>`;
-    else html += ds.map(gunFeedKart).join("");
+    else html += ev ? ds.map(gunFeedKart).join("") : `<div class="ev-izgara">${ds.map(gunFeedKart).join("")}</div>`;
+    if (ev) { const iz = $("#evIzgara"); if (iz) { iz.innerHTML = html; sosyalBagla("#evIzgara"); kapaklariGetir("#evIzgara"); } return; }
     $("#view-akis").innerHTML = html;
     sosyalBagla("#view-akis");
     kapaklariGetir("#view-akis");
@@ -1363,7 +1562,7 @@ const ss = (d) => d.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-di
 function gunBatimi(lat, lon, gun) {
   // gun dogumu denklemi (NOAA basitlestirilmis); donus: gun batimi Date
   const r = Math.PI / 180, JD = Date.UTC(gun.getFullYear(), gun.getMonth(), gun.getDate(), 12) / 864e5 + 2440587.5;
-  const n = Math.ceil(JD - 2451545 + 0.0008), J = n - lon / 360;
+  const n = Math.round(JD - 2451545), J = n - lon / 360;   // JD tam gun ogleni; ceil bir gun kaydiriyordu
   const M = (357.5291 + 0.98560028 * J) % 360, C = 1.9148 * Math.sin(M * r) + 0.02 * Math.sin(2 * M * r) + 0.0003 * Math.sin(3 * M * r);
   const L = (M + C + 180 + 102.9372) % 360;
   const Jt = 2451545 + J + 0.0053 * Math.sin(M * r) - 0.0069 * Math.sin(2 * L * r);
@@ -1804,6 +2003,7 @@ async function kesfetCiz() {
 
 let ONCEKI_SEKME = "akis";
 function detayGoster() {
+  document.body.classList.remove("hero-ust", "ana-acik");
   for (const v of ["akis","kesfet","gunlerim","harita","profil"]) $("#view-" + v).hidden = true;
   $("#view-detay").hidden = false;
 }
@@ -3121,7 +3321,8 @@ function anaGoster() {
   for (const v of Object.keys(VIEWS)) $("#view-" + v).hidden = true;
   $("#view-detay").hidden = true;
   $("#view-ana").hidden = false;
-  document.body.classList.add("ana-acik");
+  document.body.classList.add("ana-acik", "hero-ust");
+  document.querySelectorAll("#ustMenu [data-uv]").forEach(x => x.setAttribute("aria-current", "false"));
   anaCiz();
 }
 async function anaCiz() {
@@ -3202,11 +3403,13 @@ document.querySelectorAll("#nav button").forEach(b =>
     document.querySelectorAll("#nav button").forEach(x =>
       x.setAttribute("aria-pressed", x === b ? "true" : "false"));
     $("#view-detay").hidden = true;
-    $("#view-ana").hidden = true; document.body.classList.remove("ana-acik", "olusturuyor");
+    $("#view-ana").hidden = true; document.body.classList.remove("ana-acik", "olusturuyor", "hero-ust");
+    document.querySelectorAll("#ustMenu [data-uv]").forEach(x => x.setAttribute("aria-current", x.dataset.uv === b.dataset.v ? "page" : "false"));
     for (const v of Object.keys(VIEWS)) $("#view-" + v).hidden = v !== b.dataset.v;
     if (VIEWS[b.dataset.v]) VIEWS[b.dataset.v]();
   }));
 
+document.querySelectorAll("#ustMenu [data-uv]").forEach(b => b.addEventListener("click", () => $(`#nav button[data-v="${b.dataset.uv}"]`).click()));
 const drop = $("#drop"), file = $("#file");
 drop.addEventListener("click", () => file.click());
 drop.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") file.click(); });
