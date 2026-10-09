@@ -377,6 +377,66 @@ body{overflow-x:hidden}
 .ana-son h2{margin:0;font-size:clamp(2rem,5vw,3.8rem);font-weight:800;letter-spacing:-.045em;line-height:.98;max-width:12em;text-wrap:balance}
 .btn.ana-btn-koyu{margin-top:28px;background:#14170f;border-color:#14170f;color:#f1eee6;padding:16px 30px;font-size:1.05rem}
 @media (max-width:600px){.ana-hero{min-height:0}.ana-hero-ic{padding:48px 20px}.ana-vitrin-kart{height:220px}}
+/* gun olusturma: ilk acilis + 3 adim */
+.og-giris{padding:8px 0 0}
+.og-giris h1{margin:6px 0 0;font-size:clamp(1.9rem,6vw,2.5rem);line-height:1.02}
+.og-alt{color:var(--ink2);margin:10px 0 18px;font-size:1rem}
+.og-drop{display:flex;flex-direction:column;align-items:center;gap:6px;padding:28px 20px;border-color:var(--line2)}
+.og-drop svg{width:40px;height:40px;stroke:var(--blaze);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.og-drop b{font-size:1.15rem}
+.og-maddeler{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-direction:column;gap:14px}
+.og-maddeler li{display:flex;gap:14px;align-items:center}
+.og-maddeler li>span:last-child b{display:block;font-size:.98rem}
+.og-maddeler li>span:last-child span{display:block;font-size:.88rem;color:var(--mut)}
+.og-ikon{width:44px;height:44px;flex:none;border-radius:14px;background:var(--paper);border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+.og-ikon svg{width:22px;height:22px;stroke:var(--ink);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.og-ornek{display:block;margin:18px auto 0;min-height:48px;border:0;background:none;font:inherit;font-weight:600;color:var(--pine);cursor:pointer}
+.elle.adimli{background:transparent;border:0;box-shadow:none;padding:0}
+.adim-ust{display:flex;align-items:center;gap:12px}
+.adim-geri{width:44px;height:44px;flex:none;border-radius:22px;border:1px solid var(--line2);background:var(--paper);font-size:1.2rem;color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center}
+.adim-no{font-size:.8rem;color:var(--mut)}
+.adim-ad{font-size:1.15rem;font-weight:700}
+.adim-cubuk{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:14px 0 16px}
+.adim-cubuk span{height:4px;border-radius:2px;background:var(--line2)}
+.adim-cubuk span.on{background:var(--blaze)}
+.adim-satir{font-size:.95rem;margin-bottom:10px}
+.adim-aciklama{color:var(--ink2);font-size:.95rem;margin:0 0 14px}
+.oto{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:11px;background:var(--tint);color:var(--pine);font-size:.72rem;font-weight:600;vertical-align:1px;white-space:nowrap}
+.hazirlik{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:16px;margin-top:16px}
+.hazirlik ul{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:10px;font-size:.92rem}
+.hazirlik li{display:flex;align-items:center;gap:10px}
+.hazirlik li::before{content:"";width:22px;height:22px;border-radius:11px;flex:none;box-sizing:border-box}
+.hazirlik li.ok::before{background:#1e7a5a url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round'%3E%3Cpath d='m5 12 5 5 9-10'/%3E%3C/svg%3E") center/12px no-repeat}
+.hazirlik li.bekle::before{border:3px solid var(--blaze);border-right-color:var(--line)}
+.hazirlik li.bos{color:var(--mut)}.hazirlik li.bos::before{border:2px solid var(--line2)}
+.kilit{margin:12px 0 0;padding-top:12px;border-top:1px solid var(--line);font-size:.82rem;color:var(--ink2)}
+.btn.adim-ileri{display:block;width:100%;margin-top:20px;padding:16px;font-size:1rem;background:#14170f;border-color:#14170f;color:#f1eee6}
+.btn.adim-ileri[disabled]{background:#ddd8cb;border-color:#ddd8cb;color:#6e7366}
+.btn.adim-kaydet{background:var(--blaze);border-color:var(--blaze);color:#fff}
+.kontrol-kart{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.kontrol-satir{display:grid;grid-template-columns:70px minmax(0,1fr) auto;align-items:center;gap:8px;min-height:54px;padding:0 14px}
+.kontrol-satir+.kontrol-satir{border-top:1px solid var(--line)}
+.kontrol-satir>span:first-child{font-size:.85rem;color:var(--mut)}
+.elle .kontrol-satir input,.elle .kontrol-satir #ellePlace{border:0;background:transparent;padding:14px 0;font-weight:600;border-radius:0}
+.elle .kontrol-satir input:focus,.elle .kontrol-satir #ellePlace:focus{outline:none;box-shadow:inset 0 -2px 0 var(--pine)}
+.elle-lbl .oto{margin-left:6px}
+.puan-ac{margin-top:18px;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:12px 14px}
+.puan-ac summary{cursor:pointer;font-weight:700;min-height:28px}
+.onizleme{display:flex;gap:12px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:10px}
+.onizleme img{width:64px;height:64px;border-radius:12px;object-fit:cover;flex:none}
+.onizleme b{display:block;font-size:1.05rem;font-weight:800}
+.onizleme span{font-size:.85rem;color:var(--mut)}
+.gorunurluk{display:flex;flex-direction:column;gap:10px;margin:16px 0}
+.gor-secenek{display:flex;align-items:center;gap:12px;padding:14px;border-radius:18px;background:var(--paper);border:1px solid var(--line);font:inherit;color:var(--ink);text-align:left;cursor:pointer}
+.gor-secenek.on{border:2px solid #14170f;padding:13px}
+.gor-ikon{width:44px;height:44px;flex:none;border-radius:14px;background:var(--chipbg);display:flex;align-items:center;justify-content:center}
+.gor-secenek.on .gor-ikon{background:#14170f}
+.gor-ikon svg{width:22px;height:22px;stroke:var(--ink);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.gor-secenek.on .gor-ikon svg{stroke:#f1eee6}
+.gor-yazi{flex:1;min-width:0}.gor-yazi b{display:flex;align-items:center;gap:8px;font-size:1rem}
+.gor-yazi>span{display:block;font-size:.85rem;line-height:1.4;color:var(--mut);margin-top:3px}
+.gor-nokta{width:22px;height:22px;flex:none;border-radius:11px;border:2px solid var(--line2);box-sizing:border-box}
+.gor-secenek.on .gor-nokta{border:7px solid var(--blaze)}
 /* akis: editoryel kart - tam-tasan kapak ustte, iri baslik, yazar altta */
 .feedcard{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:24px;overflow:hidden;
   margin:20px 0;box-shadow:var(--sh1);transition:box-shadow .2s,transform .2s}
@@ -610,37 +670,23 @@ footer{color:var(--mut);font-size:.8rem;text-align:center;margin-top:40px;line-h
 <div id="view-kesfet" hidden></div>
 
 <div id="view-gunlerim">
-  <div class="banner">
-    <img src="banner.jpg" alt="">
-    <div class="bcontent">
-      <h1>Gezdiğin gün, kendi kendine yazılsın</h1>
-      <p>Fotoğraflarını bırak; durakların, rotan ve günün hikâyesi saniyeler içinde kurulsun.</p>
+  <section class="og-giris" id="ogGiris">
+    <div class="adim-no">Adım 1 / 3</div>
+    <h1>Fotoğraflarını seç, gezin kendini yazsın.</h1>
+    <p class="og-alt">Not almana, rota kaydetmene gerek yok. Telefonundaki kareler yeterli.</p>
+    <div class="drop og-drop" id="drop" role="button" tabindex="0">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="3"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+      <b>Fotoğraflarını seç</b>
+      <p>Bir günün karelerini seç ya da buraya sürükle. JPG ve HEIC, çoklu seçim.</p>
+      <input type="file" id="file" multiple accept="image/*,.heic,.heif" hidden>
     </div>
-  </div>
-  <section class="hero" id="hero" hidden>
-    <h1>Gezdiğin gün, kendi kendine yazılsın</h1>
-    <p>Fotoğraflarını bırak: durakların, rotan ve günün hikâyesi saniyeler içinde kurulsun.
-    Hesap açarsan arkadaşlarının günlerini görür, gezginleri takip eder,
-    beğendiğin yerleri kendi listene eklersin.</p>
-    <ul>
-      <li>Gün kaydı otomatik: yazmak yok, kayıt tuşu yok</li>
-      <li>Varsayılan özel: sen açmadan hiçbir günü kimse göremez</li>
-      <li>Fotoğraf işleme cihazında: kareler sunucuya yüklenmez</li>
-    </ul>
-    <div class="cta">
-      <button class="btn primary" id="heroKayit">Ücretsiz kayıt ol</button>
-      <button class="btn" id="heroDene">Önce üye olmadan dene</button>
-    </div>
+    <ol class="og-maddeler">
+      <li><span class="og-ikon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="15" rx="3"/><path d="m3 16 5-5 4 4 3-3 6 6"/></svg></span><span><b>Bir günün fotoğraflarını seç</b><span>İnternet olmasa da olur, sonra da yükleyebilirsin.</span></span></li>
+      <li><span class="og-ikon"><svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8 16.5c3-1 2-5 5-6.5s3-1.5 3-1.5"/></svg></span><span><b>Duraklar ve rota otomatik çıkar</b><span>Yer adı, tarih ve süre de. Yanlışsa düzeltirsin.</span></span></li>
+      <li><span class="og-ikon"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><span><b>Sen açmadan kimse görmez</b><span>Her gün özel başlar. Paylaşmak senin kararın.</span></span></li>
+    </ol>
+    <button class="og-ornek" id="ogOrnek">Önce örnek bir güne bak</button>
   </section>
-  <div class="drop" id="drop" role="button" tabindex="0">
-    <b>Gün oluştur: fotoğraflarını ekle</b>
-    <p>Konumlu (GPS) karelerde yer ve noktalar otomatik gelir; konum yoksa kendin secersin.
-    JPG ve HEIC, coklu secim serbest.</p>
-    <input type="file" id="file" multiple accept="image/*,.heic,.heif" hidden>
-  </div>
-  <p class="notice">Fotoğraflar önce bu cihazda işlenir. Yalnızca "herkes" ya da "arkadaşlar" yaptığın
-  günlerin kareleri hesabına yüklenir; "özel" günler cihazında kalır. Geziyi internetsiz çekip sonra
-  istediğin zaman yükleyebilirsin; konum fotoğrafın içinde gelir.</p>
   <div id="out"></div>
 </div>
 
@@ -2032,14 +2078,17 @@ async function dosyalariIsle(files) {
   }
   ELLE = { place: "", activities: [], date: new Date().toISOString().slice(0, 10),
            points: [], photos: pts.map(p => ({ file: p.file, url: p.url, point: "" })), cover: 0, note: "", priv: "ozel",
-           rating: 0, aspects: {}, reviewNote: "", gps: false };
+           rating: 0, aspects: {}, reviewNote: "", gps: false, adim: 1, oto: {} };
+  ELLE.oto.date = pts.some(p => p.time);
+  const ilkZaman = pts.filter(p => p.time).sort((a, b) => a.time - b.time)[0];
+  if (ilkZaman) ELLE.date = ilkZaman.time.toISOString().slice(0, 10);
   // GPS'li karelerden on-doldur
   const konumlu = pts.filter(p => p.lat != null && p.time);
   if (konumlu.length) {
     ELLE.gps = true;
     const sorted = [...konumlu].sort((a, b) => a.time - b.time);
     const mid = sorted[Math.floor(sorted.length / 2)];
-    ELLE.place = placeName(mid.lat, mid.lon);
+    ELLE.place = placeName(mid.lat, mid.lon); ELLE.oto.place = !!ELLE.place;
     ELLE.date = sorted[0].time.toISOString().slice(0, 10);
     await elleNoktaYukle();
     const tl = cluster(konumlu.map(p => ({ lat: p.lat, lon: p.lon, time: p.time })));
@@ -2052,6 +2101,7 @@ async function dosyalariIsle(files) {
         lat: +t.lat.toFixed(5), lon: +t.lon.toFixed(5), sel: true, new: true });
     }
   }
+  $("#ogGiris").hidden = true;
   elleRender();
   document.getElementById("out").scrollIntoView({ behavior: "smooth" });
   elleAiOner(pts);   // arka planda AI zenginlestirme; anahtar yoksa sessizce hicbir sey yapmaz
@@ -2072,7 +2122,7 @@ async function elleAiOner(pts) {
   // 1) Sahne tanima: aktivite + aspect sinyali (yalnizca net gorulenler)
   const sc = await _ai.call("scene", { images: urls });
   if (sc && sc.enabled && ELLE) {
-    if (!ELLE.activities.length && Array.isArray(sc.activities) && sc.activities.length) ELLE.activities = sc.activities;
+    if (!ELLE.activities.length && Array.isArray(sc.activities) && sc.activities.length) { ELLE.activities = sc.activities; ELLE.oto.akt = true; }
     if (sc.aspects) for (const [k, v] of Object.entries(sc.aspects)) if (ELLE.aspects[k] === undefined) ELLE.aspects[k] = v;
     if (sc.kind) ELLE.aiKind = sc.kind;
     if (sc.caption) ELLE.aiCaption = sc.caption;
@@ -2084,7 +2134,7 @@ async function elleAiOner(pts) {
     try { if (SB) { const { data } = await SB.from("days").select("place").eq("privacy", "herkes").limit(300); known = [...new Set((data || []).map(d => d.place))]; } } catch {}
     const lo = await _ai.call("locate", { images: urls, knownPlaces: known });
     if (lo && lo.enabled && lo.place && (+lo.confidence || 0) >= 0.4 && ELLE && !ELLE.place) {
-      ELLE.place = lo.place;
+      ELLE.place = lo.place; ELLE.oto.place = true;
       try { await elleNoktaYukle(); } catch {}
     }
   }
@@ -2155,6 +2205,7 @@ async function aiModerasyonIsaretle(dayId, photo) {
 window.__aiModerasyonIsaretle = aiModerasyonIsaretle;   // test icin
 
 /* ---------- manual day creation (no GPS needed): guided, Swarm-style ---------- */
+const AKT_AD = { "Doga yuruyusu": "Doğa yürüyüşü", "Sehir turu": "Şehir turu", "Tirmanis": "Tırmanış" };  // degerler DB ile ayni kalir
 const AKTIVITELER = ["Hiking", "Trekking", "Kamp", "Doga yuruyusu", "Sehir turu", "Bisiklet", "Tirmanis", "Tekne/su", "Gezi"];
 let ELLE = null;
 
@@ -2169,75 +2220,127 @@ async function elleNoktaYukle() {
   const { data } = await SB.from("points").select("name,lat,lon").eq("place", ELLE.place);
   ELLE.points = (data || []).map(p => ({ name: p.name, lat: p.lat, lon: p.lon, sel: false, new: false }));
 }
+const ADIM_AD = { 1: "Fotoğrafları seç", 2: "Kontrol et", 3: "Kimler görsün?" };
+const GORUNURLUK = [
+  { id: "ozel", ad: "Sadece ben", acik: "Fotoğraflar cihazında kalır. Gün yalnızca senin haritanda görünür.", cta: "Günü kaydet",
+    ikon: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>' },
+  { id: "arkadaslar", ad: "Arkadaşlarım", acik: "Takip ettiğin ve seni takip eden kişiler görür. Fotoğraflar hesabına yüklenir.", cta: "Kaydet ve arkadaşlarla paylaş",
+    ikon: '<circle cx="9" cy="9" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M3 19c.8-3 3.2-4.5 6-4.5s5.2 1.5 6 4.5M15 15c2.5 0 4.5 1.2 5.5 4"/>' },
+  { id: "herkes", ad: "Herkes", acik: "Akışta ve yer sayfasında görünür. Oraya gidecek gezginlere yardım eder.", cta: "Kaydet ve herkese aç",
+    ikon: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/>' },
+];
+const OTO = `<span class="oto">otomatik</span>`;
 async function elleRender(hata) {
   let yerler = [];
   if (SB) { const { data } = await SB.from("days").select("place").eq("privacy", "herkes").limit(300);
     yerler = [...new Set((data || []).map(d => d.place))]; }
+  const A = ELLE.adim || 1;
+  ELLE.oto = ELLE.oto || {};
   const secP = ELLE.points.filter(p => p.sel);
-  $("#out").innerHTML = `<section class="elle">
-    <h2 class="sec" style="margin-top:0">Elle gün oluştur</h2>
+  const n = ELLE.photos.length;
+  const ust = (k) => `<div class="adim-ust">
+      ${k === 1 ? `<button class="adim-geri" id="elleVazgec" aria-label="Kapat">&times;</button>` : `<button class="adim-geri" data-git="${k - 1}" aria-label="Geri">&larr;</button>`}
+      <div><div class="adim-no">Adım ${k} / 3</div><div class="adim-ad">${ADIM_AD[k]}</div></div></div>
+    <div class="adim-cubuk" aria-hidden="true">${[1, 2, 3].map(i => `<span class="${i <= k ? "on" : ""}"></span>`).join("")}</div>`;
+  const tarihYazi = (() => { const d = new Date(ELLE.date + "T12:00:00"); return isNaN(d) ? ELLE.date : d.toLocaleDateString("tr-TR", { weekday: "long", day: "numeric", month: "long" }); })();
+  const priv = GORUNURLUK.find(g => g.id === ELLE.priv) || GORUNURLUK[0];
+  const kapakUrl = n ? ELLE.photos[Math.min(ELLE.cover, n - 1)].url : "";
+  $("#out").innerHTML = `<section class="elle adimli">
     ${hata ? `<p class="err">${esc(hata)}</p>` : ""}
-    <label class="elle-lbl">1 &middot; Nereye gittin?</label>
-    <input id="ellePlace" list="yerListe" placeholder="Yer ara ya da yaz (örn. Mount Rainier)" value="${esc(ELLE.place)}">
-    <datalist id="yerListe">${yerler.map(y => `<option value="${esc(y)}"></option>`).join("")}</datalist>
 
-    <label class="elle-lbl">2 &middot; Ne yaptin? <span class="elle-ipucu">birden fazla seçebilirsin</span></label>
-    <div class="frow">${AKTIVITELER.map(a => `<button class="chip-sec chip-multi ${ELLE.activities.includes(a) ? "on" : ""}" data-akt="${a}"><span class="tik">${ELLE.activities.includes(a) ? "&#10003;" : "+"}</span>${a}</button>`).join("")}</div>
+    <div data-adim="1" ${A === 1 ? "" : "hidden"}>
+      ${ust(1)}
+      <div class="adim-satir"><b>${tarihYazi} · ${n} fotoğraf</b></div>
+      ${n ? `<div class="elle-grid">${ELLE.photos.map((ph, i) => `
+        <div class="elle-ph ${ELLE.cover === i ? "cover" : ""}">
+          <img src="${ph.url}" alt="">
+          <button class="elle-sil" data-phsil="${i}" aria-label="Fotoğrafı kaldır">&times;</button>
+          <button class="elle-cover" data-cover="${i}">${ELLE.cover === i ? "&#9733; Kapak" : "Kapak yap"}</button>
+          ${secP.length ? `<select data-phpt="${i}" aria-label="Fotoğrafın durağı"><option value="">(durak)</option>${secP.map(p => `<option ${ph.point === p.name ? "selected" : ""}>${esc(p.name)}</option>`).join("")}</select>` : ""}
+        </div>`).join("")}</div>` : ""}
+      <div class="drop" id="elleDrop" style="padding:14px;margin-top:10px"><b>+ Fotoğraf ekle</b>
+        <input type="file" id="elleFile" multiple accept="image/*,.heic,.heif" hidden></div>
+      <div class="hazirlik" aria-live="polite">
+        <b>Günün hazırlanıyor</b>
+        <ul>
+          <li class="ok">${n} fotoğraf okundu</li>
+          <li class="${ELLE.place ? "ok" : "bekle"}">${ELLE.place ? `Yer bulundu: ${esc(ELLE.place)}` : (ELLE.gps ? "Yer aranıyor…" : "Konum bilgisi yok; bir sonraki adımda yeri yazarsın")}</li>
+          <li class="${secP.length ? "ok" : "bos"}">${secP.length ? `${secP.length} durak bulundu` : "Duraklar bir sonraki adımda seçilir"}</li>
+        </ul>
+        <p class="kilit">Fotoğrafların bu cihazda işleniyor; sen paylaşmadıkça hiçbir yere yüklenmiyor.</p>
+      </div>
+      <button class="btn adim-ileri" data-git="2" ${n ? "" : "disabled"}>${n ? `${n} fotoğrafla devam et &rarr;` : "Önce fotoğraf ekle"}</button>
+    </div>
 
-    <label class="elle-lbl">3 &middot; Tarih</label>
-    <input id="elleDate" type="date" value="${ELLE.date}">
+    <div data-adim="2" ${A === 2 ? "" : "hidden"}>
+      ${ust(2)}
+      <p class="adim-aciklama">Senin için doldurduk. ${OTO} yazanlar fotoğraflardan geldi. Yanlışsa dokun, düzelt.</p>
+      <div class="kontrol-kart">
+        <label class="kontrol-satir" for="ellePlace"><span>Yer</span>
+          <input id="ellePlace" list="yerListe" placeholder="Yer ara ya da yaz (örn. Mount Rainier)" value="${esc(ELLE.place)}">
+          ${ELLE.place && ELLE.oto.place ? OTO : ""}</label>
+        <datalist id="yerListe">${yerler.map(y => `<option value="${esc(y)}"></option>`).join("")}</datalist>
+        <label class="kontrol-satir" for="elleDate"><span>Tarih</span>
+          <input id="elleDate" type="date" value="${ELLE.date}">${ELLE.oto.date ? OTO : ""}</label>
+      </div>
+      <div class="elle-lbl">Ne yaptın? ${ELLE.oto.akt && ELLE.activities.length ? OTO : '<span class="elle-ipucu">birden fazla seçebilirsin</span>'}</div>
+      <div class="frow">${AKTIVITELER.map(a => `<button class="chip-sec chip-multi ${ELLE.activities.includes(a) ? "on" : ""}" data-akt="${a}"><span class="tik">${ELLE.activities.includes(a) ? "&#10003;" : "+"}</span>${AKT_AD[a] || a}</button>`).join("")}</div>
+      <div class="elle-lbl">${secP.length ? `${secP.length} durak` : "Duraklar"} <span class="elle-ipucu">uğradığın noktaları seç</span></div>
+      ${ELLE.place
+        ? (ELLE.points.length ? `<div class="frow">${ELLE.points.map((p, i) => `<button class="chip-sec chip-multi ${p.sel ? "on" : ""}" data-pt="${i}"><span class="tik">${p.sel ? "&#10003;" : "+"}</span>${esc(p.name)}${p.new ? ' <span class="yenirozet">yeni</span>' : ""}</button>`).join("")}</div>`
+            : `<p class="notice" style="margin:4px 0;text-align:left">Bu yerde kayıtlı nokta yok, aşağıdan ekle.</p>`)
+          + `<div class="nokta-form" style="margin-top:8px"><input id="elleYeniNokta" placeholder="Yeni durak (örn. Panorama Point)" aria-label="Yeni durak adı"><button class="btn" id="elleNoktaEkle">Ekle</button></div>`
+        : `<p class="notice" style="margin:4px 0;text-align:left">Önce yeri yaz.</p>`}
+      <label class="elle-lbl" for="elleNote">Bir cümle ekle <span class="elle-ipucu">isteğe bağlı</span></label>
+      <textarea id="elleNote" placeholder="Örn. Dilberdüzü'nden sonra yol dikleşiyor, erken çıkın.">${esc(ELLE.note)}</textarea>
+      <details class="puan-ac" ${ELLE.rating || Object.keys(ELLE.aspects).length ? "open" : ""}><summary>Bu yeri puanla <span class="elle-ipucu">isteğe bağlı · değerlendirmeler herkese açıktır</span></summary>
+        <div class="formrow"><span>Puanın:</span><span class="stars big" id="ellePuan">${yildizlar(ELLE.rating, true)}</span></div>
+        <div class="aspgrid">${ASPECTS.map(([k, ad]) => `
+          <div class="aspsel"><span>${ad}</span>
+            <button class="miniasp ${ELLE.aspects[k] === 1 ? "pos on" : ""}" data-easp="${k}" data-ev="1">iyi</button>
+            <button class="miniasp ${ELLE.aspects[k] === -1 ? "neg on" : ""}" data-easp="${k}" data-ev="-1">zayıf</button>
+          </div>`).join("")}</div>
+        <textarea id="elleReview" placeholder="Değerlendirme notun: tuvalet, kamp alanı, kalabalık...">${esc(ELLE.reviewNote)}</textarea>
+      </details>
+      <button class="btn adim-ileri" data-git="3">Doğru, devam et &rarr;</button>
+    </div>
 
-    <label class="elle-lbl">4 &middot; Hangi noktalara ugradin? <span class="elle-ipucu">birden fazla seçebilirsin</span></label>
-    ${ELLE.place
-      ? (ELLE.points.length ? `<div class="frow">${ELLE.points.map((p, i) => `<button class="chip-sec chip-multi ${p.sel ? "on" : ""}" data-pt="${i}"><span class="tik">${p.sel ? "&#10003;" : "+"}</span>${esc(p.name)}${p.new ? ' <span class="yenirozet">yeni</span>' : ""}</button>`).join("")}</div>`
-          : `<p class="notice" style="margin:4px 0">Bu yerde kayıtlı nokta yok, aşağıdan ekle.</p>`)
-        + `<div class="nokta-form" style="margin-top:8px"><input id="elleYeniNokta" placeholder="Yeni nokta (örn. Panorama Point)"><button class="btn" id="elleNoktaEkle">Ekle</button></div>`
-      : `<p class="notice" style="margin:4px 0">Önce yeri yaz.</p>`}
-
-    <label class="elle-lbl">5 &middot; Fotograflar ${ELLE.photos.length ? `(${ELLE.photos.length})` : ""}</label>
-    <div class="drop" id="elleDrop" style="padding:16px"><b>Fotoğraf ekle</b> &middot; konum gerekmez
-      <input type="file" id="elleFile" multiple accept="image/*,.heic,.heif" hidden></div>
-    ${ELLE.photos.length ? `<div class="elle-grid">${ELLE.photos.map((ph, i) => `
-      <div class="elle-ph ${ELLE.cover === i ? "cover" : ""}">
-        <img src="${ph.url}" alt="">
-        <button class="elle-sil" data-phsil="${i}" title="Kaldır">&times;</button>
-        <button class="elle-cover" data-cover="${i}">${ELLE.cover === i ? "&#9733; Kapak" : "Kapak yap"}</button>
-        ${secP.length ? `<select data-phpt="${i}"><option value="">(nokta)</option>${secP.map(p => `<option ${ph.point === p.name ? "selected" : ""}>${esc(p.name)}</option>`).join("")}</select>` : ""}
-      </div>`).join("")}</div>` : ""}
-
-    <label class="elle-lbl">6 &middot; Aciklama (istege bağlı)</label>
-    <textarea id="elleNote" placeholder="Bu gün hakkında birkaç kelime...">${esc(ELLE.note)}</textarea>
-
-    <label class="elle-lbl">7 &middot; Kim gorebilir?</label>
-    <div class="frow">${["ozel", "arkadaslar", "herkes"].map(p => `<button class="privchip" aria-pressed="${ELLE.priv === p}" data-epriv="${p}">${p}</button>`).join("")}</div>
-
-    <label class="elle-lbl">8 &middot; Bu yeri puanla <span class="elle-ipucu">istege bağlı &middot; degerlendirmeler her zaman herkese açık</span></label>
-    <div class="formrow"><span>Puanın:</span><span class="stars big" id="ellePuan">${yildizlar(ELLE.rating, true)}</span></div>
-    <div class="aspgrid">${ASPECTS.map(([k, ad]) => `
-      <div class="aspsel"><span>${ad}</span>
-        <button class="miniasp ${ELLE.aspects[k] === 1 ? "pos on" : ""}" data-easp="${k}" data-ev="1">iyi</button>
-        <button class="miniasp ${ELLE.aspects[k] === -1 ? "neg on" : ""}" data-easp="${k}" data-ev="-1">zayıf</button>
-      </div>`).join("")}</div>
-    <textarea id="elleReview" placeholder="Değerlendirme notun (isteğe bağlı): tuvalet, kamp alanı, kalabalık...">${esc(ELLE.reviewNote)}</textarea>
-
-    <div class="elle-kaydet"><button class="btn primary" id="elleKaydetBtn">Günü kaydet</button>
-      <button class="btn" id="elleVazgec">Vazgeç</button></div>
+    <div data-adim="3" ${A === 3 ? "" : "hidden"}>
+      ${ust(3)}
+      <div class="onizleme">${kapakUrl ? `<img src="${kapakUrl}" alt="">` : ""}
+        <div><b>${esc(ELLE.place || "Yer seçilmedi")}</b><span>${tarihYazi} · ${secP.length || 1} durak · ${n} fotoğraf</span></div></div>
+      <div class="gorunurluk" role="radiogroup" aria-label="Görünürlük">${GORUNURLUK.map(g => `
+        <button role="radio" aria-checked="${ELLE.priv === g.id}" class="gor-secenek ${ELLE.priv === g.id ? "on" : ""}" data-epriv="${g.id}">
+          <span class="gor-ikon"><svg viewBox="0 0 24 24">${g.ikon}</svg></span>
+          <span class="gor-yazi"><b>${g.ad}${g.id === "ozel" ? ' <span class="oto">varsayılan</span>' : ""}</b><span>${g.acik}</span></span>
+          <span class="gor-nokta"></span></button>`).join("")}</div>
+      <p class="adim-aciklama">Bu seçimi sonra istediğin zaman günün sayfasından değiştirebilirsin.</p>
+      <button class="btn adim-ileri adim-kaydet" id="elleKaydetBtn">${priv.cta}</button>
+    </div>
   </section>`;
   elleBagla();
 }
+
 function elleBagla() {
   const place = $("#ellePlace");
   place.addEventListener("change", async () => {
-    ELLE.place = place.value.trim();
+    ELLE.place = place.value.trim(); ELLE.oto.place = false;
     await elleYerNormalize();   // AI: "Mount Rainier" ~ "Mount Rainier National Park" -> kanonik ada esle
     await elleNoktaYukle(); elleRender();
   });
   document.querySelectorAll("[data-akt]").forEach(b => b.addEventListener("click", () => {
     const a = b.dataset.akt;
-    ELLE.activities = ELLE.activities.includes(a) ? ELLE.activities.filter(x => x !== a) : [...ELLE.activities, a];
+    ELLE.activities = ELLE.activities.includes(a) ? ELLE.activities.filter(x => x !== a) : [...ELLE.activities, a]; ELLE.oto.akt = false;
     elleRender();
   }));
-  $("#elleDate").addEventListener("change", e => ELLE.date = e.target.value);
+  $("#elleDate").addEventListener("change", e => { ELLE.date = e.target.value; ELLE.oto.date = false; });
+  document.querySelectorAll("#out [data-git]").forEach(b => b.addEventListener("click", () => {
+    const hedef = +b.dataset.git;
+    const pl = $("#ellePlace"); if (pl && pl.value.trim() !== ELLE.place) { ELLE.place = pl.value.trim(); ELLE.oto.place = false; }
+    if (hedef === 3 && !ELLE.place) { ELLE.adim = 2; return elleRender("Önce nereye gittiğini yaz."); }
+    ELLE.adim = hedef; elleRender();
+    document.getElementById("out").scrollIntoView({ behavior: "smooth", block: "start" });
+  }));
   document.querySelectorAll("[data-pt]").forEach(b => b.addEventListener("click", () => { ELLE.points[+b.dataset.pt].sel = !ELLE.points[+b.dataset.pt].sel; elleRender(); }));
   const yn = $("#elleNoktaEkle"); if (yn) yn.addEventListener("click", () => {
     const ad = $("#elleYeniNokta").value.trim(); if (!ad || !ELLE.place) return;
@@ -2265,7 +2368,7 @@ function elleBagla() {
     rn.addEventListener("blur", () => elleReviewAspect());   // AI: yorumdan aspect cikar
   }
   $("#elleKaydetBtn").addEventListener("click", elleKaydet);
-  $("#elleVazgec").addEventListener("click", () => { ELLE = null; $("#out").innerHTML = ""; });
+  const vz = $("#elleVazgec"); if (vz) vz.addEventListener("click", () => { ELLE = null; $("#out").innerHTML = ""; $("#ogGiris").hidden = false; });
 }
 async function elleKaydet() {
   if (!ELLE.place) return elleRender("Once nereye gittigini yaz.");
@@ -2322,7 +2425,7 @@ async function elleKaydet() {
       lat: (stops[0].lat ?? merkez[0]) || 0, lon: (stops[0].lon ?? merkez[1]) || 0, priv: ELLE.priv });
     const yeniId = gun.id;
     ELLE = null;
-    $("#out").innerHTML = "";
+    $("#out").innerHTML = ""; $("#ogGiris").hidden = false;
     gunGoster(yeniId);   // kaydedilen gunu post olarak goster
   } catch (e) {
     ELLE.photos = ELLE.photos; // koru
@@ -2632,6 +2735,7 @@ function ustBar() {
 async function girisSonrasi(session) {
   await srvProfilYukle(session);
   authKapat(); ustBar();
+  if (!$("#view-ana").hidden) { $(`#nav button[data-v="${AUTH_MOD === "kayit" ? "gunlerim" : "akis"}"]`).click(); return; }
   if (!$("#view-akis").hidden) akisCiz();
   if (!$("#view-kesfet").hidden) kesfetCiz();
   if (!$("#view-profil").hidden) profilCiz();
@@ -2676,11 +2780,10 @@ if (SB) {
 }
 $("#kapatBtn").addEventListener("click", authKapat);
 $("#login").addEventListener("click", (e) => { if (e.target.id === "login") authKapat(); });
-$("#heroKayit").addEventListener("click", () => SB ? authGoster(null, "kayit") : null);
-$("#heroDene").addEventListener("click", () =>
-  document.getElementById("drop").scrollIntoView({ behavior: "smooth" }));
+
+
 ustBar();
 
 $("#logoBtn").addEventListener("click", (e) => { e.preventDefault(); girisli() ? $('#nav button[data-v="akis"]').click() : anaGoster(); });
-ornekGun();
+$("#ogOrnek").addEventListener("click", () => { ornekGun(); document.getElementById("out").scrollIntoView({ behavior: "smooth" }); });
 </script>
