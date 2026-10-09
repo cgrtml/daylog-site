@@ -556,6 +556,7 @@ body.olusturuyor .btn.adim-ileri{position:fixed;left:50%;transform:translateX(-5
 .yd-yakin{display:flex;flex-direction:column;gap:6px}
 .kesif-filtre .bg-cip{opacity:.55;background:var(--paper);color:var(--ink);border-color:var(--line2)}
 .kesif-filtre .bg-cip.on{opacity:1;background:var(--paper);color:var(--ink);border-color:var(--ink)}
+body.ana-acik .userchip{background:rgba(250,248,243,.95);border-color:transparent}
 /* akis: editoryel kart - tam-tasan kapak ustte, iri baslik, yazar altta */
 .feedcard{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:24px;overflow:hidden;
   margin:20px 0;box-shadow:var(--sh1);transition:box-shadow .2s,transform .2s}
@@ -3138,7 +3139,7 @@ async function anaCiz() {
 
   <section class="ana-son"><h2>Bir sonraki gezin kendi kendine yazılsın.</h2>
     <button class="btn ana-btn-koyu" id="anaBasla2">Ücretsiz başla</button></section>`;
-  const basla = () => (SB ? authGoster("Hesap aç, ilk gününü birkaç fotoğrafla oluştur.", "kayit") : $('#nav button[data-v="gunlerim"]').click());
+  const basla = () => (SB && !girisli() ? authGoster("Hesap aç, ilk gününü birkaç fotoğrafla oluştur.", "kayit") : $('#nav button[data-v="gunlerim"]').click());
   $("#anaBasla").addEventListener("click", basla);
   $("#anaBasla2").addEventListener("click", basla);
   const akisaGit = () => $('#nav button[data-v="akis"]').click();
@@ -3237,6 +3238,7 @@ function ustBar() {
       <div class="usermenu" id="userMenu" hidden>
         <div class="um-head">${avatarHtml(ME)}
           <div class="um-who"><b>${esc(ME.name)}</b>${ME.username ? `<span>@${esc(ME.username)}</span>` : ""}</div></div>
+        <button class="um-item" data-um="ana"><svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg>Ana sayfa</button>
         <button class="um-item" data-um="profil"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg>Profilim</button>
         <button class="um-item" data-um="gunlerim"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>Gün ekle</button>
         <div class="um-sep"></div>
@@ -3251,6 +3253,7 @@ function ustBar() {
       ac(false);
       const v = it.dataset.um;
       if (v === "cikis") { if (SB) await SB.auth.signOut(); localStorage.removeItem("me"); location.reload(); }
+      else if (v === "ana") { anaGoster(); window.scrollTo(0, 0); }
       else { const nb = document.querySelector(`#nav button[data-v="${v}"]`); if (nb) nb.click(); }
     }));
   } else {
@@ -3313,6 +3316,6 @@ $("#login").addEventListener("click", (e) => { if (e.target.id === "login") auth
 
 ustBar();
 
-$("#logoBtn").addEventListener("click", (e) => { e.preventDefault(); girisli() ? $('#nav button[data-v="akis"]').click() : anaGoster(); });
+$("#logoBtn").addEventListener("click", (e) => { e.preventDefault(); anaGoster(); window.scrollTo(0, 0); });
 $("#ogOrnek").addEventListener("click", () => { ornekGun(); document.getElementById("out").scrollIntoView({ behavior: "smooth" }); });
 </script>
