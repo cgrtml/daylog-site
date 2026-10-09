@@ -557,6 +557,37 @@ body.olusturuyor .btn.adim-ileri{position:fixed;left:50%;transform:translateX(-5
 .kesif-filtre .bg-cip{opacity:.55;background:var(--paper);color:var(--ink);border-color:var(--line2)}
 .kesif-filtre .bg-cip.on{opacity:1;background:var(--paper);color:var(--ink);border-color:var(--ink)}
 body.ana-acik .userchip{background:rgba(250,248,243,.95);border-color:transparent}
+
+/* gun olusturma A ve C: tasarima birebir */
+.og-hero{position:relative;height:300px;margin:0 -20px 4px;overflow:hidden}
+.og-hero img{width:100%;height:100%;object-fit:cover;display:block}
+.og-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(241,238,230,0) 55%,var(--bg) 100%)}
+.og-logo{position:absolute;top:16px;left:20px;z-index:1;display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:19px;background:rgba(250,248,243,.94);font-weight:800;letter-spacing:-.04em;font-size:1.05rem;color:var(--logo-ink)}
+.og-logo svg{width:18px;height:18px;fill:none;stroke:var(--logo-ink);stroke-width:2;stroke-linecap:round}
+.og-logo svg circle:first-child{fill:var(--blaze);stroke:none}
+.og-basla{display:flex;align-items:center;justify-content:center;min-height:56px;margin-top:24px;border-radius:28px;background:var(--blaze);color:#fff;font-weight:700;font-size:1.05rem;cursor:pointer;transition:background .15s}
+.og-basla:hover,.og-basla.on{background:#a83b16}
+.og-surukle{display:none;text-align:center;font-size:.78rem;color:var(--mut);margin:8px 0 0}
+@media (hover:hover) and (pointer:fine){.og-surukle{display:block}}
+.adim-link{border:0;background:none;font:inherit;font-size:.88rem;font-weight:600;color:var(--pine);cursor:pointer;min-height:36px;padding:0 4px}
+.adim-ipucu{font-size:.8rem;color:var(--mut);margin:-4px 0 10px}
+.kontrol-satir{grid-template-columns:22px minmax(0,1fr) auto!important;gap:12px!important}
+.kontrol-satir>svg{width:20px;height:20px;stroke:var(--mut);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ks-ic{display:block;min-width:0;padding:8px 0}
+.ks-ic small{display:block;font-size:.72rem;color:var(--mut)}
+.elle .ks-ic input,.elle .ks-ic #ellePlace{padding:2px 0 4px!important}
+.ks-ic .tarih-yazi{padding:2px 0 4px}
+.durak-bas{display:flex;justify-content:space-between;align-items:center;margin:18px 0 8px}
+.durak-kareler{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.durak-kare img,.durak-bos{width:100%;aspect-ratio:1/1;border-radius:12px;object-fit:cover;display:block;background:var(--chipbg)}
+.durak-kare b{display:block;font-size:.72rem;font-weight:700;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ilk acilis ekraninda uygulama basligi gizli: fotograf en ustte, logo icinde */
+body:has(#view-gunlerim:not([hidden]) #ogGiris:not([hidden])) header.top{display:none}
+body:has(#view-gunlerim:not([hidden]) #ogGiris:not([hidden])) main{padding-top:0}
+.btn.adim-ileri:hover{background:#2c3328;border-color:#2c3328;color:#f1eee6}
+.btn.adim-kaydet:hover{background:#a83b16;border-color:#a83b16;color:#fff}
+.ks-ic .tarih-yazi{white-space:normal}
 /* akis: editoryel kart - tam-tasan kapak ustte, iri baslik, yazar altta */
 .feedcard{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:24px;overflow:hidden;
   margin:20px 0;box-shadow:var(--sh1);transition:box-shadow .2s,transform .2s}
@@ -792,20 +823,18 @@ footer{color:var(--mut);font-size:.8rem;text-align:center;margin-top:40px;line-h
 
 <div id="view-gunlerim">
   <section class="og-giris" id="ogGiris">
-    <div class="adim-no">Adım 1 / 3</div>
-    <h1>Fotoğraflarını seç, gezin kendini yazsın.</h1>
+    <div class="og-hero"><img src="olustur-zion.jpg" alt="Zion kanyonu">
+      <span class="og-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="17" r="3"/><circle cx="17" cy="7" r="3"/><path d="M8.5 15 14.5 9"/></svg>ormaio</span></div>
+    <h1>Fotoğraflarını seç,<br>gezin kendini yazsın.</h1>
     <p class="og-alt">Not almana, rota kaydetmene gerek yok. Telefonundaki kareler yeterli.</p>
-    <div class="drop og-drop" id="drop" role="button" tabindex="0">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="3"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
-      <b>Fotoğraflarını seç</b>
-      <p>Bir günün karelerini seç ya da buraya sürükle. JPG ve HEIC, çoklu seçim.</p>
-      <input type="file" id="file" multiple accept="image/*,.heic,.heif" hidden>
-    </div>
     <ol class="og-maddeler">
       <li><span class="og-ikon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="15" rx="3"/><path d="m3 16 5-5 4 4 3-3 6 6"/></svg></span><span><b>Bir günün fotoğraflarını seç</b><span>İnternet olmasa da olur, sonra da yükleyebilirsin.</span></span></li>
-      <li><span class="og-ikon"><svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8 16.5c3-1 2-5 5-6.5s3-1.5 3-1.5"/></svg></span><span><b>Duraklar ve rota otomatik çıkar</b><span>Yer adı, tarih ve süre de. Yanlışsa düzeltirsin.</span></span></li>
+      <li><span class="og-ikon"><svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8 16.5c3-1 2-5 5-6.5s3-1.5 3-1.5"/></svg></span><span><b>Duraklar ve rota otomatik çıkar</b><span>Mesafe, süre ve yer adı da. Yanlışsa düzeltirsin.</span></span></li>
       <li><span class="og-ikon"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><span><b>Sen açmadan kimse görmez</b><span>Her gün özel başlar. Paylaşmak senin kararın.</span></span></li>
     </ol>
+    <div class="og-basla" id="drop" role="button" tabindex="0">İlk günümü oluştur
+      <input type="file" id="file" multiple accept="image/*,.heic,.heif" hidden></div>
+    <p class="og-surukle">Bilgisayardaysan fotoğrafları bu butonun üstüne sürükleyebilirsin.</p>
     <button class="og-ornek" id="ogOrnek">Önce örnek bir güne bak</button>
   </section>
   <div id="out"></div>
@@ -2767,7 +2796,8 @@ async function elleRender(hata) {
 
     <div data-adim="1" ${A === 1 ? "" : "hidden"}>
       ${ust(1)}
-      <div class="adim-satir"><b>${tarihYazi} · ${dahil} fotoğraf</b><span>Çıkarmak istediğine dokun</span></div>
+      <div class="adim-satir"><b>${tarihYazi} · ${dahil} fotoğraf</b><button class="adim-link" id="elleBaskaGun">Başka gün</button></div>
+      <p class="adim-ipucu">Günde olmasını istemediğin fotoğrafa dokun, çıkarılır.</p>
       ${n ? `<div class="og-izgara">${ELLE.photos.slice(0, ELLE.hepsi ? n : 5).map((ph, i) => `
         <button class="og-kare ${ph.haric ? "haric" : ""}" data-phsec="${i}" aria-pressed="${!ph.haric}" aria-label="Fotoğraf ${i + 1}${ph.haric ? ", çıkarıldı" : ", dahil"}">
           <img src="${ph.url}" alt=""><span class="og-tik"></span>${ELLE.cover === i && !ph.haric ? '<span class="og-kapak">Kapak</span>' : ""}</button>`).join("")}
@@ -2790,21 +2820,24 @@ async function elleRender(hata) {
       ${ust(2)}
       <p class="adim-aciklama">Senin için doldurduk. ${OTO} yazanlar fotoğraflardan geldi. Yanlışsa dokun, düzelt.</p>
       <div class="kontrol-kart">
-        <label class="kontrol-satir" for="ellePlace"><span>Yer</span>
-          <input id="ellePlace" list="yerListe" placeholder="Yer ara ya da yaz (örn. Mount Rainier)" value="${esc(ELLE.place)}">
+        <label class="kontrol-satir" for="ellePlace"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 0 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          <span class="ks-ic"><small>Yer</small><input id="ellePlace" list="yerListe" placeholder="Yer ara ya da yaz (örn. Mount Rainier)" value="${esc(ELLE.place)}"></span>
           ${ELLE.place && ELLE.oto.place ? OTO : ""}</label>
         <datalist id="yerListe">${yerler.map(y => `<option value="${esc(y)}"></option>`).join("")}</datalist>
-        <label class="kontrol-satir" for="elleDate"><span>Tarih</span>
-          <span class="tarih-kutu"><span class="tarih-yazi">${tarihUzun}</span><input id="elleDate" type="date" value="${ELLE.date}" class="tarih-gizli"></span>${ELLE.oto.date ? OTO : ""}</label>
+        <label class="kontrol-satir" for="elleDate"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>
+          <span class="ks-ic"><small>Tarih</small><span class="tarih-kutu"><span class="tarih-yazi">${tarihUzun}</span><input id="elleDate" type="date" value="${ELLE.date}" class="tarih-gizli"></span></span>${ELLE.oto.date ? OTO : ""}</label>
       </div>
       <div class="elle-lbl">Ne yaptın? ${ELLE.oto.akt && ELLE.activities.length ? OTO : '<span class="elle-ipucu">birden fazla seçebilirsin</span>'}</div>
       <div class="frow">${AKTIVITELER.map(a => `<button class="chip-sec chip-multi ${ELLE.activities.includes(a) ? "on" : ""}" data-akt="${a}"><span class="tik">${ELLE.activities.includes(a) ? "&#10003;" : "+"}</span>${AKT_AD[a] || a}</button>`).join("")}</div>
-      <div class="elle-lbl">${secP.length ? `${secP.length} durak` : "Duraklar"} <span class="elle-ipucu">uğradığın noktaları seç</span></div>
-      ${ELLE.place
+      <div class="durak-bas"><b>${secP.length ? `${secP.length} durak bulduk` : "Duraklar"}</b>${secP.length ? `<button class="adim-link" id="durakDuzenle">${ELLE.durakDuzen ? "Bitti" : "Düzenle"}</button>` : ""}</div>
+      ${secP.length && !ELLE.durakDuzen ? `<div class="durak-kareler">${secP.map((pt, i) => {
+        const ph = ELLE.photos.find(f => f.point === pt.name) || ELLE.photos.find(f => !f.point && enYakinDurak(f, secP) === pt.name);
+        return `<div class="durak-kare">${ph ? `<img src="${ph.url}" alt="">` : `<span class="durak-bos"></span>`}<b>${i + 1} · ${esc(pt.name)}</b></div>`; }).join("")}</div>` : ""}
+      ${secP.length && !ELLE.durakDuzen ? "" : (ELLE.place
         ? (ELLE.points.length ? `<div class="frow">${ELLE.points.map((p, i) => `<button class="chip-sec chip-multi ${p.sel ? "on" : ""}" data-pt="${i}"><span class="tik">${p.sel ? "&#10003;" : "+"}</span>${esc(p.name)}${p.new ? ' <span class="yenirozet">yeni</span>' : ""}</button>`).join("")}</div>`
             : `<p class="notice" style="margin:4px 0;text-align:left">Bu yerde kayıtlı nokta yok, aşağıdan ekle.</p>`)
           + `<div class="nokta-form" style="margin-top:8px"><input id="elleYeniNokta" placeholder="Yeni durak (örn. Panorama Point)" aria-label="Yeni durak adı"><button class="btn" id="elleNoktaEkle">Ekle</button></div>`
-        : `<p class="notice" style="margin:4px 0;text-align:left">Önce yeri yaz.</p>`}
+        : `<p class="notice" style="margin:4px 0;text-align:left">Önce yeri yaz.</p>`)}
       <label class="elle-lbl" for="elleNote">Bir cümle ekle <span class="elle-ipucu">isteğe bağlı</span></label>
       <textarea id="elleNote" placeholder="Örn. Dilberdüzü'nden sonra yol dikleşiyor, erken çıkın.">${esc(ELLE.note)}</textarea>
       <details class="puan-ac" ${ELLE.rating || Object.keys(ELLE.aspects).length ? "open" : ""}><summary>Bu yeri puanla <span class="elle-ipucu">isteğe bağlı · değerlendirmeler herkese açıktır</span></summary>
@@ -2850,6 +2883,8 @@ function elleBagla() {
   }));
   $("#elleDate").addEventListener("change", e => { ELLE.date = e.target.value; ELLE.oto.date = false; });
   document.querySelectorAll("[data-phsec]").forEach(b => b.addEventListener("click", () => { const ph = ELLE.photos[+b.dataset.phsec]; ph.haric = !ph.haric; elleRender(); }));
+  const bg = $("#elleBaskaGun"); if (bg) bg.addEventListener("click", () => $("#file").click());
+  const dd = $("#durakDuzenle"); if (dd) dd.addEventListener("click", () => { ELLE.durakDuzen = !ELLE.durakDuzen; elleRender(); });
   const hp = document.querySelector("[data-phhepsi]"); if (hp) hp.addEventListener("click", () => { ELLE.hepsi = true; elleRender(); });
   const tg = $("#elleDate"); if (tg && tg.showPicker) tg.addEventListener("click", () => { try { tg.showPicker(); } catch {} });
   document.querySelectorAll("#out [data-git]").forEach(b => b.addEventListener("click", () => {

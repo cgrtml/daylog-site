@@ -113,4 +113,4 @@ Please do not upload an edited image here without consulting me.  I would like t
 ## Ana sayfa vitrini
 - Ölüdeniz, Nemrut Dağı, Ihlara Vadisi ve Mount Rainier vitrin görselleri yukarıdaki ilgili bölümlerde listelenen Wikimedia Commons fotoğraflarının küçültülmüş kopyalarıdır (vitrin-*.jpg).
 - Ana sayfa kahraman görseli (ana-hero.jpg): "Panoramic Overview from Glacier Point over Yosemite Valley 2013 Alternative" — Tuxyso — CC BY-SA 3.0
-- Zion örnek kartı (ana-zion.jpg): "Kolob Canyons part of Zion National Park" — Michael Gäbler — CC BY 3.0
+- Zion örnek kartı ve gün oluşturma ekranı (ana-zion.jpg, olustur-zion.jpg): "Kolob Canyons part of Zion National Park" — Michael Gäbler — CC BY 3.0
