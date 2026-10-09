@@ -241,6 +241,80 @@ section.stop{background:var(--paper);border:1px solid var(--line);border-radius:
 .dstop-kucuk{width:52px;height:52px;border-radius:12px;object-fit:cover;flex:none}
 .dstop h2{font-size:1.02rem;font-weight:700;margin:0;letter-spacing:-.01em}
 .dstop .grid{margin-top:10px}
+/* profil (ormaio tarzi) */
+img.avatar{object-fit:cover;background:var(--chipbg)}
+.pr-harita{position:relative;height:230px;border-radius:24px;overflow:hidden;background:#e6e5d9;margin:6px 0 0}
+.pr-harita #prHarita{height:100%}
+.pr-harita-bos{height:100%;display:flex;align-items:center;justify-content:center;padding:0 40px;text-align:center;color:var(--mut);font-size:.9rem;
+  background:repeating-linear-gradient(170deg,transparent 0 26px,rgba(20,23,15,.06) 26px 27px)}
+.pr-cip{position:absolute;top:14px;right:14px;z-index:500;height:32px;padding:0 12px;border-radius:16px;background:var(--paper);display:flex;align-items:center;font-size:.82rem;font-weight:700;box-shadow:0 4px 12px rgba(20,23,15,.15)}
+.pr-geri{position:absolute;top:14px;left:14px;z-index:500;width:44px;height:44px;border-radius:22px;padding:0;background:var(--paper);display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 4px 12px rgba(20,23,15,.15)}
+.pr-harita .leaflet-top.leaflet-left{top:auto;bottom:10px}
+.pr-ust{display:flex;align-items:flex-end;gap:14px;margin:-44px 0 0 12px;position:relative;z-index:501}
+.avatar.pr-av{width:92px;height:92px;font-size:2rem;border:4px solid var(--bg);flex:none}
+.pr-sayilar{display:flex;flex-wrap:wrap;gap:4px 14px;padding-bottom:6px;font-size:.88rem;color:var(--ink2)}
+.pr-sayilar b{color:var(--ink)}
+.pr-ad{margin:12px 0 0;font-size:1.7rem}
+.pr-satir{color:var(--mut);font-size:.88rem;margin-top:4px}
+.pr-bio{margin:8px 0 0;font-size:.95rem;line-height:1.5;white-space:pre-line}
+.pr-web{display:inline-flex;min-height:32px;align-items:center;color:#1f4e8c;font-weight:600;font-size:.9rem}
+.pr-son{display:flex;align-items:center;gap:8px;width:100%;margin-top:6px;min-height:44px;padding:0 14px;border-radius:14px;background:var(--paper);border:1px solid var(--line);font:inherit;font-size:.9rem;color:var(--ink);cursor:pointer;text-align:left}
+.pr-son .pr-ok{margin-left:auto;font-size:1.3rem;color:var(--mut)}
+.pr-nokta{width:8px;height:8px;border-radius:4px;background:#1e7a5a;flex:none}
+.pr-butonlar{display:flex;gap:8px;margin-top:14px}
+.pr-butonlar .btn{flex:1;padding:11px 16px}
+.pr-bilgi{font-size:.85rem;color:var(--pine);margin:8px 0 0;word-break:break-all}
+.pr-uyari{display:block;width:100%;margin-top:12px;min-height:44px;border:1.5px dashed var(--blaze);border-radius:14px;background:transparent;color:var(--blaze);font:inherit;font-weight:600;cursor:pointer}
+.pr-istat{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:18px}
+.pr-istat>div{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:12px 14px}
+.pr-istat b{display:block;font-size:1.3rem;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.pr-istat span{font-size:.8rem;color:var(--mut)}
+.pr-sezonlar{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.pr-sezon{flex:none;width:236px;height:132px;position:relative;border-radius:18px;overflow:hidden}
+.pr-sezon img{width:100%;height:100%;object-fit:cover;display:block}
+.pr-sezon::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,14,9,.1),rgba(10,14,9,.75))}
+.pr-sezon-alt{position:absolute;left:14px;bottom:12px;z-index:1;color:#fff}
+.pr-sezon-alt b{display:block;font-size:1.05rem;font-weight:800;letter-spacing:-.02em}
+.pr-sezon-alt span{font-size:.78rem;opacity:.9}
+.pr-sekmeler{display:flex;gap:6px;flex-wrap:wrap;margin:24px 0 12px}
+.pr-sekmeler button{height:38px;padding:0 14px;border-radius:19px;border:1px solid var(--line2);background:transparent;color:var(--ink);font:inherit;font-size:.85rem;font-weight:500;cursor:pointer}
+.pr-sekmeler button[aria-selected="true"]{background:#14170f;border-color:#14170f;color:#f1eee6;font-weight:600}
+.pr-gunler{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.pr-gun{cursor:pointer;min-width:0}
+.pr-gun img{width:100%;height:132px;border-radius:16px;object-fit:cover;display:block;background:var(--chipbg)}
+.pr-gun b{display:block;font-size:.95rem;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pr-gun>span{font-size:.8rem;color:var(--mut)}
+.pr-mod{margin-top:16px}
+.pr-mod-satir{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:8px}
+/* profili duzenle */
+.pe-ust{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:4px 0 10px;border-bottom:1px solid var(--line)}
+.pe-ust .back{position:static}
+.pe-bitti{border:0;background:none;font:inherit;font-weight:700;color:var(--blaze);cursor:pointer;min-height:44px;padding:0 6px}
+.pe-foto{display:flex;flex-direction:column;align-items:center;gap:6px;padding:18px 0 14px}
+.avatar.pe-av{width:96px;height:96px;font-size:2rem}
+.pe-foto-btn{color:#1f4e8c;font-weight:700;cursor:pointer;min-height:36px;display:flex;align-items:center}
+.pe-kart{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.pe-satir{display:grid;grid-template-columns:110px minmax(0,1fr);align-items:center;gap:8px;min-height:52px;padding:0 14px}
+.pe-satir+.pe-satir{border-top:1px solid var(--line)}
+.pe-satir>span:first-child{font-size:.88rem;color:var(--mut)}
+.pe-satir input,.pe-satir textarea{border:0;background:transparent;font:inherit;font-size:.95rem;color:var(--ink);width:100%;padding:12px 0;outline:none;resize:none}
+.pe-satir input:focus,.pe-satir textarea:focus{box-shadow:inset 0 -2px 0 var(--pine)}
+.pe-ust-hiza{align-items:start}.pe-ust-hiza>span:first-child{padding-top:14px}
+.pe-satir small{display:block;text-align:right;color:var(--mut);font-size:.75rem;padding-bottom:8px}
+/* kayit sonrasi profil fotografi adimi */
+#fotoAdim{position:fixed;inset:0;z-index:120;background:var(--veil);display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(5px)}
+.fa-kart{background:var(--bg);border-radius:24px;max-width:420px;width:100%;padding:26px 22px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--sh2);max-height:calc(100vh - 32px);overflow:auto}
+.fa-ust{font-size:.82rem;color:var(--mut)}
+.fa-kart h2{margin:0;font-size:1.6rem;font-weight:800;letter-spacing:-.035em;line-height:1.05}
+.fa-kart>p{margin:0;color:var(--ink2);font-size:.95rem}
+.fa-daire{width:140px;height:140px;border-radius:70px;margin:10px auto 2px;border:2px dashed var(--line2);background:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;overflow:hidden;color:var(--ink2);font-size:.8rem;font-weight:600}
+.fa-daire svg{width:34px;height:34px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.fa-daire img{width:100%;height:100%;object-fit:cover}
+.fa-durum{text-align:center;font-size:.88rem;font-weight:600;color:var(--mut)}.fa-durum.tamam{color:#145a3c}
+.fa-sec{display:flex;align-items:center;min-height:50px;padding:0 16px;border-radius:14px;border:1px solid var(--line);background:var(--paper);font-weight:600;cursor:pointer}
+.fa-kart .fa-not{font-size:.8rem;color:var(--mut)}
+.fa-devam{width:100%;padding:15px;margin-top:4px}
+.fa-devam[disabled]{background:#ddd8cb;border-color:#ddd8cb;color:#6e7366}
 /* akis: editoryel kart - tam-tasan kapak ustte, iri baslik, yazar altta */
 .feedcard{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:24px;overflow:hidden;
   margin:20px 0;box-shadow:var(--sh1);transition:box-shadow .2s,transform .2s}
@@ -710,13 +784,14 @@ if (ENV && !window.supabase) {
 }
 
 /* ---------- me, follows, wishlist, archives ---------- */
+let PROF_ALAN = "username,name,is_creator,avatar_url";  // avatar_url yoksa asagida duser
 let ME = ls("me", null);          // {id?, name} ; id varsa gercek hesap
 let SRV_FOLLOWS = [];             // sunucu kipinde takip edilen profil id'leri
 
 async function srvProfilYukle(session) {
   const { data: p } = await SB.from("profiles").select("*").eq("id", session.user.id).single();
   ME = { id: session.user.id, name: (p && p.name) || session.user.email.split("@")[0],
-         username: p && p.username, isModerator: !!(p && p.is_moderator) };
+         username: p && p.username, isModerator: !!(p && p.is_moderator), avatar_url: p && p.avatar_url };
   lsSet("me", ME);
   const { data: f } = await SB.from("follows").select("followee").eq("follower", ME.id);
   SRV_FOLLOWS = (f || []).map(x => x.followee);
@@ -950,7 +1025,7 @@ function gunFeedKart(d) {
   const sure = bas != null && bit != null && bit > bas ? `${Math.floor((bit - bas) / 60)} sa ${(bit - bas) % 60} dk` : null;
   const rota = stoplar.length > 1 ? `${esc(stoplar[0].name)} &rarr; ${esc(stoplar[stoplar.length - 1].name)} &middot; ${stoplar.length} durak` : "";
   return `<div class="feedcard" data-card="${d.id}">
-    <div class="fhead"><span class="avatar" data-profil="${d.user_id}" style="cursor:pointer">${esc(ad[0] || "g")}</span>
+    <div class="fhead">${avatarHtml({ ...p, name: ad }, "", `data-profil="${d.user_id}" style="cursor:pointer"`)}
       <div class="who link" data-profil="${d.user_id}"><b>${esc(ad)}${p.is_creator ? '<span class="badge">üretici</span>' : ""}</b><span>${dd.getDate()} ${AYLAR[dd.getMonth()]} &middot; ${rol}</span></div>
       ${(!girisli() || d.user_id !== ME.id) ? `<button class="btn ${takipte(d.user_id) ? "" : "primary"}" data-takip="${d.user_id}">
         ${takipte(d.user_id) ? "Takiptesin" : "Takip et"}</button>` : ""}</div>
@@ -980,7 +1055,7 @@ async function akisCiz() {
       ? "Sana acik gunler: arkadaslarinin ve herkese acik paylasanlarin."
       : "Gezginlerin herkese acik gunleri. Uyelikle arkadaslarininkiler de eklenir."}</div>`;
     const feedSorgu = (filtrele) => {
-      let q = SB.from("days").select("*, profiles!days_user_id_fkey(username,name,is_creator)")
+      let q = SB.from("days").select(`*, profiles!days_user_id_fkey(${PROF_ALAN})`)
         .order("date", { ascending: false }).limit(30);
       if (filtrele) q = q.eq("review_status", "ok");   // pending gunler akista gizli
       if (girisli()) q = q.neq("user_id", ME.id);
@@ -988,6 +1063,7 @@ async function akisCiz() {
     };
     let { data: ds, error } = await feedSorgu(true);
     // bulut semasi henuz guncellenmemisse (review_status yok) filtresiz tekrar dene
+    if (error && /avatar_url/i.test(error.message || "")) { PROF_ALAN = "username,name,is_creator"; ({ data: ds, error } = await feedSorgu(true)); }
     if (error && /review_status/i.test(error.message || "")) ({ data: ds, error } = await feedSorgu(false));
     if (error) html += `<p class="err">Akış yüklenemedi: ${esc(error.message)}</p>`;
     else if (!ds.length) html += `<div class="empty"><b>Akış şimdilik boş.</b><br>
@@ -1076,119 +1152,6 @@ async function kesfetCiz() {
   bagla("#view-kesfet");
 }
 
-async function profilCiz() {
-  if (SB && !girisli()) {
-    $("#profout").innerHTML = `<h1>Profil</h1>
-      <div class="empty"><b>Henüz giris yapmadın.</b><br>
-      Günlerini saklamak, gezginleri takip etmek ve liste tutmak için hesap aç.<br><br>
-      <button class="btn primary" onclick="authGoster()">Kayıt ol / Giriş yap</button></div>`;
-    return;
-  }
-  // kendi gunlerini sunucudan (sahip hepsini gorur)
-  let gunler = [], wish = [], revSay = 0, noktaKatki = 0;
-  if (SB && girisli()) {
-    const { data: g } = await SB.from("days").select("id,place,date,km,photo_count,stop_count,like_count,privacy,cover_path,lat,lon")
-      .eq("user_id", ME.id).order("date", { ascending: false });
-    gunler = g || [];
-    const { data: w } = await SB.from("wishlist").select("place,source").eq("user_id", ME.id);
-    wish = (w || []).map(x => ({ place: x.place, from: x.source || "" }));
-    const { count: rc } = await SB.from("reviews").select("*", { count: "exact", head: true }).eq("user_id", ME.id);
-    revSay = rc || 0;
-    const { count: pc } = await SB.from("points").select("*", { count: "exact", head: true }).eq("created_by", ME.id);
-    noktaKatki = pc || 0;
-  } else { wish = ls("wishlist", []); }
-  const km = gunler.reduce((a, t) => a + (+t.km || 0), 0), foto = gunler.reduce((a, t) => a + (t.photo_count || 0), 0);
-  const bolge = new Set(gunler.map(t => t.place)).size;
-  const stopTop = gunler.reduce((a, t) => a + (t.stop_count || 0), 0);
-  const begeniTop = gunler.reduce((a, t) => a + (t.like_count || 0), 0);
-  const fol = ls("follows", []).length || SRV_FOLLOWS.length;
-  // puan: gun, bolge, durak, foto, degerlendirme, nokta katkisi, alinan begeni
-  const puan = gunler.length * 10 + bolge * 15 + stopTop * 3 + foto + revSay * 8 + noktaKatki * 5 + begeniTop * 2;
-  const SEVIYELER = ["Yeni Gezgin", "Gezgin", "Kaşif", "Rehber", "Usta Gezgin", "Efsane"];
-  const seviyeNo = Math.min(Math.floor(Math.sqrt(puan / 45)), SEVIYELER.length - 1);
-  const seviye = SEVIYELER[seviyeNo];
-  const sonrakiEsik = Math.pow(seviyeNo + 1, 2) * 45;
-  const AY = (iso) => { const d = new Date(iso); return d.getDate() + " " + AYLAR[d.getMonth()]; };
-  const tripsForBadge = gunler.map(t => ({ place: t.place, km: +t.km || 0, photos: t.photo_count || 0, lat: t.lat || 0, lon: t.lon || 0 }));
-  // MODERATOR KUYRUGU: yalnizca is_moderator kullanici gorur. Alakasiz/supheli gunler.
-  let modHtml = "";
-  if (ME && ME.isModerator && SB) {
-    const { data: pend } = await SB.from("days")
-      .select("id,place,date,review_reason, profiles!days_user_id_fkey(name,username)")
-      .eq("review_status", "pending").order("date", { ascending: false }).limit(50);
-    if (pend && pend.length) {
-      modHtml = `<div style="margin-top:12px">
-        <h2 class="sec" style="margin-top:4px">Moderasyon kuyruğu <span class="badge">${pend.length}</span></h2>
-        <p class="sub">Alakasiz/supheli görünen günler. Onayla herkese açar, Reddet gizli tutar.</p>` +
-        pend.map(d => { const u = d.profiles || {}; return `<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:8px">
-          <div style="min-width:0"><b>${esc(d.place)}</b> <span class="sub">&middot; ${esc(u.name || u.username || "?")} &middot; ${esc((d.date || "").slice(0, 10))}</span>
-          ${d.review_reason ? `<div class="sub" style="color:var(--blaze)">Sebep: ${esc(d.review_reason)}</div>` : ""}</div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn" data-modgor="${d.id}">Gör</button>
-          <button class="btn primary" data-modok="${d.id}">Onayla</button>
-          <button class="btn" data-modred="${d.id}">Reddet</button></div></div>`; }).join("") + `</div>`;
-    }
-  }
-  $("#profout").innerHTML = `
-    <div class="fhead" style="padding:14px 0 4px">
-      <span class="avatar" style="width:56px;height:56px;font-size:1.4rem">${esc((ME && ME.name || "M")[0])}</span>
-      <div class="who"><b style="font-size:1.2rem">${esc(ME && ME.name || "Misafir")}</b>
-      ${ME && ME.username ? `<span>@${esc(ME.username)}</span>` : ""}</div></div>
-    ${modHtml}
-
-    <div class="puankart">
-      <div class="puan-ust"><span class="seviye-rozet">${esc(seviye)}</span>
-        <b>${puan}</b> <span class="puan-lbl">puan</span></div>
-      <div class="puan-bar"><div style="width:${Math.min(100, Math.round(puan / sonrakiEsik * 100))}%"></div></div>
-      <div class="puan-alt">${puan < sonrakiEsik ? `Sonraki seviye icin ${sonrakiEsik - puan} puan` : "En yuksek seviye"}
-        &middot; gun, bolge, durak, fotograf, degerlendirme ve begeni ile puan kazanirsin</div>
-    </div>
-
-    <div class="stats" style="margin-top:14px">
-      <div><b>${new Set(gunler.map(t => t.place)).size}</b><span>bölge</span></div>
-      <div><b>${gunler.length}</b><span>gün</span></div>
-      <div><b>${km.toFixed(0)}</b><span>km</span></div>
-      <div><b>${foto}</b><span>fotoğraf</span></div></div>
-
-    ${pasaportHtml(tripsForBadge)}
-
-    <h2 class="sec">Günlerim ${gunler.length ? `<span class="pasay">${gunler.length}</span>` : ""}</h2>
-    ${gunler.length ? `<div class="daygrid">${gunler.map(g => `
-      <div class="daytile" data-day="${g.id}">
-        <img src="${kareSvg(g.place.length, 12)}" alt=""${g.cover_path ? ` data-cover="${esc(g.cover_path)}"` : ""}>
-        <div class="dt"><b>${esc(g.place)}</b><span>${AY(g.date)} &middot; <span class="priv-rozet priv-${g.privacy}">${g.privacy}</span></span></div>
-      </div>`).join("")}</div>` : `<div class="empty">Henüz gün yok. Günlerim sekmesinde fotoğraf ekleyip ilk gününü oluştur.</div>`}
-
-    ${gunler.length ? `<h2 class="sec">Gizlilik</h2>
-    ${gunler.map(g => `<div class="ucard" style="margin-bottom:8px"><div class="who"><b>${esc(g.place)}</b>
-        <span>${AY(g.date)}</span></div>
-        ${["ozel","arkadaslar","herkes"].map(pr => `
-          <button class="privchip" aria-pressed="${g.privacy === pr}" data-pid="${g.id}" data-ppr="${pr}">${pr}</button>`).join("")}
-      </div>`).join("")}
-    <p class="privline">Degerlendirmelerin her zaman herkese aciktir; yalnizca fotograf ve gun detaylari gizlilige gore gorunur.</p>` : ""}
-
-    <h2 class="sec">Gitmek istediklerim</h2>
-    ${wish.length ? `<ul class="wish">${wish.map((w, i) => `
-      <li><span class="wname">${esc(w.place)}</span>
-      <span class="from">${esc(w.from)}${w.from ? " onerisi" : ""}</span>
-      <button data-wdel="${esc(w.place)}" aria-label="listeden çıkar">&#10005;</button></li>`).join("")}</ul>`
-    : `<div class="empty">Listen boş. Bir yerin yanındaki <b>+ / Kaydet</b> ile buraya eklenir.</div>`}`;
-
-  document.querySelectorAll("#profout [data-modgor]").forEach(b => b.addEventListener("click", () => gunGoster(b.dataset.modgor)));
-  document.querySelectorAll("#profout [data-modok]").forEach(b => b.addEventListener("click", async () => { await SB.from("days").update({ review_status: "ok", review_reason: null }).eq("id", b.dataset.modok); profilCiz(); }));
-  document.querySelectorAll("#profout [data-modred]").forEach(b => b.addEventListener("click", async () => { await SB.from("days").update({ review_status: "rejected" }).eq("id", b.dataset.modred); profilCiz(); }));
-  document.querySelectorAll("#profout .daytile").forEach(b => b.addEventListener("click", () => gunGoster(b.dataset.day)));
-  document.querySelectorAll("#profout .daytile img[data-cover]").length && kapaklariGetir("#profout");
-  document.querySelectorAll("[data-wdel]").forEach(b => b.addEventListener("click", async () => {
-    if (SB && girisli()) await SB.from("wishlist").delete().eq("user_id", ME.id).eq("place", b.dataset.wdel);
-    else { const w = ls("wishlist", []).filter(x => x.place !== b.dataset.wdel); lsSet("wishlist", w); }
-    profilCiz();
-  }));
-  document.querySelectorAll("#profout .privchip").forEach(b => b.addEventListener("click", async () => {
-    if (SB) await SB.from("days").update({ privacy: b.dataset.ppr }).eq("id", b.dataset.pid);
-    profilCiz();
-  }));
-}
-
 let ONCEKI_SEKME = "akis";
 function detayGoster() {
   for (const v of ["akis","kesfet","gunlerim","harita","profil"]) $("#view-" + v).hidden = true;
@@ -1239,6 +1202,174 @@ function sosyalBagla(scope) {
     b.addEventListener("click", e => { e.stopPropagation(); yerGoster(b.dataset.yer); }));
 }
 
+/* ---------- profil (ormaio tarzi): iz haritasi, sezonlar, gunler ---------- */
+const PRIV_AD = { ozel: "özel", arkadaslar: "arkadaşlar", herkes: "herkes" };
+function avatarHtml(u, cls = "", ek = "") {
+  const ad = (u && (u.name || u.username)) || "g";
+  return u && u.avatar_url
+    ? `<img class="avatar ${cls}" src="${esc(u.avatar_url)}" alt="${esc(ad)}" ${ek}>`
+    : `<span class="avatar ${cls}" ${ek}>${esc(ad[0] || "g")}</span>`;
+}
+function ulkeAdi(t) {
+  if (!t.lat && !t.lon) return null;
+  if (!yurtDisiMi(t)) return "Türkiye";
+  return t.lon < -50 ? "ABD" : "Yurt dışı";
+}
+function onceYazi(iso) {
+  const n = Math.max(0, Math.round((Date.now() - new Date(iso)) / 864e5));
+  if (n === 0) return "bugün";
+  if (n === 1) return "dün";
+  if (n < 30) return n + " gün önce";
+  const d = new Date(iso); return d.getDate() + " " + AYLAR[d.getMonth()];
+}
+function profilHtml(u, gunler, o) {
+  const km = gunler.reduce((a, t) => a + (+t.km || 0), 0);
+  const yerler = new Set(gunler.map(t => t.place));
+  const ulkeler = new Set(gunler.map(ulkeAdi).filter(Boolean));
+  const enUzun = gunler.reduce((a, t) => Math.max(a, +t.km || 0), 0);
+  const foto = gunler.reduce((a, t) => a + (t.photo_count || 0), 0);
+  const son = gunler[0];
+  const AY = (iso) => { const d = new Date(iso); return d.getDate() + " " + AYLAR[d.getMonth()]; };
+  const sez = new Map();
+  for (const g of gunler) {
+    const k = (ulkeAdi(g) || "Diğer") + " " + new Date(g.date).getFullYear();
+    if (!sez.has(k)) sez.set(k, { ad: k, gun: 0, km: 0, kapak: g });
+    const s = sez.get(k); s.gun++; s.km += (+g.km || 0);
+  }
+  const satir = [u.username ? "@" + esc(u.username) : "", u.tagline ? esc(u.tagline) : "", u.location ? esc(u.location) : ""].filter(Boolean).join(" · ");
+  const web = u.website ? (/^https?:\/\//i.test(u.website) ? u.website : "https://" + u.website) : "";
+  const trips = gunler.map(t => ({ place: t.place, km: +t.km || 0, photos: t.photo_count || 0, lat: t.lat || 0, lon: t.lon || 0 }));
+  const haritaVar = gunler.some(t => t.lat || t.lon);
+  return `
+  <div class="pr-harita">${haritaVar ? `<div id="prHarita"></div>` : `<div class="pr-harita-bos">Gittiğin yerler burada harita olarak görünecek.</div>`}
+    <span class="pr-cip">${yerler.size} yer · ${ulkeler.size} ülke</span>
+    ${o.geri ? `<button class="back pr-geri" aria-label="Geri">&larr;</button>` : ""}</div>
+  <div class="pr-ust">${avatarHtml(u, "pr-av")}
+    <div class="pr-sayilar"><span><b>${o.takipci || 0}</b> takipçi</span><span><b>${o.takip || 0}</b> takip</span><span><b>${gunler.length}</b> gün</span></div></div>
+  <h1 class="pr-ad">${esc(u.name || u.username || "Gezgin")}${u.is_creator ? '<span class="badge">üretici</span>' : ""}</h1>
+  ${satir ? `<div class="pr-satir">${satir}</div>` : ""}
+  ${u.bio ? `<p class="pr-bio">${esc(u.bio)}</p>` : ""}
+  ${web ? `<a class="pr-web" href="${esc(web)}" target="_blank" rel="noopener">${esc(u.website.replace(/^https?:\/\//i, ""))}</a>` : ""}
+  ${son ? `<button class="pr-son" data-day="${son.id}"><span class="pr-nokta"></span><span>Son gün: <b>${esc(son.place)}</b> · ${onceYazi(son.date)}</span><span aria-hidden="true" class="pr-ok">&rsaquo;</span></button>` : ""}
+  <div class="pr-butonlar">${o.ben ? `<button class="btn primary" id="prDuzenle">Profili düzenle</button>`
+    : `<button class="btn ${takipte(u.id) ? "" : "primary"}" id="pfollow">${takipte(u.id) ? "Takiptesin" : "Takip et"}</button>`}
+    <button class="btn" id="prPaylas">Profili paylaş</button></div>
+  <p class="pr-bilgi" id="prBilgi" hidden></p>
+  ${o.ben && !u.avatar_url ? `<button class="pr-uyari" id="prFotoEkle">Profil fotoğrafı ekle: gezginler seni böyle tanır &rarr;</button>` : ""}
+  ${o.modHtml || ""}
+  <div class="pr-istat">
+    <div><b>${km.toFixed(0)} km</b><span>${gunler.length} günde yürüdü</span></div>
+    <div><b>${yerler.size}</b><span>farklı yer</span></div>
+    <div><b>${String(enUzun).replace(".", ",")} km</b><span>en uzun gün</span></div>
+    <div><b>${foto}</b><span>fotoğraf</span></div></div>
+  ${sez.size ? `<h2 class="sec">Sezonlar</h2><div class="pr-sezonlar">${[...sez.values()].map(s => `
+    <div class="pr-sezon"><img src="${kareSvg(s.ad.length, 12)}" alt=""${s.kapak.cover_path ? ` data-cover="${esc(s.kapak.cover_path)}"` : ""}>
+      <div class="pr-sezon-alt"><b>${esc(s.ad)}</b><span>${s.gun} gün · ${s.km.toFixed(0)} km</span></div></div>`).join("")}</div>` : ""}
+  <div class="pr-sekmeler" role="tablist" aria-label="Profil içeriği">
+    <button role="tab" aria-selected="true" data-prsekme="gunler">Günler · ${gunler.length}</button>
+    ${o.ben ? `<button role="tab" aria-selected="false" data-prsekme="liste">Gitmek istediklerim</button>` : ""}
+    <button role="tab" aria-selected="false" data-prsekme="rozet">Rozetler</button>
+    ${o.ben && gunler.length ? `<button role="tab" aria-selected="false" data-prsekme="gizlilik">Gizlilik</button>` : ""}
+  </div>
+  <div data-prpanel="gunler">${gunler.length ? `<div class="pr-gunler">${gunler.map(g => `
+    <div class="pr-gun" data-day="${g.id}"><img src="${kareSvg(g.place.length, 12)}" alt=""${g.cover_path ? ` data-cover="${esc(g.cover_path)}"` : ""}>
+      <b>${esc(g.place)}</b><span>${AY(g.date)} · ${String(g.km).replace(".", ",")} km${o.ben && g.privacy ? ` · <span class="priv-rozet priv-${g.privacy}">${PRIV_AD[g.privacy] || g.privacy}</span>` : ""}</span></div>`).join("")}</div>`
+    : `<div class="empty">${o.ben ? "Henüz gün yok. Ortadaki + ile fotoğraflarından ilk gününü oluştur." : "Henüz herkese açık gün yok."}</div>`}</div>
+  ${o.ben ? `<div data-prpanel="liste" hidden>${(o.wish || []).length ? `<ul class="wish">${o.wish.map(w => `
+      <li><span class="wname">${esc(w.place)}</span><span class="from">${esc(w.from)}${w.from ? " önerisi" : ""}</span>
+      <button data-wdel="${esc(w.place)}" aria-label="Listeden çıkar">&#10005;</button></li>`).join("")}</ul>`
+    : `<div class="empty">Listen boş. Bir günün altındaki <b>Gitmek istiyorum</b> ile buraya eklenir.</div>`}</div>` : ""}
+  <div data-prpanel="rozet" hidden>${pasaportHtml(trips)}</div>
+  ${o.ben && gunler.length ? `<div data-prpanel="gizlilik" hidden>${gunler.map(g => `<div class="ucard" style="margin-bottom:8px"><div class="who"><b>${esc(g.place)}</b>
+      <span>${AY(g.date)}</span></div>${["ozel", "arkadaslar", "herkes"].map(pr => `
+      <button class="privchip" aria-pressed="${g.privacy === pr}" data-pid="${g.id}" data-ppr="${pr}">${PRIV_AD[pr]}</button>`).join("")}</div>`).join("")}
+    <p class="privline">Değerlendirmelerin her zaman herkese açıktır; yalnızca fotoğraf ve gün detayları gizliliğe göre görünür.</p></div>` : ""}`;
+}
+function profilBagla(kok, u, gunler, o) {
+  const q = (s) => kok.querySelector(s), qa = (s) => kok.querySelectorAll(s);
+  // iz haritasi
+  const yer = new Map();
+  for (const t of gunler) {
+    if (!t.lat && !t.lon) continue;
+    if (!yer.has(t.place)) yer.set(t.place, { days: 0, photos: 0, km: 0, lat: [], lon: [] });
+    const g = yer.get(t.place); g.days++; g.photos += t.photo_count || 0; g.km += +t.km || 0; g.lat.push(t.lat); g.lon.push(t.lon);
+  }
+  const dots = [...yer.entries()].map(([p, g]) => ({ place: p, g, lat: g.lat.reduce((a, b) => a + b) / g.lat.length, lon: g.lon.reduce((a, b) => a + b) / g.lon.length }));
+  if (q("#prHarita") && dots.length) haritaDunya("prHarita", dots);
+  qa("[data-prsekme]").forEach(b => b.addEventListener("click", () => {
+    qa("[data-prsekme]").forEach(x => x.setAttribute("aria-selected", x === b ? "true" : "false"));
+    qa("[data-prpanel]").forEach(pn => { pn.hidden = pn.dataset.prpanel !== b.dataset.prsekme; });
+  }));
+  qa("[data-day]").forEach(b => b.addEventListener("click", () => gunGoster(b.dataset.day)));
+  kapaklariGetir("#" + kok.id);
+  const geri = q(".pr-geri"); if (geri) geri.addEventListener("click", sekmeyeDon);
+  const duz = q("#prDuzenle"); if (duz) duz.addEventListener("click", profilDuzenle);
+  const fe = q("#prFotoEkle"); if (fe) fe.addEventListener("click", () => profilFotoAdimi(false));
+  const pf = q("#pfollow"); if (pf) pf.addEventListener("click", async () => { await takipToggle(u.id); profilGoster(u.id); });
+  const pp = q("#prPaylas");
+  if (pp) pp.addEventListener("click", async () => {
+    const url = location.origin + location.pathname + "#@" + (u.username || u.id);
+    const bilgi = q("#prBilgi");
+    try {
+      if (navigator.share) await navigator.share({ title: "ormaio · " + (u.name || u.username), url });
+      else { await navigator.clipboard.writeText(url); bilgi.textContent = "Profil bağlantısı kopyalandı."; bilgi.hidden = false; }
+    } catch { bilgi.textContent = url; bilgi.hidden = false; }
+  });
+  qa("[data-wdel]").forEach(b => b.addEventListener("click", async () => {
+    if (SB && girisli()) await SB.from("wishlist").delete().eq("user_id", ME.id).eq("place", b.dataset.wdel);
+    else { const w = ls("wishlist", []).filter(x => x.place !== b.dataset.wdel); lsSet("wishlist", w); }
+    profilCiz();
+  }));
+  qa(".privchip").forEach(b => b.addEventListener("click", async () => {
+    if (SB) await SB.from("days").update({ privacy: b.dataset.ppr }).eq("id", b.dataset.pid);
+    profilCiz();
+  }));
+  qa("[data-modgor]").forEach(b => b.addEventListener("click", () => gunGoster(b.dataset.modgor)));
+  qa("[data-modok]").forEach(b => b.addEventListener("click", async () => { await SB.from("days").update({ review_status: "ok", review_reason: null }).eq("id", b.dataset.modok); profilCiz(); }));
+  qa("[data-modred]").forEach(b => b.addEventListener("click", async () => { await SB.from("days").update({ review_status: "rejected" }).eq("id", b.dataset.modred); profilCiz(); }));
+}
+async function takipSayilari(uid) {
+  const { count: takipci } = await SB.from("follows").select("*", { count: "exact", head: true }).eq("followee", uid);
+  const { count: takip } = await SB.from("follows").select("*", { count: "exact", head: true }).eq("follower", uid);
+  return { takipci: takipci || 0, takip: takip || 0 };
+}
+async function profilCiz() {
+  if (SB && !girisli()) {
+    $("#profout").innerHTML = `<h1>Profil</h1>
+      <div class="empty"><b>Henüz giriş yapmadın.</b><br>
+      Günlerini saklamak, gezginleri takip etmek ve liste tutmak için hesap aç.<br><br>
+      <button class="btn primary" onclick="authGoster()">Kayıt ol / Giriş yap</button></div>`;
+    return;
+  }
+  if (!SB) { $("#profout").innerHTML = `<h1>Profil</h1><div class="empty">Yerel kipte profil yok.</div>`; return; }
+  $("#profout").innerHTML = iskeletKart();
+  const { data: u } = await SB.from("profiles").select("*").eq("id", ME.id).single();
+  const { data: g } = await SB.from("days").select("id,place,date,km,photo_count,stop_count,like_count,privacy,cover_path,lat,lon")
+    .eq("user_id", ME.id).order("date", { ascending: false });
+  const { data: w } = await SB.from("wishlist").select("place,source").eq("user_id", ME.id);
+  const sayi = await takipSayilari(ME.id);
+  let modHtml = "";
+  if (ME.isModerator) {
+    const { data: pend } = await SB.from("days")
+      .select("id,place,date,review_reason, profiles!days_user_id_fkey(name,username)")
+      .eq("review_status", "pending").order("date", { ascending: false }).limit(50);
+    if (pend && pend.length) {
+      modHtml = `<div class="pr-mod"><h2 class="sec" style="margin-top:4px">Moderasyon kuyruğu <span class="badge">${pend.length}</span></h2>
+        <p class="sub">Alakasız ya da şüpheli görünen günler. Onayla herkese açar, Reddet gizli tutar.</p>` +
+        pend.map(d => { const x = d.profiles || {}; return `<div class="pr-mod-satir">
+          <div style="min-width:0"><b>${esc(d.place)}</b> <span class="sub">&middot; ${esc(x.name || x.username || "?")} &middot; ${esc((d.date || "").slice(0, 10))}</span>
+          ${d.review_reason ? `<div class="sub" style="color:var(--blaze)">Sebep: ${esc(d.review_reason)}</div>` : ""}</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn" data-modgor="${d.id}">Gör</button>
+          <button class="btn primary" data-modok="${d.id}">Onayla</button>
+          <button class="btn" data-modred="${d.id}">Reddet</button></div></div>`; }).join("") + `</div>`;
+    }
+  }
+  const prof = { ...(u || {}), id: ME.id, name: (u && u.name) || ME.name, username: (u && u.username) || ME.username };
+  const gunler = g || [];
+  const o = { ben: true, ...sayi, wish: (w || []).map(x => ({ place: x.place, from: x.source || "" })), modHtml };
+  $("#profout").innerHTML = profilHtml(prof, gunler, o);
+  profilBagla($("#profout"), prof, gunler, o);
+}
 async function profilGoster(uid) {
   if (!SB) return;
   ONCEKI_SEKME = [...document.querySelectorAll("#nav button")].find(b => b.getAttribute("aria-pressed") === "true")?.dataset.v || "akis";
@@ -1248,33 +1379,123 @@ async function profilGoster(uid) {
   const { data: u } = await SB.from("profiles").select("*").eq("id", uid).single();
   if (!u) { $("#detayout").innerHTML = `<button class="back">&larr; Geri</button><div class="empty">Profil bulunamadı.</div>`;
     $("#detayout .back").addEventListener("click", sekmeyeDon); return; }
-  const { data: gunler } = await SB.from("days").select("id,place,date,km,cover_path,photo_count")
+  const { data: g } = await SB.from("days").select("id,place,date,km,cover_path,photo_count,lat,lon")
     .eq("user_id", uid).order("date", { ascending: false });
-  const { count: takipci } = await SB.from("follows").select("*", { count: "exact", head: true }).eq("followee", uid);
-  const { count: takip } = await SB.from("follows").select("*", { count: "exact", head: true }).eq("follower", uid);
-  const benMi = girisli() && uid === ME.id;
+  const sayi = await takipSayilari(uid);
+  const o = { ben: girisli() && uid === ME.id, geri: true, ...sayi };
+  $("#detayout").innerHTML = profilHtml(u, g || [], o);
+  profilBagla($("#detayout"), u, g || [], o);
+}
+
+/* ---------- profili duzenle + profil fotografi ---------- */
+async function avatarYukle(file) {
+  const dataUrl = await fileToDataUrl(file, 640);
+  if (!dataUrl) throw new Error("Fotoğraf okunamadı. JPG ya da PNG dene.");
+  const blob = await (await fetch(dataUrl)).blob();
+  const path = `${ME.id}/avatar-${Date.now()}.jpg`;
+  const { error } = await SB.storage.from("avatars").upload(path, blob, { contentType: "image/jpeg", upsert: true });
+  if (error) throw new Error(/bucket/i.test(error.message) ? "Profil fotoğrafı deposu henüz kurulmadı." : error.message);
+  const url = SB.storage.from("avatars").getPublicUrl(path).data.publicUrl;
+  const { error: e2 } = await SB.from("profiles").update({ avatar_url: url }).eq("id", ME.id);
+  if (e2) throw new Error(/avatar_url/i.test(e2.message) ? "Veritabanı güncellemesi henüz yapılmadı." : e2.message);
+  ME.avatar_url = url; lsSet("me", ME); ustBar();
+  return url;
+}
+async function profilDuzenle() {
+  ONCEKI_SEKME = "profil";
+  detayGoster();
+  const { data: u } = await SB.from("profiles").select("*").eq("id", ME.id).single();
+  const p = u || {};
+  let yeniFoto = null;
   $("#detayout").innerHTML = `
-    <button class="back">&larr; Geri</button>
-    <div class="phead"><span class="avatar">${esc((u.name || u.username || "g")[0])}</span>
-      <div class="pinfo"><h1>${esc(u.name || u.username)}${u.is_creator ? '<span class="badge">üretici</span>' : ""}</h1>
-        ${u.bio ? `<div class="pbio">${esc(u.bio)}</div>` : ""}</div>
-      ${benMi ? "" : `<button class="btn ${takipte(uid) ? "" : "primary"}" id="pfollow">${takipte(uid) ? "Takiptesin" : "Takip et"}</button>`}</div>
-    <div class="pcounts">
-      <div><b>${(gunler || []).length}</b><span>gün</span></div>
-      <div><b>${takipci || 0}</b><span>takipçi</span></div>
-      <div><b>${takip || 0}</b><span>takip</span></div></div>
-    ${(gunler || []).length ? `<div class="daygrid">${gunler.map(g => {
-      const dd = new Date(g.date);
-      return `<div class="daytile" data-day="${g.id}">
-        <img src="${kareSvg(g.place.length, 12)}" alt=""${g.cover_path ? ` data-cover="${esc(g.cover_path)}"` : ""}>
-        <div class="dt"><b>${esc(g.place)}</b><span>${dd.getDate()} ${AYLAR[dd.getMonth()]} &middot; ${g.km} km</span></div>
-      </div>`; }).join("")}</div>` : `<div class="empty">Henüz herkese açık gün yok.</div>`}`;
-  $("#detayout .back").addEventListener("click", sekmeyeDon);
-  const pf = $("#pfollow");
-  if (pf) pf.addEventListener("click", async () => { await takipToggle(uid); profilGoster(uid); });
-  document.querySelectorAll("#detayout [data-day]").forEach(b =>
-    b.addEventListener("click", () => gunGoster(b.dataset.day)));
-  kapaklariGetir("#detayout");
+    <div class="pe-ust"><button class="back pe-vazgec">Vazgeç</button><b>Profili düzenle</b><button class="pe-bitti" id="peKaydet">Bitti</button></div>
+    <div class="pe-foto">${avatarHtml({ ...p, name: p.name || ME.name }, "pe-av")}
+      <label class="pe-foto-btn" for="peFoto">Fotoğrafı değiştir</label><input type="file" id="peFoto" accept="image/*" hidden></div>
+    <div class="pe-kart">
+      <label class="pe-satir"><span>Ad</span><input id="peAd" value="${esc(p.name || "")}" maxlength="60"></label>
+      <label class="pe-satir"><span>Kullanıcı adı</span><input id="peKa" value="${esc(p.username || "")}" maxlength="30" autocapitalize="off"></label>
+      <label class="pe-satir"><span>Zamirler</span><input id="peZm" value="${esc(p.pronouns || "")}" placeholder="İsteğe bağlı" maxlength="30"></label>
+      <label class="pe-satir pe-ust-hiza"><span>Biyografi</span><span><textarea id="peBio" maxlength="150" rows="3">${esc(p.bio || "")}</textarea><small id="peSay">0 / 150</small></span></label>
+      <label class="pe-satir"><span>Etiket</span><input id="peEt" value="${esc(p.tagline || "")}" placeholder="Örn. Doğa yürüyüşçüsü · Fotoğrafçı" maxlength="60"></label>
+      <label class="pe-satir"><span>Konum</span><input id="peKn" value="${esc(p.location || "")}" placeholder="Örn. Seattle, WA" maxlength="60"></label>
+      <label class="pe-satir"><span>Bağlantı</span><input id="peWb" value="${esc(p.website || "")}" placeholder="Örn. instagram.com/kullanici" maxlength="120" autocapitalize="off"></label>
+    </div>
+    <p class="err" id="peHata" hidden></p>`;
+  const say = () => { $("#peSay").textContent = $("#peBio").value.length + " / 150"; };
+  say(); $("#peBio").addEventListener("input", say);
+  $("#detayout .pe-vazgec").addEventListener("click", () => { sekmeyeDon(); });
+  $("#peFoto").addEventListener("change", (e) => {
+    yeniFoto = e.target.files[0] || null;
+    if (!yeniFoto) return;
+    const av = $("#detayout .pe-av");
+    const img = document.createElement("img"); img.className = "avatar pe-av"; img.alt = "Yeni profil fotoğrafı";
+    img.src = URL.createObjectURL(yeniFoto); av.replaceWith(img);
+  });
+  $("#peKaydet").addEventListener("click", async () => {
+    const hata = (m) => { $("#peHata").textContent = m; $("#peHata").hidden = false; };
+    const ka = $("#peKa").value.trim().toLowerCase();
+    if (ka && !/^[a-z0-9_.]{3,30}$/.test(ka)) return hata("Kullanıcı adı 3-30 karakter olmalı; harf, rakam, nokta ve alt çizgi kullanabilirsin.");
+    $("#peKaydet").disabled = true; $("#peKaydet").textContent = "Kaydediliyor…";
+    try {
+      if (yeniFoto) await avatarYukle(yeniFoto);
+      const kayit = { name: $("#peAd").value.trim() || null, username: ka || null, bio: $("#peBio").value.trim() || null,
+        pronouns: $("#peZm").value.trim() || null, tagline: $("#peEt").value.trim() || null,
+        location: $("#peKn").value.trim() || null, website: $("#peWb").value.trim() || null };
+      let { error } = await SB.from("profiles").update(kayit).eq("id", ME.id);
+      if (error && /pronouns|tagline|location|website/i.test(error.message)) {
+        // bulut semasi henuz guncellenmediyse temel alanlari kaydet
+        ({ error } = await SB.from("profiles").update({ name: kayit.name, username: kayit.username, bio: kayit.bio }).eq("id", ME.id));
+      }
+      if (error) throw new Error(/duplicate|unique/i.test(error.message) ? "Bu kullanıcı adı alınmış." : error.message);
+      ME.name = kayit.name || ME.name; ME.username = kayit.username; lsSet("me", ME); ustBar();
+      $("#view-detay").hidden = true;
+      const nb = document.querySelector('#nav button[data-v="profil"]'); if (nb) nb.click();
+    } catch (e) {
+      hata(e.message); $("#peKaydet").disabled = false; $("#peKaydet").textContent = "Bitti";
+    }
+  });
+}
+function profilFotoAdimi(zorunlu) {
+  if (!SB || !girisli() || $("#fotoAdim")) return;
+  if (window.__fotoAdimKapali) return;   // otomatik testler icin
+  const kutu = document.createElement("div");
+  kutu.id = "fotoAdim";
+  kutu.innerHTML = `<div class="fa-kart" role="dialog" aria-modal="true" aria-labelledby="faBaslik">
+    <div class="fa-ust">${zorunlu ? "Hesabın açıldı · Son adım" : "Profil fotoğrafı"}</div>
+    <h2 id="faBaslik">Bir profil fotoğrafı ekle</h2>
+    <p>Gezginler seni yorumlarda ve akışta bu fotoğrafla tanıyacak.</p>
+    <div class="fa-daire" id="faDaire"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="3"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg><span>Fotoğraf ekle</span></div>
+    <div class="fa-durum" id="faDurum" hidden></div>
+    <label class="fa-sec" for="faGaleri">Galeriden seç</label><input type="file" id="faGaleri" accept="image/*" hidden>
+    <label class="fa-sec" for="faKamera">Fotoğraf çek</label><input type="file" id="faKamera" accept="image/*" capture="user" hidden>
+    <p class="fa-not">Yüz fotoğrafı şart değil, seni anlatan bir kare de olur.</p>
+    <p class="err" id="faHata" hidden></p>
+    <button class="btn primary fa-devam" id="faDevam" disabled>Devam etmek için fotoğraf ekle</button>
+    ${zorunlu ? "" : `<button class="guest" id="faKapat">Vazgeç</button>`}
+  </div>`;
+  document.body.appendChild(kutu);
+  const kapat = () => { kutu.remove(); if (!$("#view-profil").hidden) profilCiz(); };
+  const sec = async (e) => {
+    const f = e.target.files[0]; if (!f) return;
+    $("#faHata").hidden = true;
+    $("#faDaire").innerHTML = `<img src="${URL.createObjectURL(f)}" alt="Seçilen profil fotoğrafı">`;
+    $("#faDurum").hidden = false; $("#faDurum").textContent = "Yükleniyor…";
+    try {
+      await avatarYukle(f);
+      $("#faDurum").textContent = "Harika görünüyor";
+      $("#faDurum").classList.add("tamam");
+      $("#faDevam").disabled = false; $("#faDevam").textContent = "Devam et";
+    } catch (err) {
+      $("#faDurum").hidden = true;
+      $("#faHata").textContent = err.message + (zorunlu ? " Şimdilik devam edebilirsin, sonra profilinden eklersin." : "");
+      $("#faHata").hidden = false;
+      if (zorunlu) { $("#faDevam").disabled = false; $("#faDevam").textContent = "Şimdilik devam et"; }
+    }
+  };
+  $("#faGaleri").addEventListener("change", sec);
+  $("#faKamera").addEventListener("change", sec);
+  $("#faDevam").addEventListener("click", kapat);
+  const fk = $("#faKapat"); if (fk) fk.addEventListener("click", kapat);
 }
 
 async function gunGoster(dayId) {
@@ -1283,7 +1504,8 @@ async function gunGoster(dayId) {
   detayGoster();
   $("#detayout").innerHTML = `<button class="back">&larr; Geri</button>${iskeletKart()}`;
   $("#detayout .back").addEventListener("click", sekmeyeDon);
-  const { data: d } = await SB.from("days").select("*, profiles!days_user_id_fkey(username,name,is_creator)").eq("id", dayId).single();
+  let { data: d, error: dErr } = await SB.from("days").select(`*, profiles!days_user_id_fkey(${PROF_ALAN})`).eq("id", dayId).single();
+  if (dErr && /avatar_url/i.test(dErr.message || "")) { PROF_ALAN = "username,name,is_creator"; ({ data: d } = await SB.from("days").select(`*, profiles!days_user_id_fkey(${PROF_ALAN})`).eq("id", dayId).single()); }
   if (!d) { $("#detayout").innerHTML = `<button class="back">&larr; Geri</button><div class="empty">Gün bulunamadı.</div>`;
     $("#detayout .back").addEventListener("click", sekmeyeDon); return; }
   const dd = new Date(d.date);
@@ -1312,7 +1534,7 @@ async function gunGoster(dayId) {
   const sure = bas != null && bit != null && bit > bas ? `${Math.floor((bit - bas) / 60)}:${String((bit - bas) % 60).padStart(2, "0")}` : null;
   const haritaVar = !!(d.has_gps && stoplar.some(s => s.lat && s.lon));
   const tarihUst = dd.toLocaleDateString("tr-TR", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
-  const yazar = `<div class="dyazar"><span class="avatar" data-profil="${d.user_id}">${esc((p.name || "g")[0])}</span>
+  const yazar = `<div class="dyazar">${avatarHtml(p, "", `data-profil="${d.user_id}"`)}
       <span class="who link" data-profil="${d.user_id}"><b>${esc(p.name || p.username || "gezgin")}</b>${p.is_creator ? '<span class="badge">üretici</span>' : ""}</span></div>`;
   $("#detayout").innerHTML = `
     ${haritaVar
@@ -1592,7 +1814,7 @@ function haritaDunya(elId, dots) {
     const kisa = esc(d.place);
     const pop = `<div class="dunya-pop"><b>${kisa}</b><br>
       <span class="sub">${d.g.days} gün &middot; ${d.g.photos} fotoğraf</span><br>
-      <button class="btn" data-yerdetay="${kisa}" style="margin-top:6px">Detay ve degerlendirmeler &rarr;</button></div>`;
+      <button class="btn" data-yerdetay="${kisa}" style="margin-top:6px">Detay ve değerlendirmeler &rarr;</button></div>`;
     const m = L.marker([d.lat, d.lon], { icon }).addTo(map).bindPopup(pop);
     m.on("click", () => map.flyTo([d.lat, d.lon], 11, { duration: 0.8 }));
     coords.push([d.lat, d.lon]);
@@ -1602,7 +1824,8 @@ function haritaDunya(elId, dots) {
     if (btn) btn.addEventListener("click", () => yerGoster(btn.dataset.yerdetay));
   });
   if (coords.length > 1) map.fitBounds(coords, { padding: [50, 50], maxZoom: 9 });
-  else map.setView(coords[0], 8);
+  else if (coords.length) map.setView(coords[0], 8);
+  else map.setView([30, 0], 2);
   setTimeout(() => map.invalidateSize(), 120);
 }
 
@@ -2220,17 +2443,24 @@ function authGoster(neden, mod) {
 }
 function authKapat() { $("#login").hidden = true; }
 
+async function profilBaglantisi() {
+  const m = /^#@([A-Za-z0-9_.\-]+)$/.exec(location.hash || "");
+  if (!m || !SB) return;
+  const uuid = /^[0-9a-f-]{36}$/.test(m[1]);
+  const { data } = await SB.from("profiles").select("id").eq(uuid ? "id" : "username", m[1]).limit(1);
+  if (data && data[0]) profilGoster(data[0].id);
+}
 function ustBar() {
   const a = $("#authArea");
   if (!SB) { a.innerHTML = `<span class="userchip">yerel kip</span>`; return; }
   if (girisli()) {
     a.innerHTML = `<button class="userchip" id="userBtn" aria-haspopup="true" aria-expanded="false">
-        <span class="avatar">${esc(ME.name[0] || "g")}</span>
+        ${avatarHtml(ME)}
         <span class="uname">${esc(ME.name)}</span>
         <svg class="chev" viewBox="0 0 24 24" width="16" height="16"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
       <div class="usermenu" id="userMenu" hidden>
-        <div class="um-head"><span class="avatar">${esc(ME.name[0] || "g")}</span>
+        <div class="um-head">${avatarHtml(ME)}
           <div class="um-who"><b>${esc(ME.name)}</b>${ME.username ? `<span>@${esc(ME.username)}</span>` : ""}</div></div>
         <button class="um-item" data-um="profil"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg>Profilim</button>
         <button class="um-item" data-um="gunlerim"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>Gün ekle</button>
@@ -2279,8 +2509,8 @@ async function authYap() {
       }
       return hataGoster(trHata(error.message));
     }
-    if (data.session) await girisSonrasi(data.session);
-    else hataGoster("Kayıt alındı; e-postani doğrulaman gerekiyor.");
+    if (data.session) { await girisSonrasi(data.session); profilFotoAdimi(true); }
+    else hataGoster("Kayıt alındı; e-postanı doğrulaman gerekiyor.");
   } else {
     const { data, error } = await SB.auth.signInWithPassword({ email, password: pass });
     if (error) return hataGoster(trHata(error.message));
@@ -2295,6 +2525,7 @@ if (SB) {
   authKapat();
   SB.auth.getSession().then(({ data }) => {
     if (data.session) girisSonrasi(data.session); else { ME = null; lsSet("me", null); ustBar(); }
+    profilBaglantisi();
   });
 } else {
   ME = ME || { name: "Misafir" };
