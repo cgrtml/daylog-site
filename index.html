@@ -16,7 +16,7 @@
   --ink:#14170f; --ink2:#3a3f35; --mut:#555a4e;
   --pine:#1e3b2c; --pine-ink:#142a1f; --tint:#dce5d8;
   --blaze:#c4471b; --gold:#a97f1f; --line:#e2ddd0; --line2:#d9d4c7; --chipbg:#edeae1;
-  --logo-ink:#14170f; --logo-accent:#c4471b;
+  --logo-ink:#1e3b2c; --logo-accent:#1e3b2c;
   --veil:rgba(20,26,20,.46);
   --sh1:0 1px 2px rgba(22,30,22,.05);
   --sh2:0 16px 46px -16px rgba(22,34,22,.26), 0 3px 10px -4px rgba(22,34,22,.1);
@@ -29,7 +29,7 @@
   --bg:#12150f; --paper:#191d14; --card:#191d14;
   --ink:#eceade; --ink2:#cfd2c4; --mut:#929888;
   --pine:#86b78c; --pine-ink:#a9cfac; --tint:#1e271a;
-  --blaze:#e07a45; --gold:#d8b964; --logo-ink:#eceade; --logo-accent:#e07a45; --line:#2a3122; --line2:#39412e; --chipbg:#222a1c;
+  --blaze:#e07a45; --gold:#d8b964; --logo-ink:#f1eee6; --logo-accent:#9fd3b4; --line:#2a3122; --line2:#39412e; --chipbg:#222a1c;
   --veil:rgba(0,0,0,.6);
   --sh1:0 1px 2px rgba(0,0,0,.3);
   --sh2:0 18px 50px -16px rgba(0,0,0,.6), 0 3px 10px -4px rgba(0,0,0,.4);
@@ -39,7 +39,7 @@
   --bg:#12150f; --paper:#191d14; --card:#191d14;
   --ink:#eceade; --ink2:#cfd2c4; --mut:#929888;
   --pine:#86b78c; --pine-ink:#a9cfac; --tint:#1e271a;
-  --blaze:#e07a45; --gold:#d8b964; --logo-ink:#eceade; --logo-accent:#e07a45; --line:#2a3122; --line2:#39412e; --chipbg:#222a1c;
+  --blaze:#e07a45; --gold:#d8b964; --logo-ink:#f1eee6; --logo-accent:#9fd3b4; --line:#2a3122; --line2:#39412e; --chipbg:#222a1c;
   --veil:rgba(0,0,0,.6);
   --sh1:0 1px 2px rgba(0,0,0,.3);
   --sh2:0 18px 50px -16px rgba(0,0,0,.6), 0 3px 10px -4px rgba(0,0,0,.4);
@@ -212,6 +212,35 @@ section.stop{background:var(--paper);border:1px solid var(--line);border-radius:
 .move{display:flex;align-items:center;gap:12px;color:var(--mut);font-size:.84rem;margin:4px 10px}
 .move span{flex:1;border-top:2px dotted var(--line2)}
 
+
+/* gun detayi: harita ya da kapak ustte, baslik, rakamlar, numarali duraklar */
+.dhero{position:relative;height:340px;border-radius:24px;overflow:hidden;margin:6px 0 14px;background:var(--chipbg)}
+.dhero>img{width:100%;height:100%;object-fit:cover;display:block}
+.dhero:not(.dhero-harita)::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,14,9,.3) 0%,rgba(10,14,9,0) 30%,rgba(10,14,9,0) 48%,rgba(10,14,9,.82) 100%);pointer-events:none}
+.dhero .back{position:absolute;top:14px;left:14px;z-index:500;width:44px;height:44px;border-radius:22px;padding:0;background:rgba(250,248,243,.95);
+  color:#14170f;font-size:1.2rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(20,23,15,.2)}
+.dhero-harita .uydu{height:100%;border-radius:0}
+.dhero-harita .leaflet-top.leaflet-left{top:auto;bottom:10px}
+.dhero-alt{position:absolute;left:20px;right:20px;bottom:18px;z-index:2;color:#faf8f3}
+.dhero-alt h1{color:#faf8f3;margin:4px 0 0;font-size:clamp(2rem,7vw,2.6rem)}
+.dtarih{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;opacity:.88}
+.dbaslik{margin:0 0 4px}.dbaslik h1{margin:4px 0 0}.dbaslik .dtarih{color:var(--mut);margin-top:10px}
+.dyazar{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:.88rem}
+.dyazar .avatar{width:28px;height:28px;font-size:.75rem;cursor:pointer}
+.dyazar .who{cursor:pointer}
+.dyerlink{display:inline-flex;align-items:center;min-height:36px;font-weight:600;color:var(--pine);cursor:pointer}
+.dstats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:12px 4px;margin:10px 0 6px}
+.dstats>div{text-align:center}.dstats>div+div{border-left:1px solid var(--line)}
+.dstats b{display:block;font-size:1.05rem;font-weight:800;font-variant-numeric:tabular-nums}
+.dstats span{font-size:.75rem;color:var(--mut)}
+.dstop{padding:10px 0;border-top:1px solid var(--line)}
+.dstop:first-of-type{border-top:0}
+.dstop-ust{display:flex;align-items:center;gap:12px}
+.dstop .chip{flex:0 0 28px;height:28px;font-size:.8rem}
+.dstop .chip.ilk{background:#14170f}
+.dstop-kucuk{width:52px;height:52px;border-radius:12px;object-fit:cover;flex:none}
+.dstop h2{font-size:1.02rem;font-weight:700;margin:0;letter-spacing:-.01em}
+.dstop .grid{margin-top:10px}
 /* akis: editoryel kart - tam-tasan kapak ustte, iri baslik, yazar altta */
 .feedcard{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:24px;overflow:hidden;
   margin:20px 0;box-shadow:var(--sh1);transition:box-shadow .2s,transform .2s}
@@ -428,7 +457,7 @@ footer{color:var(--mut);font-size:.8rem;text-align:center;margin-top:40px;line-h
 <main>
 <header class="top">
   <div class="brand">orma<i>io</i></div>
-  <div class="tag">Gezinin hikayesi, fotograflarindan kendi kendine.</div>
+  <div class="tag">Gezinin hikâyesi, fotoğraflarından kendi kendine.</div>
   <div class="authbtns" id="authArea"></div>
 </header>
 
@@ -447,34 +476,34 @@ footer{color:var(--mut);font-size:.8rem;text-align:center;margin-top:40px;line-h
   <div class="banner">
     <img src="banner.jpg" alt="">
     <div class="bcontent">
-      <h1>Gezdigin gun, kendi kendine yazilsin</h1>
-      <p>Fotograflarini birak; duraklarin, rotan ve gunun hikayesi saniyeler icinde kurulsun.</p>
+      <h1>Gezdiğin gün, kendi kendine yazılsın</h1>
+      <p>Fotoğraflarını bırak; durakların, rotan ve günün hikâyesi saniyeler içinde kurulsun.</p>
     </div>
   </div>
   <section class="hero" id="hero" hidden>
-    <h1>Gezdigin gun, kendi kendine yazilsin</h1>
-    <p>Fotograflarini birak: duraklarin, rotan ve gunun hikayesi saniyeler icinde kurulsun.
-    Hesap acarsan arkadaslarinin gunlerini gorur, gezginleri takip eder,
-    begendigin yerleri kendi listene eklersin.</p>
+    <h1>Gezdiğin gün, kendi kendine yazılsın</h1>
+    <p>Fotoğraflarını bırak: durakların, rotan ve günün hikâyesi saniyeler içinde kurulsun.
+    Hesap açarsan arkadaşlarının günlerini görür, gezginleri takip eder,
+    beğendiğin yerleri kendi listene eklersin.</p>
     <ul>
-      <li>Gun kaydi otomatik: yazmak yok, kayit tusu yok</li>
-      <li>Varsayilan ozel: sen acmadan hicbir gunu kimse goremez</li>
-      <li>Fotograf isleme cihazinda: kareler sunucuya yuklenmez</li>
+      <li>Gün kaydı otomatik: yazmak yok, kayıt tuşu yok</li>
+      <li>Varsayılan özel: sen açmadan hiçbir günü kimse göremez</li>
+      <li>Fotoğraf işleme cihazında: kareler sunucuya yüklenmez</li>
     </ul>
     <div class="cta">
-      <button class="btn primary" id="heroKayit">Ucretsiz kayit ol</button>
-      <button class="btn" id="heroDene">Once uye olmadan dene</button>
+      <button class="btn primary" id="heroKayit">Ücretsiz kayıt ol</button>
+      <button class="btn" id="heroDene">Önce üye olmadan dene</button>
     </div>
   </section>
   <div class="drop" id="drop" role="button" tabindex="0">
-    <b>Gun olustur: fotograflarini ekle</b>
+    <b>Gün oluştur: fotoğraflarını ekle</b>
     <p>Konumlu (GPS) karelerde yer ve noktalar otomatik gelir; konum yoksa kendin secersin.
     JPG ve HEIC, coklu secim serbest.</p>
     <input type="file" id="file" multiple accept="image/*,.heic,.heif" hidden>
   </div>
-  <p class="notice">Fotograflar once bu cihazda islenir. Yalnizca "herkes" ya da "arkadaslar" yaptigin
-  gunlerin kareleri hesabina yuklenir; "ozel" gunler cihazinda kalir. Geziyi internetsiz cekip sonra
-  istedigin zaman yukleyebilirsin; konum fotografin icinde gelir.</p>
+  <p class="notice">Fotoğraflar önce bu cihazda işlenir. Yalnızca "herkes" ya da "arkadaşlar" yaptığın
+  günlerin kareleri hesabına yüklenir; "özel" günler cihazında kalır. Geziyi internetsiz çekip sonra
+  istediğin zaman yükleyebilirsin; konum fotoğrafın içinde gelir.</p>
   <div id="out"></div>
 </div>
 
@@ -482,26 +511,26 @@ footer{color:var(--mut);font-size:.8rem;text-align:center;margin-top:40px;line-h
 <div id="view-profil" hidden><div id="profout"></div></div>
 <div id="view-detay" hidden><div id="detayout"></div></div>
 
-<footer>ormaio calisma prototipi. Fotograf isleme tamamen bu sayfanin icinde olur;
-paylasmayi sectigin gunler disinda hicbir fotograf sunucuya gitmez.
-<br><span style="opacity:.8">Ornek gun fotograflari Wikimedia Commons katkida bulunanlarindir (CC BY / CC BY-SA).
+<footer>ormaio çalışma prototipi. Fotoğraf işleme tamamen bu sayfanın içinde olur;
+paylaşmayı seçtiğin günler dışında hiçbir fotoğraf sunucuya gitmez.
+<br><span style="opacity:.8">Örnek gün fotoğrafları Wikimedia Commons katkıda bulunanlarındır (CC BY / CC BY-SA).
 <a href="/ATTRIBUTIONS.md" style="color:var(--pine)">Kaynaklar</a>.</span></footer>
 </main>
 
 <div id="login" hidden>
   <div class="card">
     <div class="brand">orma<i>io</i></div>
-    <p id="authNeden">Hesabinla gunlerini saklar, arkadaslarini takip eder,
+    <p id="authNeden">Hesabınla günlerini saklar, arkadaşlarını takip eder,
     gitmek istediklerini listelersin.</p>
     <div id="authForm">
-      <input id="adin" type="text" placeholder="Adin" autocomplete="name" hidden>
+      <input id="adin" type="text" placeholder="Adın" autocomplete="name" hidden>
       <input id="eposta" type="email" placeholder="E-posta" autocomplete="email">
-      <input id="sifre" type="password" placeholder="Sifre (en az 6 karakter)" autocomplete="current-password">
-      <button class="btn primary" id="authGonder" style="width:100%">Giris yap</button>
+      <input id="sifre" type="password" placeholder="Şifre (en az 6 karakter)" autocomplete="current-password">
+      <button class="btn primary" id="authGonder" style="width:100%">Giriş yap</button>
       <div class="err" id="authErr" hidden></div>
       <div class="authtoggle" id="authToggle"></div>
     </div>
-    <button class="guest" id="kapatBtn">Vazgec</button>
+    <button class="guest" id="kapatBtn">Vazgeç</button>
     <div class="mock" id="authMode"></div>
   </div>
 </div>
@@ -549,8 +578,8 @@ const CITIES = [
  ["Kayseri",38.72,35.49],["Samsun",41.29,36.33],["Trabzon",41.00,39.72],
  ["Erzurum",39.90,41.27],["Kars",40.60,43.10],["Van",38.49,43.38],
  ["Dogubayazit",39.55,44.08],["Batman",37.88,41.13],["Eskisehir",39.77,30.52]];
-const AYLAR = ["Ocak","Subat","Mart","Nisan","Mayis","Haziran","Temmuz",
-               "Agustos","Eylul","Ekim","Kasim","Aralik"];
+const AYLAR = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz",
+               "Ağustos","Eylül","Ekim","Kasım","Aralık"];
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const hhmm = (t) => String(t.getHours()).padStart(2,"0") + ":" + String(t.getMinutes()).padStart(2,"0");
@@ -671,12 +700,12 @@ function fileToDataUrl(file, maxPx = 1024) {
 window.__aiCall = aiCall;  // test icin
 window.addEventListener("error", (e) => {
   const a = document.querySelector("#authArea");
-  if (a) a.innerHTML = `<span class="err">sayfa hatasi: ${String(e.message).slice(0, 80)}</span>`;
+  if (a) a.innerHTML = `<span class="err">sayfa hatası: ${String(e.message).slice(0, 80)}</span>`;
 });
 if (ENV && !window.supabase) {
   window.addEventListener("DOMContentLoaded", () => {
     document.querySelector("#authArea").innerHTML =
-      `<span class="err">sunucu kutuphanesi yuklenemedi (internet?)</span>`;
+      `<span class="err">sunucu kütüphanesi yüklenemedi (internet?)</span>`;
   });
 }
 
@@ -850,14 +879,14 @@ const USERS = [
   {id: "deniz", ad: "Deniz K.", rol: "Gezgin", seed: 3, gun: {
     yer: "Kackar Daglari", tarih: "27 Eylul", km: 14.2, durak: 4, foto: 86, saat: 17,
     duraklar: ["Olgunlar", "Dilberduzu Kampi", "Deniz Golu"]}},
-  {id: "mert", ad: "Mert A.", rol: "Icerik uretici - 12,4B takipci", seed: 7, gun: {
+  {id: "mert", ad: "Mert A.", rol: "İçerik üretici · 12,4B takipçi", seed: 7, gun: {
     yer: "Likya Yolu", tarih: "3 Ekim", km: 19.0, durak: 5, foto: 64, saat: 12,
     duraklar: ["Oludeniz", "Kabak Koyu", "Faralya"]}},
-  {id: "selin", ad: "Selin Y.", rol: "Icerik uretici - 31B takipci", seed: 11, gun: {
+  {id: "selin", ad: "Selin Y.", rol: "İçerik üretici · 31B takipçi", seed: 11, gun: {
     yer: "Kapadokya", tarih: "28 Eylul", km: 6.8, durak: 3, foto: 112, saat: 18,
     duraklar: ["Kizilcukur Vadisi", "Cavusin", "Gunbatimi Tepesi"]}},
   {id: "arda", ad: "Arda T.", rol: "Gezgin", seed: 5, gun: {
-    yer: "Mount Rainier", tarih: "14 Agustos", km: 8.8, durak: 6, foto: 51, saat: 11,
+    yer: "Mount Rainier", tarih: "14 Ağustos", km: 8.8, durak: 6, foto: 51, saat: 11,
     duraklar: ["Myrtle Falls", "Panorama Point", "Sluiskin Falls"]}},
 ];
 
@@ -872,7 +901,7 @@ function feedKart(u) {
     <img class="cover" src="${kareSvg(u.seed, t.saat)}" alt="">
     <div class="fbody">
       <div class="ftitle">${t.yer}</div>
-      <div class="fmeta">${t.tarih} &middot; ${t.km} km &middot; ${t.durak} durak &middot; ${t.foto} fotograf</div>
+      <div class="fmeta">${t.tarih} &middot; ${t.km} km &middot; ${t.durak} durak &middot; ${t.foto} fotoğraf</div>
       <div class="frow">
         ${t.duraklar.map(d => `<button class="btn" data-wish="${esc(d)}" data-from="${u.ad}">+ ${esc(d)}</button>`).join("")}
       </div>
@@ -885,7 +914,7 @@ const iskeletKart = () => `<div class="skelcard"><div class="sh">
     <div class="skel sl" style="width:25%"></div></div></div>
   <div class="skel scov"></div>
   <div class="sh" style="padding:14px 16px"><div class="skel sl" style="width:55%;height:16px"></div></div></div>`;
-const iskeletAkis = (n = 2) => `<h1>Akis</h1><div class="sub">Yukleniyor&hellip;</div>${iskeletKart().repeat(n)}`;
+const iskeletAkis = (n = 2) => `<h1>Akış</h1><div class="sub">Yükleniyor&hellip;</div>${iskeletKart().repeat(n)}`;
 
 let LIKED = new Set();   // benim begendigim gun id'leri
 let SAVED = new Set();   // listemdeki yer adlari
@@ -910,7 +939,7 @@ const TRASH = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
 function gunFeedKart(d) {
   const p = d.profiles || {};
   const ad = p.name || p.username || "gezgin";
-  const rol = p.is_creator ? "Icerik uretici" : "Gezgin";
+  const rol = p.is_creator ? "İçerik üretici" : "Gezgin";
   const stoplar = (d.timeline || []).filter(t => t.type === "stop");
   const dd = new Date(d.date);
   const seed = [...String(d.id)].reduce((a, c) => a + c.charCodeAt(0), 0) % 97;
@@ -947,7 +976,7 @@ async function akisCiz() {
   if (SB) {
     $("#view-akis").innerHTML = iskeletAkis();
     await sosyalDurumYukle();
-    let html = `<h1>Akis</h1><div class="sub">${girisli()
+    let html = `<h1>Akış</h1><div class="sub">${girisli()
       ? "Sana acik gunler: arkadaslarinin ve herkese acik paylasanlarin."
       : "Gezginlerin herkese acik gunleri. Uyelikle arkadaslarininkiler de eklenir."}</div>`;
     const feedSorgu = (filtrele) => {
@@ -960,10 +989,10 @@ async function akisCiz() {
     let { data: ds, error } = await feedSorgu(true);
     // bulut semasi henuz guncellenmemisse (review_status yok) filtresiz tekrar dene
     if (error && /review_status/i.test(error.message || "")) ({ data: ds, error } = await feedSorgu(false));
-    if (error) html += `<p class="err">Akis yuklenemedi: ${esc(error.message)}</p>`;
-    else if (!ds.length) html += `<div class="empty"><b>Akis simdilik bos.</b><br>
-      Henuz herkese acik gun paylasan yok. Ilk paylasan sen ol:
-      Gunlerim'de fotograflarini birak, gunu "herkes" yap.</div>`;
+    if (error) html += `<p class="err">Akış yüklenemedi: ${esc(error.message)}</p>`;
+    else if (!ds.length) html += `<div class="empty"><b>Akış şimdilik boş.</b><br>
+      Henüz herkese açık gün paylaşan yok. İlk paylaşan sen ol:
+      Günlerim'de fotoğraflarını bırak, günü "herkes" yap.</div>`;
     else html += ds.map(gunFeedKart).join("");
     $("#view-akis").innerHTML = html;
     sosyalBagla("#view-akis");
@@ -971,16 +1000,16 @@ async function akisCiz() {
     return;
   }
   const takipli = USERS.filter(u => takipte(u.id));
-  let html = `<h1>Akis</h1><div class="sub">Takip ettiklerinin gunleri.
-    <span class="sample-flag">ornek icerik &middot; sunucu bagli degil</span></div>`;
+  let html = `<h1>Akış</h1><div class="sub">Takip ettiklerinin günleri.
+    <span class="sample-flag">örnek içerik &middot; sunucu bağlı değil</span></div>`;
   if (!takipli.length) {
-    html += `<div class="empty"><b>Henuz kimseyi takip etmiyorsun.</b><br>
+    html += `<div class="empty"><b>Henüz kimseyi takip etmiyorsun.</b><br>
       Asagidaki gezginlerden birini takip et; gunleri akisina dusecek.</div>
-      <h2 class="sec">Onerilen gezginler</h2>` + USERS.map(feedKart).join("");
+      <h2 class="sec">Önerilen gezginler</h2>` + USERS.map(feedKart).join("");
   } else {
     html += takipli.map(feedKart).join("");
     const kalan = USERS.filter(u => !takipte(u.id));
-    if (kalan.length) html += `<h2 class="sec">Kesfetmen icin</h2>` + kalan.map(feedKart).join("");
+    if (kalan.length) html += `<h2 class="sec">Keşfetmen için</h2>` + kalan.map(feedKart).join("");
   }
   $("#view-akis").innerHTML = html;
   bagla("#view-akis");
@@ -989,7 +1018,7 @@ async function akisCiz() {
 async function kesfetCiz() {
   if (SB) {
     await sosyalDurumYukle();
-    let html = `<h1>Kesfet</h1><div class="sub">Gezginler ve herkese acik gunlerden populer yerler.</div>`;
+    let html = `<h1>Keşfet</h1><div class="sub">Gezginler ve herkese açık günlerden popüler yerler.</div>`;
     // gezginler + takipci sayilari
     let pq = SB.from("profiles").select("id,username,name,is_creator,bio").limit(50);
     if (girisli()) pq = pq.neq("id", ME.id);
@@ -998,12 +1027,12 @@ async function kesfetCiz() {
     const takipciSay = new Map();
     for (const f of fol || []) takipciSay.set(f.followee, (takipciSay.get(f.followee) || 0) + 1);
     const sirali = (ps || []).sort((a, b) => (takipciSay.get(b.id) || 0) - (takipciSay.get(a.id) || 0));
-    html += `<h2 class="sec">One cikan gezginler</h2>`;
-    if (!sirali.length) html += `<div class="empty">Senden baska kayitli gezgin yok.</div>`;
+    html += `<h2 class="sec">Öne çıkan gezginler</h2>`;
+    if (!sirali.length) html += `<div class="empty">Senden başka kayıtlı gezgin yok.</div>`;
     else html += `<div class="ucards">${sirali.map(u => `
       <div class="ucard"><span class="avatar" data-profil="${u.id}" style="cursor:pointer">${esc((u.name || u.username || "g")[0])}</span>
-        <div class="who" data-profil="${u.id}"><b>${esc(u.name || u.username)}${u.is_creator ? '<span class="badge">uretici</span>' : ""}</b>
-        <span>${takipciSay.get(u.id) || 0} takipci</span></div>
+        <div class="who" data-profil="${u.id}"><b>${esc(u.name || u.username)}${u.is_creator ? '<span class="badge">üretici</span>' : ""}</b>
+        <span>${takipciSay.get(u.id) || 0} takipçi</span></div>
         <button class="btn ${takipte(u.id) ? "" : "primary"}" data-takip="${u.id}">
           ${takipte(u.id) ? "Takiptesin" : "Takip et"}</button></div>`).join("")}</div>`;
     // populer yerler: her yer icin bir kapak + gun sayisi
@@ -1016,11 +1045,11 @@ async function kesfetCiz() {
       yer.set(d.place, g);
     }
     const pop = [...yer.entries()].sort((a, b) => b[1].likes - a[1].likes).slice(0, 9);
-    if (pop.length) html += `<h2 class="sec">Populer yerler</h2>
+    if (pop.length) html += `<h2 class="sec">Popüler yerler</h2>
       <div class="pcards">${pop.map(([y, g]) => `
         <div class="pcard" data-yer="${esc(y)}">
           <img src="${kareSvg(y.length, 12)}" alt=""${g.cover ? ` data-cover="${esc(g.cover)}"` : ""}>
-          <div class="pc"><h3>${esc(y)}</h3><p>${g.n} gun &middot; ${g.likes} begeni</p></div>
+          <div class="pc"><h3>${esc(y)}</h3><p>${g.n} gün &middot; ${g.likes} beğeni</p></div>
         </div>`).join("")}</div>`;
     $("#view-kesfet").innerHTML = html;
     sosyalBagla("#view-kesfet");
@@ -1030,16 +1059,16 @@ async function kesfetCiz() {
   const yerler = [
     ["Kackar Daglari", "4 gezgin bu ay"], ["Likya Yolu", "9 gezgin bu ay"],
     ["Kapadokya", "14 gezgin bu ay"], ["Gobeklitepe", "6 gezgin bu ay"],
-    ["Nemrut Dagi", "3 gezgin bu ay"], ["Mount Rainier", "2 gezgin bu ay"]];
-  $("#view-kesfet").innerHTML = `<h1>Kesfet</h1>
-    <div class="sub">One cikan gezginler ve yerler. <span class="sample-flag">ornek icerik &middot; sunucu bagli degil</span></div>
+    ["Nemrut Dağı", "3 gezgin bu ay"], ["Mount Rainier", "2 gezgin bu ay"]];
+  $("#view-kesfet").innerHTML = `<h1>Keşfet</h1>
+    <div class="sub">Öne çıkan gezginler ve yerler. <span class="sample-flag">örnek içerik &middot; sunucu bağlı değil</span></div>
     <h2 class="sec">Gezginler</h2>
     <div class="ucards">${USERS.map(u => `
       <div class="ucard"><span class="avatar">${u.ad[0]}</span>
         <div class="who"><b>${u.ad}</b><span>${u.rol}</span></div>
         <button class="btn ${takipte(u.id) ? "" : "primary"}" data-takip="${u.id}">
           ${takipte(u.id) ? "Takiptesin" : "Takip et"}</button></div>`).join("")}</div>
-    <h2 class="sec">Populer yerler</h2>
+    <h2 class="sec">Popüler yerler</h2>
     <div class="tcards">${yerler.map(([y, m]) => `
       <div class="tcard"><h3>${y}</h3><p>${m}</p>
         <p style="margin-top:8px"><button class="btn" data-wish="${esc(y)}" data-from="Kesfet">+ Listeme ekle</button></p>
@@ -1050,9 +1079,9 @@ async function kesfetCiz() {
 async function profilCiz() {
   if (SB && !girisli()) {
     $("#profout").innerHTML = `<h1>Profil</h1>
-      <div class="empty"><b>Henuz giris yapmadin.</b><br>
-      Gunlerini saklamak, gezginleri takip etmek ve liste tutmak icin hesap ac.<br><br>
-      <button class="btn primary" onclick="authGoster()">Kayit ol / Giris yap</button></div>`;
+      <div class="empty"><b>Henüz giris yapmadın.</b><br>
+      Günlerini saklamak, gezginleri takip etmek ve liste tutmak için hesap aç.<br><br>
+      <button class="btn primary" onclick="authGoster()">Kayıt ol / Giriş yap</button></div>`;
     return;
   }
   // kendi gunlerini sunucudan (sahip hepsini gorur)
@@ -1075,7 +1104,7 @@ async function profilCiz() {
   const fol = ls("follows", []).length || SRV_FOLLOWS.length;
   // puan: gun, bolge, durak, foto, degerlendirme, nokta katkisi, alinan begeni
   const puan = gunler.length * 10 + bolge * 15 + stopTop * 3 + foto + revSay * 8 + noktaKatki * 5 + begeniTop * 2;
-  const SEVIYELER = ["Yeni Gezgin", "Gezgin", "Kasif", "Rehber", "Usta Gezgin", "Efsane"];
+  const SEVIYELER = ["Yeni Gezgin", "Gezgin", "Kaşif", "Rehber", "Usta Gezgin", "Efsane"];
   const seviyeNo = Math.min(Math.floor(Math.sqrt(puan / 45)), SEVIYELER.length - 1);
   const seviye = SEVIYELER[seviyeNo];
   const sonrakiEsik = Math.pow(seviyeNo + 1, 2) * 45;
@@ -1089,12 +1118,12 @@ async function profilCiz() {
       .eq("review_status", "pending").order("date", { ascending: false }).limit(50);
     if (pend && pend.length) {
       modHtml = `<div style="margin-top:12px">
-        <h2 class="sec" style="margin-top:4px">Moderasyon kuyrugu <span class="badge">${pend.length}</span></h2>
-        <p class="sub">Alakasiz/supheli gorunen gunler. Onayla herkese acar, Reddet gizli tutar.</p>` +
+        <h2 class="sec" style="margin-top:4px">Moderasyon kuyruğu <span class="badge">${pend.length}</span></h2>
+        <p class="sub">Alakasiz/supheli görünen günler. Onayla herkese açar, Reddet gizli tutar.</p>` +
         pend.map(d => { const u = d.profiles || {}; return `<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:8px">
           <div style="min-width:0"><b>${esc(d.place)}</b> <span class="sub">&middot; ${esc(u.name || u.username || "?")} &middot; ${esc((d.date || "").slice(0, 10))}</span>
           ${d.review_reason ? `<div class="sub" style="color:var(--blaze)">Sebep: ${esc(d.review_reason)}</div>` : ""}</div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn" data-modgor="${d.id}">Gor</button>
+          <div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn" data-modgor="${d.id}">Gör</button>
           <button class="btn primary" data-modok="${d.id}">Onayla</button>
           <button class="btn" data-modred="${d.id}">Reddet</button></div></div>`; }).join("") + `</div>`;
     }
@@ -1115,19 +1144,19 @@ async function profilCiz() {
     </div>
 
     <div class="stats" style="margin-top:14px">
-      <div><b>${new Set(gunler.map(t => t.place)).size}</b><span>bolge</span></div>
-      <div><b>${gunler.length}</b><span>gun</span></div>
+      <div><b>${new Set(gunler.map(t => t.place)).size}</b><span>bölge</span></div>
+      <div><b>${gunler.length}</b><span>gün</span></div>
       <div><b>${km.toFixed(0)}</b><span>km</span></div>
-      <div><b>${foto}</b><span>fotograf</span></div></div>
+      <div><b>${foto}</b><span>fotoğraf</span></div></div>
 
     ${pasaportHtml(tripsForBadge)}
 
-    <h2 class="sec">Gunlerim ${gunler.length ? `<span class="pasay">${gunler.length}</span>` : ""}</h2>
+    <h2 class="sec">Günlerim ${gunler.length ? `<span class="pasay">${gunler.length}</span>` : ""}</h2>
     ${gunler.length ? `<div class="daygrid">${gunler.map(g => `
       <div class="daytile" data-day="${g.id}">
         <img src="${kareSvg(g.place.length, 12)}" alt=""${g.cover_path ? ` data-cover="${esc(g.cover_path)}"` : ""}>
         <div class="dt"><b>${esc(g.place)}</b><span>${AY(g.date)} &middot; <span class="priv-rozet priv-${g.privacy}">${g.privacy}</span></span></div>
-      </div>`).join("")}</div>` : `<div class="empty">Henuz gun yok. Gunlerim sekmesinde fotograf ekleyip ilk gununu olustur.</div>`}
+      </div>`).join("")}</div>` : `<div class="empty">Henüz gün yok. Günlerim sekmesinde fotoğraf ekleyip ilk gününü oluştur.</div>`}
 
     ${gunler.length ? `<h2 class="sec">Gizlilik</h2>
     ${gunler.map(g => `<div class="ucard" style="margin-bottom:8px"><div class="who"><b>${esc(g.place)}</b>
@@ -1141,8 +1170,8 @@ async function profilCiz() {
     ${wish.length ? `<ul class="wish">${wish.map((w, i) => `
       <li><span class="wname">${esc(w.place)}</span>
       <span class="from">${esc(w.from)}${w.from ? " onerisi" : ""}</span>
-      <button data-wdel="${esc(w.place)}" aria-label="listeden cikar">&#10005;</button></li>`).join("")}</ul>`
-    : `<div class="empty">Listen bos. Bir yerin yanindaki <b>+ / Kaydet</b> ile buraya eklenir.</div>`}`;
+      <button data-wdel="${esc(w.place)}" aria-label="listeden çıkar">&#10005;</button></li>`).join("")}</ul>`
+    : `<div class="empty">Listen boş. Bir yerin yanındaki <b>+ / Kaydet</b> ile buraya eklenir.</div>`}`;
 
   document.querySelectorAll("#profout [data-modgor]").forEach(b => b.addEventListener("click", () => gunGoster(b.dataset.modgor)));
   document.querySelectorAll("#profout [data-modok]").forEach(b => b.addEventListener("click", async () => { await SB.from("days").update({ review_status: "ok", review_reason: null }).eq("id", b.dataset.modok); profilCiz(); }));
@@ -1172,7 +1201,7 @@ function sekmeyeDon() {
 }
 
 async function begeniToggle(dayId, btn) {
-  if (!girisli()) return authGoster("Begenmek icin uyelik gerekli.");
+  if (!girisli()) return authGoster("Beğenmek için üyelik gerekli.");
   const span = btn.querySelector("span");
   const n = parseInt(span.textContent) || 0;
   if (LIKED.has(dayId)) {
@@ -1217,7 +1246,7 @@ async function profilGoster(uid) {
   $("#detayout").innerHTML = `<button class="back">&larr; Geri</button>${iskeletKart()}`;
   $("#detayout .back").addEventListener("click", sekmeyeDon);
   const { data: u } = await SB.from("profiles").select("*").eq("id", uid).single();
-  if (!u) { $("#detayout").innerHTML = `<button class="back">&larr; Geri</button><div class="empty">Profil bulunamadi.</div>`;
+  if (!u) { $("#detayout").innerHTML = `<button class="back">&larr; Geri</button><div class="empty">Profil bulunamadı.</div>`;
     $("#detayout .back").addEventListener("click", sekmeyeDon); return; }
   const { data: gunler } = await SB.from("days").select("id,place,date,km,cover_path,photo_count")
     .eq("user_id", uid).order("date", { ascending: false });
@@ -1227,19 +1256,19 @@ async function profilGoster(uid) {
   $("#detayout").innerHTML = `
     <button class="back">&larr; Geri</button>
     <div class="phead"><span class="avatar">${esc((u.name || u.username || "g")[0])}</span>
-      <div class="pinfo"><h1>${esc(u.name || u.username)}${u.is_creator ? '<span class="badge">uretici</span>' : ""}</h1>
+      <div class="pinfo"><h1>${esc(u.name || u.username)}${u.is_creator ? '<span class="badge">üretici</span>' : ""}</h1>
         ${u.bio ? `<div class="pbio">${esc(u.bio)}</div>` : ""}</div>
       ${benMi ? "" : `<button class="btn ${takipte(uid) ? "" : "primary"}" id="pfollow">${takipte(uid) ? "Takiptesin" : "Takip et"}</button>`}</div>
     <div class="pcounts">
-      <div><b>${(gunler || []).length}</b><span>gun</span></div>
-      <div><b>${takipci || 0}</b><span>takipci</span></div>
+      <div><b>${(gunler || []).length}</b><span>gün</span></div>
+      <div><b>${takipci || 0}</b><span>takipçi</span></div>
       <div><b>${takip || 0}</b><span>takip</span></div></div>
     ${(gunler || []).length ? `<div class="daygrid">${gunler.map(g => {
       const dd = new Date(g.date);
       return `<div class="daytile" data-day="${g.id}">
         <img src="${kareSvg(g.place.length, 12)}" alt=""${g.cover_path ? ` data-cover="${esc(g.cover_path)}"` : ""}>
         <div class="dt"><b>${esc(g.place)}</b><span>${dd.getDate()} ${AYLAR[dd.getMonth()]} &middot; ${g.km} km</span></div>
-      </div>`; }).join("")}</div>` : `<div class="empty">Henuz herkese acik gun yok.</div>`}`;
+      </div>`; }).join("")}</div>` : `<div class="empty">Henüz herkese açık gün yok.</div>`}`;
   $("#detayout .back").addEventListener("click", sekmeyeDon);
   const pf = $("#pfollow");
   if (pf) pf.addEventListener("click", async () => { await takipToggle(uid); profilGoster(uid); });
@@ -1255,7 +1284,7 @@ async function gunGoster(dayId) {
   $("#detayout").innerHTML = `<button class="back">&larr; Geri</button>${iskeletKart()}`;
   $("#detayout .back").addEventListener("click", sekmeyeDon);
   const { data: d } = await SB.from("days").select("*, profiles!days_user_id_fkey(username,name,is_creator)").eq("id", dayId).single();
-  if (!d) { $("#detayout").innerHTML = `<button class="back">&larr; Geri</button><div class="empty">Gun bulunamadi.</div>`;
+  if (!d) { $("#detayout").innerHTML = `<button class="back">&larr; Geri</button><div class="empty">Gün bulunamadı.</div>`;
     $("#detayout .back").addEventListener("click", sekmeyeDon); return; }
   const dd = new Date(d.date);
   const p = d.profiles || {};
@@ -1269,42 +1298,47 @@ async function gunGoster(dayId) {
     (sg || []).forEach(r => { if (r && r.signedUrl) imzali[r.path] = r.signedUrl; });
   }
   let stopHtml = stoplar.map((s, i) => {
-    const kareler = (s.paths || []).map(pp => imzali[pp]
-      ? `<img src="${imzali[pp]}" alt="">` : "").join("");
-    return `<section class="stop"><header><span class="chip">${i + 1}</span>
+    const urller = (s.paths || []).map(pp => imzali[pp]).filter(Boolean);
+    const kareler = urller.map(u => `<img src="${u}" alt="">`).join("");
+    return `<section class="dstop"><div class="dstop-ust"><span class="chip${i === 0 ? " ilk" : ""}">${i + 1}</span>
+      ${urller[0] ? `<img class="dstop-kucuk" src="${urller[0]}" alt="">` : ""}
       <div style="flex:1;min-width:0"><h2>${esc(s.name || "Durak " + (i + 1))}</h2>
-      <p class="meta">${s.start || ""}${s.end ? "&ndash;" + s.end : ""} &middot; ${s.foto || 0} fotograf</p></div></header>
-      ${kareler ? `<div class="grid">${kareler}</div>` : ""}</section>`;
+      <p class="meta">${s.start || ""}${s.end ? "&ndash;" + s.end : ""} &middot; ${s.foto || 0} fotoğraf</p></div></div>
+      ${urller.length > 1 ? `<div class="grid">${kareler}</div>` : ""}</section>`;
   }).join("");
   const begendim = LIKED.has(d.id);
+  const dk = (x) => { const m = /^(\d\d):(\d\d)/.exec(x || ""); return m ? +m[1] * 60 + +m[2] : null; };
+  const bas = stoplar.length ? dk(stoplar[0].start) : null, bit = stoplar.length ? dk(stoplar[stoplar.length - 1].end) : null;
+  const sure = bas != null && bit != null && bit > bas ? `${Math.floor((bit - bas) / 60)}:${String((bit - bas) % 60).padStart(2, "0")}` : null;
+  const haritaVar = !!(d.has_gps && stoplar.some(s => s.lat && s.lon));
+  const tarihUst = dd.toLocaleDateString("tr-TR", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+  const yazar = `<div class="dyazar"><span class="avatar" data-profil="${d.user_id}">${esc((p.name || "g")[0])}</span>
+      <span class="who link" data-profil="${d.user_id}"><b>${esc(p.name || p.username || "gezgin")}</b>${p.is_creator ? '<span class="badge">üretici</span>' : ""}</span></div>`;
   $("#detayout").innerHTML = `
-    <button class="back">&larr; Geri</button>
-    <div class="fhead" style="padding:10px 0"><span class="avatar" data-profil="${d.user_id}" style="cursor:pointer">${esc((p.name || "g")[0])}</span>
-      <div class="who link" data-profil="${d.user_id}"><b>${esc(p.name || p.username)}${p.is_creator ? '<span class="badge">uretici</span>' : ""}</b>
-      <span>${p.is_creator ? "Icerik uretici" : "Gezgin"}</span></div></div>
-    <h1>${esc(d.place)}</h1>
-    <div class="sub">${dd.getDate()} ${AYLAR[dd.getMonth()]} ${dd.getFullYear()}
-      ${d.activity ? `&middot; ${esc(d.activity)}` : ""} &middot;
-      <a class="yerlink" data-yer="${esc(d.place)}">${esc(d.place)} degerlendirmeleri &rarr;</a></div>
-    ${d.cover_path ? `<div class="mapcard" style="padding:0;overflow:hidden"><img id="detayKapak" style="width:100%;height:240px;object-fit:cover;display:block" alt=""></div>` : ""}
-    ${(d.has_gps && stoplar.some(s => s.lat && s.lon)) ? `<div class="mapcard" style="padding:8px"><div id="gunHarita" class="uydu"></div></div>` : ""}
-    <div class="stats">
-      <div><b>${d.km}</b><span>km iz</span></div>
-      <div><b>${d.stop_count}</b><span>durak</span></div>
-      <div><b>${d.photo_count}</b><span>fotograf</span></div>
-      <div><b>${d.like_count || 0}</b><span>begeni</span></div></div>
+    ${haritaVar
+      ? `<div class="dhero dhero-harita"><div id="gunHarita" class="uydu"></div><button class="back" aria-label="Geri">&larr;</button></div>
+         <div class="dbaslik">${yazar}<div class="dtarih">${tarihUst}</div><h1>${esc(d.place)}</h1></div>`
+      : `<div class="dhero"><img id="detayKapak" src="${kareSvg(d.place.length, 12)}" alt="${esc(d.place)}">
+           <button class="back" aria-label="Geri">&larr;</button>
+           <div class="dhero-alt"><div class="dtarih">${tarihUst}</div><h1>${esc(d.place)}</h1>${yazar}</div></div>`}
+    <a class="dyerlink" data-yer="${esc(d.place)}">Yer sayfasına git &rarr;</a>
+    <div class="dstats">
+      <div><b>${String(d.km).replace(".", ",")} km</b><span>Mesafe</span></div>
+      <div><b>${sure || d.stop_count}</b><span>${sure ? "Saat" : "Durak"}</span></div>
+      <div><b>${d.photo_count}</b><span>Fotoğraf</span></div>
+      <div><b>${d.like_count || 0}</b><span>Beğeni</span></div></div>
     <div class="actions">
-      <button class="act like ${begendim ? "on" : ""}" data-likebtn="${d.id}">${HEART}<span>${d.like_count || 0}</span></button>
+      <button class="act like ${begendim ? "on" : ""}" data-likebtn="${d.id}" aria-label="Beğen">${HEART}<span>${d.like_count || 0}</span></button>
       <button class="act save ${SAVED.has(d.place) ? "saved" : ""}" data-savebtn="${esc(d.place)}">${BOOK}<span>${SAVED.has(d.place) ? "Listende" : "Gitmek istiyorum"}</span></button>
       ${(girisli() && d.user_id === ME.id) ? `<button class="act sil" id="gunSilBtn">${TRASH}Sil</button>` : ""}
     </div>
     <div id="gunSilOnay"></div>
-    ${stopHtml || `<div class="empty">Bu gunun fotograflari paylasilmamis.</div>`}`;
+    ${stopHtml ? `<h2 class="sec">Duraklar</h2>${stopHtml}` : `<div class="empty">Bu günün fotoğrafları paylaşılmamış.</div>`}`;
   $("#detayout .back").addEventListener("click", sekmeyeDon);
   const sb = $("#gunSilBtn");
   if (sb) sb.addEventListener("click", () => {
-    $("#gunSilOnay").innerHTML = `<div class="sil-onay">Bu gunu silmek istedigine emin misin? Geri alinamaz.
-      <button class="btn" id="silEvet">Evet, sil</button><button class="btn" id="silHayir">Vazgec</button></div>`;
+    $("#gunSilOnay").innerHTML = `<div class="sil-onay">Bu günü silmek istediğine emin misin? Geri alınamaz.
+      <button class="btn" id="silEvet">Evet, sil</button><button class="btn" id="silHayir">Vazgeç</button></div>`;
     $("#silHayir").addEventListener("click", () => { $("#gunSilOnay").innerHTML = ""; });
     $("#silEvet").addEventListener("click", async () => {
       $("#gunSilOnay").innerHTML = `<p class="sub">Siliniyor&hellip;</p>`;
@@ -1328,9 +1362,9 @@ async function gunGoster(dayId) {
 }
 
 /* ---------- place page: Swarm points + Google-style reviews + Instagram photos ---------- */
-const ASPECTS = [["manzara","Manzara"],["tuvalet","Tuvalet"],["kamp","Kamp alani"],
-  ["park","Park yeri"],["kalabalik","Sakinlik"],["zorluk","Kolaylik"],
-  ["isaret","Isaretleme"],["su","Su kaynagi"]];
+const ASPECTS = [["manzara","Manzara"],["tuvalet","Tuvalet"],["kamp","Kamp alanı"],
+  ["park","Park yeri"],["kalabalik","Sakinlik"],["zorluk","Kolaylık"],
+  ["isaret","İşaretleme"],["su","Su kaynağı"]];
 const ASPECT_AD = Object.fromEntries(ASPECTS);
 
 function yildizlar(n, tiklanir) {
@@ -1387,11 +1421,11 @@ async function yerGoster(place) {
     <h1>${esc(place)}</h1>
     <div class="ratingrow"><span class="stars">${yildizlar(ort)}</span>
       <b>${ort ? ort.toFixed(1) : "-"}</b>
-      <span class="sub" style="margin:0">${yorumlar.length} degerlendirme &middot; ${ziyaretci} ziyaretci</span></div>
+      <span class="sub" style="margin:0">${yorumlar.length} değerlendirme &middot; ${ziyaretci} ziyaretçi</span></div>
 
     ${aspSirali.length ? `<div class="aspects">${aspSirali.map(([k, v]) => `
       <span class="aspect"><b>${esc(ASPECT_AD[k] || k)}</b>
-      ${v.iyi ? `<i class="pos">iyi ${v.iyi}</i>` : ""}${v.kotu ? `<i class="neg">zayif ${v.kotu}</i>` : ""}</span>`).join("")}</div>` : ""}
+      ${v.iyi ? `<i class="pos">iyi ${v.iyi}</i>` : ""}${v.kotu ? `<i class="neg">zayıf ${v.kotu}</i>` : ""}</span>`).join("")}</div>` : ""}
 
     <h2 class="sec">Noktalar <span class="pasay">${topNokta.length}</span></h2>
     <div class="noktalar">${topNokta.map(n => `
@@ -1402,10 +1436,10 @@ async function yerGoster(place) {
       <button class="nokta nokta-ekle" id="noktaEkleBtn">+ Nokta ekle</button>
     </div>
 
-    ${uniq.length ? `<h2 class="sec">Ziyaretci fotograflari</h2>
+    ${uniq.length ? `<h2 class="sec">Ziyaretçi fotoğrafları</h2>
       <div class="grid">${uniq.map(pp => imzali[pp] ? `<img src="${imzali[pp]}" alt="">` : "").join("")}</div>` : ""}
 
-    <h2 class="sec">Degerlendirmeler <span class="pasay">${yorumlar.length}</span></h2>
+    <h2 class="sec">Değerlendirmeler <span class="pasay">${yorumlar.length}</span></h2>
     <p class="sub" style="margin-top:-6px">Degerlendirmeler herkese aciktir; gizliligi "ozel" olan gunlerin fotograflari gizli kalir.</p>
     ${yorumlar.length ? yorumlar.map(r => {
       const p = r.profiles || {};
@@ -1415,7 +1449,7 @@ async function yerGoster(place) {
         <b>${esc(p.name || p.username || "gezgin")}</b><span class="stars sm">${yildizlar(r.rating)}</span></div>
         ${asp ? `<div class="miniaspects">${asp}</div>` : ""}
         ${r.body ? `<p>${esc(r.body)}</p>` : ""}</div>`;
-    }).join("") : `<div class="empty">Henuz degerlendirme yok. Ilk degerlendiren sen ol.</div>`}
+    }).join("") : `<div class="empty">Henüz değerlendirme yok. İlk değerlendiren sen ol.</div>`}
     <h3 class="elle-lbl" style="margin-top:22px">${benim ? "Degerlendirmeni guncelle" : "Sen de degerlendir"}</h3>
     <div id="yorumForm"></div>`;
   $("#detayout .back").addEventListener("click", sekmeyeDon);
@@ -1427,12 +1461,12 @@ async function yerGoster(place) {
     : (gunler.length ? [gunler[0].lat, gunler[0].lon] : [0, 0]);
   const ekleBtn = $("#noktaEkleBtn");
   if (ekleBtn) ekleBtn.addEventListener("click", () => {
-    if (!girisli()) return authGoster("Nokta eklemek icin uyelik gerekli.");
+    if (!girisli()) return authGoster("Nokta eklemek için üyelik gerekli.");
     ekleBtn.outerHTML = `<div class="nokta-form">
-      <input id="yeniNoktaAd" placeholder="Nokta adi (orn. Panorama Point)" autocomplete="off">
+      <input id="yeniNoktaAd" placeholder="Nokta adı (örn. Panorama Point)" autocomplete="off">
       <select id="yeniNoktaTur">
-        <option value="">tur (istege bagli)</option>
-        <option>manzara</option><option>selale</option><option>kamp</option>
+        <option value="">tür (isteğe bağlı)</option>
+        <option>manzara</option><option>şelale</option><option>kamp</option>
         <option>zirve</option><option>tarihi</option><option>gol/deniz</option></select>
       <button class="btn primary" id="yeniNoktaKaydet">Ekle</button></div>`;
     $("#yeniNoktaAd").focus();
@@ -1454,19 +1488,19 @@ function yorumFormCiz(place, mevcut) {
   if (!box) return;
   if (!girisli()) {
     box.innerHTML = `<div class="empty" style="padding:16px"><b>Buraya gittin mi?</b><br>
-      Degerlendirmek icin <button class="btn primary" onclick="authGoster('Degerlendirmek icin uyelik gerekli.')">uye ol</button></div>`;
+      Değerlendirmek için <button class="btn primary" onclick="authGoster('Degerlendirmek icin uyelik gerekli.')">üye ol</button></div>`;
     return;
   }
   let secili = { rating: mevcut ? mevcut.rating : 0, aspects: mevcut ? { ...mevcut.aspects } : {} };
   function ciz() {
     box.innerHTML = `<div class="reviewform">
-      <div class="formrow"><span>Puanin:</span><span class="stars big">${yildizlar(secili.rating, true)}</span></div>
+      <div class="formrow"><span>Puanın:</span><span class="stars big">${yildizlar(secili.rating, true)}</span></div>
       <div class="aspgrid">${ASPECTS.map(([k, ad]) => `
         <div class="aspsel"><span>${ad}</span>
           <button class="miniasp ${secili.aspects[k] === 1 ? "pos on" : ""}" data-asp="${k}" data-v="1">iyi</button>
-          <button class="miniasp ${secili.aspects[k] === -1 ? "neg on" : ""}" data-asp="${k}" data-v="-1">zayif</button>
+          <button class="miniasp ${secili.aspects[k] === -1 ? "neg on" : ""}" data-asp="${k}" data-v="-1">zayıf</button>
         </div>`).join("")}</div>
-      <textarea id="yorumMetin" placeholder="Deneyimini yaz (istege bagli): tuvalet, kamp alani, kalabalik...">${mevcut ? esc(mevcut.body) : ""}</textarea>
+      <textarea id="yorumMetin" placeholder="Deneyimini yaz (isteğe bağlı): tuvalet, kamp alanı, kalabalık...">${mevcut ? esc(mevcut.body) : ""}</textarea>
       <button class="btn primary" id="yorumGonder">${mevcut ? "Degerlendirmeni guncelle" : "Degerlendir"}</button></div>`;
     box.querySelectorAll("[data-star]").forEach(s => s.addEventListener("click", () => { secili.rating = +s.dataset.star; ciz(); }));
     box.querySelectorAll("[data-asp]").forEach(btn => btn.addEventListener("click", () => {
@@ -1497,7 +1531,7 @@ async function kapaklariGetir(scope) {
 function bagla(scope) {
   document.querySelectorAll(scope + " [data-takip]").forEach(b =>
     b.addEventListener("click", async () => {
-      if (SB && !girisli()) return authGoster("Gezginleri takip etmek icin uyelik gerekli.");
+      if (SB && !girisli()) return authGoster("Gezginleri takip etmek için üyelik gerekli.");
       await takipToggle(b.dataset.takip);
       if (!$("#view-akis").hidden) akisCiz();
       if (!$("#view-kesfet").hidden) kesfetCiz();
@@ -1557,7 +1591,7 @@ function haritaDunya(elId, dots) {
       iconSize: [r, r], iconAnchor: [r / 2, r / 2] });
     const kisa = esc(d.place);
     const pop = `<div class="dunya-pop"><b>${kisa}</b><br>
-      <span class="sub">${d.g.days} gun &middot; ${d.g.photos} fotograf</span><br>
+      <span class="sub">${d.g.days} gün &middot; ${d.g.photos} fotoğraf</span><br>
       <button class="btn" data-yerdetay="${kisa}" style="margin-top:6px">Detay ve degerlendirmeler &rarr;</button></div>`;
     const m = L.marker([d.lat, d.lon], { icon }).addTo(map).bindPopup(pop);
     m.on("click", () => map.flyTo([d.lat, d.lon], 11, { duration: 0.8 }));
@@ -1583,7 +1617,7 @@ function routeSvg(pts, tl, w = 780) {
   const xy = (p) => tekNokta ? [w/2, h/2]
     : [pad + (p.lon - lo0) * kx / sx * (w - 2*pad),
        pad + (la1 - p.lat) / sy * (h - 2*pad)];
-  let s = `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Gun rotasi">`;
+  let s = `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Gün rotasi">`;
   s += `<polyline points="${pts.map(p => xy(p).map(v => v.toFixed(1)).join(",")).join(" ")}"
         fill="none" stroke="var(--pine)" stroke-width="3" stroke-linecap="round"
         stroke-linejoin="round" stroke-dasharray="0.1 8" opacity="0.9"/>`;
@@ -1599,7 +1633,7 @@ function routeSvg(pts, tl, w = 780) {
 }
 function fotoHucre(p) {
   if (p.url) return `<img src="${p.url}" alt="" loading="lazy"
-    onerror="this.outerHTML='<div class=\\'ph-fallback\\'>HEIC onizleme yok</div>'">`;
+    onerror="this.outerHTML='<div class=\\'ph-fallback\\'>HEIC önizleme yok</div>'">`;
   return `<img src="${kareSvg(p.seed, p.time.getHours())}" alt="">`;
 }
 
@@ -1636,15 +1670,15 @@ function gunCiz() {
       `<button class="day-chip" aria-pressed="${k === DB.current}" data-day="${k}">${k}</button>`).join("") + `</div>`;
   }
   const kayit = tripsOku().find(t => t.date === DB.current && t.place === yer);
-  html += `<h1>${esc(yer)}${DB.sample ? '<span class="sample-flag">ornek gun</span>' : ""}</h1>
+  html += `<h1>${esc(yer)}${DB.sample ? '<span class="sample-flag">örnek gün</span>' : ""}</h1>
     <div class="sub">${d.getDate()} ${AYLAR[d.getMonth()]} ${d.getFullYear()}</div>`;
   if (!DB.sample && SB && !girisli()) {
-    html += `<div class="privrow"><span class="lbl">Bu gun yalnizca bu tarayicida.
-      Saklamak ve paylasmak icin</span>
-      <button class="btn primary" onclick="authGoster('Gunlerini saklamak ve paylasmak icin uyelik gerekli.')">Kayit ol</button></div>`;
+    html += `<div class="privrow"><span class="lbl">Bu gün yalnızca bu tarayıcıda.
+      Saklamak ve paylaşmak için</span>
+      <button class="btn primary" onclick="authGoster('Gunlerini saklamak ve paylasmak icin uyelik gerekli.')">Kayıt ol</button></div>`;
   }
   if (!DB.sample && (!SB || girisli())) {
-    html += `<div class="privrow"><span class="lbl">Bu gunu kim gorebilir:</span>
+    html += `<div class="privrow"><span class="lbl">Bu günü kim görebilir:</span>
       ${["ozel","arkadaslar","herkes"].map(p => `
         <button class="privchip" aria-pressed="${((kayit && kayit.priv) || "ozel") === p}" data-gpriv="${p}">${p}</button>`).join("")}
     </div>`;
@@ -1652,7 +1686,7 @@ function gunCiz() {
   html += `<div class="stats">
       <div><b>${(track/1000).toFixed(1)}</b><span>km iz</span></div>
       <div><b>${stops.length}</b><span>durak</span></div>
-      <div><b>${pts.length}</b><span>fotograf</span></div>
+      <div><b>${pts.length}</b><span>fotoğraf</span></div>
       <div><b>${hhmm(sorted[0].time)}&ndash;${hhmm(sorted[sorted.length-1].time)}</b><span>saat</span></div></div>
     <div class="mapcard" style="padding:8px"><div id="ornekHarita" class="uydu"></div></div>`;
   for (const t of tl) {
@@ -1670,7 +1704,7 @@ function gunCiz() {
     html += `<section class="stop"><header><span class="chip">${t.n}</span>
       <div style="flex:1;min-width:0">
         <h2 contenteditable="true" spellcheck="false" data-lat="${t.lat}" data-lon="${t.lon}">${esc(ad)}</h2>
-        <p class="meta">${hhmm(t.start)}&ndash;${hhmm(t.end)} &middot; ${mins} dk &middot; ${t.photos.length} fotograf</p>
+        <p class="meta">${hhmm(t.start)}&ndash;${hhmm(t.end)} &middot; ${mins} dk &middot; ${t.photos.length} fotoğraf</p>
         <p class="note" contenteditable="true" data-ph="adres / not ekle">${esc(k && k.note ? k.note : "")}</p>
       </div></header>
       <div class="grid">${grid}</div></section>`;
@@ -1697,7 +1731,7 @@ function gunCiz() {
 async function dosyalariIsle(files) {
   const imgs = [...files].filter(f => /\.(jpe?g|png|tiff?|heic|heif)$/i.test(f.name) || (f.type || "").startsWith("image/"));
   if (!imgs.length) return;
-  if (SB && !girisli()) return authGoster("Gun olusturmak icin uyelik gerekli.", "kayit");
+  if (SB && !girisli()) return authGoster("Gün oluşturmak için üyelik gerekli.", "kayit");
   $("#out").innerHTML = `<p class="sub">Fotograflar okunuyor&hellip;</p>`;
   const pts = [];
   for (const f of imgs) {
@@ -1855,53 +1889,53 @@ async function elleRender(hata) {
     yerler = [...new Set((data || []).map(d => d.place))]; }
   const secP = ELLE.points.filter(p => p.sel);
   $("#out").innerHTML = `<section class="elle">
-    <h2 class="sec" style="margin-top:0">Elle gun olustur</h2>
+    <h2 class="sec" style="margin-top:0">Elle gün oluştur</h2>
     ${hata ? `<p class="err">${esc(hata)}</p>` : ""}
     <label class="elle-lbl">1 &middot; Nereye gittin?</label>
-    <input id="ellePlace" list="yerListe" placeholder="Yer ara ya da yaz (orn. Mount Rainier)" value="${esc(ELLE.place)}">
+    <input id="ellePlace" list="yerListe" placeholder="Yer ara ya da yaz (örn. Mount Rainier)" value="${esc(ELLE.place)}">
     <datalist id="yerListe">${yerler.map(y => `<option value="${esc(y)}"></option>`).join("")}</datalist>
 
-    <label class="elle-lbl">2 &middot; Ne yaptin? <span class="elle-ipucu">birden fazla secebilirsin</span></label>
+    <label class="elle-lbl">2 &middot; Ne yaptin? <span class="elle-ipucu">birden fazla seçebilirsin</span></label>
     <div class="frow">${AKTIVITELER.map(a => `<button class="chip-sec chip-multi ${ELLE.activities.includes(a) ? "on" : ""}" data-akt="${a}"><span class="tik">${ELLE.activities.includes(a) ? "&#10003;" : "+"}</span>${a}</button>`).join("")}</div>
 
     <label class="elle-lbl">3 &middot; Tarih</label>
     <input id="elleDate" type="date" value="${ELLE.date}">
 
-    <label class="elle-lbl">4 &middot; Hangi noktalara ugradin? <span class="elle-ipucu">birden fazla secebilirsin</span></label>
+    <label class="elle-lbl">4 &middot; Hangi noktalara ugradin? <span class="elle-ipucu">birden fazla seçebilirsin</span></label>
     ${ELLE.place
       ? (ELLE.points.length ? `<div class="frow">${ELLE.points.map((p, i) => `<button class="chip-sec chip-multi ${p.sel ? "on" : ""}" data-pt="${i}"><span class="tik">${p.sel ? "&#10003;" : "+"}</span>${esc(p.name)}${p.new ? ' <span class="yenirozet">yeni</span>' : ""}</button>`).join("")}</div>`
-          : `<p class="notice" style="margin:4px 0">Bu yerde kayitli nokta yok, asagidan ekle.</p>`)
-        + `<div class="nokta-form" style="margin-top:8px"><input id="elleYeniNokta" placeholder="Yeni nokta (orn. Panorama Point)"><button class="btn" id="elleNoktaEkle">Ekle</button></div>`
-      : `<p class="notice" style="margin:4px 0">Once yeri yaz.</p>`}
+          : `<p class="notice" style="margin:4px 0">Bu yerde kayıtlı nokta yok, aşağıdan ekle.</p>`)
+        + `<div class="nokta-form" style="margin-top:8px"><input id="elleYeniNokta" placeholder="Yeni nokta (örn. Panorama Point)"><button class="btn" id="elleNoktaEkle">Ekle</button></div>`
+      : `<p class="notice" style="margin:4px 0">Önce yeri yaz.</p>`}
 
     <label class="elle-lbl">5 &middot; Fotograflar ${ELLE.photos.length ? `(${ELLE.photos.length})` : ""}</label>
-    <div class="drop" id="elleDrop" style="padding:16px"><b>Fotograf ekle</b> &middot; konum gerekmez
+    <div class="drop" id="elleDrop" style="padding:16px"><b>Fotoğraf ekle</b> &middot; konum gerekmez
       <input type="file" id="elleFile" multiple accept="image/*,.heic,.heif" hidden></div>
     ${ELLE.photos.length ? `<div class="elle-grid">${ELLE.photos.map((ph, i) => `
       <div class="elle-ph ${ELLE.cover === i ? "cover" : ""}">
         <img src="${ph.url}" alt="">
-        <button class="elle-sil" data-phsil="${i}" title="Kaldir">&times;</button>
+        <button class="elle-sil" data-phsil="${i}" title="Kaldır">&times;</button>
         <button class="elle-cover" data-cover="${i}">${ELLE.cover === i ? "&#9733; Kapak" : "Kapak yap"}</button>
         ${secP.length ? `<select data-phpt="${i}"><option value="">(nokta)</option>${secP.map(p => `<option ${ph.point === p.name ? "selected" : ""}>${esc(p.name)}</option>`).join("")}</select>` : ""}
       </div>`).join("")}</div>` : ""}
 
-    <label class="elle-lbl">6 &middot; Aciklama (istege bagli)</label>
-    <textarea id="elleNote" placeholder="Bu gun hakkinda birkac kelime...">${esc(ELLE.note)}</textarea>
+    <label class="elle-lbl">6 &middot; Aciklama (istege bağlı)</label>
+    <textarea id="elleNote" placeholder="Bu gün hakkında birkaç kelime...">${esc(ELLE.note)}</textarea>
 
     <label class="elle-lbl">7 &middot; Kim gorebilir?</label>
     <div class="frow">${["ozel", "arkadaslar", "herkes"].map(p => `<button class="privchip" aria-pressed="${ELLE.priv === p}" data-epriv="${p}">${p}</button>`).join("")}</div>
 
-    <label class="elle-lbl">8 &middot; Bu yeri puanla <span class="elle-ipucu">istege bagli &middot; degerlendirmeler her zaman herkese acik</span></label>
-    <div class="formrow"><span>Puanin:</span><span class="stars big" id="ellePuan">${yildizlar(ELLE.rating, true)}</span></div>
+    <label class="elle-lbl">8 &middot; Bu yeri puanla <span class="elle-ipucu">istege bağlı &middot; degerlendirmeler her zaman herkese açık</span></label>
+    <div class="formrow"><span>Puanın:</span><span class="stars big" id="ellePuan">${yildizlar(ELLE.rating, true)}</span></div>
     <div class="aspgrid">${ASPECTS.map(([k, ad]) => `
       <div class="aspsel"><span>${ad}</span>
         <button class="miniasp ${ELLE.aspects[k] === 1 ? "pos on" : ""}" data-easp="${k}" data-ev="1">iyi</button>
-        <button class="miniasp ${ELLE.aspects[k] === -1 ? "neg on" : ""}" data-easp="${k}" data-ev="-1">zayif</button>
+        <button class="miniasp ${ELLE.aspects[k] === -1 ? "neg on" : ""}" data-easp="${k}" data-ev="-1">zayıf</button>
       </div>`).join("")}</div>
-    <textarea id="elleReview" placeholder="Degerlendirme notun (istege bagli): tuvalet, kamp alani, kalabalik...">${esc(ELLE.reviewNote)}</textarea>
+    <textarea id="elleReview" placeholder="Değerlendirme notun (isteğe bağlı): tuvalet, kamp alanı, kalabalık...">${esc(ELLE.reviewNote)}</textarea>
 
-    <div class="elle-kaydet"><button class="btn primary" id="elleKaydetBtn">Gunu kaydet</button>
-      <button class="btn" id="elleVazgec">Vazgec</button></div>
+    <div class="elle-kaydet"><button class="btn primary" id="elleKaydetBtn">Günü kaydet</button>
+      <button class="btn" id="elleVazgec">Vazgeç</button></div>
   </section>`;
   elleBagla();
 }
@@ -1949,7 +1983,7 @@ function elleBagla() {
 }
 async function elleKaydet() {
   if (!ELLE.place) return elleRender("Once nereye gittigini yaz.");
-  if (!girisli()) return authGoster("Kaydetmek icin uyelik gerekli.", "kayit");
+  if (!girisli()) return authGoster("Kaydetmek için üyelik gerekli.", "kayit");
   // MODERASYON ENGELLEMEZ: yukleme her zaman kabul edilir. Dogrulama kayittan SONRA
   // arka planda yapilir; supheli/alakasiz gorunen gun moderator (Cagri) kuyruguna duser.
   const secP = ELLE.points.filter(p => p.sel);
@@ -2045,18 +2079,18 @@ function yurtDisiMi(t) {
   return !(t.lat > 35 && t.lat < 43 && t.lon > 25 && t.lon < 45);
 }
 const ROZETLER = [
-  { id: "ilk", ad: "Ilk Adim", kosul: "Ilk gununu kaydet", test: s => s.gun >= 1 },
-  { id: "gezgin", ad: "Gezgin", kosul: "5 gun", test: s => s.gun >= 5 },
-  { id: "kasif", ad: "Kasif", kosul: "10 gun", test: s => s.gun >= 10 },
+  { id: "ilk", ad: "İlk Adım", kosul: "İlk gününü kaydet", test: s => s.gun >= 1 },
+  { id: "gezgin", ad: "Gezgin", kosul: "5 gün", test: s => s.gun >= 5 },
+  { id: "kasif", ad: "Kaşif", kosul: "10 gün", test: s => s.gun >= 10 },
   { id: "km25", ad: "25 km", kosul: "Toplam 25 km", test: s => s.km >= 25 },
   { id: "km100", ad: "100 km", kosul: "Toplam 100 km", test: s => s.km >= 100 },
   { id: "km250", ad: "250 km", kosul: "Toplam 250 km", test: s => s.km >= 250 },
-  { id: "bolge3", ad: "3 Bolge", kosul: "3 farkli bolge", test: s => s.bolge >= 3 },
-  { id: "bolge5", ad: "5 Bolge", kosul: "5 farkli bolge", test: s => s.bolge >= 5 },
+  { id: "bolge3", ad: "3 Bölge", kosul: "3 farklı bölge", test: s => s.bolge >= 3 },
+  { id: "bolge5", ad: "5 Bölge", kosul: "5 farklı bölge", test: s => s.bolge >= 5 },
   { id: "park", ad: "Milli Park", kosul: "Bir milli park / zirve", test: s => s.park >= 1 },
-  { id: "park3", ad: "Park Avcisi", kosul: "3 milli park", test: s => s.park >= 3 },
-  { id: "disari", ad: "Yurt Disi", kosul: "Yurt disinda bir gun", test: s => s.disari >= 1 },
-  { id: "foto500", ad: "Fotografci", kosul: "Toplam 500 fotograf", test: s => s.foto >= 500 },
+  { id: "park3", ad: "Park Avcısı", kosul: "3 milli park", test: s => s.park >= 3 },
+  { id: "disari", ad: "Yurt Dışı", kosul: "Yurt dışında bir gün", test: s => s.disari >= 1 },
+  { id: "foto500", ad: "Fotoğrafçı", kosul: "Toplam 500 fotoğraf", test: s => s.foto >= 500 },
 ];
 function rozetMetrik(trips) {
   return {
@@ -2090,11 +2124,11 @@ async function getTrips() {
 }
 async function haritaCiz() {
   const trips = await getTrips();
-  const head = `<h1>Gezi Haritam</h1><div class="sub">Gittigin bolgeler, tek haritada. Her yeni yer pasaportunu doldurur.</div>`;
+  const head = `<h1>Gezi Haritam</h1><div class="sub">Gittiğin bölgeler, tek haritada. Her yeni yer pasaportunu doldurur.</div>`;
   if (!trips.length) {
-    $("#tripout").innerHTML = head + `<div class="empty"><b>Henuz kayitli gezi yok.</b><br>
-      Gunlerim sekmesinde kendi fotograflarini isledigin anda her gun buraya islenir,
-      pasaportun dolmaya baslar.</div>` + pasaportHtml([]);
+    $("#tripout").innerHTML = head + `<div class="empty"><b>Henüz kayıtlı gezi yok.</b><br>
+      Günlerim sekmesinde kendi fotoğraflarını işlediğin anda her gün buraya işlenir,
+      pasaportun dolmaya başlar.</div>` + pasaportHtml([]);
     return;
   }
   const yer = new Map();
@@ -2112,16 +2146,16 @@ async function haritaCiz() {
   const AY = (iso) => { const dd = new Date(iso); return dd.getDate() + " " + AYLAR[dd.getMonth()] + " " + dd.getFullYear(); };
   $("#tripout").innerHTML = head + `
     <div class="stats">
-      <div><b>${yer.size}</b><span>bolge</span></div>
-      <div><b>${gun}</b><span>gun</span></div>
+      <div><b>${yer.size}</b><span>bölge</span></div>
+      <div><b>${gun}</b><span>gün</span></div>
       <div><b>${km.toFixed(0)}</b><span>km</span></div>
-      <div><b>${foto}</b><span>fotograf</span></div></div>
+      <div><b>${foto}</b><span>fotoğraf</span></div></div>
     <div class="mapcard" style="padding:0;overflow:hidden"><div id="dunyaHarita" style="height:440px"></div></div>
-    <p class="maphint">Bir noktaya dokun: oraya yakinlasir, degerlendirmeleri ve fotograflari gorursun.</p>
-    <h2 class="sec">Gittigin bolgeler</h2>
+    <p class="maphint">Bir noktaya dokun: oraya yakınlaşır, değerlendirmeleri ve fotoğrafları görürsün.</p>
+    <h2 class="sec">Gittiğin bölgeler</h2>
     <div class="tcards">${[...yer.entries()].map(([p, g]) =>
       `<div class="tcard" data-yer="${esc(p)}" style="cursor:pointer"><h3>${esc(p)}</h3>
-       <p>${g.days} gun &middot; ${g.photos} fotograf &middot; ${g.km.toFixed(0)} km</p>
+       <p>${g.days} gün &middot; ${g.photos} fotoğraf &middot; ${g.km.toFixed(0)} km</p>
        <p>${g.dates.sort().map(AY).join(", ")}</p></div>`).join("")}</div>
     ${pasaportHtml(trips)}`;
   haritaDunya("dunyaHarita", dots);
@@ -2155,21 +2189,21 @@ drop.addEventListener("drop", (e) => dosyalariIsle(e.dataTransfer.files));
 const girisli = () => !!(ME && ME.id);
 function hataGoster(m) { const e = $("#authErr"); e.textContent = m; e.hidden = false; }
 function trHata(m) {
-  if (/already registered/i.test(m)) return "Bu e-posta zaten kayitli.";
-  if (/invalid login credentials/i.test(m)) return "E-posta veya sifre yanlis.";
-  if (/at least 6/i.test(m) || /password/i.test(m)) return "Sifre en az 6 karakter olmali.";
-  if (/valid email/i.test(m)) return "Gecerli bir e-posta yaz.";
+  if (/already registered/i.test(m)) return "Bu e-posta zaten kayıtlı.";
+  if (/invalid login credentials/i.test(m)) return "E-posta veya şifre yanlış.";
+  if (/at least 6/i.test(m) || /password/i.test(m)) return "Şifre en az 6 karakter olmalı.";
+  if (/valid email/i.test(m)) return "Geçerli bir e-posta yaz.";
   return m;
 }
 let AUTH_MOD = "giris";  // "giris" | "kayit"
 function authModCiz() {
   const kayit = AUTH_MOD === "kayit";
   $("#adin").hidden = !kayit;
-  $("#authGonder").textContent = kayit ? "Kayit ol" : "Giris yap";
+  $("#authGonder").textContent = kayit ? "Kayıt ol" : "Giriş yap";
   $("#sifre").setAttribute("autocomplete", kayit ? "new-password" : "current-password");
   $("#authToggle").innerHTML = kayit
-    ? `Zaten hesabin var mi? <button type="button" id="authSwitch">Giris yap</button>`
-    : `Hesabin yok mu? <button type="button" id="authSwitch">Kayit ol</button>`;
+    ? `Zaten hesabin var mi? <button type="button" id="authSwitch">Giriş yap</button>`
+    : `Hesabın yok mu? <button type="button" id="authSwitch">Kayıt ol</button>`;
   $("#authSwitch").addEventListener("click", () => {
     AUTH_MOD = kayit ? "giris" : "kayit"; $("#authErr").hidden = true; authModCiz();
     (AUTH_MOD === "kayit" ? $("#adin") : $("#eposta")).focus();
@@ -2199,9 +2233,9 @@ function ustBar() {
         <div class="um-head"><span class="avatar">${esc(ME.name[0] || "g")}</span>
           <div class="um-who"><b>${esc(ME.name)}</b>${ME.username ? `<span>@${esc(ME.username)}</span>` : ""}</div></div>
         <button class="um-item" data-um="profil"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg>Profilim</button>
-        <button class="um-item" data-um="gunlerim"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>Gun ekle</button>
+        <button class="um-item" data-um="gunlerim"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>Gün ekle</button>
         <div class="um-sep"></div>
-        <button class="um-item um-cikis" data-um="cikis"><svg viewBox="0 0 24 24"><path d="M14 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-2M10 12h10M17 9l3 3-3 3"/></svg>Cikis yap</button>
+        <button class="um-item um-cikis" data-um="cikis"><svg viewBox="0 0 24 24"><path d="M14 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-2M10 12h10M17 9l3 3-3 3"/></svg>Çıkış yap</button>
       </div>`;
     const btn = $("#userBtn"), menu = $("#userMenu");
     const ac = (goster) => { menu.hidden = !goster; btn.setAttribute("aria-expanded", goster ? "true" : "false"); };
@@ -2215,8 +2249,8 @@ function ustBar() {
       else { const nb = document.querySelector(`#nav button[data-v="${v}"]`); if (nb) nb.click(); }
     }));
   } else {
-    a.innerHTML = `<button class="btn" id="ustGiris">Giris yap</button>
-      <button class="btn primary" id="ustKayit">Kayit ol</button>`;
+    a.innerHTML = `<button class="btn" id="ustGiris">Giriş yap</button>
+      <button class="btn primary" id="ustKayit">Kayıt ol</button>`;
     $("#ustGiris").addEventListener("click", () => authGoster(null, "giris"));
     $("#ustKayit").addEventListener("click", () => authGoster(null, "kayit"));
   }
@@ -2234,19 +2268,19 @@ async function authYap() {
   const email = $("#eposta").value.trim(), pass = $("#sifre").value;
   if (!email) return hataGoster("E-posta gir.");
   if (AUTH_MOD === "kayit") {
-    if (pass.length < 6) return hataGoster("Sifre en az 6 karakter olmali.");
+    if (pass.length < 6) return hataGoster("Şifre en az 6 karakter olmalı.");
     const name = $("#adin").value.trim();
     const { data, error } = await SB.auth.signUp({ email, password: pass, options: { data: { name } } });
     if (error) {
       if (/already registered/i.test(error.message)) {
         const r = await SB.auth.signInWithPassword({ email, password: pass });
         if (!r.error) return girisSonrasi(r.data.session);
-        return hataGoster("Bu e-posta zaten kayitli. 'Giris yap'a gec ve sifreni gir.");
+        return hataGoster("Bu e-posta zaten kayıtlı. 'Giriş yap'a geç ve şifreni gir.");
       }
       return hataGoster(trHata(error.message));
     }
     if (data.session) await girisSonrasi(data.session);
-    else hataGoster("Kayit alindi; e-postani dogrulaman gerekiyor.");
+    else hataGoster("Kayıt alındı; e-postani doğrulaman gerekiyor.");
   } else {
     const { data, error } = await SB.auth.signInWithPassword({ email, password: pass });
     if (error) return hataGoster(trHata(error.message));
