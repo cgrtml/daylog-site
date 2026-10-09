@@ -53,7 +53,7 @@ main{max-width:720px;margin:0 auto;padding-block:18px 60px;padding-inline:20px}
 @media (min-width:1100px){main{max-width:760px}}
 
 header.top{display:flex;align-items:center;gap:14px;padding:6px 0 2px}
-.brand{font-family:var(--disp);font-weight:800;font-size:1.65rem;letter-spacing:-.045em;color:var(--logo-ink);line-height:1;
+.brand{text-decoration:none;font-family:var(--disp);font-weight:800;font-size:1.65rem;letter-spacing:-.045em;color:var(--logo-ink);line-height:1;
   font-optical-sizing:auto}
 .brand i{color:var(--logo-accent);font-style:normal}
 .tag{color:var(--mut);font-size:.9rem;flex:1;min-width:0;letter-spacing:0}
@@ -249,7 +249,7 @@ img.avatar{object-fit:cover;background:var(--chipbg)}
   background:repeating-linear-gradient(170deg,transparent 0 26px,rgba(20,23,15,.06) 26px 27px)}
 .pr-cip{position:absolute;top:14px;right:14px;z-index:500;height:32px;padding:0 12px;border-radius:16px;background:var(--paper);display:flex;align-items:center;font-size:.82rem;font-weight:700;box-shadow:0 4px 12px rgba(20,23,15,.15)}
 .pr-geri{position:absolute;top:14px;left:14px;z-index:500;width:44px;height:44px;border-radius:22px;padding:0;background:var(--paper);display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 4px 12px rgba(20,23,15,.15)}
-.pr-harita .leaflet-top.leaflet-left{top:auto;bottom:10px}
+.pr-harita .leaflet-control-zoom{display:none}
 .pr-ust{display:flex;align-items:flex-end;gap:14px;margin:-44px 0 0 12px;position:relative;z-index:501}
 .avatar.pr-av{width:92px;height:92px;font-size:2rem;border:4px solid var(--bg);flex:none}
 .pr-sayilar{display:flex;flex-wrap:wrap;gap:4px 14px;padding-bottom:6px;font-size:.88rem;color:var(--ink2)}
@@ -315,6 +315,68 @@ img.avatar{object-fit:cover;background:var(--chipbg)}
 .fa-kart .fa-not{font-size:.8rem;color:var(--mut)}
 .fa-devam{width:100%;padding:15px;margin-top:4px}
 .fa-devam[disabled]{background:#ddd8cb;border-color:#ddd8cb;color:#6e7366}
+/* ana sayfa */
+body.ana-acik nav.nav{display:none}
+body.ana-acik main{padding-bottom:0;max-width:1160px}
+body.ana-acik footer{max-width:none}
+body{overflow-x:hidden}
+.ana-hero{position:relative;width:100vw;margin-left:calc(50% - 50vw);margin-top:16px;min-height:640px;display:flex;color:#faf8f3;overflow:hidden}
+.ana-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ana-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,14,9,.82) 0%,rgba(10,14,9,.5) 55%,rgba(10,14,9,.2) 100%)}
+.ana-hero-ic{position:relative;z-index:1;width:100%;max-width:1160px;margin:0 auto;padding:72px 24px;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:40px}
+.ana-sol{flex:1 1 480px;min-width:0;max-width:660px}
+.ana-koord,.ana-mono{font-family:var(--mono);font-size:.75rem;letter-spacing:.08em}
+.ana-koord{opacity:.85}
+.ana-hero h1{color:#faf8f3;font-size:clamp(2.6rem,6.4vw,5.2rem);font-weight:800;letter-spacing:-.045em;line-height:.95;margin:16px 0 0}
+.ana-hero p{font-size:1.15rem;line-height:1.5;max-width:34em;margin:20px 0 0;opacity:.92}
+.ana-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.btn.ana-btn{background:var(--blaze);border-color:var(--blaze);color:#fff;padding:15px 24px;font-size:1rem}
+.btn.ana-btn:hover{background:#a83b16;border-color:#a83b16}
+.btn.ana-btn2{background:transparent;border-color:rgba(250,248,243,.6);color:#faf8f3;padding:15px 24px;font-size:1rem}
+.btn.ana-btn2:hover{background:rgba(250,248,243,.12)}
+.ana-kart{flex:0 1 300px;min-width:0;background:rgba(250,248,243,.96);color:#14170f;border-radius:24px;padding:18px;box-shadow:0 30px 60px -24px rgba(0,0,0,.6)}
+.ana-kart-ust{display:flex;align-items:center;gap:10px}
+.ana-kart-ust img{width:56px;height:56px;border-radius:14px;object-fit:cover}
+.ana-kart-ust .ana-mono{color:#555a4e;font-size:.65rem}
+.ana-kart-ust b{font-size:1.2rem;font-weight:800;letter-spacing:-.03em}
+.ana-kart-say{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid #ded9cc}
+.ana-kart-say span{display:block;font-family:var(--mono);font-size:.6rem;color:#555a4e;text-transform:uppercase}
+.ana-kart-say b{font-size:1.05rem;font-weight:800}
+.ana-kart-durak{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:8px;counter-reset:d;font-size:.9rem}
+.ana-kart-durak li{display:flex;align-items:center;gap:10px;counter-increment:d}
+.ana-kart-durak li::before{content:counter(d);width:22px;height:22px;border-radius:11px;background:var(--blaze);color:#fff;font-family:var(--mono);font-size:.7rem;display:flex;align-items:center;justify-content:center;flex:none}
+.ana-bolum{padding:80px 0 0}
+.ana-bolum-bas{display:flex;flex-direction:column;gap:12px}
+.ana-satir{flex-direction:row;flex-wrap:wrap;justify-content:space-between;align-items:baseline}
+.ana-bolum h2{margin:0;font-size:clamp(1.9rem,4.4vw,3rem);font-weight:800;letter-spacing:-.04em;line-height:1.02;text-wrap:balance}
+.ana-bolum-bas p{margin:0;color:var(--ink2);max-width:34em;font-size:1.02rem}
+.ana-adimlar{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:40px}
+.ana-adimlar>div{border-top:2px solid var(--ink);padding-top:18px}
+.ana-adimlar span{font-family:var(--mono);font-size:.8rem;color:var(--blaze)}
+.ana-adimlar h3{margin:10px 0 0;font-size:1.3rem;font-weight:700;letter-spacing:-.025em}
+.ana-adimlar p{margin:8px 0 0;color:var(--ink2);font-size:.95rem;line-height:1.55}
+.ana-link{border:0;background:none;font:inherit;font-weight:600;color:var(--pine);cursor:pointer;min-height:44px}
+.ana-vitrin{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:26px}
+.ana-vitrin-kart{position:relative;height:300px;border-radius:22px;overflow:hidden;border:0;padding:0;cursor:pointer;background:var(--chipbg);text-align:left;font:inherit}
+.ana-vitrin-kart img{width:100%;height:100%;object-fit:cover;display:block}
+.ana-vitrin-kart::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,14,9,0) 50%,rgba(10,14,9,.8))}
+.ana-vitrin-alt{position:absolute;left:16px;right:16px;bottom:14px;z-index:1;color:#faf8f3}
+.ana-vitrin-alt .ana-mono{font-size:.62rem;opacity:.85}
+.ana-vitrin-alt b{display:block;font-size:1.3rem;font-weight:800;letter-spacing:-.03em;margin-top:4px}
+.ana-gizlilik{width:100vw;margin-left:calc(50% - 50vw);margin-top:80px;background:#1e3b2c;color:#f1eee6}
+.ana-gizlilik-ic{max-width:1160px;margin:0 auto;padding:72px 24px;display:flex;flex-wrap:wrap;gap:40px}
+.ana-gizlilik-ic>div{flex:1 1 320px;min-width:0}
+.ana-gizlilik .ana-mono{opacity:.75}
+.ana-gizlilik h2{color:#f1eee6;margin:12px 0 0;font-size:clamp(2rem,4.4vw,3.4rem);font-weight:800;letter-spacing:-.045em;line-height:.98}
+.ana-gizlilik ul{flex:1 1 360px;list-style:none;margin:0;padding:0}
+.ana-gizlilik li{padding:18px 0;border-top:1px solid rgba(241,238,230,.22)}
+.ana-gizlilik li:last-child{border-bottom:1px solid rgba(241,238,230,.22)}
+.ana-gizlilik li b{display:block;font-size:1.1rem}
+.ana-gizlilik li span{opacity:.82;font-size:.95rem}
+.ana-son{text-align:center;padding:80px 0 20px;display:flex;flex-direction:column;align-items:center}
+.ana-son h2{margin:0;font-size:clamp(2rem,5vw,3.8rem);font-weight:800;letter-spacing:-.045em;line-height:.98;max-width:12em;text-wrap:balance}
+.btn.ana-btn-koyu{margin-top:28px;background:#14170f;border-color:#14170f;color:#f1eee6;padding:16px 30px;font-size:1.05rem}
+@media (max-width:600px){.ana-hero{min-height:0}.ana-hero-ic{padding:48px 20px}.ana-vitrin-kart{height:220px}}
 /* akis: editoryel kart - tam-tasan kapak ustte, iri baslik, yazar altta */
 .feedcard{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:24px;overflow:hidden;
   margin:20px 0;box-shadow:var(--sh1);transition:box-shadow .2s,transform .2s}
@@ -530,7 +592,7 @@ footer{color:var(--mut);font-size:.8rem;text-align:center;margin-top:40px;line-h
 
 <main>
 <header class="top">
-  <div class="brand">orma<i>io</i></div>
+  <a class="brand" href="#" id="logoBtn" aria-label="ormaio ana sayfa">orma<i>io</i></a>
   <div class="tag">Gezinin hikâyesi, fotoğraflarından kendi kendine.</div>
   <div class="authbtns" id="authArea"></div>
 </header>
@@ -543,6 +605,7 @@ footer{color:var(--mut);font-size:.8rem;text-align:center;margin-top:40px;line-h
   <button data-v="profil" aria-pressed="false"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg>Profil</button>
 </nav>
 
+<div id="view-ana" hidden></div>
 <div id="view-akis" hidden></div>
 <div id="view-kesfet" hidden></div>
 
@@ -2386,12 +2449,92 @@ async function haritaCiz() {
 }
 
 /* ---------- shell ---------- */
+/* ---------- ana sayfa: giris yapmamis ziyaretciye urunu anlatir ---------- */
+function anaGoster() {
+  for (const v of Object.keys(VIEWS)) $("#view-" + v).hidden = true;
+  $("#view-detay").hidden = true;
+  $("#view-ana").hidden = false;
+  document.body.classList.add("ana-acik");
+  anaCiz();
+}
+async function anaCiz() {
+  const el = $("#view-ana");
+  el.innerHTML = `
+  <section class="ana-hero">
+    <img src="ana-hero.jpg" alt="Glacier Point'ten Yosemite vadisi" class="ana-hero-img">
+    <div class="ana-hero-ic">
+      <div class="ana-sol">
+        <div class="ana-koord">37°43′K 119°34′B · GLACIER POINT</div>
+        <h1>Fotoğrafların, gezinin hikâyesini kendi yazsın.</h1>
+        <p>Kareleri bırak. Duraklar, rota, mesafe ve süre saniyeler içinde bir güne dönüşür. Yazmak yok, kayıt tuşu yok.</p>
+        <div class="ana-cta">
+          <button class="btn ana-btn" id="anaBasla">İlk gününü oluştur &rarr;</button>
+          <button class="btn ana-btn2" id="anaOrnek">Örnek günlere bak</button>
+        </div>
+      </div>
+      <div class="ana-kart" aria-label="Örnek gün">
+        <div class="ana-kart-ust"><img src="ana-zion.jpg" alt="Zion">
+          <div><div class="ana-mono">19 TEM · 71 FOTOĞRAFTAN</div><b>Zion</b></div></div>
+        <div class="ana-kart-say"><div><span>Mesafe</span><b>13 km</b></div><div><span>Durak</span><b>4</b></div><div><span>Süre</span><b>6:40</b></div></div>
+        <ol class="ana-kart-durak"><li>Angels Landing</li><li>The Narrows</li><li>Emerald Pools</li></ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="ana-bolum">
+    <div class="ana-bolum-bas"><h2>Üç adımda bir gün, sıfır yazı.</h2>
+      <p>Fotoğrafın içindeki konum ve saat bilgisi yeterli. Konum yoksa ormaio kareye bakıp yeri tahmin eder, sen onaylarsın.</p></div>
+    <div class="ana-adimlar">
+      <div><span>01</span><h3>Fotoğrafları bırak</h3><p>Telefonundan bir günün karelerini seç. JPG ve HEIC, çoklu seçim. İnternetsiz çekip sonra yükleyebilirsin.</p></div>
+      <div><span>02</span><h3>Gün kendini kursun</h3><p>Duraklar, rota, mesafe ve süre otomatik çıkar. Manzara, su, kamp gibi bilgiler karelerden okunur.</p></div>
+      <div><span>03</span><h3>Sakla ya da paylaş</h3><p>Her gün varsayılan olarak özeldir. İstersen arkadaşlarına, istersen herkese açarsın. Haritanda iz bırakır.</p></div>
+    </div>
+  </section>
+
+  <section class="ana-bolum">
+    <div class="ana-bolum-bas ana-satir"><h2>Gezginler son günlerde nereye gitti</h2>
+      <button class="ana-link" id="anaAkis">Tüm akış &rarr;</button></div>
+    <div class="ana-vitrin" id="anaVitrin">${'<div class="ana-vitrin-kart skel"></div>'.repeat(4)}</div>
+  </section>
+
+  <section class="ana-gizlilik"><div class="ana-gizlilik-ic">
+    <div><div class="ana-mono">GİZLİLİK</div><h2>Varsayılan özel. Sen açmadan kimse görmez.</h2></div>
+    <ul>
+      <li><b>Fotoğraflar önce cihazında işlenir</b><span>Özel günlerin kareleri hiç sunucuya gitmez.</span></li>
+      <li><b>Üç seviye görünürlük</b><span>Özel, arkadaşlar ya da herkes. Her gün için ayrı seçilir.</span></li>
+      <li><b>Paylaştığını geri alabilirsin</b><span>Bir günü istediğin an özele çevirir ya da silersin.</span></li>
+    </ul></div></section>
+
+  <section class="ana-son"><h2>Bir sonraki gezin kendi kendine yazılsın.</h2>
+    <button class="btn ana-btn-koyu" id="anaBasla2">Ücretsiz başla</button></section>`;
+  const basla = () => (SB ? authGoster("Hesap aç, ilk gününü birkaç fotoğrafla oluştur.", "kayit") : $('#nav button[data-v="gunlerim"]').click());
+  $("#anaBasla").addEventListener("click", basla);
+  $("#anaBasla2").addEventListener("click", basla);
+  const akisaGit = () => $('#nav button[data-v="akis"]').click();
+  $("#anaOrnek").addEventListener("click", akisaGit);
+  $("#anaAkis").addEventListener("click", akisaGit);
+  // vitrin: herkese acik son gunler
+  if (!SB) { $("#anaVitrin").innerHTML = ""; return; }
+  let { data, error } = await SB.from("days").select("id,place,km,cover_path,profiles!days_user_id_fkey(name,username)")
+    .eq("privacy", "herkes").eq("review_status", "ok").order("date", { ascending: false }).limit(8);
+  if (error) ({ data } = await SB.from("days").select("id,place,km,cover_path,profiles!days_user_id_fkey(name,username)")
+    .eq("privacy", "herkes").order("date", { ascending: false }).limit(8));
+  const tek = [], gor = new Set();
+  for (const d of data || []) { if (gor.has(d.place)) continue; gor.add(d.place); tek.push(d); if (tek.length === 4) break; }
+  $("#anaVitrin").innerHTML = tek.map(d => { const u = d.profiles || {}; return `
+    <button class="ana-vitrin-kart" data-day="${d.id}"><img src="${kareSvg(d.place.length, 12)}" alt="${esc(d.place)}"${d.cover_path ? ` data-cover="${esc(d.cover_path)}"` : ""}>
+      <span class="ana-vitrin-alt"><span class="ana-mono">${esc((u.name || u.username || "gezgin").toLocaleUpperCase("tr-TR"))} · ${String(d.km).replace(".", ",")} KM</span><b>${esc(d.place)}</b></span></button>`; }).join("");
+  document.querySelectorAll("#anaVitrin [data-day]").forEach(b => b.addEventListener("click", () => { ONCEKI_SEKME = "akis"; gunGoster(b.dataset.day); }));
+  kapaklariGetir("#anaVitrin");
+}
+
 const VIEWS = {akis: akisCiz, kesfet: kesfetCiz, gunlerim: null, harita: haritaCiz, profil: profilCiz};
 document.querySelectorAll("#nav button").forEach(b =>
   b.addEventListener("click", () => {
     document.querySelectorAll("#nav button").forEach(x =>
       x.setAttribute("aria-pressed", x === b ? "true" : "false"));
     $("#view-detay").hidden = true;
+    $("#view-ana").hidden = true; document.body.classList.remove("ana-acik");
     for (const v of Object.keys(VIEWS)) $("#view-" + v).hidden = v !== b.dataset.v;
     if (VIEWS[b.dataset.v]) VIEWS[b.dataset.v]();
   }));
@@ -2524,7 +2667,8 @@ if (SB) {
   $("#sifre").addEventListener("keydown", (e) => { if (e.key === "Enter") authYap(); });
   authKapat();
   SB.auth.getSession().then(({ data }) => {
-    if (data.session) girisSonrasi(data.session); else { ME = null; lsSet("me", null); ustBar(); }
+    if (data.session) { girisSonrasi(data.session).then(() => { if (!/^#@/.test(location.hash) && !$("#view-gunlerim").hidden) $('#nav button[data-v="akis"]').click(); }); }
+    else { ME = null; lsSet("me", null); ustBar(); if (!/^#@/.test(location.hash)) anaGoster(); }
     profilBaglantisi();
   });
 } else {
@@ -2537,5 +2681,6 @@ $("#heroDene").addEventListener("click", () =>
   document.getElementById("drop").scrollIntoView({ behavior: "smooth" }));
 ustBar();
 
+$("#logoBtn").addEventListener("click", (e) => { e.preventDefault(); girisli() ? $('#nav button[data-v="akis"]').click() : anaGoster(); });
 ornekGun();
 </script>
