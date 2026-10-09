@@ -183,7 +183,7 @@ h2.sec{font-family:var(--disp);font-weight:800;font-size:1.45rem;letter-spacing:
 .stats b{display:block;font-family:var(--disp);font-weight:800;font-size:1.5rem;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.1}
 .stats span{color:var(--mut);font-size:.68rem;margin-top:5px;display:block;text-transform:uppercase;letter-spacing:.08em}
 .mapcard{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);padding:7px;margin-bottom:26px;box-shadow:var(--sh1)}
-.mapcard svg{width:100%;height:auto;display:block;border-radius:calc(var(--r-lg) - 7px)}
+.mapcard>svg{width:100%;height:auto;display:block;border-radius:calc(var(--r-lg) - 7px)}
 .uydu{height:320px;border-radius:calc(var(--r-lg) - 7px);overflow:hidden;z-index:1}
 .leaflet-container{background:var(--chipbg);font:inherit}
 .leaflet-attribution-flag{display:none!important}
@@ -528,6 +528,34 @@ body.olusturuyor .btn.adim-ileri{position:fixed;left:50%;transform:translateX(-5
 .kapak-sec{flex:none;width:64px;height:64px;border-radius:12px;overflow:hidden;border:2px solid transparent;padding:0;cursor:pointer;background:var(--chipbg)}
 .kapak-sec img{width:100%;height:100%;object-fit:cover;display:block}
 .kapak-sec.on{border-color:var(--blaze);box-shadow:0 0 0 2px var(--bg) inset}
+/* kesif: arama, harita, yer sayfasi */
+.gizli-etiket{position:absolute;left:-9999px}
+.ara-kutu{display:flex;align-items:center;gap:10px;background:var(--paper);border:1px solid var(--line2);border-radius:26px;padding:0 16px;min-height:52px}
+.ara-kutu svg{width:20px;height:20px;stroke:var(--ink);fill:none;stroke-width:1.8;stroke-linecap:round;flex:none}
+.ara-kutu input{flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:1rem;color:var(--ink);outline:none;padding:12px 0}
+.ara-sonuc{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.ara-satir{display:flex;align-items:center;gap:12px;width:100%;min-height:56px;padding:8px 12px;border-radius:14px;border:1px solid var(--line);background:var(--paper);font:inherit;color:var(--ink);text-align:left;cursor:pointer}
+.ara-satir:hover{background:var(--chipbg)}
+.ara-ikon{width:12px;height:12px;border-radius:6px;flex:none;box-shadow:0 0 0 3px var(--paper),0 0 0 4px var(--line2)}
+.ara-yazi{min-width:0;flex:1}.ara-yazi b{display:block;font-size:.95rem}.ara-yazi span{font-size:.8rem;color:var(--mut)}
+.kesif-filtre{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 10px}
+.kesif-nokta{width:10px;height:10px;border-radius:5px;display:inline-block}
+.bg-cip.on .kesif-nokta{box-shadow:0 0 0 2px #f1eee6}
+.kesif-harita{border-radius:20px;overflow:hidden;border:1px solid var(--line)}
+#kesifHarita{height:440px}
+.yd-kredi{position:absolute;right:10px;top:16px;z-index:3;font-size:.62rem;color:#fff;background:rgba(0,0,0,.35);padding:3px 8px;border-radius:10px;text-decoration:none;max-width:60%}
+.yd-zorluk{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 0}
+.yd-zorluk .sub{margin:0;font-size:.8rem}
+.yd-hava{background:#1e3b2c;color:#f1eee6;border-radius:20px;padding:14px 16px;margin-top:14px}
+.yd-hava>b{display:block;font-size:1rem}.yd-hava>span{font-size:.88rem;opacity:.9}
+.yd-hava .sub{color:#f1eee6;opacity:.8}
+.yd-profil{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:14px;margin-top:14px}
+.yd-profil-bas{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.yd-profil-bas span{font-family:var(--mono);font-size:.75rem;color:var(--mut)}
+.yd-profil svg{width:100%;height:90px;display:block}
+.yd-yakin{display:flex;flex-direction:column;gap:6px}
+.kesif-filtre .bg-cip{opacity:.55;background:var(--paper);color:var(--ink);border-color:var(--line2)}
+.kesif-filtre .bg-cip.on{opacity:1;background:var(--paper);color:var(--ink);border-color:var(--ink)}
 /* akis: editoryel kart - tam-tasan kapak ustte, iri baslik, yazar altta */
 .feedcard{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:24px;overflow:hidden;
   margin:20px 0;box-shadow:var(--sh1);transition:box-shadow .2s,transform .2s}
@@ -1405,6 +1433,14 @@ async function bugunCiz() {
   const uyar = (t) => F === "hepsi" || (F === "kolay" ? t.difficulty === "kolay" : (t.tags || []).includes(F));
   const hepsi = parkurlar.filter(uyar).map(t => parkurPuanla(t, bolgeHava[t.region], plan));
   const uygun = hepsi.filter(x => x.uygun).sort((a, b) => b.puan - a.puan);
+  try {   // kurasyonlu parkuru OSM verisindeki rotayla esle (ayni ad ile baslayan, 3 km icinde)
+    await yerleriYukle();
+    for (const r of uygun.slice(0, 3)) {
+      const n = yerNorm(r.t.name.replace(/\(.*\)/, ""));
+      const e = YERLER.filter(y => (y.tur === "r" || y.tur === "b") && y.ara.startsWith(n) && hav(y.lat, y.lon, r.t.lat, r.t.lon) < 3000).sort((a, b) => (b.p || 0) - (a.p || 0))[0];
+      if (e) r.yerId = e.id;
+    }
+  } catch {}
   const elenen = hepsi.filter(x => !x.uygun).sort((a, b) => a.km - b.km);
   const en = uygun[0];
   // ozet karti
@@ -1438,7 +1474,7 @@ async function bugunCiz() {
         <p class="bg-neden"><b>Neden:</b> ${neden}</p>
         ${t.seasonNote ? `<p class="bg-mevsim">${esc(t.seasonNote)}</p>` : ""}
         <div class="bg-dugmeler"><a class="btn primary" href="${yol}" target="_blank" rel="noopener">Yol tarifi</a>
-          <a class="btn" href="${esc(t.source)}" target="_blank" rel="noopener">Parkur ayrıntıları</a></div>
+          ${r.yerId ? `<button class="btn" data-yerid="${r.yerId}">Parkur sayfası</button>` : `<a class="btn" href="${esc(t.source)}" target="_blank" rel="noopener">Parkur ayrıntıları</a>`}</div>
         <div class="bg-gecis">Giriş: ${esc(t.pass)}</div></div></article>`;
     return `<a class="bg-satir" href="${yol}" target="_blank" rel="noopener">
       <span class="bg-kucuk"><img src="${foto}" alt=""><span>${i + 1}</span></span>
@@ -1465,6 +1501,7 @@ async function bugunCiz() {
   bugunBagla();
 }
 function bugunBagla() {
+  document.querySelectorAll("#bugunKutu [data-yerid]").forEach(b => b.addEventListener("click", () => yerDetay(b.dataset.yerid)));
   document.querySelectorAll("[data-bgsure]").forEach(b => b.addEventListener("click", () => { BUGUN.sure = b.dataset.bgsure; bugunCiz(); }));
   document.querySelectorAll("[data-bgfiltre]").forEach(b => b.addEventListener("click", () => { BUGUN.filtre = b.dataset.bgfiltre; bugunCiz(); }));
   const k = $("#bgKonum");
@@ -1476,11 +1513,207 @@ function bugunBagla() {
   });
 }
 
+/* ---------- Washington yer verisi: arama, kesif haritasi, yer/rota sayfasi (OSM, ODbL) ---------- */
+const YER_TUR = {
+  r: ["Yürüyüş rotası", "#1e3b2c"], b: ["Bisiklet rotası", "#2f5fd0"], m: ["Dağ bisikleti", "#7a3fb0"],
+  z: ["Zirve", "#8a5a2b"], g: ["Göl", "#1f7fa8"], s: ["Şelale", "#1e8c80"], v: ["Seyir noktası", "#c4471b"],
+  k: ["Kamp alanı", "#5f7a2e"], p: ["Parkur başı", "#555a4e"] };
+let YERLER = null, YER_FOTO = null;
+async function yerleriYukle() {
+  if (YERLER) return YERLER;
+  const d = await (await fetch("data/wa/index.json")).json();
+  YERLER = d.yerler.map(([id, tur, ad, lat, lon, ek]) => ({ id, tur, ad, lat, lon, ...ek, ara: yerNorm(ad) }));
+  return YERLER;
+}
+async function yerFotolari() {
+  if (YER_FOTO) return YER_FOTO;
+  try { YER_FOTO = await (await fetch("data/wa/foto.json")).json(); } catch { YER_FOTO = {}; }
+  return YER_FOTO;
+}
+function yerNorm(s) {
+  return (s || "").toLocaleLowerCase("tr-TR").normalize("NFD").replace(/[̀-ͯ]/g, "")
+    .replace(/ı/g, "i").replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
+}
+const kmYaz = (v) => String(Math.round(v * 10) / 10).replace(".", ",");
+function yerAlt(y) {
+  const p = [YER_TUR[y.tur][0]];
+  if (y.km) p.push(`${kmYaz(y.km)} km`);
+  if (y.t) p.push(`≈${y.t} m tırmanış`);
+  if (y.ele && !y.km) p.push(`${y.ele} m`);
+  if (y.ha && y.tur === "g") p.push(y.ha >= 100 ? `${Math.round(y.ha / 100)} km²` : `${Math.round(y.ha)} ha`);
+  return p.join(" · ");
+}
+function yerAra(q, limit = 20) {
+  const n = yerNorm(q); if (n.length < 2) return [];
+  const kel = n.split(" ");
+  const K = BUGUN.konum;
+  const out = [];
+  for (const y of YERLER) {
+    if (!kel.every(k => y.ara.includes(k))) continue;
+    const d = hav(K.lat, K.lon, y.lat, y.lon) / 1000;
+    const s = (y.ara === n ? 30 : y.ara.startsWith(n) ? 12 : 0) + (y.p || 0) * 3 - Math.min(d, 400) / 25 + (y.tur === "p" ? -6 : 0);
+    out.push([s, d, y]);
+  }
+  return out.sort((a, b) => b[0] - a[0]).slice(0, limit).map(([s, d, y]) => ({ ...y, uzak: d }));
+}
+async function kesifCiz() {
+  const kutu = $("#kesifKutu"); if (!kutu) return;
+  kutu.innerHTML = `
+    <h2 class="sec" style="margin-top:40px">Washington'u keşfet</h2>
+    <div class="ara-kutu"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <label for="yerAra" class="gizli-etiket">Göl, dağ, parkur ara</label>
+      <input id="yerAra" type="search" placeholder="Göl, dağ, parkur ara (örn. Snow Lake)" autocomplete="off"></div>
+    <div id="araSonuc" class="ara-sonuc"></div>
+    <div class="kesif-filtre">${Object.entries(YER_TUR).filter(([k]) => k !== "p").map(([k, [ad, renk]]) =>
+      `<button class="bg-cip ${KESIF_FILTRE.has(k) ? "on" : ""}" data-ktur="${k}"><span class="kesif-nokta" style="background:${renk}"></span>${ad}</button>`).join("")}</div>
+    <div class="kesif-harita"><div id="kesifHarita"></div></div>
+    <p class="bg-kaynak">Harita ve yer verisi © OpenStreetMap katkıcıları (ODbL). Washington genelinde ${"20 bin"}+ yer. Uzunluk ve tırmanış OSM çizgisinden ve yükseklik modelinden hesaplanır; yaklaşıktır.</p>`;
+  await yerleriYukle();
+  const inp = $("#yerAra"), sonuc = $("#araSonuc");
+  let zaman;
+  inp.addEventListener("input", () => {
+    clearTimeout(zaman);
+    zaman = setTimeout(() => {
+      const r = yerAra(inp.value);
+      sonuc.innerHTML = !inp.value.trim() ? "" : r.length ? r.map(y => `<button class="ara-satir" data-yerid="${y.id}">
+          <span class="ara-ikon" style="background:${YER_TUR[y.tur][1]}"></span>
+          <span class="ara-yazi"><b>${esc(y.ad)}</b><span>${yerAlt(y)} · ${Math.round(y.uzak)} km uzakta</span></span></button>`).join("")
+        : `<p class="sub" style="margin:8px 4px">Sonuç yok. Başka bir yazım dene.</p>`;
+      sonuc.querySelectorAll("[data-yerid]").forEach(b => b.addEventListener("click", () => yerDetay(b.dataset.yerid)));
+    }, 150);
+  });
+  document.querySelectorAll("[data-ktur]").forEach(b => b.addEventListener("click", () => {
+    const k = b.dataset.ktur; KESIF_FILTRE.has(k) ? KESIF_FILTRE.delete(k) : KESIF_FILTRE.add(k);
+    b.classList.toggle("on"); kesifNoktalari();
+  }));
+  if (!window.L) return;
+  const BOS = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+  KESIF_HARITA = L.map("kesifHarita", { scrollWheelZoom: false, preferCanvas: true }).setView([BUGUN.konum.lat, BUGUN.konum.lon], 9);
+  L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
+    { maxZoom: 17, attribution: "Esri · © OpenStreetMap katkıcıları", errorTileUrl: BOS }).addTo(KESIF_HARITA);
+  KESIF_KATMAN = L.layerGroup().addTo(KESIF_HARITA);
+  KESIF_HARITA.on("moveend", kesifNoktalari);
+  kesifNoktalari();
+  setTimeout(() => KESIF_HARITA && KESIF_HARITA.invalidateSize(), 150);
+}
+let KESIF_HARITA = null, KESIF_KATMAN = null;
+const KESIF_FILTRE = new Set(["r", "b", "m", "z", "g", "s", "v", "k"]);
+function kesifNoktalari() {
+  if (!KESIF_HARITA || !YERLER) return;
+  const s = KESIF_HARITA.getBounds(), z = KESIF_HARITA.getZoom();
+  const esik = z <= 8 ? 4 : z <= 9 ? 3 : z <= 10 ? 2 : z <= 11 ? 1 : -1;
+  const gor = YERLER.filter(y => KESIF_FILTRE.has(y.tur) && (y.p || 0) > esik && s.contains([y.lat, y.lon]))
+    .sort((a, b) => (b.p || 0) - (a.p || 0)).slice(0, 700);
+  KESIF_KATMAN.clearLayers();
+  for (const y of gor) {
+    const m = L.circleMarker([y.lat, y.lon], { radius: y.p >= 4 ? 7 : 5, color: "#fff", weight: 1.5, fillColor: YER_TUR[y.tur][1], fillOpacity: .95 });
+    m.bindPopup(`<b>${esc(y.ad)}</b><br><span class="sub">${yerAlt(y)}</span><br><button class="btn" data-kesifac="${y.id}" style="margin-top:6px">Aç &rarr;</button>`);
+    m.on("popupopen", (e) => { const b = e.popup.getElement().querySelector("[data-kesifac]"); if (b) b.addEventListener("click", () => yerDetay(b.dataset.kesifac)); });
+    KESIF_KATMAN.addLayer(m);
+  }
+}
+async function yerDetay(id) {
+  ONCEKI_SEKME = [...document.querySelectorAll("#nav button")].find(b => b.getAttribute("aria-pressed") === "true")?.dataset.v || "kesfet";
+  detayGoster(); window.scrollTo(0, 0);
+  $("#detayout").innerHTML = `<button class="back">&larr; Geri</button>${iskeletKart()}`;
+  $("#detayout .back").addEventListener("click", sekmeyeDon);
+  await yerleriYukle(); const foto = await yerFotolari();
+  const y = YERLER.find(x => x.id === id);
+  if (!y) { $("#detayout").innerHTML = `<button class="back">&larr; Geri</button><div class="empty">Yer bulunamadı.</div>`; $("#detayout .back").addEventListener("click", sekmeyeDon); return; }
+  history.replaceState(null, "", "#y/" + id);
+  let r = null;
+  if (y.id.startsWith("r")) { try { r = await (await fetch(`data/wa/r/${y.id}.json`)).json(); } catch {} }
+  const f = y.wd && foto[y.wd];
+  const rotaMi = !!(r && r.cizgi);
+  const gd = rotaMi ? y.km * 2 : 0;
+  const sure = rotaMi ? gd / 4.2 + (r.tirmanis || 0) / 550 : 0;
+  const egim = rotaMi && y.km ? (r.tirmanis || 0) / y.km : 0;
+  const zorluk = !rotaMi ? null : (y.tur === "b" ? (egim > 40 ? "orta" : "kolay") : egim > 150 || gd > 20 ? "zor" : egim > 70 || gd > 10 ? "orta" : "kolay");
+  const yakin = YERLER.filter(x => x.id !== y.id && x.tur !== "p" && hav(y.lat, y.lon, x.lat, x.lon) < 4000)
+    .sort((a, b) => (b.p || 0) - (a.p || 0)).slice(0, 6);
+  const yol = `https://www.google.com/maps/dir/?api=1&destination=${y.lat},${y.lon}`;
+  const profilSvg = rotaMi && r.profil ? (() => {
+    const p = r.profil, mn = Math.min(...p), mx = Math.max(...p), W = 340, H = 90, ar = Math.max(mx - mn, 20);
+    const pts = p.map((v, i) => `${(i / (p.length - 1) * W).toFixed(1)},${(H - 6 - (v - mn) / ar * (H - 16)).toFixed(1)}`).join(" ");
+    return `<div class="yd-profil"><div class="yd-profil-bas"><b>Yükselti profili</b><span>${mn} m → ${mx} m</span></div>
+      <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-label="Yükselti profili ${mn} metreden ${mx} metreye">
+      <polygon points="0,${H} ${pts} ${W},${H}" fill="#1e3b2c" fill-opacity=".12"/><polyline points="${pts}" fill="none" stroke="#1e3b2c" stroke-width="2"/></svg></div>`;
+  })() : "";
+  $("#detayout").innerHTML = `
+    <div class="dhero">${f ? `<img src="${esc(f[0])}" alt="${esc(y.ad)}">` : `<img src="${kareSvg(y.ad.length, 12)}" alt="">`}
+      <button class="back" aria-label="Geri">&larr;</button>
+      <div class="dhero-alt"><div class="dtarih">${YER_TUR[y.tur][0]} · ${y.lat.toFixed(3)}°K ${Math.abs(y.lon).toFixed(3)}°B</div><h1>${esc(y.ad)}</h1></div>
+      ${f ? `<a class="yd-kredi" href="${esc(f[3])}" target="_blank" rel="noopener">Foto: ${esc(f[1])} · ${esc(f[2])}</a>` : ""}</div>
+    <div class="dstats">${rotaMi ? `
+      <div><b>${kmYaz(gd)} km</b><span>Gidiş-dönüş</span></div>
+      <div><b>≈${r.tirmanis || 0} m</b><span>Tırmanış</span></div>
+      <div><b>${r.yuksek || "?"} m</b><span>En yüksek</span></div>
+      <div><b>${sureYazi(sure)}</b><span>Tahmini</span></div>` : `
+      ${y.ele ? `<div><b>${y.ele} m</b><span>${y.eleTahmin ? "Yükselti (tahmini)" : "Yükselti"}</span></div>` : ""}
+      ${y.ha ? `<div><b>${y.ha >= 100 ? Math.round(y.ha / 100) + " km²" : Math.round(y.ha) + " ha"}</b><span>Alan</span></div>` : ""}
+      <div><b>${Math.round(hav(BUGUN.konum.lat, BUGUN.konum.lon, y.lat, y.lon) / 1000)} km</b><span>${esc(BUGUN.konum.ad)}'dan</span></div>`}</div>
+    ${zorluk ? `<div class="yd-zorluk"><span class="bg-c ${zorluk === "zor" ? "sari" : "yesil"}">${zorluk[0].toUpperCase() + zorluk.slice(1)}</span><span class="sub">Tek yön ${kmYaz(y.km)} km. Uzunluk ve tırmanış harita verisinden hesaplanır, yaklaşıktır.</span></div>` : ""}
+    <div class="bg-dugmeler"><a class="btn primary" href="${yol}" target="_blank" rel="noopener">Yol tarifi</a>
+      <button class="btn act save ${SAVED.has(y.ad) ? "saved" : ""}" data-savebtn="${esc(y.ad)}">${BOOK}<span>${SAVED.has(y.ad) ? "Listende" : "Gitmek istiyorum"}</span></button></div>
+    <section class="yd-hava" id="ydHava"><b>Bugün orada hava</b><span class="sub">Yükleniyor…</span></section>
+    <div class="kesif-harita" style="margin-top:14px"><div id="ydHarita" style="height:300px"></div></div>
+    ${profilSvg}
+    <section id="ydOrmaio"></section>
+    ${yakin.length ? `<h2 class="sec">Yakınında</h2><div class="yd-yakin">${yakin.map(x => `<button class="ara-satir" data-yerid="${x.id}">
+      <span class="ara-ikon" style="background:${YER_TUR[x.tur][1]}"></span><span class="ara-yazi"><b>${esc(x.ad)}</b><span>${yerAlt(x)} · ${kmYaz(hav(y.lat, y.lon, x.lat, x.lon) / 1000)} km</span></span></button>`).join("")}</div>` : ""}
+    <p class="bg-kaynak">Harita ve rota verisi © OpenStreetMap katkıcıları (ODbL). Yükselti: AWS Terrain Tiles. Yola çıkmadan resmi kaynaklardan güncel durumu kontrol et.</p>`;
+  $("#detayout .back").addEventListener("click", () => { history.replaceState(null, "", location.pathname); sekmeyeDon(); });
+  document.querySelectorAll("#detayout [data-yerid]").forEach(b => b.addEventListener("click", () => yerDetay(b.dataset.yerid)));
+  sosyalBagla("#detayout");
+  if (window.L) {
+    const BOS = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+    const m = L.map("ydHarita", { scrollWheelZoom: false });
+    L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
+      { maxZoom: 17, attribution: "Esri · © OpenStreetMap katkıcıları", errorTileUrl: BOS }).addTo(m);
+    if (rotaMi) {
+      const cz = L.polyline(r.cizgi.map(c => c.map(([lo, la]) => [la, lo])), { color: "#c4471b", weight: 4 }).addTo(m);
+      m.fitBounds(cz.getBounds(), { padding: [20, 20] });
+      setTimeout(() => { m.invalidateSize(); m.fitBounds(cz.getBounds(), { padding: [20, 20] }); }, 250);
+      L.circleMarker([y.lat, y.lon], { radius: 7, color: "#fff", weight: 2, fillColor: "#14170f", fillOpacity: 1 }).addTo(m).bindTooltip(r.basi || "Başlangıç");
+    } else {
+      m.setView([y.lat, y.lon], 13);
+      L.circleMarker([y.lat, y.lon], { radius: 9, color: "#fff", weight: 2, fillColor: YER_TUR[y.tur][1], fillOpacity: 1 }).addTo(m);
+    }
+    setTimeout(() => m.invalidateSize(), 150);
+  }
+  // bugunku hava (NWS, bu nokta icin)
+  nwsSaatlik(y.lat, y.lon).then(h => {
+    const simdi = Date.now(), pen = h.filter(x => x.t >= simdi - 36e5 && x.t <= simdi + 10 * 36e5);
+    if (!pen.length) throw 0;
+    const pop = Math.max(...pen.map(x => x.pop)), mn = Math.min(...pen.map(x => x.c)), mx = Math.max(...pen.map(x => x.c));
+    const ilk = pen.find(x => x.pop >= 50);
+    $("#ydHava").innerHTML = `<b>Bugün orada hava</b><span>${mn}–${mx}°C · en yüksek yağmur ihtimali %${pop}${ilk ? ` (${ss(new Date(ilk.t))} civarı)` : ""}</span>
+      <div class="bg-serit">${pen.filter((x, i) => i % 2 === 0).slice(0, 5).map(x => `<div><span>${new Date(x.t).getHours().toString().padStart(2, "0")}</span>
+      <svg viewBox="0 0 24 24">${havaIkon(x)}</svg><b>${x.c}°</b>${x.pop >= 20 ? `<small>%${x.pop}</small>` : ""}</div>`).join("")}</div>`;
+  }).catch(() => { const e = $("#ydHava"); if (e) e.innerHTML = `<b>Bugün orada hava</b><span class="sub">Hava bilgisi alınamadı.</span>`; });
+  // ormaio'da bu yerle ilgili gunler
+  if (SB) {
+    const { data } = await SB.from("days").select("id,place,date,km,cover_path").eq("privacy", "herkes").ilike("place", `%${y.ad.replace(/[%_,()]/g, " ").trim()}%`).limit(6);
+    const el = $("#ydOrmaio");
+    if (el && data && data.length) {
+      el.innerHTML = `<h2 class="sec">ormaio'da ${data.length} gün</h2><div class="pr-gunler">${data.map(g => `
+        <div class="pr-gun" data-day="${g.id}"><img src="${kareSvg(g.place.length, 12)}" alt=""${g.cover_path ? ` data-cover="${esc(g.cover_path)}"` : ""}>
+        <b>${esc(g.place)}</b><span>${new Date(g.date).getDate()} ${AYLAR[new Date(g.date).getMonth()]} · ${kmYaz(g.km || 0)} km</span></div>`).join("")}</div>`;
+      el.querySelectorAll("[data-day]").forEach(b => b.addEventListener("click", () => gunGoster(b.dataset.day)));
+      kapaklariGetir("#ydOrmaio");
+    }
+  }
+}
+function yerBaglantisi() {
+  const m = /^#y\/([a-z0-9]+)$/.exec(location.hash || "");
+  if (m) yerDetay(m[1]);
+}
+
 async function kesfetCiz() {
   if (SB) {
     await sosyalDurumYukle();
-    $("#view-kesfet").innerHTML = `<div id="bugunKutu"></div><div id="kesfetAlt"></div>`;
-    bugunCiz();
+    $("#view-kesfet").innerHTML = `<div id="bugunKutu"></div><div id="kesifKutu"></div><div id="kesfetAlt"></div>`;
+    bugunCiz(); kesifCiz();
     let html = `<h2 class="sec" style="margin-top:40px">Keşfet</h2><div class="sub">Gezginler ve herkese açık günlerden popüler yerler.</div>`;
     // gezginler + takipci sayilari
     let pq = SB.from("profiles").select("id,username,name,is_creator,bio").limit(50);
@@ -3069,7 +3302,7 @@ if (SB) {
   SB.auth.getSession().then(({ data }) => {
     if (data.session) { girisSonrasi(data.session).then(() => { if (!/^#@/.test(location.hash) && !$("#view-gunlerim").hidden) $('#nav button[data-v="akis"]').click(); }); }
     else { ME = null; lsSet("me", null); ustBar(); if (!/^#@/.test(location.hash)) anaGoster(); }
-    profilBaglantisi();
+    profilBaglantisi(); yerBaglantisi();
   });
 } else {
   ME = ME || { name: "Misafir" };
