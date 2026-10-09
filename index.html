@@ -485,6 +485,49 @@ body{overflow-x:hidden}
 .bg-elenen ul{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:.88rem}
 .bg-elenen li::before{content:"✕ ";color:#b2471a;font-weight:700}
 .bg-kaynak{font-size:.75rem;color:var(--mut);margin:14px 0 26px;line-height:1.5}
+
+/* ana sayfa: ust menu fotografin ustunde */
+.ana-linkler{display:none}
+body.ana-acik main{padding-top:0}
+body.ana-acik header.top{position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:20;width:min(1160px,100%);padding:22px 24px;flex-wrap:wrap;row-gap:10px}
+body.ana-acik header.top .brand{color:#faf8f3}
+body.ana-acik header.top .brand i{color:#faf8f3}
+body.ana-acik header.top .tag{display:none}
+body.ana-acik .ana-linkler{display:flex;gap:24px;margin-left:12px}
+body.ana-acik .ana-linkler a{color:#faf8f3;text-decoration:none;font-size:.92rem;font-weight:500;opacity:.92}
+body.ana-acik .ana-linkler a:hover{opacity:1;text-decoration:underline}
+body.ana-acik #ustGiris{background:transparent;border-color:rgba(250,248,243,.55);color:#faf8f3}
+body.ana-acik #ustKayit{background:#faf8f3;border-color:#faf8f3;color:#14170f}
+body.ana-acik .ana-hero{margin-top:0}
+body.ana-acik .ana-hero-ic{padding-top:150px}
+html{scroll-behavior:smooth}
+@media (max-width:700px){body.ana-acik .ana-linkler{display:none}body.ana-acik .ana-hero-ic{padding-top:110px}}
+
+/* gun olusturma: tasarima birebir */
+body.olusturuyor header.top,body.olusturuyor nav.nav,body.olusturuyor footer{display:none}
+body.olusturuyor main{padding-bottom:110px}
+body.olusturuyor .btn.adim-ileri{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));
+  width:min(720px,calc(100% - 40px));margin:0;z-index:50;box-shadow:0 10px 30px -10px rgba(20,23,15,.5)}
+.adim-satir{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.adim-satir span{font-size:.8rem;color:var(--mut)}
+.og-izgara{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+.og-kare{position:relative;aspect-ratio:1/1;border:0;padding:0;border-radius:12px;overflow:hidden;cursor:pointer;background:var(--chipbg)}
+.og-kare img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .15s}
+.og-tik{position:absolute;top:7px;right:7px;width:24px;height:24px;border-radius:12px;border:2px solid #fff;
+  background:var(--blaze) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round'%3E%3Cpath d='m5 12 5 5 9-10'/%3E%3C/svg%3E") center/12px no-repeat}
+.og-kare.haric img{opacity:.4}.og-kare.haric .og-tik{background:rgba(255,255,255,.35)}
+.og-kapak{position:absolute;left:6px;bottom:6px;height:22px;padding:0 8px;border-radius:11px;background:rgba(20,23,15,.75);color:#fff;font-size:.68rem;font-weight:700;display:flex;align-items:center}
+.og-fazla{background:#14170f;color:#f1eee6;font:inherit;font-size:1rem;font-weight:700}
+.tarih-kutu{position:relative;display:block;min-width:0}
+.tarih-yazi{display:block;font-weight:600;padding:14px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.elle .tarih-gizli{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer;padding:0;border:0}
+.adimli .chip-multi .tik{display:none}
+.adimli .chip-sec{padding:9px 15px;font-weight:600}
+.adimli .chip-sec.on{background:#14170f;border-color:#14170f;color:#f1eee6}
+.kapak-serit{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px}
+.kapak-sec{flex:none;width:64px;height:64px;border-radius:12px;overflow:hidden;border:2px solid transparent;padding:0;cursor:pointer;background:var(--chipbg)}
+.kapak-sec img{width:100%;height:100%;object-fit:cover;display:block}
+.kapak-sec.on{border-color:var(--blaze);box-shadow:0 0 0 2px var(--bg) inset}
 /* akis: editoryel kart - tam-tasan kapak ustte, iri baslik, yazar altta */
 .feedcard{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:24px;overflow:hidden;
   margin:20px 0;box-shadow:var(--sh1);transition:box-shadow .2s,transform .2s}
@@ -702,6 +745,7 @@ footer{color:var(--mut);font-size:.8rem;text-align:center;margin-top:40px;line-h
 <header class="top">
   <a class="brand" href="#" id="logoBtn" aria-label="ormaio ana sayfa">orma<i>io</i></a>
   <div class="tag">Gezinin hikâyesi, fotoğraflarından kendi kendine.</div>
+  <nav class="ana-linkler" aria-label="Sayfa"><a href="#anaNasil">Nasıl çalışır</a><a href="#anaYerler">Yerler</a><a href="#anaGizlilik">Gizlilik</a></nav>
   <div class="authbtns" id="authArea"></div>
 </header>
 
@@ -2311,11 +2355,14 @@ async function dosyalariIsle(files) {
     pts.push({ file: f, url: URL.createObjectURL(f), lat, lon, time });
   }
   ELLE = { place: "", activities: [], date: new Date().toISOString().slice(0, 10),
-           points: [], photos: pts.map(p => ({ file: p.file, url: p.url, point: "" })), cover: 0, note: "", priv: "ozel",
+           points: [], photos: pts.map(p => ({ file: p.file, url: p.url, point: "", lat: p.lat, lon: p.lon })), cover: 0, note: "", priv: "ozel",
            rating: 0, aspects: {}, reviewNote: "", gps: false, adim: 1, oto: {} };
   ELLE.oto.date = pts.some(p => p.time);
   const ilkZaman = pts.filter(p => p.time).sort((a, b) => a.time - b.time)[0];
   if (ilkZaman) ELLE.date = ilkZaman.time.toISOString().slice(0, 10);
+  const zamanlar = pts.filter(p => p.time).map(p => p.time).sort((a, b) => a - b);
+  if (zamanlar.length > 1 && zamanlar[0].toDateString() === zamanlar[zamanlar.length - 1].toDateString())
+    ELLE.saat = `${hhmm(zamanlar[0])} – ${hhmm(zamanlar[zamanlar.length - 1])}`;
   // GPS'li karelerden on-doldur
   const konumlu = pts.filter(p => p.lat != null && p.time);
   if (konumlu.length) {
@@ -2471,12 +2518,14 @@ async function elleRender(hata) {
   const A = ELLE.adim || 1;
   ELLE.oto = ELLE.oto || {};
   const secP = ELLE.points.filter(p => p.sel);
-  const n = ELLE.photos.length;
+  const n = ELLE.photos.length, dahil = ELLE.photos.filter(p => !p.haric).length;
+  document.body.classList.add("olusturuyor");
   const ust = (k) => `<div class="adim-ust">
       ${k === 1 ? `<button class="adim-geri" id="elleVazgec" aria-label="Kapat">&times;</button>` : `<button class="adim-geri" data-git="${k - 1}" aria-label="Geri">&larr;</button>`}
       <div><div class="adim-no">Adım ${k} / 3</div><div class="adim-ad">${ADIM_AD[k]}</div></div></div>
     <div class="adim-cubuk" aria-hidden="true">${[1, 2, 3].map(i => `<span class="${i <= k ? "on" : ""}"></span>`).join("")}</div>`;
   const tarihYazi = (() => { const d = new Date(ELLE.date + "T12:00:00"); return isNaN(d) ? ELLE.date : d.toLocaleDateString("tr-TR", { weekday: "long", day: "numeric", month: "long" }); })();
+  const tarihUzun = (() => { const d = new Date(ELLE.date + "T12:00:00"); const g = isNaN(d) ? ELLE.date : d.toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" }); return ELLE.saat ? g + ", " + ELLE.saat : g; })();
   const priv = GORUNURLUK.find(g => g.id === ELLE.priv) || GORUNURLUK[0];
   const kapakUrl = n ? ELLE.photos[Math.min(ELLE.cover, n - 1)].url : "";
   $("#out").innerHTML = `<section class="elle adimli">
@@ -2484,26 +2533,23 @@ async function elleRender(hata) {
 
     <div data-adim="1" ${A === 1 ? "" : "hidden"}>
       ${ust(1)}
-      <div class="adim-satir"><b>${tarihYazi} · ${n} fotoğraf</b></div>
-      ${n ? `<div class="elle-grid">${ELLE.photos.map((ph, i) => `
-        <div class="elle-ph ${ELLE.cover === i ? "cover" : ""}">
-          <img src="${ph.url}" alt="">
-          <button class="elle-sil" data-phsil="${i}" aria-label="Fotoğrafı kaldır">&times;</button>
-          <button class="elle-cover" data-cover="${i}">${ELLE.cover === i ? "&#9733; Kapak" : "Kapak yap"}</button>
-          ${secP.length ? `<select data-phpt="${i}" aria-label="Fotoğrafın durağı"><option value="">(durak)</option>${secP.map(p => `<option ${ph.point === p.name ? "selected" : ""}>${esc(p.name)}</option>`).join("")}</select>` : ""}
-        </div>`).join("")}</div>` : ""}
+      <div class="adim-satir"><b>${tarihYazi} · ${dahil} fotoğraf</b><span>Çıkarmak istediğine dokun</span></div>
+      ${n ? `<div class="og-izgara">${ELLE.photos.slice(0, ELLE.hepsi ? n : 5).map((ph, i) => `
+        <button class="og-kare ${ph.haric ? "haric" : ""}" data-phsec="${i}" aria-pressed="${!ph.haric}" aria-label="Fotoğraf ${i + 1}${ph.haric ? ", çıkarıldı" : ", dahil"}">
+          <img src="${ph.url}" alt=""><span class="og-tik"></span>${ELLE.cover === i && !ph.haric ? '<span class="og-kapak">Kapak</span>' : ""}</button>`).join("")}
+        ${!ELLE.hepsi && n > 5 ? `<button class="og-kare og-fazla" data-phhepsi aria-label="Tüm fotoğrafları göster">+${n - 5}</button>` : ""}</div>` : ""}
       <div class="drop" id="elleDrop" style="padding:14px;margin-top:10px"><b>+ Fotoğraf ekle</b>
         <input type="file" id="elleFile" multiple accept="image/*,.heic,.heif" hidden></div>
       <div class="hazirlik" aria-live="polite">
         <b>Günün hazırlanıyor</b>
         <ul>
-          <li class="ok">${n} fotoğraf okundu</li>
+          <li class="ok">${dahil} fotoğraf okundu</li>
           <li class="${ELLE.place ? "ok" : "bekle"}">${ELLE.place ? `Yer bulundu: ${esc(ELLE.place)}` : (ELLE.gps ? "Yer aranıyor…" : "Konum bilgisi yok; bir sonraki adımda yeri yazarsın")}</li>
           <li class="${secP.length ? "ok" : "bos"}">${secP.length ? `${secP.length} durak bulundu` : "Duraklar bir sonraki adımda seçilir"}</li>
         </ul>
         <p class="kilit">Fotoğrafların bu cihazda işleniyor; sen paylaşmadıkça hiçbir yere yüklenmiyor.</p>
       </div>
-      <button class="btn adim-ileri" data-git="2" ${n ? "" : "disabled"}>${n ? `${n} fotoğrafla devam et &rarr;` : "Önce fotoğraf ekle"}</button>
+      <button class="btn adim-ileri" data-git="2" ${dahil ? "" : "disabled"}>${dahil ? `${dahil} fotoğrafla devam et &rarr;` : "Önce fotoğraf ekle"}</button>
     </div>
 
     <div data-adim="2" ${A === 2 ? "" : "hidden"}>
@@ -2515,7 +2561,7 @@ async function elleRender(hata) {
           ${ELLE.place && ELLE.oto.place ? OTO : ""}</label>
         <datalist id="yerListe">${yerler.map(y => `<option value="${esc(y)}"></option>`).join("")}</datalist>
         <label class="kontrol-satir" for="elleDate"><span>Tarih</span>
-          <input id="elleDate" type="date" value="${ELLE.date}">${ELLE.oto.date ? OTO : ""}</label>
+          <span class="tarih-kutu"><span class="tarih-yazi">${tarihUzun}</span><input id="elleDate" type="date" value="${ELLE.date}" class="tarih-gizli"></span>${ELLE.oto.date ? OTO : ""}</label>
       </div>
       <div class="elle-lbl">Ne yaptın? ${ELLE.oto.akt && ELLE.activities.length ? OTO : '<span class="elle-ipucu">birden fazla seçebilirsin</span>'}</div>
       <div class="frow">${AKTIVITELER.map(a => `<button class="chip-sec chip-multi ${ELLE.activities.includes(a) ? "on" : ""}" data-akt="${a}"><span class="tik">${ELLE.activities.includes(a) ? "&#10003;" : "+"}</span>${AKT_AD[a] || a}</button>`).join("")}</div>
@@ -2543,6 +2589,7 @@ async function elleRender(hata) {
       ${ust(3)}
       <div class="onizleme">${kapakUrl ? `<img src="${kapakUrl}" alt="">` : ""}
         <div><b>${esc(ELLE.place || "Yer seçilmedi")}</b><span>${tarihYazi} · ${secP.length || 1} durak · ${n} fotoğraf</span></div></div>
+      ${n > 1 ? `<div class="elle-lbl">Kapak fotoğrafı</div><div class="kapak-serit">${ELLE.photos.map((ph, i) => `<button class="kapak-sec ${ELLE.cover === i ? "on" : ""}" data-cover="${i}" aria-pressed="${ELLE.cover === i}" aria-label="Fotoğraf ${i + 1}i kapak yap"><img src="${ph.url}" alt=""></button>`).join("")}</div>` : ""}
       <div class="gorunurluk" role="radiogroup" aria-label="Görünürlük">${GORUNURLUK.map(g => `
         <button role="radio" aria-checked="${ELLE.priv === g.id}" class="gor-secenek ${ELLE.priv === g.id ? "on" : ""}" data-epriv="${g.id}">
           <span class="gor-ikon"><svg viewBox="0 0 24 24">${g.ikon}</svg></span>
@@ -2568,8 +2615,16 @@ function elleBagla() {
     elleRender();
   }));
   $("#elleDate").addEventListener("change", e => { ELLE.date = e.target.value; ELLE.oto.date = false; });
+  document.querySelectorAll("[data-phsec]").forEach(b => b.addEventListener("click", () => { const ph = ELLE.photos[+b.dataset.phsec]; ph.haric = !ph.haric; elleRender(); }));
+  const hp = document.querySelector("[data-phhepsi]"); if (hp) hp.addEventListener("click", () => { ELLE.hepsi = true; elleRender(); });
+  const tg = $("#elleDate"); if (tg && tg.showPicker) tg.addEventListener("click", () => { try { tg.showPicker(); } catch {} });
   document.querySelectorAll("#out [data-git]").forEach(b => b.addEventListener("click", () => {
     const hedef = +b.dataset.git;
+    if ((ELLE.adim || 1) === 1 && hedef === 2 && ELLE.photos.some(p => p.haric)) {
+      const kapak = ELLE.photos[ELLE.cover];
+      ELLE.photos = ELLE.photos.filter(p => !p.haric);
+      ELLE.cover = Math.max(0, ELLE.photos.indexOf(kapak));
+    }
     const pl = $("#ellePlace"); if (pl && pl.value.trim() !== ELLE.place) { ELLE.place = pl.value.trim(); ELLE.oto.place = false; }
     if (hedef === 3 && !ELLE.place) { ELLE.adim = 2; return elleRender("Önce nereye gittiğini yaz."); }
     ELLE.adim = hedef; elleRender();
@@ -2602,7 +2657,13 @@ function elleBagla() {
     rn.addEventListener("blur", () => elleReviewAspect());   // AI: yorumdan aspect cikar
   }
   $("#elleKaydetBtn").addEventListener("click", elleKaydet);
-  const vz = $("#elleVazgec"); if (vz) vz.addEventListener("click", () => { ELLE = null; $("#out").innerHTML = ""; $("#ogGiris").hidden = false; });
+  const vz = $("#elleVazgec"); if (vz) vz.addEventListener("click", () => { ELLE = null; $("#out").innerHTML = ""; $("#ogGiris").hidden = false; document.body.classList.remove("olusturuyor"); });
+}
+function enYakinDurak(ph, stops) {
+  if (ph.lat == null) return null;
+  let en = null, ed = Infinity;
+  for (const s of stops) { if (s.lat == null) continue; const d = hav(ph.lat, ph.lon, s.lat, s.lon); if (d < ed) { ed = d; en = s.name; } }
+  return en;
 }
 async function elleKaydet() {
   if (!ELLE.place) return elleRender("Once nereye gittigini yaz.");
@@ -2642,7 +2703,7 @@ async function elleKaydet() {
       const ph = ELLE.photos[i];
       const path = `${ME.id}/${gun.id}/${i}.jpg`;
       const { error: e2 } = await SB.storage.from("day-photos").upload(path, ph.file, { contentType: ph.file.type || "image/jpeg", upsert: true });
-      if (!e2) { const key = ph.point || stops[0].name; (noktaPaths[key] = noktaPaths[key] || []).push(path);
+      if (!e2) { const key = ph.point || enYakinDurak(ph, stops) || stops[0].name; (noktaPaths[key] = noktaPaths[key] || []).push(path);
         if (i === ELLE.cover) coverPath = path; }
     }
     if (!coverPath) { const f = Object.values(noktaPaths)[0]; if (f) coverPath = f[0]; }
@@ -2659,7 +2720,7 @@ async function elleKaydet() {
       lat: (stops[0].lat ?? merkez[0]) || 0, lon: (stops[0].lon ?? merkez[1]) || 0, priv: ELLE.priv });
     const yeniId = gun.id;
     ELLE = null;
-    $("#out").innerHTML = ""; $("#ogGiris").hidden = false;
+    $("#out").innerHTML = ""; $("#ogGiris").hidden = false; document.body.classList.remove("olusturuyor");
     gunGoster(yeniId);   // kaydedilen gunu post olarak goster
   } catch (e) {
     ELLE.photos = ELLE.photos; // koru
@@ -2818,7 +2879,7 @@ async function anaCiz() {
     </div>
   </section>
 
-  <section class="ana-bolum">
+  <section class="ana-bolum" id="anaNasil">
     <div class="ana-bolum-bas"><h2>Üç adımda bir gün, sıfır yazı.</h2>
       <p>Fotoğrafın içindeki konum ve saat bilgisi yeterli. Konum yoksa ormaio kareye bakıp yeri tahmin eder, sen onaylarsın.</p></div>
     <div class="ana-adimlar">
@@ -2828,13 +2889,13 @@ async function anaCiz() {
     </div>
   </section>
 
-  <section class="ana-bolum">
+  <section class="ana-bolum" id="anaYerler">
     <div class="ana-bolum-bas ana-satir"><h2>Gezginler son günlerde nereye gitti</h2>
       <button class="ana-link" id="anaAkis">Tüm akış &rarr;</button></div>
     <div class="ana-vitrin" id="anaVitrin">${'<div class="ana-vitrin-kart skel"></div>'.repeat(4)}</div>
   </section>
 
-  <section class="ana-gizlilik"><div class="ana-gizlilik-ic">
+  <section class="ana-gizlilik" id="anaGizlilik"><div class="ana-gizlilik-ic">
     <div><div class="ana-mono">GİZLİLİK</div><h2>Varsayılan özel. Sen açmadan kimse görmez.</h2></div>
     <ul>
       <li><b>Fotoğraflar önce cihazında işlenir</b><span>Özel günlerin kareleri hiç sunucuya gitmez.</span></li>
@@ -2850,19 +2911,20 @@ async function anaCiz() {
   const akisaGit = () => $('#nav button[data-v="akis"]').click();
   $("#anaOrnek").addEventListener("click", akisaGit);
   $("#anaAkis").addEventListener("click", akisaGit);
-  // vitrin: herkese acik son gunler
-  if (!SB) { $("#anaVitrin").innerHTML = ""; return; }
-  let { data, error } = await SB.from("days").select("id,place,km,cover_path,profiles!days_user_id_fkey(name,username)")
-    .eq("privacy", "herkes").eq("review_status", "ok").order("date", { ascending: false }).limit(8);
-  if (error) ({ data } = await SB.from("days").select("id,place,km,cover_path,profiles!days_user_id_fkey(name,username)")
-    .eq("privacy", "herkes").order("date", { ascending: false }).limit(8));
-  const tek = [], gor = new Set();
-  for (const d of data || []) { if (gor.has(d.place)) continue; gor.add(d.place); tek.push(d); if (tek.length === 4) break; }
-  $("#anaVitrin").innerHTML = tek.map(d => { const u = d.profiles || {}; return `
-    <button class="ana-vitrin-kart" data-day="${d.id}"><img src="${kareSvg(d.place.length, 12)}" alt="${esc(d.place)}"${d.cover_path ? ` data-cover="${esc(d.cover_path)}"` : ""}>
-      <span class="ana-vitrin-alt"><span class="ana-mono">${esc((u.name || u.username || "gezgin").toLocaleUpperCase("tr-TR"))} · ${String(d.km).replace(".", ",")} KM</span><b>${esc(d.place)}</b></span></button>`; }).join("");
-  document.querySelectorAll("#anaVitrin [data-day]").forEach(b => b.addEventListener("click", () => { ONCEKI_SEKME = "akis"; gunGoster(b.dataset.day); }));
-  kapaklariGetir("#anaVitrin");
+  // vitrin: gercek (Wikimedia Commons) fotografli dort yer; tiklayinca o yerin herkese acik gunu acilir
+  const VITRIN = [
+    { yer: "Ölüdeniz", db: "Oludeniz", kim: "MERT AYDIN", km: "4,3", foto: "vitrin-oludeniz.jpg" },
+    { yer: "Nemrut Dağı", db: "Nemrut Dagi", kim: "ECE DEMİR", km: "3,2", foto: "vitrin-nemrut.jpg" },
+    { yer: "Ihlara Vadisi", db: "Ihlara Vadisi", kim: "SELİN YILMAZ", km: "9,4", foto: "vitrin-ihlara.jpg" },
+    { yer: "Mount Rainier", db: "Mount Rainier", kim: "ARDA TOPRAK", km: "8,8", foto: "vitrin-rainier.jpg" }];
+  $("#anaVitrin").innerHTML = VITRIN.map(v => `
+    <button class="ana-vitrin-kart" data-vyer="${esc(v.db)}"><img src="${v.foto}" alt="${esc(v.yer)}">
+      <span class="ana-vitrin-alt"><span class="ana-mono">${v.kim} · ${v.km} KM</span><b>${esc(v.yer)}</b></span></button>`).join("");
+  document.querySelectorAll("#anaVitrin [data-vyer]").forEach(b => b.addEventListener("click", async () => {
+    if (!SB) return akisaGit();
+    const { data } = await SB.from("days").select("id").eq("place", b.dataset.vyer).eq("privacy", "herkes").limit(1);
+    if (data && data[0]) { ONCEKI_SEKME = "akis"; gunGoster(data[0].id); } else akisaGit();
+  }));
 }
 
 const VIEWS = {akis: akisCiz, kesfet: kesfetCiz, gunlerim: null, harita: haritaCiz, profil: profilCiz};
@@ -2871,7 +2933,7 @@ document.querySelectorAll("#nav button").forEach(b =>
     document.querySelectorAll("#nav button").forEach(x =>
       x.setAttribute("aria-pressed", x === b ? "true" : "false"));
     $("#view-detay").hidden = true;
-    $("#view-ana").hidden = true; document.body.classList.remove("ana-acik");
+    $("#view-ana").hidden = true; document.body.classList.remove("ana-acik", "olusturuyor");
     for (const v of Object.keys(VIEWS)) $("#view-" + v).hidden = v !== b.dataset.v;
     if (VIEWS[b.dataset.v]) VIEWS[b.dataset.v]();
   }));

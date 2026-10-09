@@ -109,3 +109,8 @@ Please do not upload an edited image here without consulting me.  I would like t
 - **Mount Storm King** (Mount Storm King Feb2002.jpg) — Jefftaylor@xwb.com (talk) — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Mount_Storm_King_Feb2002.jpg
 - **Rialto Beach and Hole-in-the-Wall** (Rialto Beach.jpg) — DimiTalen — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Rialto_Beach.jpg
 - **Mount Ellinor** (Mount Ellinor, Mount Washington Panorama.jpg) — Gregg M. Erickson (talk · contribs) — CC BY 3.0 — https://commons.wikimedia.org/wiki/File:Mount_Ellinor,_Mount_Washington_Panorama.jpg
+
+## Ana sayfa vitrini
+- Ölüdeniz, Nemrut Dağı, Ihlara Vadisi ve Mount Rainier vitrin görselleri yukarıdaki ilgili bölümlerde listelenen Wikimedia Commons fotoğraflarının küçültülmüş kopyalarıdır (vitrin-*.jpg).
+- Ana sayfa kahraman görseli (ana-hero.jpg): "Panoramic Overview from Glacier Point over Yosemite Valley 2013 Alternative" — Tuxyso — CC BY-SA 3.0
+- Zion örnek kartı (ana-zion.jpg): "Kolob Canyons part of Zion National Park" — Michael Gäbler — CC BY 3.0
