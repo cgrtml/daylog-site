@@ -437,6 +437,54 @@ body{overflow-x:hidden}
 .gor-yazi>span{display:block;font-size:.85rem;line-height:1.4;color:var(--mut);margin-top:3px}
 .gor-nokta{width:22px;height:22px;flex:none;border-radius:11px;border:2px solid var(--line2);box-sizing:border-box}
 .gor-secenek.on .gor-nokta{border:7px solid var(--blaze)}
+/* bugun nereye */
+.bg-secim,.bg-filtre{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0}
+.bg-filtre{margin-top:16px}
+.bg-cip{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:0 13px;border-radius:19px;border:1px solid var(--line2);background:var(--paper);color:var(--ink);font:inherit;font-size:.85rem;font-weight:600;cursor:pointer}
+.bg-cip svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bg-cip.on{background:#14170f;border-color:#14170f;color:#f1eee6}
+.bg-sabit{cursor:default;font-weight:500}
+.bg-ozet{background:#1e3b2c;color:#f1eee6;border-radius:22px;padding:16px;margin-top:16px}
+.bg-ozet-bas{display:flex;align-items:center;gap:8px}
+.bg-ozet h2{margin:0;font-size:1.2rem;font-weight:800;letter-spacing:-.02em;color:#f1eee6}
+.bg-ozet p{margin:6px 0 0;font-size:.92rem;opacity:.9}
+.bg-isik{width:10px;height:10px;border-radius:5px;flex:none}
+.bg-isik.yesil{background:#7dd3a0}.bg-isik.sari{background:#f2c14e}.bg-isik.kirmizi{background:#f28b6e}.bg-isik.gri{background:#a3a79a}
+.bg-serit{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;margin-top:14px;text-align:center;font-size:.78rem}
+.bg-serit>div{padding:8px 0;border-radius:12px;background:rgba(241,238,230,.12);display:flex;flex-direction:column;align-items:center;gap:2px}
+.bg-serit span{opacity:.8}.bg-serit small{opacity:.8;font-size:.7rem}
+.bg-serit svg{width:20px;height:20px;stroke:#f1eee6;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;margin:2px 0}
+.bg-bir{background:var(--paper);border:1px solid var(--line);border-radius:24px;overflow:hidden}
+.bg-foto{position:relative;height:190px;background:var(--chipbg)}
+.bg-foto img{width:100%;height:100%;object-fit:cover;display:block}
+.bg-sira{position:absolute;top:12px;left:12px;height:30px;padding:0 12px;border-radius:15px;background:var(--blaze);color:#fff;display:flex;align-items:center;font-size:.8rem;font-weight:700}
+.bg-kredi{position:absolute;right:8px;bottom:6px;font-size:.62rem;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.8);max-width:70%;text-align:right}
+.bg-govde{padding:14px 16px 16px}
+.bg-bas{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.bg-bas h3{margin:0;font-size:1.35rem;font-weight:800;letter-spacing:-.03em}
+.bg-bas>span{font-size:.82rem;color:var(--mut);white-space:nowrap}
+.bg-alt{font-size:.88rem;color:var(--ink2);margin-top:2px}
+.bg-cipler{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.bg-c{display:inline-flex;align-items:center;min-height:26px;padding:0 10px;border-radius:13px;font-size:.75rem;font-weight:600}
+.bg-c.yesil{background:#dcefe3;color:#145a3c}.bg-c.sari{background:#f7e6c4;color:#7a4b00}
+.bg-neden{margin:10px 0 0;font-size:.9rem;line-height:1.45;color:var(--ink2)}
+.bg-mevsim{margin:6px 0 0;font-size:.82rem;color:var(--mut)}
+.bg-dugmeler{display:flex;gap:8px;margin-top:14px}
+.bg-dugmeler .btn{flex:1;text-align:center;text-decoration:none;padding:11px 12px}
+.bg-gecis{font-size:.75rem;color:var(--mut);margin-top:8px}
+.bg-satir{display:flex;gap:12px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:10px;margin-top:10px;color:inherit;text-decoration:none}
+.bg-kucuk{position:relative;flex:none}
+.bg-kucuk img{width:88px;height:88px;border-radius:14px;object-fit:cover;display:block;background:var(--chipbg)}
+.bg-kucuk>span{position:absolute;top:6px;left:6px;width:24px;height:24px;border-radius:12px;background:#14170f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700}
+.bg-satir-yazi{flex:1;min-width:0}
+.bg-satir-yazi b{display:block;font-size:1.02rem;font-weight:800;letter-spacing:-.02em}
+.bg-satir-yazi>span:not(.bg-cipler){font-size:.8rem;color:var(--mut)}
+.bg-satir .bg-cipler{margin-top:6px}
+.bg-elenen{border:1px dashed var(--line2);border-radius:20px;padding:14px 16px;margin-top:16px}
+.bg-elenen h3{margin:0;font-size:.95rem}
+.bg-elenen ul{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:.88rem}
+.bg-elenen li::before{content:"✕ ";color:#b2471a;font-weight:700}
+.bg-kaynak{font-size:.75rem;color:var(--mut);margin:14px 0 26px;line-height:1.5}
 /* akis: editoryel kart - tam-tasan kapak ustte, iri baslik, yazar altta */
 .feedcard{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:24px;overflow:hidden;
   margin:20px 0;box-shadow:var(--sh1);transition:box-shadow .2s,transform .2s}
@@ -659,7 +707,7 @@ footer{color:var(--mut);font-size:.8rem;text-align:center;margin-top:40px;line-h
 
 <nav class="nav" id="nav">
   <button data-v="akis" aria-pressed="false"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="7" rx="2"/><rect x="4" y="14" width="16" height="6" rx="2"/></svg>Akış</button>
-  <button data-v="kesfet" aria-pressed="false"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>Keşfet</button>
+  <button data-v="kesfet" aria-pressed="false"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/></svg>Bugün</button>
   <button data-v="gunlerim" aria-pressed="true" aria-label="Gün oluştur"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Gün oluştur</button>
   <button data-v="harita" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg>Haritam</button>
   <button data-v="profil" aria-pressed="false"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg>Profil</button>
@@ -1200,10 +1248,196 @@ async function akisCiz() {
   bagla("#view-akis");
 }
 
+/* ---------- Bugun nereye: saatlik hava (NWS) + gun isigi + mesafe ile kurallara dayali oneri ---------- */
+const BUGUN = { konum: { lat: 47.6062, lon: -122.3321, ad: "Seattle" }, sure: "yarim", filtre: "hepsi" };
+let PARKURLAR = null;
+async function parkurlariYukle() {
+  if (PARKURLAR) return PARKURLAR;
+  PARKURLAR = (await (await fetch("data/wa-trails.json")).json()).trails;
+  return PARKURLAR;
+}
+const F2C = (f) => Math.round((f - 32) * 5 / 9);
+const ss = (d) => d.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" });
+function gunBatimi(lat, lon, gun) {
+  // gun dogumu denklemi (NOAA basitlestirilmis); donus: gun batimi Date
+  const r = Math.PI / 180, JD = Date.UTC(gun.getFullYear(), gun.getMonth(), gun.getDate(), 12) / 864e5 + 2440587.5;
+  const n = Math.ceil(JD - 2451545 + 0.0008), J = n - lon / 360;
+  const M = (357.5291 + 0.98560028 * J) % 360, C = 1.9148 * Math.sin(M * r) + 0.02 * Math.sin(2 * M * r) + 0.0003 * Math.sin(3 * M * r);
+  const L = (M + C + 180 + 102.9372) % 360;
+  const Jt = 2451545 + J + 0.0053 * Math.sin(M * r) - 0.0069 * Math.sin(2 * L * r);
+  const dek = Math.asin(Math.sin(L * r) * Math.sin(23.4397 * r));
+  const w = Math.acos((Math.sin(-0.833 * r) - Math.sin(lat * r) * Math.sin(dek)) / (Math.cos(lat * r) * Math.cos(dek)));
+  return new Date((Jt + w / (2 * Math.PI) - 2440587.5) * 864e5);
+}
+async function nwsSaatlik(lat, lon) {
+  const k = `nws:${lat.toFixed(2)},${lon.toFixed(2)}`;
+  try { const c = JSON.parse(localStorage.getItem(k) || "null"); if (c && Date.now() - c.t < 36e5) return c.p; } catch {}
+  const pt = await (await fetch(`https://api.weather.gov/points/${lat.toFixed(4)},${lon.toFixed(4)}`)).json();
+  const url = pt && pt.properties && pt.properties.forecastHourly;
+  if (!url) throw new Error("NWS nokta yok");
+  const fc = await (await fetch(url)).json();
+  const p = ((fc.properties || {}).periods || []).slice(0, 60).map(x => ({ t: Date.parse(x.startTime), c: F2C(x.temperature),
+    pop: (x.probabilityOfPrecipitation && x.probabilityOfPrecipitation.value) || 0, wind: parseInt(x.windSpeed) || 0, k: x.shortForecast || "" }));
+  try { localStorage.setItem(k, JSON.stringify({ t: Date.now(), p })); } catch {}
+  return p;
+}
+function havaIkon(x) {
+  if (/thunder/i.test(x.k)) return '<path d="M7 15h10a4 4 0 0 0 0-8 6 6 0 0 0-11.5 1.5A3.3 3.3 0 0 0 7 15z"/><path d="m12 15-2 4h3l-2 4"/>';
+  if (x.pop >= 40 || /rain|shower|drizzle/i.test(x.k)) return '<path d="M7 15h10a4 4 0 0 0 0-8 6 6 0 0 0-11.5 1.5A3.3 3.3 0 0 0 7 15zM9 18l-1 2M13 18l-1 2M17 18l-1 2"/>';
+  if (/snow/i.test(x.k)) return '<path d="M7 15h10a4 4 0 0 0 0-8 6 6 0 0 0-11.5 1.5A3.3 3.3 0 0 0 7 15z"/><path d="M9 19h.01M13 20h.01M17 19h.01"/>';
+  if (/cloud|overcast|fog/i.test(x.k)) return '<path d="M7 18h10a4 4 0 0 0 0-8 6 6 0 0 0-11.5 1.5A3.3 3.3 0 0 0 7 18z"/>';
+  return '<circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/>';
+}
+function bugunPlanBaslangic() {
+  const simdi = new Date(), b = new Date(simdi);
+  if (simdi.getHours() >= 15) { b.setDate(b.getDate() + 1); b.setHours(8, 0, 0, 0); return { b, yarin: true }; }
+  if (simdi.getHours() < 7) { b.setHours(8, 0, 0, 0); return { b, yarin: false }; }
+  b.setTime(simdi.getTime() + 30 * 6e4); b.setMinutes(b.getMinutes() < 30 ? 30 : 60, 0, 0);
+  return { b, yarin: false };
+}
+function parkurPuanla(t, hava, plan) {
+  const K = BUGUN.konum;
+  const km = hav(K.lat, K.lon, t.lat, t.lon) / 1000;
+  // yol katsayisi: Olimpik Yarimadasi'na yol Puget Sound'u dolasir, daglara virajli yollar
+  const YOL = { "Olympic": 1.9, "Mount Rainier": 1.45, "Mountain Loop / North Cascades": 1.4, "US-2 / Stevens Pass": 1.35, "I-90 / Snoqualmie": 1.25 };
+  const surus = km * (YOL[t.region] || 1.3) / 70 + 0.15, yuruyus = t.lengthKm / 4.2 + t.gainM / 550 + 0.3;
+  const varis = new Date(plan.b.getTime() + surus * 36e5), bitis = new Date(varis.getTime() + yuruyus * 36e5);
+  const donus = new Date(bitis.getTime() + surus * 36e5), batim = gunBatimi(t.lat, t.lon, varis);
+  const kirmizi = [], sari = [], yesil = [];
+  let puan = 100, ozet = null, sonraYagmur = null;
+  if (hava) {
+    const pen = hava.filter(x => x.t >= varis.getTime() - 36e5 && x.t <= bitis.getTime());
+    if (pen.length) {
+      const pop = Math.max(...pen.map(x => x.pop)), c = Math.round(pen.reduce((a, x) => a + x.c, 0) / pen.length);
+      const wind = Math.max(...pen.map(x => x.wind)), firtina = pen.some(x => /thunder/i.test(x.k)), kar = pen.some(x => /snow/i.test(x.k));
+      ozet = { pop, c, wind };
+      const ilk = hava.find(x => x.t > bitis.getTime() && x.pop >= 50); if (ilk) sonraYagmur = new Date(ilk.t);
+      if (firtina) kirmizi.push("Gök gürültülü fırtına bekleniyor");
+      if (pop >= 60) kirmizi.push(`Yürüyüş saatlerinde yağmur ihtimali %${pop}`);
+      if (c <= -3) kirmizi.push(`Çok soğuk (${c}°C)`); if (c >= 33) kirmizi.push(`Çok sıcak (${c}°C)`);
+      puan -= pop * 0.5 + Math.max(0, 7 - c) * 2 + Math.max(0, c - 25) * 2 + Math.max(0, wind - 15);
+      if (pop < 20) yesil.push(`Kuru · ${c}°C`); else if (pop < 60) sari.push(`Yağmur %${pop} · ${c}°C`);
+      if (wind >= 20) sari.push(`Rüzgâr ${Math.round(wind * 1.6)} km/sa`);
+      if (kar && t.highPointM > 1000) { sari.push("Yükseklerde kar yağışı"); puan -= 20; }
+    }
+  }
+  const ay = varis.getMonth();
+  if (t.highPointM > 1400 && (ay >= 10 || ay <= 4)) { sari.push("Mevsim: yükseklerde kar olabilir"); puan -= 15; }
+  const pay = (batim - bitis) / 36e5;
+  if (pay < 0.3) kirmizi.push(`Gün ışığı yetmez (gün batımı ${ss(batim)})`);
+  else if (pay < 1) { sari.push(`Gün batımına ${Math.round(pay * 60)} dk pay`); puan -= 10; }
+  else yesil.push(`Gün batımına ${Math.floor(pay)} sa pay`);
+  const toplam = surus * 2 + yuruyus;
+  if (BUGUN.sure === "yarim" && toplam > 6) kirmizi.push(`Yarım güne sığmaz (toplam ${Math.round(toplam)} sa)`);
+  puan -= Math.max(0, surus - 1) * 10;
+  if (t.difficulty === "kolay") yesil.push("Kolay parkur");
+  return { t, km, surus, yuruyus, varis, bitis, donus, batim, kirmizi, sari, yesil, ozet, sonraYagmur, puan: Math.round(puan), uygun: !kirmizi.length };
+}
+const sureYazi = (h) => { const m = Math.round(h * 60); return m < 60 ? `${m} dk` : `${Math.floor(m / 60)} sa${m % 60 ? " " + (m % 60) + " dk" : ""}`; };
+async function bugunCiz() {
+  const kutu = $("#bugunKutu"); if (!kutu) return;
+  const plan = bugunPlanBaslangic();
+  const gunYazi = (plan.yarin ? "Yarın, " : "Bugün, ") + plan.b.toLocaleDateString("tr-TR", { day: "numeric", month: "short" });
+  kutu.innerHTML = `<h1>${plan.yarin ? "Yarın nereye?" : "Bugün nereye?"}</h1>
+    <div class="bg-secim">
+      <button class="bg-cip" id="bgKonum"><svg viewBox="0 0 24 24"><path d="M12 21s7-5.6 7-11a7 7 0 0 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>${esc(BUGUN.konum.ad)}'dan</button>
+      <span class="bg-cip bg-sabit">${gunYazi} · ${ss(plan.b)} çıkış</span>
+      <button class="bg-cip ${BUGUN.sure === "yarim" ? "on" : ""}" data-bgsure="yarim">Yarım gün</button>
+      <button class="bg-cip ${BUGUN.sure === "tam" ? "on" : ""}" data-bgsure="tam">Tam gün</button>
+    </div>
+    <div class="bg-ozet skel" style="height:150px"></div>${'<div class="skel" style="height:110px;margin-top:12px;border-radius:20px"></div>'.repeat(2)}`;
+  bugunBagla();
+  let parkurlar;
+  try { parkurlar = await parkurlariYukle(); } catch { kutu.querySelector(".bg-ozet").outerHTML = `<p class="err">Parkur listesi yüklenemedi.</p>`; return; }
+  // bolge basina bir hava noktasi (bolgedeki parkurlarin ortasi) + baslangic konumu
+  const bolgeler = {};
+  for (const t of parkurlar) (bolgeler[t.region] = bolgeler[t.region] || []).push(t);
+  const noktalar = Object.entries(bolgeler).map(([ad, ts]) => ({ ad, lat: ts.reduce((a, t) => a + t.lat, 0) / ts.length, lon: ts.reduce((a, t) => a + t.lon, 0) / ts.length }));
+  const sonuc = await Promise.allSettled([nwsSaatlik(BUGUN.konum.lat, BUGUN.konum.lon), ...noktalar.map(n => nwsSaatlik(n.lat, n.lon))]);
+  const yerelHava = sonuc[0].status === "fulfilled" ? sonuc[0].value : null;
+  const bolgeHava = {}; noktalar.forEach((n, i) => { if (sonuc[i + 1].status === "fulfilled") bolgeHava[n.ad] = sonuc[i + 1].value; });
+  const havaYok = !Object.keys(bolgeHava).length;
+  const F = BUGUN.filtre;
+  const uyar = (t) => F === "hepsi" || (F === "kolay" ? t.difficulty === "kolay" : (t.tags || []).includes(F));
+  const hepsi = parkurlar.filter(uyar).map(t => parkurPuanla(t, bolgeHava[t.region], plan));
+  const uygun = hepsi.filter(x => x.uygun).sort((a, b) => b.puan - a.puan);
+  const elenen = hepsi.filter(x => !x.uygun).sort((a, b) => a.km - b.km);
+  const en = uygun[0];
+  // ozet karti
+  let ozetBaslik = "Hava verisi şu an alınamadı", ozetRenk = "gri", ozetMetin = "Öneriler yalnızca mesafe ve gün ışığına göre sıralandı.";
+  if (!havaYok) {
+    const p = en ? en.puan : 0;
+    [ozetBaslik, ozetRenk] = p >= 70 ? ["Yürüyüş için iyi bir gün", "yesil"] : p >= 45 ? ["Seçici olursan güzel bir gün", "sari"] : ["Bugün dışarısı zorlu", "kirmizi"];
+    if (yerelHava) {
+      const pen = yerelHava.filter(x => x.t >= plan.b.getTime() && x.t <= plan.b.getTime() + 10 * 36e5);
+      const ilkYagmur = pen.find(x => x.pop >= 50);
+      const yer = esc(BUGUN.konum.ad);
+      const kuru = en && en.ozet && en.ozet.pop < 30 ? en.t.region : null;
+      ozetMetin = ilkYagmur
+        ? (ilkYagmur.t - plan.b.getTime() < 3 * 36e5 ? `${yer} çevresinde yakın saatlerde yağmur ihtimali %${ilkYagmur.pop}.` : `${yer} çevresinde ${ss(new Date(ilkYagmur.t))} civarı yağmur ihtimali %${ilkYagmur.pop}; öncesi daha kuru.`)
+          + (kuru ? ` ${kuru} tarafı daha kuru görünüyor.` : "")
+        : `Önümüzdeki saatlerde yağmur ihtimali düşük, sıcaklık ${Math.min(...pen.map(x => x.c))}-${Math.max(...pen.map(x => x.c))}°C.`;
+    }
+  }
+  const serit = yerelHava ? yerelHava.filter(x => x.t >= plan.b.getTime() - 18e5).filter((x, i) => i % 2 === 0).slice(0, 5) : [];
+  const kart = (r, i) => {
+    const t = r.t, foto = t.photo || kareSvg(t.name.length, 12);
+    const chips = [...r.yesil.map(c => `<span class="bg-c yesil">${esc(c)}</span>`), ...r.sari.map(c => `<span class="bg-c sari">${esc(c)}</span>`)].join("");
+    const neden = `${ss(plan.b)}'da çıkarsan ${ss(r.varis)}'da parkurdasın, ${ss(r.donus)} civarı evde olursun.` + (r.sonraYagmur ? ` Yağmur ${ss(r.sonraYagmur)} civarı başlıyor; öncesinde inmiş olursun.` : "");
+    const yol = `https://www.google.com/maps/dir/?api=1&destination=${t.lat},${t.lon}`;
+    if (i === 0) return `<article class="bg-bir">
+      <div class="bg-foto"><img src="${foto}" alt="${esc(t.name)}"><span class="bg-sira">1 · En uygun</span>
+        ${t.photoCredit ? `<span class="bg-kredi">Foto: ${esc(t.photoCredit)}</span>` : ""}</div>
+      <div class="bg-govde"><div class="bg-bas"><h3>${esc(t.name)}</h3><span>${sureYazi(r.surus)} sürüş</span></div>
+        <div class="bg-alt">${String(t.lengthKm).replace(".", ",")} km · ${t.gainM} m tırmanış · yaklaşık ${sureYazi(r.yuruyus)}</div>
+        <div class="bg-cipler">${chips}</div>
+        <p class="bg-neden"><b>Neden:</b> ${neden}</p>
+        ${t.seasonNote ? `<p class="bg-mevsim">${esc(t.seasonNote)}</p>` : ""}
+        <div class="bg-dugmeler"><a class="btn primary" href="${yol}" target="_blank" rel="noopener">Yol tarifi</a>
+          <a class="btn" href="${esc(t.source)}" target="_blank" rel="noopener">Parkur ayrıntıları</a></div>
+        <div class="bg-gecis">Giriş: ${esc(t.pass)}</div></div></article>`;
+    return `<a class="bg-satir" href="${yol}" target="_blank" rel="noopener">
+      <span class="bg-kucuk"><img src="${foto}" alt=""><span>${i + 1}</span></span>
+      <span class="bg-satir-yazi"><b>${esc(t.name)}</b><span>${sureYazi(r.surus)} sürüş · ${String(t.lengthKm).replace(".", ",")} km · ${t.gainM} m</span>
+        <span class="bg-cipler">${chips}</span></span></a>`;
+  };
+  const filtreler = [["hepsi", "Hepsi"], ["göl", "Göl"], ["şelale", "Şelale"], ["zirve", "Zirve"], ["kolay", "Kolay"], ["köpek dostu", "Köpekle"], ["çocukla", "Çocukla"]];
+  kutu.innerHTML = `<h1>${plan.yarin ? "Yarın nereye?" : "Bugün nereye?"}</h1>
+    <div class="bg-secim">
+      <button class="bg-cip" id="bgKonum"><svg viewBox="0 0 24 24"><path d="M12 21s7-5.6 7-11a7 7 0 0 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>${esc(BUGUN.konum.ad)}'dan</button>
+      <span class="bg-cip bg-sabit">${gunYazi} · ${ss(plan.b)} çıkış</span>
+      <button class="bg-cip ${BUGUN.sure === "yarim" ? "on" : ""}" data-bgsure="yarim">Yarım gün</button>
+      <button class="bg-cip ${BUGUN.sure === "tam" ? "on" : ""}" data-bgsure="tam">Tam gün</button>
+    </div>
+    <section class="bg-ozet"><div class="bg-ozet-bas"><span class="bg-isik ${ozetRenk}"></span><h2>${ozetBaslik}</h2></div>
+      <p>${esc(ozetMetin)}</p>
+      ${serit.length ? `<div class="bg-serit">${serit.map(x => `<div><span>${new Date(x.t).getHours().toString().padStart(2, "0")}</span>
+        <svg viewBox="0 0 24 24">${havaIkon(x)}</svg><b>${x.c}°</b>${x.pop >= 20 ? `<small>%${x.pop}</small>` : ""}</div>`).join("")}</div>` : ""}</section>
+    <div class="bg-filtre">${filtreler.map(([k, ad]) => `<button class="bg-cip ${F === k ? "on" : ""}" data-bgfiltre="${k}">${ad}</button>`).join("")}</div>
+    <h2 class="sec">${uygun.length >= 3 ? `${plan.yarin ? "Yarın" : "Bugün"} için en iyi 3` : uygun.length ? `${plan.yarin ? "Yarın" : "Bugün"} için uygun ${uygun.length} parkur` : `${plan.yarin ? "Yarın" : "Bugün"} uygun parkur bulamadık`}</h2>
+    ${uygun.slice(0, 3).map(kart).join("") || `<div class="empty">Seçtiğin filtre ve süreye uyan parkur yok. Tam günü ya da başka bir filtreyi dene.</div>`}
+    ${elenen.length ? `<section class="bg-elenen"><h3>Önermediklerimiz</h3><ul>${elenen.slice(0, 4).map(r => `<li><b>${esc(r.t.name)}:</b> ${esc(r.kirmizi[0])}</li>`).join("")}</ul></section>` : ""}
+    <p class="bg-kaynak">Hava: ABD Ulusal Hava Servisi (NWS), bölge bazında saatlik tahmin. Parkur bilgileri: Washington Trails Association ve OpenStreetMap. Orman yangını dumanı, geçit ve park kapanışı verisi yakında eklenecek; yola çıkmadan resmi kaynakları kontrol et.</p>`;
+  bugunBagla();
+}
+function bugunBagla() {
+  document.querySelectorAll("[data-bgsure]").forEach(b => b.addEventListener("click", () => { BUGUN.sure = b.dataset.bgsure; bugunCiz(); }));
+  document.querySelectorAll("[data-bgfiltre]").forEach(b => b.addEventListener("click", () => { BUGUN.filtre = b.dataset.bgfiltre; bugunCiz(); }));
+  const k = $("#bgKonum");
+  if (k) k.addEventListener("click", () => {
+    if (!navigator.geolocation) return;
+    k.textContent = "Konum alınıyor…";
+    navigator.geolocation.getCurrentPosition(p => { BUGUN.konum = { lat: p.coords.latitude, lon: p.coords.longitude, ad: "Konumun" }; bugunCiz(); },
+      () => { BUGUN.konum = { lat: 47.6062, lon: -122.3321, ad: "Seattle" }; bugunCiz(); }, { timeout: 8000, maximumAge: 6e5 });
+  });
+}
+
 async function kesfetCiz() {
   if (SB) {
     await sosyalDurumYukle();
-    let html = `<h1>Keşfet</h1><div class="sub">Gezginler ve herkese açık günlerden popüler yerler.</div>`;
+    $("#view-kesfet").innerHTML = `<div id="bugunKutu"></div><div id="kesfetAlt"></div>`;
+    bugunCiz();
+    let html = `<h2 class="sec" style="margin-top:40px">Keşfet</h2><div class="sub">Gezginler ve herkese açık günlerden popüler yerler.</div>`;
     // gezginler + takipci sayilari
     let pq = SB.from("profiles").select("id,username,name,is_creator,bio").limit(50);
     if (girisli()) pq = pq.neq("id", ME.id);
@@ -1236,9 +1470,9 @@ async function kesfetCiz() {
           <img src="${kareSvg(y.length, 12)}" alt=""${g.cover ? ` data-cover="${esc(g.cover)}"` : ""}>
           <div class="pc"><h3>${esc(y)}</h3><p>${g.n} gün &middot; ${g.likes} beğeni</p></div>
         </div>`).join("")}</div>`;
-    $("#view-kesfet").innerHTML = html;
-    sosyalBagla("#view-kesfet");
-    kapaklariGetir("#view-kesfet");
+    $("#kesfetAlt").innerHTML = html;
+    sosyalBagla("#kesfetAlt");
+    kapaklariGetir("#kesfetAlt");
     return;
   }
   const yerler = [
