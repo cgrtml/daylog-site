@@ -4141,10 +4141,14 @@ async function elleKaydet() {
   try {
     const mevcut = ELLE.points.filter(p => !p.new && p.lat != null);
     const merkez = mevcut.length ? [mevcut.reduce((a, p) => a + p.lat, 0) / mevcut.length, mevcut.reduce((a, p) => a + p.lon, 0) / mevcut.length] : [0, 0];
+    const merkezVar = !!(merkez[0] || merkez[1]);
     for (const p of secP) if (p.new) {
+      // fotograftan gelen yeni durak gercek GPS koordinatini korur; yalnizca elle eklenen (koordinatsiz) nokta
+      // yerin bilinen noktalarinin ortasina yakin yerlesir; hic bilinen nokta yoksa koordinatsiz kalir
       const jit = () => (Math.random() - 0.5) * 0.004;
-      const lat = +(merkez[0] + jit()).toFixed(5), lon = +(merkez[1] + jit()).toFixed(5);
-      await SB.from("points").upsert({ place: ELLE.place, name: p.name, lat, lon, created_by: ME.id },
+      const lat = p.lat != null ? p.lat : merkezVar ? +(merkez[0] + jit()).toFixed(5) : null;
+      const lon = p.lon != null ? p.lon : merkezVar ? +(merkez[1] + jit()).toFixed(5) : null;
+      if (lat != null) await SB.from("points").upsert({ place: ELLE.place, name: p.name, lat, lon, created_by: ME.id },
         { onConflict: "place,name", ignoreDuplicates: true });
       p.lat = lat; p.lon = lon;
     }
