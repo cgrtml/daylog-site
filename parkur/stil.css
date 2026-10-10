@@ -1,0 +1,25 @@
+:root{--bg:#f1eee6;--paper:#faf8f3;--ink:#14170f;--ink2:#3a3f35;--mut:#555a4e;--line:#e2ddd0;--pine:#1e3b2c;--blaze:#c4471b}
+@media (prefers-color-scheme:dark){:root{--bg:#12150f;--paper:#191d14;--ink:#f1eee6;--ink2:#d6d2c6;--mut:#a7a99c;--line:#2a3122;--pine:#9fd3b4;--blaze:#e07a45}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Schibsted Grotesk",system-ui,sans-serif}
+a{color:var(--pine)}.kap{max-width:760px;margin:0 auto;padding:0 16px 48px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
+.marka{font-weight:800;font-size:1.6rem;letter-spacing:-.045em;color:var(--ink);text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+.logo-i{display:inline-block;height:.8em;width:.4255em;vertical-align:-.035em;margin:0 .004em 0 .014em;overflow:visible}
+.logo-i path{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.logo-i circle{fill:#c4471b}
+@media (prefers-color-scheme:dark){.logo-i circle{fill:#f0a27c}}.dug{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:22px;background:var(--pine);color:#f1eee6;text-decoration:none;font-weight:700}
+@media (prefers-color-scheme:dark){.dug{color:#12150f}}
+.yol{font-size:.85rem;color:var(--mut)}.yol a{color:var(--mut)}
+h1{font-size:clamp(1.9rem,6vw,2.6rem);line-height:1.05;letter-spacing:-.035em;margin:6px 0 8px}
+.alt{color:var(--mut);margin:0 0 16px}.foto{border-radius:20px;overflow:hidden;margin:0 0 6px}.foto img{width:100%;max-height:420px;object-fit:cover;display:block}
+.kredi{font-size:.72rem;color:var(--mut);margin:0 0 16px}
+.say{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:12px 4px;margin:0 0 16px}
+.say div{text-align:center}.say div+div{border-left:1px solid var(--line)}.say b{display:block;font-size:1.1rem}.say span{font-size:.75rem;color:var(--mut)}
+@media (max-width:480px){.say{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:12px}.say div:nth-child(3){border-left:0}}
+.kart{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:14px 16px;margin:0 0 16px}
+.kart h2{font-size:1.05rem;margin:0 0 8px}svg.prof{width:100%;height:110px;display:block}
+.eylem{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 20px}.eylem a.ikinci{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+ul.yakin{list-style:none;margin:0;padding:0;display:grid;gap:6px}ul.yakin li{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--line)}
+ul.yakin li:first-child{border-top:0}ul.yakin span{color:var(--mut);font-size:.85rem;white-space:nowrap}
+.not{font-size:.8rem;color:var(--mut)}footer{font-size:.78rem;color:var(--mut);border-top:1px solid var(--line);margin-top:32px;padding-top:14px}
+.bolge h2{margin:28px 0 8px;font-size:1.3rem}.liste{columns:2 260px;gap:24px;margin:0;padding:0;list-style:none}.liste li{break-inside:avoid;padding:5px 0}
+.liste span{color:var(--mut);font-size:.82rem}
