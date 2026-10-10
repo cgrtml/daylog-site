@@ -817,6 +817,8 @@ nav.nav{z-index:1100}
 .p3-ikon{width:44px;height:44px;flex:none;border-radius:22px;border:1px solid var(--line2);background:var(--paper);display:flex;align-items:center;justify-content:center;cursor:pointer}
 .p3-ikon svg{width:18px;height:18px;fill:none;stroke:var(--ink);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .p3-bas .btn{padding:10px 16px}
+.p3-eylem{display:flex;align-items:center;gap:8px;flex:none}
+@media (max-width:520px){.p3-bas.diger{flex-wrap:wrap}.p3-bas.diger .p3-eylem{width:100%;padding-left:76px}.p3-bas.diger .p3-eylem .btn{flex:1}}
 .p3-bio{margin:10px 0 0;font-size:.92rem;line-height:1.5;color:var(--ink2)}
 .p3-bio a{color:#1f4e8c;font-weight:600}
 .p3-buyuk{background:#1e3b2c;color:#f1eee6;border-radius:24px;padding:18px;margin-top:16px}
@@ -1177,6 +1179,8 @@ const CITIES = [
 const AYLAR = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz",
                "Ağustos","Eylül","Ekim","Kasım","Aralık"];
 const $ = (s) => document.querySelector(s);
+// "YYYY-MM-DD" gun tarihi yerel gun olarak okunur (new Date() UTC gece yarisi sayip ABD'de bir gun geri kaydiriyordu)
+const tarihOku = (v) => (typeof v === "string" && /^\d{4}-\d{2}-\d{2}$/.test(v)) ? new Date(+v.slice(0, 4), +v.slice(5, 7) - 1, +v.slice(8, 10)) : new Date(v);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const hhmm = (t) => String(t.getHours()).padStart(2,"0") + ":" + String(t.getMinutes()).padStart(2,"0");
 const rad = (d) => d * Math.PI / 180;
@@ -1657,7 +1661,7 @@ function gunFeedKart(d) {
   const ad = p.name || p.username || "gezgin";
   const rol = p.tagline === "Örnek hesap" ? "Örnek hesap" : p.is_creator ? "İçerik üretici" : "Gezgin";
   const stoplar = (d.timeline || []).filter(t => t.type === "stop");
-  const dd = new Date(d.date);
+  const dd = tarihOku(d.date);
   const seed = [...String(d.id)].reduce((a, c) => a + c.charCodeAt(0), 0) % 97;
   const begendim = LIKED.has(d.id);
   // sure: ilk duragin baslangicindan son duragin bitisine (HH:MM)
@@ -1710,7 +1714,7 @@ async function bugunHesapla() {
   return { plan, uygun, yerelHava };
 }
 function seriHafta(gunler) {
-  const hafta = (d) => { const t = new Date(d); t.setHours(0, 0, 0, 0); t.setDate(t.getDate() - ((t.getDay() + 6) % 7)); return t.getTime(); };
+  const hafta = (d) => { const t = tarihOku(d); t.setHours(0, 0, 0, 0); t.setDate(t.getDate() - ((t.getDay() + 6) % 7)); return t.getTime(); };
   const set = new Set(gunler.map(g => hafta(g.date)));
   let h = hafta(new Date()), n = 0;
   if (!set.has(h)) h -= 7 * 864e5;           // bu hafta henuz yoksa seri gecen haftadan sayilir
@@ -1750,7 +1754,7 @@ async function evDoldur() {
       <div class="ev-seri"><span class="ev-alev"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c1 4 5 5.5 5 11a5 5 0 0 1-10 0c0-2.5 1.2-4 2.5-5 .2 1.8 1 2.8 2 3.3C11 8 11 5 12 2z"/></svg></span>
         <div><b>${seri ? `${seri} hafta üst üste` : "Seriyi başlat"}</b><span>${seri ? `Bu hafta sonu seriyi ${seri + 1}'e çıkar` : "Bu hafta bir gün ekle, serin başlasın"}</span></div></div>
       ${son ? `<button class="ev-son" data-day="${son.id}"><img src="${kareSvg(son.place.length, 12)}" alt=""${son.cover_path ? ` data-cover="${esc(son.cover_path)}"` : ""}>
-        <span><span class="ana-mono">SON GÜNÜN · ${new Date(son.date).getDate()} ${AYLAR[new Date(son.date).getMonth()].slice(0, 3).toLocaleUpperCase("tr-TR")}</span>
+        <span><span class="ana-mono">SON GÜNÜN · ${tarihOku(son.date).getDate()} ${AYLAR[tarihOku(son.date).getMonth()].slice(0, 3).toLocaleUpperCase("tr-TR")}</span>
         <b>${esc(son.place)}</b><span class="ev-son-alt">${kmYaz(+son.km || 0)} km · ${son.stop_count || 0} durak · ${son.like_count || 0} beğeni</span></span></button>` : ""}
       <div class="ev-toplam"><div><b>${yer}</b><span>yer</span></div><div><b>${Math.round(km)}</b><span>km</span></div><div><b>${ulke}</b><span>ülke</span></div></div>`;
     kart.querySelectorAll("[data-day]").forEach(b => b.addEventListener("click", () => gunGoster(b.dataset.day)));
@@ -2270,7 +2274,7 @@ async function yerDetay(id) {
     if (el && data2.length) { const data = data2;
       el.innerHTML = `<h2 class="sec">ormaio'da ${data.length} gün</h2><div class="pr-gunler">${data.map(g => `
         <div class="pr-gun" data-day="${g.id}"><img src="${kareSvg(g.place.length, 12)}" alt=""${g.cover_path ? ` data-cover="${esc(g.cover_path)}"` : ""}>
-        <b>${esc(g.place)}</b><span>${new Date(g.date).getDate()} ${AYLAR[new Date(g.date).getMonth()]} · ${kmYaz(g.km || 0)} km</span></div>`).join("")}</div>`;
+        <b>${esc(g.place)}</b><span>${tarihOku(g.date).getDate()} ${AYLAR[tarihOku(g.date).getMonth()]} · ${kmYaz(g.km || 0)} km</span></div>`).join("")}</div>`;
       el.querySelectorAll("[data-day]").forEach(b => b.addEventListener("click", () => gunGoster(b.dataset.day)));
       kapaklariGetir("#ydOrmaio");
     }
@@ -2940,11 +2944,11 @@ function ulkeAdi(t) {
   return "Diğer ülke";
 }
 function onceYazi(iso) {
-  const n = Math.max(0, Math.round((Date.now() - new Date(iso)) / 864e5));
+  const n = Math.max(0, Math.round((Date.now() - tarihOku(iso)) / 864e5));
   if (n === 0) return "bugün";
   if (n === 1) return "dün";
   if (n < 30) return n + " gün önce";
-  const d = new Date(iso); return d.getDate() + " " + AYLAR[d.getMonth()];
+  const d = tarihOku(iso); return d.getDate() + " " + AYLAR[d.getMonth()];
 }
 function gunTurleri(g) {
   // gunun turu: yer adi + etkinlik + (Washington verisi yuklenmisse) en yakin yer
@@ -2971,7 +2975,7 @@ function profilHtml(u, gunler, o) {
   const yerler = new Set(gunler.map(t => t.place));
   const ulkeSay = {}; gunler.forEach(g => { const u2 = ulkeAdi(g); if (u2) ulkeSay[u2] = (ulkeSay[u2] || 0) + 1; });
   const foto = gunler.reduce((a, t) => a + (t.photo_count || 0), 0);
-  const ilkYil = gunler.length ? new Date(gunler[gunler.length - 1].date).getFullYear() : new Date().getFullYear();
+  const ilkYil = gunler.length ? tarihOku(gunler[gunler.length - 1].date).getFullYear() : new Date().getFullYear();
   const seri = seriHafta(gunler);
   const kat = {}; const turu = new Map();
   for (const g of gunler) { const t = gunTurleri(g); turu.set(g.id, t); t.forEach(k => kat[k] = (kat[k] || 0) + 1); }
@@ -2980,16 +2984,16 @@ function profilHtml(u, gunler, o) {
   const satir = [u.username ? "@" + esc(u.username) : "", u.location ? esc(u.location) : "", `<b>${o.takipci || 0}</b> takipçi`].filter(Boolean).join(" · ");
   const web = u.website ? (/^https?:\/\//i.test(u.website) ? u.website : "https://" + u.website) : "";
   const aylar = new Map();
-  for (const g of gunler) { const d = new Date(g.date), k = d.getFullYear() * 12 + d.getMonth(); if (!aylar.has(k)) aylar.set(k, { ad: `${AYLAR[d.getMonth()]} ${d.getFullYear()}`, gun: [] }); aylar.get(k).gun.push(g); }
+  for (const g of gunler) { const d = tarihOku(g.date), k = d.getFullYear() * 12 + d.getMonth(); if (!aylar.has(k)) aylar.set(k, { ad: `${AYLAR[d.getMonth()]} ${d.getFullYear()}`, gun: [] }); aylar.get(k).gun.push(g); }
   const KISA = ["PAZ", "PZT", "SAL", "ÇAR", "PER", "CUM", "CMT"];
   const turAd = (t) => t.has("z") ? "Zirve" : t.has("g") ? "Göl" : t.has("s") ? "Şelale" : t.has("k") ? "Kamp" : t.has("b") ? "Bisiklet" : "Yürüyüş";
   return `
   ${o.geri ? `<button class="back">&larr; Geri</button>` : ""}
-  <header class="p3-bas">${avatarHtml(u, "p3-av")}
+  <header class="p3-bas${o.ben ? "" : " diger"}">${avatarHtml(u, "p3-av")}
     <div class="p3-kim"><h1>${esc(u.name || u.username || "Gezgin")}${u.is_creator ? '<span class="badge">üretici</span>' : ""}</h1><div class="p3-satir">${satir}</div></div>
-    ${o.ben ? `<button class="p3-ikon" id="prDuzenle" aria-label="Profili düzenle"><svg viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16z"/></svg></button>` : `<button class="btn ${takipte(u.id) ? "" : "primary"}" id="pfollow">${takipte(u.id) ? "Takiptesin" : "Takip et"}</button>`}
+    <div class="p3-eylem">${o.ben ? `<button class="p3-ikon" id="prDuzenle" aria-label="Profili düzenle"><svg viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16z"/></svg></button>` : `<button class="btn ${takipte(u.id) ? "" : "primary"}" id="pfollow">${takipte(u.id) ? "Takiptesin" : "Takip et"}</button>`}
     <button class="p3-ikon" id="prPaylas" aria-label="Profili paylaş"><svg viewBox="0 0 24 24"><path d="M12 15V3M7 8l5-5 5 5"/><path d="M5 13v7h14v-7"/></svg></button>
-    ${o.ben ? "" : menuDugme(null, u.id, u.name || u.username).replace('class="ikon-menu"', 'class="ikon-menu p3-ikon"')}</header>
+    ${o.ben ? "" : menuDugme(null, u.id, u.name || u.username).replace('class="ikon-menu"', 'class="ikon-menu p3-ikon"')}</div></header>
   ${u.bio || u.tagline || web ? `<p class="p3-bio">${u.tagline ? `<b>${esc(u.tagline)}</b> ` : ""}${u.bio ? esc(u.bio) : ""}${web ? ` <a href="${esc(web)}" target="_blank" rel="noopener">${esc(u.website.replace(/^https?:\/\//i, ""))}</a>` : ""}</p>` : ""}
   <p class="pr-bilgi" id="prBilgi" hidden></p>
   ${o.ben && !u.avatar_url ? `<button class="pr-uyari" id="prFotoEkle">Profil fotoğrafı ekle: gezginler seni böyle tanır &rarr;</button>` : ""}
@@ -3011,7 +3015,7 @@ function profilHtml(u, gunler, o) {
   <div data-prpanel="rozet" hidden>${pasaportHtml(trips)}</div>
   <h2 class="sec">Geçmiş</h2>
   ${gunler.length ? [...aylar.values()].map(a => `<div class="p3-ay">${esc(a.ad).toLocaleUpperCase("tr-TR")} · ${a.gun.length} GÜN</div>
-    ${a.gun.map(g => { const d = new Date(g.date); return `<button class="p3-gun" data-day="${g.id}">
+    ${a.gun.map(g => { const d = tarihOku(g.date); return `<button class="p3-gun" data-day="${g.id}">
       <span class="p3-tarih"><b>${d.getDate()}</b><span>${KISA[d.getDay()]}</span></span>
       <img src="${kareSvg(g.place.length, 12)}" alt=""${g.cover_path ? ` data-cover="${esc(g.cover_path)}"` : ""}>
       <span class="p3-gun-yazi"><b>${esc(g.place)}</b><span>${turAd(turu.get(g.id))} · ${kmYaz(+g.km || 0)} km${g.stop_count ? ` · ${g.stop_count} durak` : ""}${o.ben && g.privacy ? ` · <span class="priv-rozet priv-${g.privacy}">${PRIV_AD[g.privacy] || g.privacy}</span>` : ""}</span></span>
@@ -3022,7 +3026,7 @@ function profilHtml(u, gunler, o) {
       <button data-wdel="${esc(w.place)}" aria-label="Listeden çıkar">&#10005;</button></li>`).join("")}</ul>`
     : `<div class="empty">Listen boş. Bir günün altındaki <b>Gitmek istiyorum</b> ile buraya eklenir.</div>`}
     ${gunler.length ? `<details class="p3-gizlilik"><summary>Günlerinin gizliliği</summary>${gunler.map(g => `<div class="ucard" style="margin-bottom:8px"><div class="who"><b>${esc(g.place)}</b>
-      <span>${new Date(g.date).getDate()} ${AYLAR[new Date(g.date).getMonth()]}</span></div>${["ozel", "arkadaslar", "herkes"].map(pr => `
+      <span>${tarihOku(g.date).getDate()} ${AYLAR[tarihOku(g.date).getMonth()]}</span></div>${["ozel", "arkadaslar", "herkes"].map(pr => `
       <button class="privchip" aria-pressed="${g.privacy === pr}" data-pid="${g.id}" data-ppr="${pr}">${PRIV_AD[pr]}</button>`).join("")}</div>`).join("")}
       <p class="privline">Değerlendirmelerin her zaman herkese açıktır; yalnızca fotoğraf ve gün detayları gizliliğe göre görünür.</p></details>` : ""}
   <h2 class="sec" id="ayarlar">Ayarlar</h2>
@@ -3347,7 +3351,7 @@ async function gunGoster(dayId) {
   if (dErr && /avatar_url|tagline/i.test(dErr.message || "")) { PROF_ALAN = "username,name,is_creator"; ({ data: d } = await SB.from("days").select(`*, profiles!days_user_id_fkey(${PROF_ALAN})`).eq("id", dayId).single()); }
   if (!d) { $("#detayout").innerHTML = `<button class="back">&larr; Geri</button><div class="empty">Gün bulunamadı.</div>`;
     $("#detayout .back").addEventListener("click", sekmeyeDon); return; }
-  const dd = new Date(d.date);
+  const dd = tarihOku(d.date);
   const p = d.profiles || {};
   const stoplar = (d.timeline || []).filter(t => t.type === "stop");
   // tum fotograf yollarini topla, imzali url al
@@ -4391,10 +4395,10 @@ async function anaCiz() {
   $("#anaAkis").addEventListener("click", akisaGit);
   // vitrin: gercek (Wikimedia Commons) fotografli dort yer; tiklayinca o yerin herkese acik gunu acilir
   const VITRIN = [
-    { yer: "Mount Rainier · Paradise", db: "Mount Rainier · Paradise", kim: "JORDAN REYES", km: "9,4", foto: "vitrin-paradise.jpg" },
-    { yer: "Diablo Lake", db: "North Cascades · Diablo Lake", kim: "PRIYA NAIR", km: "7,6", foto: "vitrin-diablo.jpg" },
-    { yer: "Lake Crescent", db: "Lake Crescent ve Marymere Falls", kim: "SAM WHITAKER", km: "8,3", foto: "vitrin-crescent.jpg" },
-    { yer: "Colchuck Lake", db: "Colchuck Lake", kim: "DIEGO MORALES", km: "13,4", foto: "vitrin-colchuck.jpg" }];
+    { yer: "Paradise, Rainier", db: "Mount Rainier · Paradise", kim: "JORDAN R.", km: "9,4", foto: "vitrin-paradise.jpg" },
+    { yer: "Diablo Lake", db: "North Cascades · Diablo Lake", kim: "PRIYA N.", km: "7,6", foto: "vitrin-diablo.jpg" },
+    { yer: "Lake Crescent", db: "Lake Crescent ve Marymere Falls", kim: "SAM W.", km: "8,3", foto: "vitrin-crescent.jpg" },
+    { yer: "Colchuck Lake", db: "Colchuck Lake", kim: "DIEGO M.", km: "13,4", foto: "vitrin-colchuck.jpg" }];
   $("#anaVitrin").innerHTML = VITRIN.map(v => `
     <button class="ana-vitrin-kart" data-vyer="${esc(v.db)}"><img src="${v.foto}" alt="${esc(v.yer)}">
       <span class="ana-vitrin-alt"><span class="ana-mono">${v.kim} · ${v.km} KM</span><b>${esc(v.yer)}</b></span></button>`).join("");
