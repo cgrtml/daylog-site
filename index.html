@@ -3166,7 +3166,7 @@ async function hesabiSil() {
     // kullanici artik yok: sunucuya cikis istegi atma (403); oturum yerel depoyla birlikte asagida temizlenir
     ME = null; try { localStorage.clear(); } catch {}
     $("#detayout").innerHTML = `<div class="empty" style="margin-top:40px"><b>Hesabın silindi.</b><br>Bütün günlerin ve fotoğrafların kaldırıldı.</div>`;
-    setTimeout(() => location.replace(location.pathname), 2500);
+    setTimeout(() => location.replace(location.pathname), 5000);
   } catch (e) { hata("Silinemedi: " + (e.message || e) + ". Tekrar dene ya da bize yaz."); }
 }
 async function profilDuzenle() {
