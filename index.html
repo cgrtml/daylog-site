@@ -3763,7 +3763,7 @@ function gunCiz() {
     </div>`;
   }
   html += `<div class="stats">
-      <div><b>${(track/1000).toFixed(1)}</b><span>km iz</span></div>
+      <div><b>${kmYaz(track/1000)}</b><span>km iz</span></div>
       <div><b>${stops.length}</b><span>durak</span></div>
       <div><b>${pts.length}</b><span>fotoğraf</span></div>
       <div><b>${hhmm(sorted[0].time)}&ndash;${hhmm(sorted[sorted.length-1].time)}</b><span>saat</span></div></div>
@@ -3771,7 +3771,7 @@ function gunCiz() {
   for (const t of tl) {
     if (t.type === "move") {
       const mins = Math.round((t.end - t.start) / 60000);
-      html += `<div class="move"><span></span>${(t.distM/1000).toFixed(1)} km ${t.mode} &middot; ${mins} dk<span></span></div>`;
+      html += `<div class="move"><span></span>${kmYaz(t.distM/1000)} km ${t.mode} &middot; ${mins} dk<span></span></div>`;
       continue;
     }
     const k = arsivBul(t.lat, t.lon);
