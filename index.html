@@ -376,6 +376,9 @@ body{overflow-x:hidden}
 .ana-adimlar span{font-family:var(--mono);font-size:.8rem;color:var(--blaze)}
 .ana-adimlar h3{margin:10px 0 0;font-size:1.3rem;font-weight:700;letter-spacing:-.025em}
 .ana-adimlar p{margin:8px 0 0;color:var(--ink2);font-size:.95rem;line-height:1.55}
+.olcum-izgara{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:8px}
+.olcum-izgara div{background:var(--bg);border-radius:12px;padding:10px;text-align:center}.olcum-izgara b{display:block;font-size:1.3rem}.olcum-izgara span{font-size:.72rem;color:var(--mut)}
+@media (max-width:480px){.olcum-izgara{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .ayar-liste{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden}
 .ayar-satir{display:flex;align-items:center;gap:12px;padding:14px 16px;border:0;border-top:1px solid var(--line);background:none;font:inherit;color:var(--ink);text-align:left;text-decoration:none;width:100%}
 .ayar-satir:first-child{border-top:0}.ayar-git{cursor:pointer;min-height:56px}.ayar-git:hover{background:var(--bg)}
@@ -1606,6 +1609,7 @@ function sikayetFormu(dayId, userId) {
     $("#skGonder").disabled = true; $("#skGonder").textContent = "Gönderiliyor…";
     const { error } = await SB.from("reports").insert({ reporter: ME.id, day_id: dayId, target_user: userId, reason: neden, note: $("#skNot").value.trim() || null });
     if (error && error.code !== "23505") { $("#skHata").textContent = "Gönderilemedi: " + error.message; $("#skHata").hidden = false; $("#skGonder").disabled = false; $("#skGonder").textContent = "Şikayeti gönder"; return; }
+    olay("sikayet", neden);
     if (dayId) { GIZLI_GUN.add(dayId); try { localStorage.setItem("ormaio:gizliGun", JSON.stringify([...GIZLI_GUN])); } catch {} ; icerikGizle(null, dayId); }
     const son = sayfaAc(`<b class="sheet-baslik">Teşekkürler, şikayetin alındı</b>
       <p class="sheet-metin">En kısa sürede inceleyeceğiz. ${dayId ? "Bu gün artık sana görünmeyecek. " : ""}İstersen bu kişiyi engelleyerek hiçbir içeriğini görmeyebilirsin.</p>
@@ -2210,6 +2214,7 @@ async function yerDetay(id) {
   const y = YERLER.find(x => x.id === id);
   if (!y) { $("#detayout").innerHTML = `<button class="back">&larr; Geri</button><div class="empty">Yer bulunamadı.</div>`; $("#detayout .back").addEventListener("click", sekmeyeDon); return; }
   history.replaceState(null, "", "#y/" + id);
+  olay("yer", y.ad);
   let r = null;
   if (y.id.startsWith("r")) { try { r = await (await fetch(`data/wa/r/${y.id}.json`)).json(); } catch {} }
   const f = y.wd && foto[y.wd];
@@ -2717,7 +2722,8 @@ async function geziSonuc() {
     <p class="sub">Plan kuruluyor: parkurlar, hava tahmini, yol süreleri…</p>${iskeletKart()}${iskeletKart()}`;
   $("#detayout .back").addEventListener("click", () => geziFormu());
   let P;
-  try { P = await geziKur(); } catch (e) { console.error(e); P = null; }
+  try { P = await geziKur(); } catch (e) { console.error(e); hataKaydet("geziKur: " + e.message, location.hash); P = null; }
+  olay("plan", H.ad + " · " + GEZI.gun + " gün" + (P && !P.bos ? "" : " · bos"));
   if (GEZI.hedef !== H) return;
   const foto = await yerFotolari(), f = H.wd && foto[H.wd];
   if (!P || P.bos) {
@@ -3155,6 +3161,20 @@ async function profilCiz() {
           <button class="btn" data-modred="${d.id}">Reddet</button></div></div>`; }).join("") + `</div>`;
     }
   }
+  if (ME.isModerator && (OLCUM_ACIK || window.__olcumTest)) {
+    const once = new Date(Date.now() - 7 * 864e5).toISOString();
+    const { data: ol, error: olE } = await SB.from("olaylar").select("ad,ek,oturum,created_at").gte("created_at", once).order("created_at", { ascending: false }).limit(5000);
+    const { data: ht } = await SB.from("hatalar").select("mesaj,yer,created_at").gte("created_at", once).order("created_at", { ascending: false }).limit(50);
+    if (!olE && ol) {
+      const say = (a) => ol.filter(x => x.ad === a).length;
+      const tekil = new Set(ol.map(x => x.oturum)).size;
+      const kutu = [["Tekil ziyaret", tekil], ["Kayıt", say("kayit")], ["Giriş", say("giris")], ["Gün kaydı", say("gun_kaydet")],
+        ["Gezi planı", say("plan")], ["Yer sayfası", say("yer")], ["Uygulama kurulumu", say("pwa_kur")], ["Hata", (ht || []).length]];
+      modHtml += `<div class="pr-mod"><h2 class="sec" style="margin-top:4px">Son 7 gün</h2>
+        <div class="olcum-izgara">${kutu.map(([a, v]) => `<div><b>${v}</b><span>${a}</span></div>`).join("")}</div>
+        ${(ht || []).length ? `<details class="p3-gizlilik"><summary>Son hatalar</summary>${ht.slice(0, 10).map(h => `<p class="sub" style="margin:6px 0">${esc(h.created_at.slice(5, 16).replace("T", " "))} · ${esc(h.mesaj)} <span style="opacity:.7">${esc(h.yer || "")}</span></p>`).join("")}</details>` : ""}</div>`;
+    }
+  }
   if (ME.isModerator) {
     const { data: rp, error: rpE } = await SB.from("reports").select("id,reason,note,day_id,target_user,created_at").eq("status", "acik").order("created_at", { ascending: false }).limit(50);
     if (!rpE && rp && rp.length) {
@@ -3248,6 +3268,7 @@ async function hesabiSil() {
     await depoKlasorSil("avatars", ME.id);
     const { error } = await SB.rpc("hesabimi_sil");
     if (error) throw error;
+    olay("hesap_sil");
     // kullanici artik yok: sunucuya cikis istegi atma (403); oturum yerel depoyla birlikte asagida temizlenir
     ME = null; try { localStorage.clear(); } catch {}
     $("#detayout").innerHTML = `<div class="empty" style="margin-top:40px"><b>Hesabın silindi.</b><br>Bütün günlerin ve fotoğrafların kaldırıldı.</div>`;
@@ -4206,6 +4227,7 @@ async function elleKaydet() {
       lat: s.lat ?? merkez[0], lon: s.lon ?? merkez[1], paths: noktaPaths[s.name] || [] }));
     await SB.from("days").update({ cover_path: coverPath, timeline }).eq("id", gun.id);
     if (ELLE.priv !== "ozel") await gunuEvdenArindir(gun.id);
+    olay("gun_kaydet", ELLE.priv + " · " + ELLE.photos.length + " foto");
     // ADIM 4: embedding korpusu. Kapak vektoru saklanir (ayni-yer tespiti/kumeleme
     // bunun uzerine kurulur). Anahtar yoksa atlanir; kayit zaten tamam, bloklamaz.
     // Ozel gunlerden kayit sonrasi AI'ya kare gitmez; paylasilan gunde benzerlik vektoru yalnizca tanima aciksa
@@ -4436,6 +4458,7 @@ document.querySelectorAll("#nav button").forEach(b =>
     $("#view-ana").hidden = true; document.body.classList.remove("ana-acik", "olusturuyor", "hero-ust");
     document.querySelectorAll("#ustMenu [data-uv]").forEach(x => x.setAttribute("aria-current", x.dataset.uv === b.dataset.v ? "page" : "false"));
     for (const v of Object.keys(VIEWS)) $("#view-" + v).hidden = v !== b.dataset.v;
+    olay("sekme", b.dataset.v);
     if (VIEWS[b.dataset.v]) VIEWS[b.dataset.v]();
   }));
 
@@ -4558,11 +4581,12 @@ async function authYap() {
       }
       return hataGoster(trHata(error.message));
     }
-    if (data.session) { await girisSonrasi(data.session); profilFotoAdimi(true); }
+    if (data.session) { olay("kayit"); await girisSonrasi(data.session); profilFotoAdimi(true); }
     else hataGoster("Kayıt alındı; e-postanı doğrulaman gerekiyor.");
   } else {
     const { data, error } = await SB.auth.signInWithPassword({ email, password: pass });
     if (error) return hataGoster(trHata(error.message));
+    olay("giris");
     await girisSonrasi(data.session);
   }
 }
@@ -4586,6 +4610,25 @@ $("#login").addEventListener("click", (e) => { if (e.target.id === "login") auth
 
 ustBar();
 
+/* ---------- olcum ve hata kaydi (kisisel veri yok; "Do Not Track" acik tarayicilar sayilmaz) ---------- */
+// Bulutta olaylar/hatalar tablolari kurulana dek KAPALI (20261010130000_olcum.sql); kurulunca true yapilir.
+const OLCUM_ACIK = false;
+const OTURUM = (() => { try { let o = sessionStorage.getItem("ormaio:o"); if (!o) { o = Math.random().toString(36).slice(2, 12); sessionStorage.setItem("ormaio:o", o); } return o; } catch { return null; } })();
+const olcumIzinli = () => (OLCUM_ACIK || window.__olcumTest) && SB && navigator.doNotTrack !== "1" && !olay.kapali;
+function olay(ad, ek) {
+  if (!olcumIzinli()) return;
+  SB.from("olaylar").insert({ ad, ek: ek == null ? null : String(ek).slice(0, 80), oturum: OTURUM, giris: !!girisli() })
+    .then(({ error }) => { if (error) olay.kapali = true; }, () => { olay.kapali = true; });
+}
+let HATA_SAY = 0;
+function hataKaydet(mesaj, yer) {
+  if (!olcumIzinli() || ++HATA_SAY > 5) return;
+  SB.from("hatalar").insert({ mesaj: String(mesaj || "?").slice(0, 500), yer: String(yer || location.hash || "/").slice(0, 200), ua: navigator.userAgent.slice(0, 200) }).then(() => {}, () => {});
+}
+window.addEventListener("error", (e) => hataKaydet(e.message, (e.filename || "").split("/").pop() + ":" + e.lineno));
+window.addEventListener("unhandledrejection", (e) => hataKaydet("promise: " + ((e.reason && e.reason.message) || e.reason), location.hash));
+setTimeout(() => olay("acilis", (new URLSearchParams(location.search).get("kaynak")) || (kurulu() ? "pwa" : location.hash.split("/")[0] || "/")), 1500);
+
 /* ---------- PWA: cevrimdisi kabuk + ana ekrana ekle onerisi ---------- */
 if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
   window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
@@ -4594,7 +4637,7 @@ let YUKLE_OLAYI = null;
 const kurulu = () => matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
 const iosSafari = () => /iphone|ipad|ipod/i.test(navigator.userAgent) && !/crios|fxios|edgios/i.test(navigator.userAgent);
 window.addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); YUKLE_OLAYI = e; yukleOnerisi(); });
-window.addEventListener("appinstalled", () => { YUKLE_OLAYI = null; const x = $("#yukleBant"); if (x) x.remove(); try { localStorage.setItem("ormaio:yukleKapat", "kuruldu"); } catch {} });
+window.addEventListener("appinstalled", () => { olay("pwa_kur"); YUKLE_OLAYI = null; const x = $("#yukleBant"); if (x) x.remove(); try { localStorage.setItem("ormaio:yukleKapat", "kuruldu"); } catch {} });
 function yukleOnerisi() {
   if (kurulu() || $("#yukleBant") || innerWidth > 899) return;
   let kapali = null; try { kapali = localStorage.getItem("ormaio:yukleKapat"); } catch {}
