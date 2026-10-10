@@ -1114,7 +1114,7 @@ footer{color:var(--mut);font-size:.8rem;text-align:center;margin-top:40px;line-h
 <div id="view-profil" hidden><div id="profout"></div></div>
 <div id="view-detay" hidden><div id="detayout"></div></div>
 
-<footer>ormaio çalışma prototipi. Fotoğraf işleme tamamen bu sayfanın içinde olur;
+<footer>ormaio çalışma prototipi. Fotoğraflar önce bu cihazda okunur;
 kaydettiğin günlerin fotoğrafları konum bilgisi silinerek hesabının özel deposunda saklanır, kimin göreceğini sen seçersin.
 <br><span style="opacity:.8">Örnek gün fotoğrafları Wikimedia Commons katkıda bulunanlarındır (CC BY / CC BY-SA).
 <a href="/ATTRIBUTIONS.md" class="dip-link">Kaynaklar</a>.</span></footer>
@@ -1541,6 +1541,9 @@ let SAVED = new Set();   // listemdeki yer adlari
 
 /* ---------- sikayet et / engelle (magaza kurali: kullanici icerigi icin bildirim ve engelleme) ---------- */
 let ENGELLI = new Set(), GIZLI_GUN = new Set();
+// GECICI: otomatik testlerin canlida biraktigi bos/test hesaplari; bulutta silinince bu liste kaldirilacak
+const TEST_HESAP = new Set(["ca4282ac-e5b4-4ded-bdb6-48c54a12a18b", "1830b02e-2552-4794-a596-0035d1746e7a",
+  "2b9764f3-84f5-4ff4-89d4-8c887c476b60", "b21354c6-fa79-4e7c-9e36-ec12ac13f063", "dc593e75-5415-488b-b02c-8d9881b49279"]);
 const SIKAYET_NEDEN = [["uygunsuz", "Uygunsuz ya da müstehcen içerik"], ["taciz", "Taciz ya da nefret söylemi"], ["spam", "Spam ya da reklam"],
   ["yaniltici", "Yanıltıcı ya da sahte bilgi"], ["guvenlik", "Birinin güvenliğini tehlikeye atıyor"], ["diger", "Diğer"]];
 async function engelDurumuYukle() {
@@ -1551,7 +1554,7 @@ async function engelDurumuYukle() {
     if (!error && data) ENGELLI = new Set(data.map(x => x.blocked));
   }
 }
-const gorunur = (userId, dayId) => !ENGELLI.has(userId) && !(dayId && GIZLI_GUN.has(dayId));
+const gorunur = (userId, dayId) => !ENGELLI.has(userId) && !TEST_HESAP.has(userId) && !(dayId && GIZLI_GUN.has(dayId));
 function menuDugme(dayId, userId, ad) {
   if (!userId || (girisli() && userId === ME.id)) return "";
   return `<button class="ikon-menu" data-icmenu="${dayId || ""}" data-icuser="${userId}" data-icad="${esc(ad || "")}" aria-label="Diğer seçenekler">
@@ -1783,7 +1786,7 @@ async function evDoldur() {
   const { data: ps } = await SB.from("profiles").select("id,name,username,avatar_url").neq("id", ME.id).limit(20);
   const { data: aktif } = await SB.from("days").select("user_id").eq("privacy", "herkes").limit(500);
   const gunuOlan = new Set((aktif || []).map(x => x.user_id));
-  const oner = (ps || []).filter(p => !takipte(p.id) && !ENGELLI.has(p.id) && gunuOlan.has(p.id)).slice(0, 3);
+  const oner = (ps || []).filter(p => !takipte(p.id) && gorunur(p.id) && gunuOlan.has(p.id)).slice(0, 3);
   yan.innerHTML = `
     ${diger.length ? `<section class="ev-yan-kart koyu"><b>${h.plan.yarin ? "Yarın" : "Bugün"} için diğer öneriler</b>${diger.map(r => `
       <button class="ev-oneri" ${r.yerId ? `data-yerid="${r.yerId}"` : `data-evgit="kesfet"`}><img src="${r.t.photo || kareSvg(r.t.name.length, 12)}" alt="">
@@ -2261,9 +2264,10 @@ async function yerDetay(id) {
   }).catch(() => { const e = $("#ydHava"); if (e) e.innerHTML = `<b>Bugün orada hava</b><span class="sub">Hava bilgisi alınamadı.</span>`; });
   // ormaio'da bu yerle ilgili gunler
   if (SB) {
-    const { data } = await SB.from("days").select("id,place,date,km,cover_path").eq("privacy", "herkes").ilike("place", `%${y.ad.replace(/[%_,()]/g, " ").trim()}%`).limit(6);
+    const { data } = await SB.from("days").select("id,user_id,place,date,km,cover_path").eq("privacy", "herkes").ilike("place", `%${y.ad.replace(/[%_,()]/g, " ").trim()}%`).limit(6);
     const el = $("#ydOrmaio");
-    if (el && data && data.length) {
+    const data2 = (data || []).filter(g => gorunur(g.user_id, g.id));
+    if (el && data2.length) { const data = data2;
       el.innerHTML = `<h2 class="sec">ormaio'da ${data.length} gün</h2><div class="pr-gunler">${data.map(g => `
         <div class="pr-gun" data-day="${g.id}"><img src="${kareSvg(g.place.length, 12)}" alt=""${g.cover_path ? ` data-cover="${esc(g.cover_path)}"` : ""}>
         <b>${esc(g.place)}</b><span>${new Date(g.date).getDate()} ${AYLAR[new Date(g.date).getMonth()]} · ${kmYaz(g.km || 0)} km</span></div>`).join("")}</div>`;
@@ -2821,7 +2825,7 @@ async function kesfetCiz() {
     for (const f of fol || []) takipciSay.set(f.followee, (takipciSay.get(f.followee) || 0) + 1);
     const { data: aktif } = await SB.from("days").select("user_id").eq("privacy", "herkes").limit(500);
     const gunuOlan = new Set((aktif || []).map(x => x.user_id));
-    const sirali = (ps || []).filter(p => !ENGELLI.has(p.id) && gunuOlan.has(p.id)).sort((a, b) => (takipciSay.get(b.id) || 0) - (takipciSay.get(a.id) || 0));
+    const sirali = (ps || []).filter(p => gorunur(p.id) && gunuOlan.has(p.id)).sort((a, b) => (takipciSay.get(b.id) || 0) - (takipciSay.get(a.id) || 0));
     html += `<h2 class="sec">Öne çıkan gezginler</h2>`;
     if (!sirali.length) html += `<div class="empty">Senden başka kayıtlı gezgin yok.</div>`;
     else html += `<div class="ucards">${sirali.map(u => `
@@ -2831,9 +2835,9 @@ async function kesfetCiz() {
         <button class="btn ${takipte(u.id) ? "" : "primary"}" data-takip="${u.id}">
           ${takipte(u.id) ? "Takiptesin" : "Takip et"}</button></div>`).join("")}</div>`;
     // populer yerler: her yer icin bir kapak + gun sayisi
-    const { data: ds } = await SB.from("days").select("id,place,cover_path,like_count").eq("privacy", "herkes").limit(200);
+    const { data: ds } = await SB.from("days").select("id,user_id,place,cover_path,like_count").eq("privacy", "herkes").limit(200);
     const yer = new Map();
-    for (const d of ds || []) {
+    for (const d of (ds || []).filter(d => gorunur(d.user_id, d.id))) {
       const g = yer.get(d.place) || { n: 0, likes: 0, cover: null, dayId: null };
       g.n++; g.likes += d.like_count || 0;
       if (!g.cover && d.cover_path) { g.cover = d.cover_path; g.dayId = d.id; }
@@ -3026,7 +3030,7 @@ function profilHtml(u, gunler, o) {
     <div class="ayar-satir"><span class="ayar-yazi"><b>Fotoğraf tanıma ${aiFotoAcik() ? "açık" : "kapalı"}</b><span>Açıkken gün oluştururken ilk 3 kare küçültülüp tanıma servisine gider; aktiviteyi ve yeri önerir. Kaydedilmez.</span></span>
       <button class="btn" data-ayar="aifoto">${aiFotoAcik() ? "Kapat" : "Aç"}</button></div>
     <div class="ayar-satir"><span class="ayar-yazi"><b>Ev konumunu gizle ${evKonum() ? "açık" : "kapalı"}</b><span>${evKonum() ? "Paylaştığın günlerde evine 800 m'den yakın duraklar haritada gösterilmez." : "Evini ayarlarsan, paylaştığın günlerde evine 800 m'den yakın duraklar haritada gösterilmez."} Konum yalnızca bu cihazda saklanır.</span></span>
-      <button class="btn" data-ayar="ev">${evKonum() ? "Kaldır" : "Şu anki konumum ev"}</button></div>
+      <button class="btn" data-ayar="ev">${evKonum() ? "Kaldır" : "Evimi ayarla"}</button></div>
     <button class="ayar-satir ayar-git" data-ayar="duzenle"><span class="ayar-yazi"><b>Profili düzenle</b><span>Ad, kullanıcı adı, biyografi, fotoğraf</span></span><span aria-hidden="true">&rsaquo;</span></button>
     <a class="ayar-satir ayar-git" href="/ATTRIBUTIONS.md"><span class="ayar-yazi"><b>Kaynaklar ve lisanslar</b><span>Fotoğraf, harita ve veri kaynakları</span></span><span aria-hidden="true">&rsaquo;</span></a>
     <button class="ayar-satir ayar-git" data-ayar="cikis"><span class="ayar-yazi"><b>Çıkış yap</b></span><span aria-hidden="true">&rsaquo;</span></button>
@@ -4233,6 +4237,8 @@ function yurtDisiMi(t) {
   // kabaca: TR kutusu disindaki noktalar
   return !(t.lat > 35 && t.lat < 43 && t.lon > 25 && t.lon < 45);
 }
+// Washington'daki Cascade volkanlari (zirve koordinati)
+const VOLKANLAR = [[46.8523, -121.7603], [48.7768, -121.8145], [46.1914, -122.1956], [46.2024, -121.4909], [48.1125, -121.1139]];
 const ROZETLER = [
   { id: "ilk", ad: "İlk Adım", kosul: "İlk gününü kaydet", test: s => s.gun >= 1 },
   { id: "gezgin", ad: "Gezgin", kosul: "5 gün", test: s => s.gun >= 5 },
@@ -4244,7 +4250,7 @@ const ROZETLER = [
   { id: "bolge5", ad: "5 Bölge", kosul: "5 farklı bölge", test: s => s.bolge >= 5 },
   { id: "park", ad: "Milli Park", kosul: "Bir milli park / zirve", test: s => s.park >= 1 },
   { id: "park3", ad: "Park Avcısı", kosul: "3 milli park", test: s => s.park >= 3 },
-  { id: "disari", ad: "Yurt Dışı", kosul: "Yurt dışında bir gün", test: s => s.disari >= 1 },
+  { id: "volkan", ad: "Volkan Eteği", kosul: "Bir Cascade volkanının 25 km yakınında gün", test: s => s.volkan >= 1 },
   { id: "foto500", ad: "Fotoğrafçı", kosul: "Toplam 500 fotoğraf", test: s => s.foto >= 500 },
 ];
 function rozetMetrik(trips) {
@@ -4253,7 +4259,7 @@ function rozetMetrik(trips) {
     km: trips.reduce((a, t) => a + (t.km || 0), 0),
     bolge: new Set(trips.map(t => t.place)).size,
     park: new Set(trips.filter(t => parkMi(t.place)).map(t => t.place)).size,
-    disari: trips.filter(yurtDisiMi).length,
+    volkan: trips.filter(t => t.lat && VOLKANLAR.some(([la, lo]) => hav(la, lo, t.lat, t.lon) < 25000)).length,
     foto: trips.reduce((a, t) => a + (t.photos || 0), 0),
   };
 }
