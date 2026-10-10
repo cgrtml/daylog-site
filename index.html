@@ -653,7 +653,13 @@ body.ana-acik .userchip{background:rgba(250,248,243,.95);border-color:transparen
 .og-hero img{width:100%;height:100%;object-fit:cover;display:block}
 .og-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(241,238,230,0) 55%,var(--bg) 100%)}
 .og-logo{position:absolute;top:16px;left:20px;z-index:1;display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:19px;background:rgba(250,248,243,.94);font-weight:800;letter-spacing:-.04em;font-size:1.05rem;color:var(--logo-ink)}
-.og-logo{gap:0}.og-logo .logo-i{width:.4255em;height:.8em}
+.og-logo{gap:0}
+.pe-sil{margin-top:28px;padding:16px;border:1px solid #e6c2b3;border-radius:16px;background:var(--paper)}
+.pe-sil>b{color:#9a3412}.pe-sil p{margin:6px 0 10px;font-size:.86rem;color:var(--ink2)}.pe-sil label{font-size:.84rem}
+.pe-sil-satir{display:flex;gap:8px;margin-top:6px}.pe-sil-satir input{flex:1;min-width:0;font:inherit;padding:10px 12px;border-radius:12px;border:1px solid var(--line2);background:var(--bg);color:var(--ink)}
+#peSilBtn{background:#9a3412;border-color:#9a3412;color:#fff}#peSilBtn[disabled]{background:#ddd8cb;border-color:#ddd8cb;color:#6e7366}
+.ai-ayar{display:flex;align-items:center;gap:12px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:.84rem;color:var(--ink2)}
+.ai-ayar b{display:block;color:var(--ink);font-size:.88rem}.ai-ayar .btn{flex:none;padding:8px 14px;font-size:.82rem}.og-logo .logo-i{width:.4255em;height:.8em}
 .og-logo svg circle:first-child{fill:var(--blaze);stroke:none}
 .og-basla{display:flex;align-items:center;justify-content:center;min-height:56px;margin-top:24px;border-radius:28px;background:var(--blaze);color:#fff;font-weight:700;font-size:1.05rem;cursor:pointer;transition:background .15s}
 .og-basla:hover,.og-basla.on{background:#a83b16}
@@ -1063,7 +1069,7 @@ footer{color:var(--mut);font-size:.8rem;text-align:center;margin-top:40px;line-h
 <div id="view-detay" hidden><div id="detayout"></div></div>
 
 <footer>ormaio çalışma prototipi. Fotoğraf işleme tamamen bu sayfanın içinde olur;
-paylaşmayı seçtiğin günler dışında hiçbir fotoğraf sunucuya gitmez.
+kaydettiğin günlerin fotoğrafları konum bilgisi silinerek hesabının özel deposunda saklanır, kimin göreceğini sen seçersin.
 <br><span style="opacity:.8">Örnek gün fotoğrafları Wikimedia Commons katkıda bulunanlarındır (CC BY / CC BY-SA).
 <a href="/ATTRIBUTIONS.md" style="color:var(--pine)">Kaynaklar</a>.</span></footer>
 </main>
@@ -1223,6 +1229,10 @@ const _ai = {
   },
 };
 const aiCall = (action, payload) => _ai.call(action, payload);
+// Fotograf tanima (AI) kullanici tercihi; varsayilan KAPALI. Acikken gun olustururken ilk 3 kare
+// kucultulup tanima servisine gider. "Sadece ben" gunlerinden kayit sonrasi hicbir kare AI'ya gitmez.
+function aiFotoAcik() { try { return localStorage.getItem("ormaio:aiFoto") === "1"; } catch { return false; } }
+function aiFotoAyarla(acik) { try { localStorage.setItem("ormaio:aiFoto", acik ? "1" : "0"); } catch {} }
 async function aiCaps() {
   if (AI_CAPS) return AI_CAPS;
   const p = await _ai.call("ping");
@@ -1311,7 +1321,7 @@ async function fotograflariYukle(date, place) {
       if (!p.file) continue;
       const path = `${ME.id}/${gun.id}/${yuklenen}.jpg`;
       const { error } = await SB.storage.from("day-photos")
-        .upload(path, p.file, { contentType: p.file.type || "image/jpeg", upsert: true });
+        .upload(path, await temizKare(p.file), { contentType: "image/jpeg", upsert: true });
       if (!error) { p.storagePath = path; if (!coverPath) coverPath = path; yuklenen++; }
     }
   }
@@ -1706,13 +1716,46 @@ function gunBatimi(lat, lon, gun) {
   const w = Math.acos((Math.sin(-0.833 * r) - Math.sin(lat * r) * Math.sin(dek)) / (Math.cos(lat * r) * Math.cos(dek)));
   return new Date((Jt + w / (2 * Math.PI) - 2440587.5) * 864e5);
 }
+// NWS aralikli 500 veriyor (CORS basliksiz, tarayici bloklar): bir kez daha dene, olmazsa Open-Meteo (anahtarsiz)
+async function jsonGetir(url, deneme = 2) {
+  for (let i = 0; i < deneme; i++) {
+    try { const r = await fetch(url); if (r.ok) return await r.json(); } catch {}
+    if (i < deneme - 1) await new Promise(r => setTimeout(r, 700));
+  }
+  throw new Error("alinamadi: " + url.slice(0, 60));
+}
+const WMO_K = (c) => c >= 95 ? "Thunderstorm" : (c >= 71 && c <= 77) || c === 85 || c === 86 ? "Snow" : c >= 51 ? "Rain"
+  : c === 45 || c === 48 ? "Fog" : c === 3 ? "Cloudy" : c === 2 ? "Partly Cloudy" : "Sunny";
+async function omSaatlik(lat, lon) {
+  const d = await jsonGetir(`https://api.open-meteo.com/v1/forecast?latitude=${lat.toFixed(3)}&longitude=${lon.toFixed(3)}&hourly=temperature_2m,precipitation_probability,wind_speed_10m,weather_code&wind_speed_unit=mph&timezone=auto&forecast_days=3`);
+  const h = d.hourly, simdi = Date.now() - 36e5, ofs = (d.utc_offset_seconds || 0) * 1000;
+  return h.time.map((t, i) => ({ t: Date.parse(t + "Z") - ofs, c: Math.round(h.temperature_2m[i]), pop: h.precipitation_probability[i] || 0,
+    wind: Math.round(h.wind_speed_10m[i] || 0), k: WMO_K(h.weather_code[i]) })).filter(x => x.t >= simdi).slice(0, 60);
+}
+async function omGunluk(lat, lon) {
+  const d = await jsonGetir(`https://api.open-meteo.com/v1/forecast?latitude=${lat.toFixed(3)}&longitude=${lon.toFixed(3)}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max,weather_code&wind_speed_unit=mph&timezone=auto&forecast_days=8`);
+  const g = d.daily, out = [];
+  g.time.forEach((t, i) => {
+    const k = WMO_K(g.weather_code[i]), pop = g.precipitation_probability_max[i] || 0, wind = Math.round(g.wind_speed_10m_max[i] || 0);
+    out.push({ t: new Date(t + "T06:00").getTime(), gunduz: true, c: Math.round(g.temperature_2m_max[i]), pop, wind, k });
+    out.push({ t: new Date(t + "T18:00").getTime(), gunduz: false, c: Math.round(g.temperature_2m_min[i + 1] ?? g.temperature_2m_min[i]), pop, wind, k });
+  });
+  return out;
+}
 async function nwsSaatlik(lat, lon) {
   const k = `nws:${lat.toFixed(2)},${lon.toFixed(2)}`;
   try { const c = JSON.parse(localStorage.getItem(k) || "null"); if (c && Date.now() - c.t < 36e5) return c.p; } catch {}
-  const pt = await (await fetch(`https://api.weather.gov/points/${lat.toFixed(4)},${lon.toFixed(4)}`)).json();
-  const url = pt && pt.properties && pt.properties.forecastHourly;
-  if (!url) throw new Error("NWS nokta yok");
-  const fc = await (await fetch(url)).json();
+  let fc;
+  try {
+    const pt = await jsonGetir(`https://api.weather.gov/points/${lat.toFixed(4)},${lon.toFixed(4)}`);
+    const url = pt && pt.properties && pt.properties.forecastHourly;
+    if (!url) throw new Error("NWS nokta yok");
+    fc = await jsonGetir(url);
+  } catch {
+    const p = await omSaatlik(lat, lon);
+    try { localStorage.setItem(k, JSON.stringify({ t: Date.now(), p })); } catch {}
+    return p;
+  }
   const p = ((fc.properties || {}).periods || []).slice(0, 60).map(x => ({ t: Date.parse(x.startTime), c: F2C(x.temperature),
     pop: (x.probabilityOfPrecipitation && x.probabilityOfPrecipitation.value) || 0, wind: parseInt(x.windSpeed) || 0, k: x.shortForecast || "" }));
   try { localStorage.setItem(k, JSON.stringify({ t: Date.now(), p })); } catch {}
@@ -1864,7 +1907,7 @@ async function bugunCiz() {
     ${elenen.length ? `<section class="bg-elenen"><h3>Önermediklerimiz</h3><ul>${elenen.slice(0, 4).map(r => `<li><b>${esc(r.t.name)}:</b> ${esc(r.kirmizi[0])}</li>`).join("")}</ul></section>` : ""}
     <button class="gz-giris" id="bgPlanla"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg>
       <span><b>Birkaç günlük gezi mi?</b><span>Bir yer seç, gün gün planlayalım</span></span><span aria-hidden="true">&rarr;</span></button>
-    <p class="bg-kaynak">Hava: ABD Ulusal Hava Servisi (NWS), bölge bazında saatlik tahmin. Parkur bilgileri: Washington Trails Association ve OpenStreetMap. Orman yangını dumanı, geçit ve park kapanışı verisi yakında eklenecek; yola çıkmadan resmi kaynakları kontrol et.</p>`;
+    <p class="bg-kaynak">Hava: ABD Ulusal Hava Servisi (NWS), ulaşılamazsa Open-Meteo; bölge bazında saatlik tahmin. Parkur bilgileri: Washington Trails Association ve OpenStreetMap. Orman yangını dumanı, geçit ve park kapanışı verisi yakında eklenecek; yola çıkmadan resmi kaynakları kontrol et.</p>`;
   bugunBagla();
 }
 function bugunBagla() {
@@ -2099,10 +2142,17 @@ const sureKisa = (h) => h < 1 ? `${Math.round(h * 60)} dk` : `${String(Math.roun
 async function nwsGunluk(lat, lon) {
   const k = `nwsg:${lat.toFixed(2)},${lon.toFixed(2)}`;
   try { const c = JSON.parse(localStorage.getItem(k) || "null"); if (c && Date.now() - c.t < 36e5) return c.p; } catch {}
-  const pt = await (await fetch(`https://api.weather.gov/points/${lat.toFixed(4)},${lon.toFixed(4)}`)).json();
-  const url = pt && pt.properties && pt.properties.forecast;
-  if (!url) throw new Error("NWS nokta yok");
-  const fc = await (await fetch(url)).json();
+  let fc;
+  try {
+    const pt = await jsonGetir(`https://api.weather.gov/points/${lat.toFixed(4)},${lon.toFixed(4)}`);
+    const url = pt && pt.properties && pt.properties.forecast;
+    if (!url) throw new Error("NWS nokta yok");
+    fc = await jsonGetir(url);
+  } catch {
+    const p = await omGunluk(lat, lon);
+    try { localStorage.setItem(k, JSON.stringify({ t: Date.now(), p })); } catch {}
+    return p;
+  }
   const p = ((fc.properties || {}).periods || []).map(x => ({ t: Date.parse(x.startTime), gunduz: !!x.isDaytime, c: F2C(x.temperature),
     pop: (x.probabilityOfPrecipitation && x.probabilityOfPrecipitation.value) || 0,
     wind: parseInt(String(x.windSpeed || "").split(" to ").pop()) || 0, k: x.shortForecast || "" }));
@@ -2551,7 +2601,7 @@ async function geziSonuc() {
     ${gunHtml}
     ${P.elenen.length ? `<section class="bg-elenen"><h3>Plana almadıklarımız</h3><ul>${P.elenen.map(a => `<li><b>${esc(a.y.ad)}:</b> ${esc(a.neden)}</li>`).join("")}</ul></section>` : ""}
     <div class="bg-dugmeler gz-alt"><button class="btn" id="gzKaydet">Planı kaydet</button><button class="btn primary" id="gzPaylas">Bağlantıyı kopyala</button></div>
-    <p class="bg-kaynak">Parkurlar: © OpenStreetMap katkıcıları (ODbL). Yükselti: AWS Terrain Tiles. Hava: NWS${P.gunluk ? "" : " (şu an alınamadı)"}. Araba süreleri ${P.osrm ? "OSRM yol verisinden" : "kuş uçuşu mesafeden"} hesaplanır, yaklaşıktır. Park yolları, geçitler ve kamp alanları mevsimlik kapanabilir; plan bunları henüz bilmiyor. Yola çıkmadan NPS ve WSDOT sayfalarını kontrol et.</p>`;
+    <p class="bg-kaynak">Parkurlar: © OpenStreetMap katkıcıları (ODbL). Yükselti: AWS Terrain Tiles. Hava: NWS, gerekirse Open-Meteo${P.gunluk ? "" : " (şu an alınamadı)"}. Araba süreleri ${P.osrm ? "OSRM yol verisinden" : "kuş uçuşu mesafeden"} hesaplanır, yaklaşıktır. Park yolları, geçitler ve kamp alanları mevsimlik kapanabilir; plan bunları henüz bilmiyor. Yola çıkmadan NPS ve WSDOT sayfalarını kontrol et.</p>`;
   $("#detayout .back").addEventListener("click", () => geziFormu());
   document.querySelectorAll("#detayout [data-yerid]").forEach(b => {
     b.addEventListener("click", () => yerDetay(b.dataset.yerid));
@@ -2918,6 +2968,19 @@ async function profilGoster(uid) {
 }
 
 /* ---------- profili duzenle + profil fotografi ---------- */
+// Fotografi tarayicida yeniden kodlar: EXIF (GPS konumu, cihaz, tarih) silinir, uzun kenar en fazla 2560 px.
+// Cozulemezse (or. Chrome'da HEIC) orijinal yuklenir; o durumda EXIF kalabilir.
+async function temizKare(file) {
+  try {
+    const bmp = await createImageBitmap(file, { imageOrientation: "from-image" });
+    const o = Math.min(1, 2560 / Math.max(bmp.width, bmp.height));
+    const c = document.createElement("canvas"); c.width = Math.round(bmp.width * o); c.height = Math.round(bmp.height * o);
+    c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height); bmp.close && bmp.close();
+    const blob = await new Promise(r => c.toBlob(r, "image/jpeg", 0.88));
+    return blob || file;
+  } catch { return file; }
+}
+window.__temizKare = temizKare;   // test icin
 async function avatarYukle(file) {
   const dataUrl = await fileToDataUrl(file, 640);
   if (!dataUrl) throw new Error("Fotoğraf okunamadı. JPG ya da PNG dene.");
@@ -2930,6 +2993,29 @@ async function avatarYukle(file) {
   if (e2) throw new Error(/avatar_url/i.test(e2.message) ? "Veritabanı güncellemesi henüz yapılmadı." : e2.message);
   ME.avatar_url = url; lsSet("me", ME); ustBar();
   return url;
+}
+// Hesap silme: once kullanicinin depodaki dosyalari, sonra hesabimi_sil() RPC (auth.users satiri; tum tablolar cascade)
+async function depoKlasorSil(bucket, kok) {
+  const { data } = await SB.storage.from(bucket).list(kok, { limit: 1000 });
+  const dosya = [], alt = [];
+  for (const x of data || []) (x.id ? dosya : alt).push(`${kok}/${x.name}`);
+  for (const a of alt) await depoKlasorSil(bucket, a);
+  for (let i = 0; i < dosya.length; i += 100) await SB.storage.from(bucket).remove(dosya.slice(i, i + 100));
+}
+async function hesabiSil() {
+  const btn = $("#peSilBtn"), hata = (m) => { $("#peSilHata").textContent = m; $("#peSilHata").hidden = false; btn.disabled = false; btn.textContent = "Hesabımı sil"; };
+  if (!girisli()) return;
+  btn.disabled = true; btn.textContent = "Siliniyor…";
+  try {
+    await depoKlasorSil("day-photos", ME.id);
+    await depoKlasorSil("avatars", ME.id);
+    const { error } = await SB.rpc("hesabimi_sil");
+    if (error) throw error;
+    await SB.auth.signOut();
+    ME = null; try { localStorage.clear(); } catch {}
+    $("#detayout").innerHTML = `<div class="empty" style="margin-top:40px"><b>Hesabın silindi.</b><br>Bütün günlerin ve fotoğrafların kaldırıldı.</div>`;
+    setTimeout(() => location.replace(location.pathname), 2500);
+  } catch (e) { hata("Silinemedi: " + (e.message || e) + ". Tekrar dene ya da bize yaz."); }
 }
 async function profilDuzenle() {
   ONCEKI_SEKME = "profil";
@@ -2950,7 +3036,14 @@ async function profilDuzenle() {
       <label class="pe-satir"><span>Konum</span><input id="peKn" value="${esc(p.location || "")}" placeholder="Örn. Seattle, WA" maxlength="60"></label>
       <label class="pe-satir"><span>Bağlantı</span><input id="peWb" value="${esc(p.website || "")}" placeholder="Örn. instagram.com/kullanici" maxlength="120" autocapitalize="off"></label>
     </div>
-    <p class="err" id="peHata" hidden></p>`;
+    <p class="err" id="peHata" hidden></p>
+    <section class="pe-sil"><b>Hesabını sil</b>
+      <p>Bütün günlerin, fotoğrafların, beğenilerin, takiplerin ve profilin kalıcı olarak silinir. Geri alınamaz.</p>
+      <label for="peSilOnay">Onaylamak için <b>SİL</b> yaz</label>
+      <div class="pe-sil-satir"><input id="peSilOnay" autocomplete="off" autocapitalize="characters"><button class="btn" id="peSilBtn" disabled>Hesabımı sil</button></div>
+      <p class="err" id="peSilHata" hidden></p></section>`;
+  $("#peSilOnay").addEventListener("input", (e) => { $("#peSilBtn").disabled = e.target.value.trim().toLocaleUpperCase("tr-TR") !== "SİL"; });
+  $("#peSilBtn").addEventListener("click", hesabiSil);
   const say = () => { $("#peSay").textContent = $("#peBio").value.length + " / 150"; };
   say(); $("#peBio").addEventListener("input", say);
   $("#detayout .pe-vazgec").addEventListener("click", () => { sekmeyeDon(); });
@@ -3534,7 +3627,7 @@ async function dosyalariIsle(files) {
 // AI ALGI KATMANI (kademeli): fotograflardan aktivite/aspect ve GPS yoksa yer onerir.
 // Yalnizca BOS alanlari doldurur, kullanici girdisini asla ezmez; odak formdaysa yeniden cizmez.
 async function elleAiOner(pts) {
-  if (!ELLE || !pts || !pts.length) return;
+  if (!ELLE || !pts || !pts.length || !aiFotoAcik()) return;
   let caps;
   try { caps = await aiCaps(); } catch { return; }
   if (!caps.vision) return;                 // anahtar yok -> bugunku akis aynen kalir
@@ -3646,7 +3739,7 @@ async function elleNoktaYukle() {
 }
 const ADIM_AD = { 1: "Fotoğrafları seç", 2: "Kontrol et", 3: "Kimler görsün?" };
 const GORUNURLUK = [
-  { id: "ozel", ad: "Sadece ben", acik: "Fotoğraflar cihazında kalır. Gün yalnızca senin haritanda görünür.", cta: "Günü kaydet",
+  { id: "ozel", ad: "Sadece ben", acik: "Gün ve fotoğrafları yalnızca sana görünür; başka hiç kimse göremez.", cta: "Günü kaydet",
     ikon: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>' },
   { id: "arkadaslar", ad: "Arkadaşlarım", acik: "Takip ettiğin ve seni takip eden kişiler görür. Fotoğraflar hesabına yüklenir.", cta: "Kaydet ve arkadaşlarla paylaş",
     ikon: '<circle cx="9" cy="9" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M3 19c.8-3 3.2-4.5 6-4.5s5.2 1.5 6 4.5M15 15c2.5 0 4.5 1.2 5.5 4"/>' },
@@ -3655,9 +3748,11 @@ const GORUNURLUK = [
 ];
 const OTO = `<span class="oto">otomatik</span>`;
 async function elleRender(hata) {
+  if (!ELLE) return;
   let yerler = [];
   if (SB) { const { data } = await SB.from("days").select("place").eq("privacy", "herkes").limit(300);
     yerler = [...new Set((data || []).map(d => d.place))]; }
+  if (!ELLE) return;   // beklerken vazgecildiyse cizme
   const A = ELLE.adim || 1;
   ELLE.oto = ELLE.oto || {};
   const secP = ELLE.points.filter(p => p.sel);
@@ -3691,7 +3786,11 @@ async function elleRender(hata) {
           <li class="${ELLE.place ? "ok" : "bekle"}">${ELLE.place ? `Yer bulundu: ${esc(ELLE.place)}` : (ELLE.gps ? "Yer aranıyor…" : "Konum bilgisi yok; bir sonraki adımda yeri yazarsın")}</li>
           <li class="${secP.length ? "ok" : "bos"}">${secP.length ? `${secP.length} durak bulundu` : "Duraklar bir sonraki adımda seçilir"}</li>
         </ul>
-        <p class="kilit">Fotoğrafların bu cihazda işleniyor; sen paylaşmadıkça hiçbir yere yüklenmiyor.</p>
+        <p class="kilit">Fotoğrafların bu cihazda okunuyor; kaydedene kadar hiçbir yere yüklenmiyor. Kaydedince konum bilgisi silinerek hesabına yüklenir.</p>
+        <div class="ai-ayar"><span><b>Fotoğraf tanıma ${aiFotoAcik() ? "açık" : "kapalı"}</b>${aiFotoAcik()
+          ? "İlk 3 kare küçültülüp tanıma servisine gönderilir; aktiviteyi ve yeri önerir. Kaydedilmez."
+          : "Açarsan ilk 3 kare küçültülüp tanıma servisine gönderilir, aktiviteyi ve yeri önerir."}</span>
+          <button class="btn" data-aifoto>${aiFotoAcik() ? "Kapat" : "Aç"}</button></div>
       </div>
       <button class="btn adim-ileri" data-git="2" ${dahil ? "" : "disabled"}>${dahil ? `${dahil} fotoğrafla devam et &rarr;` : "Önce fotoğraf ekle"}</button>
     </div>
@@ -3793,6 +3892,10 @@ function elleBagla() {
   document.querySelectorAll("[data-phsil]").forEach(b => b.addEventListener("click", () => { ELLE.photos.splice(+b.dataset.phsil, 1); if (ELLE.cover >= ELLE.photos.length) ELLE.cover = 0; elleRender(); }));
   document.querySelectorAll("[data-phpt]").forEach(s => s.addEventListener("change", () => { ELLE.photos[+s.dataset.phpt].point = s.value; }));
   $("#elleNote").addEventListener("input", e => ELLE.note = e.target.value);
+  document.querySelectorAll("[data-aifoto]").forEach(b => b.addEventListener("click", () => {
+    const ac = !aiFotoAcik(); aiFotoAyarla(ac); elleRender();
+    if (ac && ELLE && ELLE.photos.length) elleAiOner(ELLE.photos.filter(p => !p.haric));
+  }));
   document.querySelectorAll("[data-epriv]").forEach(b => b.addEventListener("click", () => { ELLE.priv = b.dataset.epriv; elleRender(); }));
   document.querySelectorAll("#ellePuan [data-star]").forEach(s => s.addEventListener("click", () => { ELLE.rating = +s.dataset.star; elleRender(); }));
   document.querySelectorAll("[data-easp]").forEach(btn => btn.addEventListener("click", () => {
@@ -3851,7 +3954,7 @@ async function elleKaydet() {
     for (let i = 0; i < ELLE.photos.length; i++) {
       const ph = ELLE.photos[i];
       const path = `${ME.id}/${gun.id}/${i}.jpg`;
-      const { error: e2 } = await SB.storage.from("day-photos").upload(path, ph.file, { contentType: ph.file.type || "image/jpeg", upsert: true });
+      const { error: e2 } = await SB.storage.from("day-photos").upload(path, await temizKare(ph.file), { contentType: "image/jpeg", upsert: true });
       if (!e2) { const key = ph.point || enYakinDurak(ph, stops) || stops[0].name; (noktaPaths[key] = noktaPaths[key] || []).push(path);
         if (i === ELLE.cover) coverPath = path; }
     }
@@ -3861,10 +3964,11 @@ async function elleKaydet() {
     await SB.from("days").update({ cover_path: coverPath, timeline }).eq("id", gun.id);
     // ADIM 4: embedding korpusu. Kapak vektoru saklanir (ayni-yer tespiti/kumeleme
     // bunun uzerine kurulur). Anahtar yoksa atlanir; kayit zaten tamam, bloklamaz.
-    aiKapakEmbed(gun.id, ELLE.photos[ELLE.cover] || ELLE.photos[0]);
+    // Ozel gunlerden kayit sonrasi AI'ya kare gitmez; paylasilan gunde benzerlik vektoru yalnizca tanima aciksa
+    if (ELLE.priv !== "ozel" && aiFotoAcik()) aiKapakEmbed(gun.id, ELLE.photos[ELLE.cover] || ELLE.photos[0]);
     // MODERASYON (engellemez): kapak uygun/alakali mi? Degilse gunu 'pending' yapar,
     // moderator (Cagri) onaylayana dek akista/kesfette gizlenir. Sahibi her zaman gorur.
-    aiModerasyonIsaretle(gun.id, ELLE.photos[ELLE.cover] || ELLE.photos[0]);
+    if (ELLE.priv !== "ozel") aiModerasyonIsaretle(gun.id, ELLE.photos[ELLE.cover] || ELLE.photos[0]);   // paylasilan icerik guvenligi
     tripKaydet({ date: ELLE.date, place: ELLE.place, photos: ELLE.photos.length, stops: stops.length, km: 0,
       lat: (stops[0].lat ?? merkez[0]) || 0, lon: (stops[0].lon ?? merkez[1]) || 0, priv: ELLE.priv });
     const yeniId = gun.id;
@@ -4048,7 +4152,7 @@ async function anaCiz() {
   <section class="ana-gizlilik" id="anaGizlilik"><div class="ana-gizlilik-ic">
     <div><div class="ana-mono">GİZLİLİK</div><h2>Varsayılan özel. Sen açmadan kimse görmez.</h2></div>
     <ul>
-      <li><b>Fotoğraflar önce cihazında işlenir</b><span>Özel günlerin kareleri hiç sunucuya gitmez.</span></li>
+      <li><b>Konum bilgisi silinir</b><span>Fotoğraflar yüklenmeden önce içindeki GPS ve cihaz bilgisi temizlenir. Özel günlerini yalnızca sen görürsün.</span></li>
       <li><b>Üç seviye görünürlük</b><span>Özel, arkadaşlar ya da herkes. Her gün için ayrı seçilir.</span></li>
       <li><b>Paylaştığını geri alabilirsin</b><span>Bir günü istediğin an özele çevirir ya da silersin.</span></li>
     </ul></div></section>
