@@ -544,6 +544,89 @@ body.olusturuyor .btn.adim-ileri{position:fixed;left:50%;transform:translateX(-5
 .kesif-harita{border-radius:20px;overflow:hidden;border:1px solid var(--line)}
 #kesifHarita{height:440px}
 .yd-kredi{position:absolute;right:10px;top:16px;z-index:3;font-size:.62rem;color:#fff;background:rgba(0,0,0,.35);padding:3px 8px;border-radius:10px;text-decoration:none;max-width:60%}
+/* gezi planla */
+.gz-giris{display:flex;align-items:center;gap:12px;width:100%;margin-top:14px;padding:14px 16px;border-radius:18px;border:1.5px solid var(--pine);background:var(--paper);color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.gz-giris>svg{width:26px;height:26px;flex:none;stroke:var(--pine);fill:none;stroke-width:1.8;stroke-linejoin:round}
+.gz-giris>span:nth-child(2){flex:1;min-width:0}.gz-giris b{display:block;font-size:.98rem}.gz-giris>span:nth-child(2)>span{display:block;font-size:.85rem;color:var(--mut)}
+.gz-giris>span:last-child{font-size:1.2rem;color:var(--pine)}
+.gz-ust{display:flex;align-items:center;gap:12px;margin:4px 0 14px}
+.gz-ust .back{width:44px;height:44px;border-radius:22px;padding:0;margin:0;flex:none}
+.gz-ust h1{margin:0;font-size:1.5rem;letter-spacing:-.03em}
+#detayout>section{margin-top:20px}
+.gz-h2{margin:0 0 10px;font-size:1rem;font-weight:700}
+.gz-hedef{position:relative;height:150px;border-radius:20px;overflow:hidden;margin-top:0!important}
+.gz-hedef>img{width:100%;height:100%;object-fit:cover;display:block}
+.gz-hedef::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,23,15,0) 30%,rgba(20,23,15,.8) 100%)}
+.gz-hedef-alt{position:absolute;left:14px;right:14px;bottom:12px;z-index:1;display:flex;align-items:flex-end;justify-content:space-between;gap:10px;color:#faf8f3}
+.gz-hedef-alt b{display:block;font-size:1.35rem;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.gz-hedef-alt span{display:block;font-size:.82rem;opacity:.92}
+.gz-etiket{font-family:"IBM Plex Mono",monospace;font-size:.68rem!important;letter-spacing:.08em;text-transform:uppercase}
+.gz-degistir{min-height:36px;padding:0 14px;border-radius:18px;border:0;background:#faf8f3;color:#14170f;font:inherit;font-size:.85rem;font-weight:700;cursor:pointer;flex:none}
+.gz-cipler{display:flex;flex-wrap:wrap;gap:8px}
+.gz-seg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:var(--chipbg);border-radius:16px;padding:4px}
+.gz-seg button{min-height:42px;border:0;border-radius:12px;background:transparent;color:var(--ink2);font:inherit;font-size:.88rem;font-weight:600;cursor:pointer}
+.gz-seg button[aria-pressed=true]{background:#14170f;color:#f1eee6;font-weight:700}
+.gz-tempo{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.gz-tempo button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:10px 12px;border-radius:14px;border:1px solid var(--line2);background:var(--paper);color:var(--ink);font:inherit;cursor:pointer;text-align:left}
+.gz-tempo button b{font-size:.92rem}.gz-tempo button span{font-size:.76rem;color:var(--mut)}
+.gz-tempo button[aria-pressed=true]{border:1.5px solid var(--pine);background:#dce8df;color:#1e3b2c}.gz-tempo button[aria-pressed=true] span{color:#1e3b2c}
+.gz-tarih{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:.9rem}
+.gz-tarih input{font:inherit;padding:8px 10px;border-radius:12px;border:1px solid var(--line2);background:var(--paper);color:var(--ink)}
+.gz-hava{margin-top:10px}
+.gz-serit{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;text-align:center}
+.gz-serit>div{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;border-radius:14px;background:var(--paper);border:1px solid var(--line);font-size:.75rem;min-width:0}
+.gz-serit>div.on{background:#1e3b2c;border-color:#1e3b2c;color:#f1eee6}
+.gz-serit svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.gz-serit b{font-size:.85rem}.gz-serit small{font-size:.64rem;line-height:1.15;padding:0 2px;opacity:.85;overflow-wrap:anywhere}
+.gz-cikis{display:flex;align-items:center;gap:8px;margin-top:20px;font-size:.92rem;color:var(--ink2)}
+.gz-cikis svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2}
+.gz-cikis button{margin-left:auto;border:0;background:none;padding:6px 0;color:var(--mut);font:inherit;font-size:.85rem;font-weight:600;text-decoration:underline;cursor:pointer}
+.btn.gz-cikar{display:block;width:100%;margin-top:20px;padding:16px;font-size:1.02rem;background:var(--blaze);border-color:var(--blaze);color:#fff}
+.btn.gz-cikar:hover{background:#a83b16;border-color:#a83b16}
+.btn.gz-cikar[disabled]{background:#ddd8cb;border-color:#ddd8cb;color:#6e7366}
+.gz-not{margin:8px 0 0;text-align:center;font-size:.8rem;color:var(--mut)}
+.dstats.gz-3{grid-template-columns:repeat(3,minmax(0,1fr))}.dstats.gz-3 b{font-variant-numeric:normal}
+.gz-neden ul{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:8px;font-size:.92rem;line-height:1.4}
+.gz-neden li{display:flex;gap:8px}.gz-neden li svg{width:16px;height:16px;flex:none;margin-top:2px;stroke:#9fd3b4;fill:none;stroke-width:2.4;stroke-linecap:round}
+.gz-lejant{display:flex;gap:14px;margin-top:8px;font-size:.8rem;font-weight:600}
+.gz-lejant span{display:flex;align-items:center;gap:6px}.gz-lejant i{width:14px;height:4px;border-radius:2px}
+.gz-pin span{display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:12px;color:#fff;font:700 12px "Schibsted Grotesk",sans-serif;border:2px solid #fff;box-sizing:border-box}
+.gz-gun{margin-top:26px}
+.gz-gun-bas{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.gz-gun-bas h2{margin:0;font-size:1.25rem;font-weight:800;letter-spacing:-.02em}
+.gz-gun-bas>span{font-size:.85rem;color:var(--mut)}
+.gz-c{display:inline-flex;align-items:center;min-height:28px;padding:0 10px;border-radius:14px;background:var(--paper);border:1px solid var(--line);font-size:.78rem;font-weight:600}
+.gz-akis{list-style:none;margin:14px 0 0;padding:0}
+.gz-li{display:grid;grid-template-columns:46px 20px minmax(0,1fr);gap:8px}
+.gz-saat{font-family:"IBM Plex Mono",monospace;font-size:.82rem;padding-top:1px}.gz-saat.kalin{font-weight:600}
+.gz-cizgi{display:flex;flex-direction:column;align-items:center}
+.gz-bos{width:12px;height:12px;border-radius:6px;border:2px solid #6f7468;background:var(--bg);margin-top:3px;flex:none}
+.gz-hat{flex:1;border-left:2px solid;min-height:10px}.gz-hat.kesik{border-left:2px dashed #b9b4a6}
+.gz-no{width:20px;height:20px;border-radius:10px;color:#fff;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+.gz-ay{background:#14170f}.gz-ay svg{width:11px;height:11px;stroke:#faf8f3;fill:none;stroke-width:2.6}
+.gz-icerik{padding-bottom:16px;min-width:0}
+.gz-icerik>b{display:block;font-size:.95rem}.gz-icerik>span{display:block;font-size:.84rem;color:var(--mut)}
+.gz-durak{display:flex;gap:10px;align-items:center;width:100%;border:0;background:none;padding:0 0 16px;font:inherit;color:var(--ink);text-align:left;cursor:pointer}
+.gz-durak img{width:56px;height:56px;border-radius:12px;object-fit:cover;flex:none}
+.gz-durak b{display:block;font-size:.95rem;color:var(--ink)}.gz-durak span span{display:block;font-size:.84rem;color:var(--mut)}
+.gz-ana{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;cursor:pointer}
+.gz-ana>img{width:100%;height:170px;object-fit:cover;display:block}
+.gz-ana-govde{padding:12px}
+.gz-ana-bas{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.gz-ana-bas b{font-size:1.08rem;font-weight:800;letter-spacing:-.02em}
+.gz-ana-bas span{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;flex:none}
+.gz-ana-say{display:grid;grid-template-columns:repeat(4,auto);justify-content:space-between;gap:6px;margin-top:10px}
+.gz-ana-say b{display:block;font-size:.95rem}.gz-ana-say span{font-size:.7rem;color:var(--mut)}
+.gz-uyari{display:flex;gap:8px;align-items:flex-start;margin-top:10px;padding:8px 10px;border-radius:12px;background:#f6e3d6;color:#7a2a0c;font-size:.84rem;line-height:1.4}
+.gz-uyari svg{width:16px;height:16px;flex:none;margin-top:1px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round}
+.gz-yolda{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:.84rem;color:var(--ink2)}
+.gz-yolda img{width:32px;height:32px;border-radius:8px;object-fit:cover;flex:none}
+.gz-kredi{display:block;margin-top:8px;font-size:.66rem;color:var(--mut)}
+.gz-gece{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:12px;margin-bottom:6px}
+.gz-gece p{margin:10px 0 0;padding-top:10px;border-top:1px solid var(--line);font-size:.84rem;line-height:1.45;color:var(--ink2)}
+.gz-mini{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.gz-mini .btn{padding:8px 12px;font-size:.82rem;text-decoration:none}
+.gz-yol{display:inline-block;margin-top:2px;font-size:.88rem;font-weight:700;color:var(--pine)}
+.gz-alt{margin-top:22px}
 .yd-zorluk{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 0}
 .yd-zorluk .sub{margin:0;font-size:.8rem}
 .yd-hava{background:#1e3b2c;color:#f1eee6;border-radius:20px;padding:14px 16px;margin-top:14px}
@@ -1772,11 +1855,14 @@ async function bugunCiz() {
     <h2 class="sec">${uygun.length >= 3 ? `${plan.yarin ? "Yarın" : "Bugün"} için en iyi 3` : uygun.length ? `${plan.yarin ? "Yarın" : "Bugün"} için uygun ${uygun.length} parkur` : `${plan.yarin ? "Yarın" : "Bugün"} uygun parkur bulamadık`}</h2>
     ${uygun.slice(0, 3).map(kart).join("") || `<div class="empty">Seçtiğin filtre ve süreye uyan parkur yok. Tam günü ya da başka bir filtreyi dene.</div>`}
     ${elenen.length ? `<section class="bg-elenen"><h3>Önermediklerimiz</h3><ul>${elenen.slice(0, 4).map(r => `<li><b>${esc(r.t.name)}:</b> ${esc(r.kirmizi[0])}</li>`).join("")}</ul></section>` : ""}
+    <button class="gz-giris" id="bgPlanla"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg>
+      <span><b>Birkaç günlük gezi mi?</b><span>Bir yer seç, gün gün planlayalım</span></span><span aria-hidden="true">&rarr;</span></button>
     <p class="bg-kaynak">Hava: ABD Ulusal Hava Servisi (NWS), bölge bazında saatlik tahmin. Parkur bilgileri: Washington Trails Association ve OpenStreetMap. Orman yangını dumanı, geçit ve park kapanışı verisi yakında eklenecek; yola çıkmadan resmi kaynakları kontrol et.</p>`;
   bugunBagla();
 }
 function bugunBagla() {
   document.querySelectorAll("#bugunKutu [data-yerid]").forEach(b => b.addEventListener("click", () => yerDetay(b.dataset.yerid)));
+  const pl = $("#bgPlanla"); if (pl) pl.addEventListener("click", () => geziFormu(GEZI.hedef ? GEZI.hedef.id : null));
   document.querySelectorAll("[data-bgsure]").forEach(b => b.addEventListener("click", () => { BUGUN.sure = b.dataset.bgsure; bugunCiz(); }));
   document.querySelectorAll("[data-bgfiltre]").forEach(b => b.addEventListener("click", () => { BUGUN.filtre = b.dataset.bgfiltre; bugunCiz(); }));
   const k = $("#bgKonum");
@@ -1900,7 +1986,7 @@ async function yerDetay(id) {
   if (y.id.startsWith("r")) { try { r = await (await fetch(`data/wa/r/${y.id}.json`)).json(); } catch {} }
   const f = y.wd && foto[y.wd];
   const rotaMi = !!(r && r.cizgi);
-  const gd = rotaMi ? y.km * 2 : 0;
+  const gd = rotaMi ? (y.h ? y.km : y.km * 2) : 0;
   const sure = rotaMi ? gd / 4.2 + (r.tirmanis || 0) / 550 : 0;
   const egim = rotaMi && y.km ? (r.tirmanis || 0) / y.km : 0;
   const zorluk = !rotaMi ? null : (y.tur === "b" ? (egim > 40 ? "orta" : "kolay") : egim > 150 || gd > 20 ? "zor" : egim > 70 || gd > 10 ? "orta" : "kolay");
@@ -1920,16 +2006,18 @@ async function yerDetay(id) {
       <div class="dhero-alt"><div class="dtarih">${YER_TUR[y.tur][0]} · ${y.lat.toFixed(3)}°K ${Math.abs(y.lon).toFixed(3)}°B</div><h1>${esc(y.ad)}</h1></div>
       ${f ? `<a class="yd-kredi" href="${esc(f[3])}" target="_blank" rel="noopener">Foto: ${esc(f[1])} · ${esc(f[2])}</a>` : ""}</div>
     <div class="dstats">${rotaMi ? `
-      <div><b>${kmYaz(gd)} km</b><span>Gidiş-dönüş</span></div>
+      <div><b>${kmYaz(gd)} km</b><span>${y.h ? "Halka" : "Gidiş-dönüş"}</span></div>
       <div><b>≈${r.tirmanis || 0} m</b><span>Tırmanış</span></div>
       <div><b>${r.yuksek || "?"} m</b><span>En yüksek</span></div>
       <div><b>${sureYazi(sure)}</b><span>Tahmini</span></div>` : `
       ${y.ele ? `<div><b>${y.ele} m</b><span>${y.eleTahmin ? "Yükselti (tahmini)" : "Yükselti"}</span></div>` : ""}
       ${y.ha ? `<div><b>${y.ha >= 100 ? Math.round(y.ha / 100) + " km²" : Math.round(y.ha) + " ha"}</b><span>Alan</span></div>` : ""}
       <div><b>${Math.round(hav(BUGUN.konum.lat, BUGUN.konum.lon, y.lat, y.lon) / 1000)} km</b><span>${esc(BUGUN.konum.ad)}'dan</span></div>`}</div>
-    ${zorluk ? `<div class="yd-zorluk"><span class="bg-c ${zorluk === "zor" ? "sari" : "yesil"}">${zorluk[0].toUpperCase() + zorluk.slice(1)}</span><span class="sub">Tek yön ${kmYaz(y.km)} km. Uzunluk ve tırmanış harita verisinden hesaplanır, yaklaşıktır.</span></div>` : ""}
+    ${zorluk ? `<div class="yd-zorluk"><span class="bg-c ${zorluk === "zor" ? "sari" : "yesil"}">${zorluk[0].toUpperCase() + zorluk.slice(1)}</span><span class="sub">${y.h ? "Başladığın yere dönen halka." : `Tek yön ${kmYaz(y.km)} km.`} Uzunluk ve tırmanış harita verisinden hesaplanır, yaklaşıktır.</span></div>` : ""}
     <div class="bg-dugmeler"><a class="btn primary" href="${yol}" target="_blank" rel="noopener">Yol tarifi</a>
       <button class="btn act save ${SAVED.has(y.ad) ? "saved" : ""}" data-savebtn="${esc(y.ad)}">${BOOK}<span>${SAVED.has(y.ad) ? "Listende" : "Gitmek istiyorum"}</span></button></div>
+    <button class="gz-giris" id="ydPlanla"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg>
+      <span><b>Buraya gezi planla</b><span>Gün gün program: parkurlar, duraklar, gece, hava</span></span><span aria-hidden="true">&rarr;</span></button>
     <section class="yd-hava" id="ydHava"><b>Bugün orada hava</b><span class="sub">Yükleniyor…</span></section>
     <div class="kesif-harita" style="margin-top:14px"><div id="ydHarita" style="height:300px"></div></div>
     ${profilSvg}
@@ -1939,6 +2027,7 @@ async function yerDetay(id) {
     <p class="bg-kaynak">Harita ve rota verisi © OpenStreetMap katkıcıları (ODbL). Yükselti: AWS Terrain Tiles. Yola çıkmadan resmi kaynaklardan güncel durumu kontrol et.</p>`;
   $("#detayout .back").addEventListener("click", () => { history.replaceState(null, "", location.pathname); sekmeyeDon(); });
   document.querySelectorAll("#detayout [data-yerid]").forEach(b => b.addEventListener("click", () => yerDetay(b.dataset.yerid)));
+  $("#ydPlanla").addEventListener("click", () => { GEZI.geri = y.id; geziFormu(y.id); });
   sosyalBagla("#detayout");
   if (window.L) {
     const BOS = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
@@ -1982,6 +2071,528 @@ async function yerDetay(id) {
 function yerBaglantisi() {
   const m = /^#y\/([a-z0-9]+)$/.exec(location.hash || "");
   if (m) yerDetay(m[1]);
+}
+
+/* ---------- Gezi planla: secilen yerin cevresinde gun gun plan. Kurallara dayali: OSM rotalari, NWS gunluk tahmin, OSRM surus suresi ---------- */
+const GEZI = { hedef: null, gun: 2, zaman: "eniyi", tarih: "", tempo: "orta", gece: "hava" };
+const TEMPO = {
+  rahat: { ad: "Rahat", alt: "günde ≤ 6 km", min: 2, max: 7, tir: 400, hiz: 3.6, basla: 600 },
+  orta: { ad: "Orta", alt: "günde ≤ 12 km", min: 5, max: 13, tir: 950, hiz: 4.2, basla: 570 },
+  zorlu: { ad: "Zorlu", alt: "uzun, dik", min: 9, max: 22, tir: 1600, hiz: 4.5, basla: 510 } };
+const GUN_RENK = ["#1e3b2c", "#c4471b", "#2f5fd0", "#7a3fb0"];
+const GZ_YOL_DISI = /\b(road|rd|highway|hwy|connector|cutoff|cut-off|spur|tie|access|service|nf|fr)\b|forest road|^\d/i;
+const dkSaat = (d) => { const m = Math.round(d); return `${String(Math.floor(m / 60) % 24).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`; };
+const ayniGun = (a, b) => a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+const gunEkle = (d, i) => { const x = new Date(d); x.setDate(x.getDate() + i); return x; };
+const gunKisa = (d) => d.toLocaleDateString("tr-TR", { weekday: "short" });
+const gunUzun = (d) => d.toLocaleDateString("tr-TR", { weekday: "long", day: "numeric", month: "short" });
+const kucukHarf = (s) => s.toLocaleLowerCase("tr-TR");
+const sureKisa = (h) => h < 1 ? `${Math.round(h * 60)} dk` : `${String(Math.round(h * 10) / 10).replace(".", ",")} sa`;
+
+async function nwsGunluk(lat, lon) {
+  const k = `nwsg:${lat.toFixed(2)},${lon.toFixed(2)}`;
+  try { const c = JSON.parse(localStorage.getItem(k) || "null"); if (c && Date.now() - c.t < 36e5) return c.p; } catch {}
+  const pt = await (await fetch(`https://api.weather.gov/points/${lat.toFixed(4)},${lon.toFixed(4)}`)).json();
+  const url = pt && pt.properties && pt.properties.forecast;
+  if (!url) throw new Error("NWS nokta yok");
+  const fc = await (await fetch(url)).json();
+  const p = ((fc.properties || {}).periods || []).map(x => ({ t: Date.parse(x.startTime), gunduz: !!x.isDaytime, c: F2C(x.temperature),
+    pop: (x.probabilityOfPrecipitation && x.probabilityOfPrecipitation.value) || 0,
+    wind: parseInt(String(x.windSpeed || "").split(" to ").pop()) || 0, k: x.shortForecast || "" }));
+  if (!p.length) throw new Error("NWS bos");
+  try { localStorage.setItem(k, JSON.stringify({ t: Date.now(), p })); } catch {}
+  return p;
+}
+// zirve gibi yuksek bir hedefte hava zirveden degil, en bilinen parkur basindan alinir
+function havaNoktasi(H) {
+  if (!"zk".includes(H.tur) || (H.ele || 0) < 1500) return H;
+  return YERLER.filter(y => y.tur === "r" && y.km && y.km <= 15 && (y.p || 0) >= 3 && hav(H.lat, H.lon, y.lat, y.lon) < 20000)
+    .sort((a, b) => (b.p || 0) - (a.p || 0) || hav(H.lat, H.lon, a.lat, a.lon) - hav(H.lat, H.lon, b.lat, b.lon))[0] || H;
+}
+const ROTA_ONB = new Map();
+let KASABA = null;
+async function kasabalariYukle() {
+  if (!KASABA) KASABA = fetch("data/wa/kasaba.json").then(r => r.json()).then(d => d.filter(x => x[3] !== "h").map(([ad, lat, lon]) => ({ ad, lat, lon }))).catch(() => []);
+  return KASABA;
+}
+async function rotaGetir(id) {
+  if (!ROTA_ONB.has(id)) ROTA_ONB.set(id, fetch(`data/wa/r/${id}.json`).then(r => r.ok ? r.json() : null).catch(() => null));
+  return ROTA_ONB.get(id);
+}
+function havaYazi(h) {
+  if (!h) return "tahmin yok";
+  if (/snow/i.test(h.k)) return `kar %${h.pop}`;
+  if (/thunder/i.test(h.k)) return "fırtına";
+  if (h.pop >= 30) return `yağmur %${h.pop}`;
+  if (/sunny|clear/i.test(h.k) && !/partly|mostly cloudy/i.test(h.k)) return "güneşli";
+  if (/partly|mostly sunny/i.test(h.k)) return "parçalı bulutlu";
+  if (/cloud|overcast|fog/i.test(h.k)) return "bulutlu";
+  return "kuru";
+}
+const havaPuan = (h) => !h ? 50 : 100 - h.pop * 0.8 - (/snow/i.test(h.k) ? 25 : 0) - (/thunder/i.test(h.k) ? 40 : 0)
+  - Math.max(0, 6 - h.c) * 1.5 - Math.max(0, h.c - 28) * 2 - Math.max(0, h.wind - 15);
+const kotuHava = (h) => h && (/snow|thunder/i.test(h.k) || h.pop >= 30);
+
+// hangi gunler: "eniyi" = onumuzdeki 7 gunde havasi en iyi ardisik n gun, "haftasonu", "tarih"
+function geziGunSec(gunluk, n, mod, tarih) {
+  const bugun = new Date(); bugun.setHours(0, 0, 0, 0);
+  const gunduz = (gunluk || []).filter(x => x.gunduz);
+  const havaGun = (d) => gunduz.find(x => ayniGun(new Date(x.t), d)) || null;
+  const geceSonra = (d) => (gunluk || []).find(x => !x.gunduz && ayniGun(new Date(x.t), d)) || null;
+  const ilk = new Date().getHours() >= 11 ? gunEkle(bugun, 1) : bugun;
+  let bas;
+  if (mod === "tarih" && tarih) bas = new Date(tarih + "T00:00");
+  else if (mod === "haftasonu") { const cmt = gunEkle(bugun, (6 - bugun.getDay() + 7) % 7); bas = n >= 3 ? gunEkle(cmt, -1) : cmt; if (bas < ilk) bas = ilk; }
+  else {
+    let en = null;
+    for (let i = 0; i < 7; i++) {
+      const b = gunEkle(ilk, i), hs = Array.from({ length: n }, (_, j) => havaGun(gunEkle(b, j)));
+      if (hs.some(h => !h)) break;
+      const p = hs.reduce((a, h) => a + havaPuan(h), 0) - i * 3;   // esit havada erken gun
+      if (!en || p > en.p) en = { b, p };
+    }
+    bas = en ? en.b : ilk;
+  }
+  const gunler = Array.from({ length: n }, (_, i) => { const d = gunEkle(bas, i); return { d, hava: havaGun(d), gece: geceSonra(d) }; });
+  const serit = Array.from({ length: 7 }, (_, i) => gunEkle(ilk, i)).map(d => ({ d, hava: havaGun(d), secili: gunler.some(g => ayniGun(g.d, d)) })).filter(x => x.hava);
+  // gerekce: atlanan kotu gunler + secilen gunlerin havasi
+  let neden = null;
+  if (gunduz.length) {
+    const atlanan = serit.filter(x => !x.secili && x.d < gunEkle(bas, n + 1) && kotuHava(x.hava)).slice(0, 2);
+    const secHava = gunler.filter(g => g.hava);
+    if (secHava.length) {
+      const adlar = secHava.map(g => g.d.toLocaleDateString("tr-TR", { weekday: "long" }));
+      const yaz = [...new Set(secHava.map(g => havaYazi(g.hava)))];
+      neden = (mod === "eniyi" && atlanan.length ? atlanan.map(x => `${x.d.toLocaleDateString("tr-TR", { weekday: "long" })} ${havaYazi(x.hava)}`).join(", ") + ". " : "")
+        + `${adlar.length > 1 ? adlar.slice(0, -1).join(", ") + " ve " + adlar[adlar.length - 1] : adlar[0]} ${yaz.length === 1 ? yaz[0] : yaz.join(", ")}` + (secHava.every(g => g.hava.wind < 15) ? ", rüzgar hafif." : ".");
+      neden = neden[0].toLocaleUpperCase("tr-TR") + neden.slice(1);
+    } else neden = "Seçtiğin günler hava tahmininin kapsamı dışında (7 gün). Plan mevsime göre kuruldu.";
+  }
+  return { gunler, serit, neden };
+}
+
+// surus suresi matrisi (dakika). OSRM ornek sunucusu; ulasilamazsa kus ucusu tahmini
+async function surusMatrisi(noktalar) {
+  const yedek = () => noktalar.map(a => noktalar.map(b => a === b ? 0 : (hav(a[0], a[1], b[0], b[1]) / 1000 * 1.45 / 55 + 0.1) * 60));
+  if (noktalar.length < 2 || noktalar.length > 90) return { m: yedek(), osrm: false, yol: null };
+  const yol = noktalar.map(([la, lo]) => `${lo.toFixed(5)},${la.toFixed(5)}`).join(";");
+  const k = "osrm:" + yol;
+  try { const c = JSON.parse(sessionStorage.getItem(k) || "null"); if (c && c.m) return { ...c, osrm: true }; } catch {}
+  try {
+    const ctl = new AbortController(), zt = setTimeout(() => ctl.abort(), 10000);
+    const d = await (await fetch(`https://router.project-osrm.org/table/v1/driving/${yol}?annotations=duration`, { signal: ctl.signal })).json();
+    clearTimeout(zt);
+    if (d.code !== "Ok") throw 0;
+    const yd = yedek();
+    // ornek sunucu dag yollarinda gercekten ~%25 uzun buluyor (Seattle-Paradise 2 sa 50 dk; gercekte ~2 sa 15 dk)
+    const m = d.durations.map((r, i) => r.map((s, j) => s == null ? yd[i][j] : s / 60 * 0.8));
+    const yolUzak = (d.destinations || []).map(x => x.distance || 0);   // noktanin en yakin arac yoluna uzakligi (m)
+    try { sessionStorage.setItem(k, JSON.stringify({ m, yol: yolUzak })); } catch {}
+    return { m, osrm: true, yol: yolUzak };
+  } catch { return { m: yedek(), osrm: false, yol: null }; }
+}
+
+async function geziKur() {
+  const H = GEZI.hedef, T = TEMPO[GEZI.tempo], n = GEZI.gun, K = BUGUN.konum;
+  await yerleriYukle(); const foto = await yerFotolari(); const kasabalar = await kasabalariYukle();
+  const HN = havaNoktasi(H);
+  let gunluk = null; try { gunluk = await nwsGunluk(HN.lat, HN.lon); } catch {}
+  const sec = geziGunSec(gunluk, n, GEZI.zaman, GEZI.tarih);
+  const ay = sec.gunler[0].d.getMonth(), kis = ay >= 10 || ay <= 4, ekim = ay === 9;
+  // 1) aday parkurlar: hedefin cevresi, az parkur varsa yaricap buyur
+  const hesap = (y) => { const gd = y.h ? y.km : y.km * 2, tir = y.t || 0; return { y, gd, tir, sure: gd / T.hiz + tir / 550 + 0.3 }; };
+  let R = 22000, aday;
+  for (;;) {
+    aday = YERLER.filter(y => y.tur === "r" && y.km && (y.id === H.id || (hav(H.lat, H.lon, y.lat, y.lon) < R && !GZ_YOL_DISI.test(y.ad)))).map(hesap);
+    if (aday.length >= n * 4 || R >= 46000) break;
+    R += 12000;
+  }
+  for (const a of aday) {
+    const yk = a.y.yk || 0;
+    a.neden = a.sure > 8.5 ? `${kmYaz(a.gd)} km, bir güne sığmıyor` : a.gd > T.max * 1.15 ? `${kmYaz(a.gd)} km, ${kucukHarf(T.ad)} tempo için uzun`
+      : a.tir > T.tir ? `≈${a.tir} m tırmanış, ${kucukHarf(T.ad)} tempo için fazla`
+      : (kis && yk > 1700) || (ekim && yk > 2300) ? `En yüksek nokta ${yk} m, bu mevsimde karlı` : null;
+    a.kisa = a.gd < T.min * 0.6;
+    a.foto = a.y.wd && foto[a.y.wd];
+    a.hedef = a.y.id === H.id;
+    a.puan = (a.y.p || 0) * 12 + (a.foto ? 8 : 0) + (a.y.wd ? 4 : 0) + (a.y.h ? 3 : 0) - Math.abs(a.gd - (T.min + T.max) / 2) * 1.2 + (a.hedef ? 1000 : 0);
+  }
+  // manzara: en iyi 16 adayin cizgisi uzerindeki gol, selale, seyir noktasi ve zirveler (fotografli olan daha degerli)
+  const manzara = YERLER.filter(y => "sgvz".includes(y.tur) && (y.p || 0) >= 2 && hav(H.lat, H.lon, y.lat, y.lon) < R + 8000);
+  const hatYakin = (r, p, esik) => r && r.cizgi && r.cizgi.some(c => c.some(([lo, la]) => Math.abs(la - p.lat) < 0.01 && hav(la, lo, p.lat, p.lon) < esik));
+  const ilk16 = aday.filter(a => !a.neden && !a.kisa).sort((a, b) => b.puan - a.puan).slice(0, 16);
+  await Promise.all(ilk16.map(async a => {
+    a.r = await rotaGetir(a.y.id);
+    const g = manzara.filter(p => hatYakin(a.r, p, 300));
+    a.puan += Math.min(30, g.reduce((s2, p) => s2 + (p.wd && foto[p.wd] ? 8 : 3), 0));
+  }));
+  // 2) bolgeler: 5 km icindeki parkur baslari bir bolge; her gun ayri bolge
+  const uygun = aday.filter(a => !a.neden && !a.kisa).sort((a, b) => b.puan - a.puan);
+  const kumeler = [];
+  for (const a of uygun) {
+    const k = kumeler.find(k => hav(k.ana.y.lat, k.ana.y.lon, a.y.lat, a.y.lon) < 5000);
+    if (k) k.alt.push(a); else kumeler.push({ ana: a, alt: [] });
+  }
+  let gunK = kumeler.slice(0, n);
+  for (const k of kumeler) { if (gunK.length >= n) break; while (k.alt.length && gunK.length < n) gunK.push({ ana: k.alt.shift(), alt: [] }); }
+  if (!gunK.length) return { bos: true, sec, elenen: aday.filter(a => a.neden).sort((a, b) => (b.y.p || 0) - (a.y.p || 0)).slice(0, 3) };
+  // 3) kisa duraklar ve kamp adaylari
+  const poi = YERLER.filter(y => "svg".includes(y.tur) && (y.p || 0) >= 2 && hav(H.lat, H.lon, y.lat, y.lon) < R + 8000)
+    .map(y => ({ y, foto: y.wd && foto[y.wd], puan: (y.p || 0) * 10 + (y.wd && foto[y.wd] ? 12 : 0) + (y.tur === "s" ? 4 : 0) }));
+  await Promise.all(gunK.map(async k => { k.r = await rotaGetir(k.ana.y.id); }));
+  const kullanilan = new Set();
+  for (const k of gunK) {
+    k.yolda = poi.filter(p => !kullanilan.has(p.y.id) && hatYakin(k.r, p.y, 300)).sort((a, b) => b.puan - a.puan).slice(0, 2);
+    k.yolda.forEach(p => kullanilan.add(p.y.id));
+  }
+  for (const k of gunK) {
+    k.yolKenari = poi.filter(p => !kullanilan.has(p.y.id) && (p.y.p >= 4 || p.foto) && hav(k.ana.y.lat, k.ana.y.lon, p.y.lat, p.y.lon) < 9000 && !hatYakin(k.r, p.y, 600))
+      .sort((a, b) => b.puan - a.puan).slice(0, 4);
+    const anaAd = new Set(gunK.map(x => x.ana.y.ad));
+    k.kisaAday = aday.filter(a => !a.neden && a.sure <= 2.5 && !anaAd.has(a.y.ad) && hav(k.ana.y.lat, k.ana.y.lon, a.y.lat, a.y.lon) < 12000
+      && hav(k.ana.y.lat, k.ana.y.lon, a.y.lat, a.y.lon) > 400 && !hatYakin(k.r, a.y, 250)).sort((a, b) => b.puan - a.puan).slice(0, 3);
+    const uz = (y) => hav(k.ana.y.lat, k.ana.y.lon, y.lat, y.lon);
+    k.kampAday = n > 1 ? YERLER.filter(y => y.tur === "k" && (y.ha || 0) >= 2 && uz(y) < 25000)
+      .sort((a, b) => (uz(a) - (/campground/i.test(a.ad) ? 8000 : 0)) - (uz(b) - (/campground/i.test(b.ad) ? 8000 : 0))).slice(0, 3) : [];
+    k.kasabaAday = n > 1 ? kasabalar.filter(y => uz(y) < 50000).sort((a, b) => uz(a) - uz(b)).slice(0, 4).map(y => ({ ...y })) : [];
+  }
+  // 4) tek istekte surus matrisi
+  const nok = [[K.lat, K.lon]], idx = new Map();
+  const ekle = (key, la, lo) => { if (!idx.has(key)) { idx.set(key, nok.length); nok.push([la, lo]); } return idx.get(key); };
+  for (const k of gunK) {
+    k.i = ekle(k.ana.y.id, k.ana.y.lat, k.ana.y.lon);
+    k.yolKenari.forEach(p => p.i = ekle(p.y.id, p.y.lat, p.y.lon));
+    k.kisaAday.forEach(a => a.i = ekle(a.y.id, a.y.lat, a.y.lon));
+    k.kampAday.forEach(c => c.i = ekle(c.id, c.lat, c.lon));
+    k.kasabaAday.forEach(c => c.i = ekle("kasaba:" + c.ad, c.lat, c.lon));
+  }
+  const [{ m, osrm, yol: yolUzak }] = await Promise.all([surusMatrisi(nok),
+    ...gunK.map(async k => { try { k.hava = await nwsGunluk(k.ana.y.lat, k.ana.y.lon); } catch { k.hava = gunluk; } })]);
+  const yolKenarinda = (p) => !yolUzak || (yolUzak[p.i] || 0) <= 300;
+  // 5) gun sirasi: hedef ilk gun, sonra bir oncekine en yakin
+  const sira = [], kalan = [...gunK];
+  let once = 0;
+  while (kalan.length) {
+    const j = kalan.findIndex(k => k.ana.hedef) >= 0 && !sira.length ? kalan.findIndex(k => k.ana.hedef)
+      : kalan.reduce((b, k, i) => m[once][k.i] < m[once][kalan[b].i] ? i : b, 0);
+    const k = kalan.splice(j, 1)[0]; sira.push(k); once = k.i;
+  }
+  // 6) gun gun program
+  const durakDk = (p) => p.y.tur === "g" ? 20 : 15;
+  const gunlerOut = [], nedenler = [];
+  if (sec.neden) nedenler.push(sec.neden);
+  let no = 0, onceki = 0, kampGece = false, ekKm = 0, ekTir = 0, geceYeri = null;
+  const fazla = new Set();
+  for (let gi = 0; gi < sira.length; gi++) {
+    const k = sira[gi], a = k.ana, son = gi === sira.length - 1;
+    // o gunun havasi o gunun parkur basindan
+    const kg = sec.gunler[gi], hv = k.hava || gunluk || [];
+    const g = { d: kg.d, hava: hv.find(x => x.gunduz && ayniGun(new Date(x.t), kg.d)) || kg.hava, gece: hv.find(x => !x.gunduz && ayniGun(new Date(x.t), kg.d)) || kg.gece };
+    // yol kenari duraklari: sapma 20 dk'yi gecmeyen en iyi 2 durak
+    const once2 = k.yolKenari.filter(p => !fazla.has(p.y.id) && yolKenarinda(p) && m[onceki][p.i] + m[p.i][k.i] - m[onceki][k.i] <= 20).slice(0, 2)
+      .sort((x, y) => m[onceki][x.i] - m[onceki][y.i]);
+    once2.forEach(p => fazla.add(p.y.id));
+    let sure = 0, bul = onceki, gunSurus = 0;
+    for (const p of once2) { sure += m[bul][p.i] + durakDk(p); gunSurus += m[bul][p.i]; bul = p.i; }
+    sure += m[bul][k.i]; gunSurus += m[bul][k.i];
+    let t = gi === 0 ? Math.max(330, Math.floor((T.basla - sure) / 15) * 15) : Math.max(450, Math.floor((T.basla - sure) / 15) * 15);
+    const akis = [];
+    akis.push({ tur: "cikis", t, ad: gi === 0 ? `${K.ad}'dan çık` : kampGece ? "Kamptan çık" : geceYeri ? `${geceYeri}'dan çık` : "Konaklamadan çık",
+      alt: `Arabayla ≈${sureYazi(sure / 60)}` });
+    bul = onceki;
+    for (const p of once2) {
+      t += m[bul][p.i]; bul = p.i;
+      akis.push({ tur: "durak", t, no: ++no, ad: p.y.ad, id: p.y.id, foto: p.foto, alt: `${YER_TUR[p.y.tur][0]} · yol üstünde, ${durakDk(p)} dk`, lat: p.y.lat, lon: p.y.lon });
+      t += durakDk(p);
+    }
+    t += m[bul][k.i];
+    const batim = gunBatimi(a.y.lat, a.y.lon, g.d), batimDk = batim.getHours() * 60 + batim.getMinutes();
+    const bitis = t + a.sure * 60;
+    const uyari = [];
+    const yk = (k.r && k.r.yuksek) || a.y.yk || 0;
+    const karGun = hv.find(x => x.t >= gunEkle(g.d, -2).getTime() && x.t < gunEkle(g.d, 1).getTime() && /snow/i.test(x.k));
+    if (karGun && yk > 1400) {
+      const kd = new Date(karGun.t), ad = kd.toLocaleDateString("tr-TR", { weekday: "long" });
+      uyari.push(ayniGun(kd, g.d) ? "O gün kar yağabilir. Yükseklerde buz olabilir, mikro kramp al." : `${ad} için kar tahmini var. Parkurun üst kısmında kar ve buz olabilir, mikro kramp al.`);
+    }
+    else if ((kis || ekim) && yk > 1600) uyari.push("Bu mevsimde yükseklerde kar olabilir. Yola çıkmadan parkur durumuna bak.");
+    const pay = batimDk - bitis;
+    if (pay < 0) uyari.push(`Gün ışığı yetmiyor (gün batımı ${ss(batim)}). Daha erken çık ya da kısalt.`);
+    else if (pay < 60) uyari.push(`Gün batımına yalnızca ${Math.round(pay)} dk pay kalıyor, erken çık.`);
+    akis.push({ tur: "ana", t, no: ++no, a, r: k.r, yolda: k.yolda, uyari });
+    t = bitis; bul = k.i;
+    // yuruyusten sonra vakit varsa bir durak daha
+    // vakit kaliyorsa ayni bolgede kisa bir yuruyus daha
+    const kisa = k.kisaAday.find(c => !fazla.has(c.y.id) && m[bul][c.i] <= 30 && t + m[bul][c.i] + c.sure * 60 <= batimDk - 75);
+    if (kisa) {
+      fazla.add(kisa.y.id); t += m[bul][kisa.i]; gunSurus += m[bul][kisa.i];
+      akis.push({ tur: "kisa", t, no: ++no, a: kisa, id: kisa.y.id, foto: kisa.foto, lat: kisa.y.lat, lon: kisa.y.lon });
+      t += kisa.sure * 60; bul = kisa.i; ekKm += kisa.gd; ekTir += kisa.tir;
+    }
+    const sonra = k.yolKenari.find(p => !fazla.has(p.y.id) && yolKenarinda(p) && m[bul][p.i] <= 25 && t + m[k.i][p.i] + durakDk(p) < batimDk - 30);
+    if (sonra) {
+      fazla.add(sonra.y.id); t += m[bul][sonra.i]; gunSurus += m[bul][sonra.i];
+      akis.push({ tur: "durak", t, no: ++no, ad: sonra.y.ad, id: sonra.y.id, foto: sonra.foto, alt: `${YER_TUR[sonra.y.tur][0]} · ${durakDk(sonra)} dk`, lat: sonra.y.lat, lon: sonra.y.lon });
+      t += durakDk(sonra); bul = sonra.i;
+    }
+    if (son) {
+      const dd = m[bul][0]; gunSurus += dd;
+      akis.push({ tur: "donus", t, ad: `${K.ad}'a dönüş`, alt: `Arabayla ≈${sureYazi(dd / 60)} · ${dkSaat(t + dd)} civarı varış` });
+      onceki = 0;
+    } else {
+      const gece = g.gece, soguk = gece && (gece.c <= 1 || gece.pop >= 50);
+      const sonraki = sira[gi + 1];
+      const kamp = k.kampAday.length ? [...k.kampAday].sort((x, y) => (m[bul][x.i] + m[x.i][sonraki.i]) - (m[bul][y.i] + m[y.i][sonraki.i]))[0] : null;
+      kampGece = !!kamp && (GEZI.gece === "kamp" || (GEZI.gece === "hava" && !soguk));
+      if (GEZI.gece === "hava" && soguk && gi === 0) nedenler.push(`Gece ${gece.c}°C${gece.pop >= 50 ? `, yağış %${gece.pop}` : ""} bekleniyor. Kamp yerine konaklama önerdik.`);
+      if (GEZI.gece === "kamp" && !kamp) nedenler.push("Yakında araçla ulaşılan kamp alanı bulamadık, konaklama önerdik.");
+      const geceYazi = gece ? `gece ${gece.c}°C` : "";
+      if (kampGece) {
+        t += m[bul][kamp.i]; gunSurus += m[bul][kamp.i];
+        akis.push({ tur: "gece", t, ad: `Gece: ${kamp.ad}`, alt: `Kamp alanı · ≈${sureYazi(m[bul][kamp.i] / 60)} · ${geceYazi}`, kamp, lat: kamp.lat, lon: kamp.lon });
+        onceki = kamp.i;
+      } else {
+        const kas = k.kasabaAday.length ? [...k.kasabaAday].sort((x, y) => (m[bul][x.i] + m[x.i][sonraki.i]) - (m[bul][y.i] + m[y.i][sonraki.i]))[0] : null;
+        if (kas) {
+          t += m[bul][kas.i]; gunSurus += m[bul][kas.i];
+          akis.push({ tur: "gece", t, ad: `Gece: ${kas.ad}`, alt: `Kasabada konaklama · ≈${sureYazi(m[bul][kas.i] / 60)}${geceYazi ? " · " + geceYazi : ""}`, kampAlt: kamp, lat: kas.lat, lon: kas.lon });
+          onceki = kas.i; geceYeri = kas.ad;
+        } else {
+          akis.push({ tur: "gece", t: t + 20, ad: "Gece: konaklama", alt: `Bölgeye yakın kasabalarda${geceYazi ? " · " + geceYazi : ""}`, kampAlt: kamp, lat: a.y.lat, lon: a.y.lon });
+          onceki = bul;
+        }
+      }
+    }
+    gunlerOut.push({ g, k, akis, batim, pay, surusDk: gunSurus });
+  }
+  if (gunlerOut.every(x => x.pay >= 180)) nedenler.push("Her gün yürüyüş gün batımından en az 3 saat önce bitiyor.");
+  else if (gunlerOut.every(x => x.pay >= 60)) nedenler.push(`Her gün yürüyüş gün batımından en az ${Math.floor(Math.min(...gunlerOut.map(x => x.pay)) / 60)} saat önce bitiyor.`);
+  const hedefA = aday.find(a => a.hedef);
+  if (hedefA && hedefA.neden) nedenler.push(`Seçtiğin ${hedefA.y.ad} plana girmedi: ${kucukHarf(hedefA.neden)}.`);
+  if (gunK.length < n) nedenler.push(`Bu çevrede ${kucukHarf(T.ad)} tempoya uyan ${gunK.length} günlük yürüyüş bulduk.`);
+  const secilenAd = new Set(sira.map(k => k.ana.y.ad));
+  const elenen = [], gor = new Set();
+  for (const a of aday.filter(a => a.neden && !secilenAd.has(a.y.ad) && a.gd <= 40).sort((a, b) => (b.y.p || 0) - (a.y.p || 0) || b.gd - a.gd)) {
+    if (gor.has(a.y.ad)) continue; gor.add(a.y.ad); elenen.push(a); if (elenen.length >= 3) break;
+  }
+  return { sec, gunler: gunlerOut, nedenler, elenen, osrm, gunluk, surusDk: gunlerOut.reduce((s, x) => s + x.surusDk, 0),
+    km: sira.reduce((s, k) => s + k.ana.gd, 0) + ekKm, tir: Math.round(sira.reduce((s, k) => s + k.ana.tir, 0) + ekTir) };
+}
+
+function geziHash() {
+  const H = GEZI.hedef;
+  return H ? `#plan/${H.id}/${GEZI.gun}/${GEZI.tempo}/${GEZI.gece}/${GEZI.zaman}${GEZI.zaman === "tarih" && GEZI.tarih ? "/" + GEZI.tarih : ""}` : "#plan";
+}
+function geziKayitlar() { try { return JSON.parse(localStorage.getItem("ormaio:planlar") || "[]"); } catch { return []; } }
+
+async function geziFormu(hedefId) {
+  if ($("#view-detay").hidden)
+    ONCEKI_SEKME = [...document.querySelectorAll("#nav button")].find(b => b.getAttribute("aria-pressed") === "true")?.dataset.v || "kesfet";
+  detayGoster(); window.scrollTo(0, 0);
+  await yerleriYukle(); const foto = await yerFotolari();
+  if (hedefId !== undefined) GEZI.hedef = hedefId ? YERLER.find(y => y.id === hedefId) || null : null;
+  history.replaceState(null, "", "#plan" + (GEZI.hedef ? "/" + GEZI.hedef.id : ""));
+  const H = GEZI.hedef, f = H && H.wd && foto[H.wd];
+  const oneriAd = ["Mount Rainier", "Mount Baker", "Mount Saint Helens", "Mount Adams", "Lake Chelan", "Mount Olympus"];
+  const oneriler = oneriAd.map(ad => YERLER.filter(y => y.ad === ad && "zg".includes(y.tur)).sort((a, b) => (b.p || 0) - (a.p || 0))[0]).filter(Boolean);
+  const kayit = geziKayitlar();
+  const cip = (on, attr, val, yazi) => `<button class="bg-cip ${on ? "on" : ""}" data-${attr}="${val}">${yazi}</button>`;
+  $("#detayout").innerHTML = `<div class="gz-ust"><button class="back" aria-label="Geri">&larr;</button><h1>Gezi planla</h1></div>
+    ${H ? `<section class="gz-hedef">${f ? `<img src="${esc(f[0])}" alt="${esc(H.ad)}">` : `<img src="${kareSvg(H.ad.length, 12)}" alt="">`}
+      <div class="gz-hedef-alt"><div><span class="gz-etiket">Nereye</span><b>${esc(H.ad)}</b>
+        <span>${YER_TUR[H.tur][0]} · ${esc(BUGUN.konum.ad)}'a ${Math.round(hav(BUGUN.konum.lat, BUGUN.konum.lon, H.lat, H.lon) / 1000)} km</span></div>
+        <button class="gz-degistir" id="gzDegistir">Değiştir</button></div></section>`
+    : `<section><h2 class="gz-h2">Nereye?</h2>
+      <div class="ara-kutu"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <label for="gzAra" class="gizli-etiket">Dağ, göl ya da parkur ara</label>
+        <input id="gzAra" type="search" placeholder="Dağ, göl ya da parkur (örn. Mount Rainier)" autocomplete="off"></div>
+      <div id="gzSonuc" class="ara-sonuc"></div>
+      <div class="gz-cipler">${oneriler.map(y => `<button class="bg-cip" data-gzhedef="${y.id}">${esc(y.ad)}</button>`).join("")}</div></section>`}
+    <section><h2 class="gz-h2">Kaç gün?</h2>
+      <div class="gz-seg">${[[1, "Günübirlik"], [2, "2 gün"], [3, "3 gün"], [4, "4 gün"]].map(([v, y]) => `<button data-gzgun="${v}" aria-pressed="${GEZI.gun === v}">${y}</button>`).join("")}</div></section>
+    <section><h2 class="gz-h2">Ne zaman?</h2>
+      <div class="gz-cipler">${cip(GEZI.zaman === "eniyi", "gzzaman", "eniyi", GEZI.gun === 1 ? "Havası en iyi gün" : `Havası en iyi ${GEZI.gun} gün`)}
+        ${cip(GEZI.zaman === "haftasonu", "gzzaman", "haftasonu", "Bu hafta sonu")}${cip(GEZI.zaman === "tarih", "gzzaman", "tarih", "Tarih seç")}</div>
+      ${GEZI.zaman === "tarih" ? `<label class="gz-tarih">Başlangıç günü <input type="date" id="gzTarih" value="${GEZI.tarih}" min="${new Date().toISOString().slice(0, 10)}"></label>` : ""}
+      <div id="gzHava" class="gz-hava"></div></section>
+    <section><h2 class="gz-h2">Tempo</h2>
+      <div class="gz-tempo">${Object.entries(TEMPO).map(([k, v]) => `<button data-gztempo="${k}" aria-pressed="${GEZI.tempo === k}"><b>${v.ad}</b><span>${v.alt}</span></button>`).join("")}</div></section>
+    ${GEZI.gun > 1 ? `<section><h2 class="gz-h2">Gece nerede?</h2>
+      <div class="gz-cipler">${cip(GEZI.gece === "kamp", "gzgece", "kamp", "Kamp")}${cip(GEZI.gece === "otel", "gzgece", "otel", "Otel / ev")}${cip(GEZI.gece === "hava", "gzgece", "hava", "Fark etmez, havaya göre")}</div></section>` : ""}
+    <div class="gz-cikis"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 0 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+      Çıkış: <b>${esc(BUGUN.konum.ad)}</b><button id="gzKonum">Konumumu kullan</button></div>
+    <button class="btn gz-cikar" id="gzCikar" ${H ? "" : "disabled"}>Planı çıkar</button>
+    <p class="gz-not">Gerçek parkur verisi, hava tahmini ve gün ışığıyla kurulur.</p>
+    ${kayit.length ? `<h2 class="sec">Kaydettiğin planlar</h2><div class="yd-yakin">${kayit.slice(0, 6).map(p => `<button class="ara-satir" data-gzkayit="${esc(p.hash)}">
+      <span class="ara-ikon" style="background:#1e3b2c"></span><span class="ara-yazi"><b>${esc(p.ad)}</b><span>${esc(p.alt)}</span></span></button>`).join("")}</div>` : ""}`;
+  $("#detayout .back").addEventListener("click", () => {
+    if (GEZI.geri) { const id = GEZI.geri; GEZI.geri = null; return yerDetay(id); }
+    history.replaceState(null, "", location.pathname); sekmeyeDon();
+  });
+  const yeniden = () => geziFormu();
+  document.querySelectorAll("[data-gzgun]").forEach(b => b.addEventListener("click", () => { GEZI.gun = +b.dataset.gzgun; yeniden(); }));
+  document.querySelectorAll("[data-gzzaman]").forEach(b => b.addEventListener("click", () => { GEZI.zaman = b.dataset.gzzaman; yeniden(); }));
+  document.querySelectorAll("[data-gztempo]").forEach(b => b.addEventListener("click", () => { GEZI.tempo = b.dataset.gztempo; yeniden(); }));
+  document.querySelectorAll("[data-gzgece]").forEach(b => b.addEventListener("click", () => { GEZI.gece = b.dataset.gzgece; yeniden(); }));
+  document.querySelectorAll("[data-gzhedef]").forEach(b => b.addEventListener("click", () => geziFormu(b.dataset.gzhedef)));
+  document.querySelectorAll("[data-gzkayit]").forEach(b => b.addEventListener("click", () => { history.replaceState(null, "", b.dataset.gzkayit); geziBaglantisi(); }));
+  const tr = $("#gzTarih"); if (tr) tr.addEventListener("change", () => { GEZI.tarih = tr.value; yeniden(); });
+  const dg = $("#gzDegistir"); if (dg) dg.addEventListener("click", () => geziFormu(null));
+  $("#gzKonum").addEventListener("click", (e) => {
+    if (!navigator.geolocation) return;
+    e.target.textContent = "Konum alınıyor…";
+    navigator.geolocation.getCurrentPosition(p => { BUGUN.konum = { lat: p.coords.latitude, lon: p.coords.longitude, ad: "Konumun" }; yeniden(); },
+      () => { e.target.textContent = "Konum alınamadı"; }, { timeout: 8000, maximumAge: 6e5 });
+  });
+  $("#gzCikar").addEventListener("click", () => { if (GEZI.hedef) { history.replaceState(null, "", geziHash()); geziSonuc(); } });
+  const ara = $("#gzAra");
+  if (ara) {
+    let zaman;
+    ara.addEventListener("input", () => {
+      clearTimeout(zaman);
+      zaman = setTimeout(() => {
+        const r = yerAra(ara.value, 8).filter(y => y.tur !== "p");
+        $("#gzSonuc").innerHTML = !ara.value.trim() ? "" : r.length ? r.map(y => `<button class="ara-satir" data-gzhedef="${y.id}">
+          <span class="ara-ikon" style="background:${YER_TUR[y.tur][1]}"></span><span class="ara-yazi"><b>${esc(y.ad)}</b><span>${yerAlt(y)} · ${Math.round(y.uzak)} km uzakta</span></span></button>`).join("")
+          : `<p class="sub" style="margin:8px 4px">Sonuç yok. Başka bir yazım dene.</p>`;
+        $("#gzSonuc").querySelectorAll("[data-gzhedef]").forEach(b => b.addEventListener("click", () => geziFormu(b.dataset.gzhedef)));
+      }, 150);
+    });
+  }
+  // hedefin 7 gunluk havasi, secilecek gunler isaretli
+  if (H) {
+    const kutu = $("#gzHava");
+    kutu.innerHTML = `<div class="skel" style="height:96px;border-radius:14px"></div>`;
+    try {
+      const HN = havaNoktasi(H), gl = await nwsGunluk(HN.lat, HN.lon);
+      if (GEZI.hedef !== H || !$("#gzHava")) return;
+      const s = geziGunSec(gl, GEZI.gun, GEZI.zaman, GEZI.tarih);
+      $("#gzHava").innerHTML = `<div class="gz-serit">${s.serit.map(x => `<div class="${x.secili ? "on" : ""}"><span>${gunKisa(x.d)}</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true">${havaIkon(x.hava)}</svg><b>${x.hava.c}°</b><small>${havaYazi(x.hava)}</small></div>`).join("")}</div>
+        <p class="gz-not" style="text-align:left">${esc(HN === H ? H.ad : HN.ad + " başlangıcı")} için NWS tahmini. ${s.neden ? esc(s.neden) : ""}</p>`;
+    } catch { const e = $("#gzHava"); if (e) e.innerHTML = `<p class="gz-not" style="text-align:left">Hava tahmini şu an alınamadı; plan mevsime göre kurulur.</p>`; }
+  }
+}
+
+async function geziSonuc() {
+  const H = GEZI.hedef; if (!H) return geziFormu();
+  detayGoster(); window.scrollTo(0, 0);
+  $("#detayout").innerHTML = `<div class="gz-ust"><button class="back" aria-label="Geri">&larr;</button><h1>${esc(H.ad)}</h1></div>
+    <p class="sub">Plan kuruluyor: parkurlar, hava tahmini, yol süreleri…</p>${iskeletKart()}${iskeletKart()}`;
+  $("#detayout .back").addEventListener("click", () => geziFormu());
+  let P;
+  try { P = await geziKur(); } catch (e) { console.error(e); P = null; }
+  if (GEZI.hedef !== H) return;
+  const foto = await yerFotolari(), f = H.wd && foto[H.wd];
+  if (!P || P.bos) {
+    $("#detayout").innerHTML = `<div class="gz-ust"><button class="back" aria-label="Geri">&larr;</button><h1>${esc(H.ad)}</h1></div>
+      <div class="empty">Bu çevrede ${kucukHarf(TEMPO[GEZI.tempo].ad)} tempoya uyan yürüyüş bulamadık. Tempoyu ya da yeri değiştirmeyi dene.</div>
+      ${P && P.elenen.length ? `<section class="bg-elenen"><h3>Plana almadıklarımız</h3><ul>${P.elenen.map(a => `<li><b>${esc(a.y.ad)}:</b> ${esc(a.neden)}</li>`).join("")}</ul></section>` : ""}`;
+    $("#detayout .back").addEventListener("click", () => geziFormu());
+    return;
+  }
+  const n = P.gunler.length, ilk = P.gunler[0].g.d, son = P.gunler[n - 1].g.d;
+  const tarihYazi = n === 1 ? gunUzun(ilk) : `${ilk.getDate()}${ilk.getMonth() === son.getMonth() ? "" : " " + AYLAR[ilk.getMonth()]}-${son.getDate()} ${AYLAR[son.getMonth()]}, ${gunKisa(ilk)}-${gunKisa(son)}`;
+  const tik = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>`;
+  const satir = (e, renk) => {
+    const zaman = `<span class="gz-saat${e.tur === "ana" ? " kalin" : ""}">${dkSaat(e.t)}</span>`;
+    if (e.tur === "cikis" || e.tur === "donus") return `<li class="gz-li">${zaman}<span class="gz-cizgi"><span class="gz-bos"></span>${e.tur === "cikis" ? `<span class="gz-hat kesik"></span>` : ""}</span>
+      <div class="gz-icerik"><b>${esc(e.ad)}</b><span>${esc(e.alt)}</span></div></li>`;
+    if (e.tur === "durak") return `<li class="gz-li">${zaman}<span class="gz-cizgi"><span class="gz-no" style="background:${renk}">${e.no}</span><span class="gz-hat" style="border-color:${renk}"></span></span>
+      <button class="gz-icerik gz-durak" data-yerid="${e.id}">${e.foto ? `<img src="${esc(e.foto[0])}" alt="">` : ""}<span><b>${esc(e.ad)}</b><span>${esc(e.alt)}</span></span></button></li>`;
+    if (e.tur === "kisa") return `<li class="gz-li">${zaman}<span class="gz-cizgi"><span class="gz-no" style="background:${renk}">${e.no}</span><span class="gz-hat" style="border-color:${renk}"></span></span>
+      <button class="gz-icerik gz-durak" data-yerid="${e.id}">${e.foto ? `<img src="${esc(e.foto[0])}" alt="">` : ""}<span><b>${esc(e.a.y.ad)}</b>
+        <span>Kısa yürüyüş · ${kmYaz(e.a.gd)} km ${e.a.y.h ? "halka" : "git-dön"} · ↑≈${e.a.tir} m · ≈${sureYazi(e.a.sure)}</span></span></button></li>`;
+    if (e.tur === "gece") return `<li class="gz-li">${zaman}<span class="gz-cizgi"><span class="gz-no gz-ay"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></span></span>
+      <div class="gz-icerik gz-gece"><b>${esc(e.ad)}</b><span>${esc(e.alt)}</span>
+        ${e.kamp ? `<p>Sezonu ve rezervasyonu kontrol et.</p><div class="gz-mini"><a class="btn" href="https://www.recreation.gov/search?q=${encodeURIComponent(e.kamp.ad)}" target="_blank" rel="noopener">Rezervasyon</a></div>`
+          : `${e.kampAlt ? `<p>Yine de kamp istersen: <b>${esc(e.kampAlt.ad)}</b>. Sezonu ve rezervasyonu kontrol et.</p>` : ""}
+          <div class="gz-mini"><a class="btn" href="https://www.google.com/maps/search/lodging/@${e.lat},${e.lon},11z" target="_blank" rel="noopener">Konaklama ara</a>
+          ${e.kampAlt ? `<a class="btn" href="https://www.recreation.gov/search?q=${encodeURIComponent(e.kampAlt.ad)}" target="_blank" rel="noopener">Kamp rezervasyonu</a>` : ""}</div>`}</div></li>`;
+    const a = e.a, yf = e.yolda.find(p => p.foto), fo = a.foto || (yf && yf.foto);   // parkurun fotografi yoksa uzerindeki gol/selalenin
+    return `<li class="gz-li">${zaman}<span class="gz-cizgi"><span class="gz-no" style="background:${renk}">${e.no}</span><span class="gz-hat" style="border-color:${renk}"></span></span>
+      <div class="gz-icerik"><article class="gz-ana" data-yerid="${a.y.id}" tabindex="0" role="link" aria-label="${esc(a.y.ad)} sayfasını aç">
+        <img src="${fo ? esc(fo[0]) : kareSvg(a.y.ad.length, 12)}" alt="${esc(a.y.ad)}">
+        <div class="gz-ana-govde"><div class="gz-ana-bas"><b>${esc(a.y.ad)}</b><span style="color:${renk}">ana yürüyüş</span></div>
+          <div class="gz-ana-say"><div><b>${kmYaz(a.gd)} km</b><span>${a.y.h ? "halka" : "git-dön"}</span></div><div><b>↑≈${a.tir} m</b><span>tırmanış</span></div>
+            <div><b>${(e.r && e.r.yuksek) || a.y.yk || "?"} m</b><span>en yüksek</span></div><div><b>≈${sureKisa(a.sure)}</b><span>süre</span></div></div>
+          ${e.uyari.map(u => `<div class="gz-uyari"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 17h.01"/></svg><span>${esc(u)}</span></div>`).join("")}
+          ${e.yolda.length ? `<div class="gz-yolda">${e.yolda.map(p => `${p.foto ? `<img src="${esc(p.foto[0])}" alt="">` : ""}`).join("")}<span>Yolun üstünde: <b>${e.yolda.map(p => esc(p.y.ad)).join(", ")}</b></span></div>` : ""}
+          ${fo ? `<small class="gz-kredi">${a.foto ? "" : `Fotoğraf: ${esc(yf.y.ad)} · `}Foto: ${esc(fo[1])} · ${esc(fo[2])}</small>` : ""}</div></article></div></li>`;
+  };
+  const gunHtml = P.gunler.map((x, i) => {
+    const renk = GUN_RENK[i % 4], h = x.g.hava;
+    const anaE = x.akis.find(e => e.tur === "ana");
+    const varis = `${anaE.a.y.lat},${anaE.a.y.lon}`;
+    const ara = x.akis.filter(e => e.tur === "durak" && e.t < anaE.t).map(e => `${e.lat},${e.lon}`);
+    const yol = `https://www.google.com/maps/dir/?api=1&destination=${varis}${ara.length ? "&waypoints=" + encodeURIComponent(ara.join("|")) : ""}`;
+    return `<section class="gz-gun"><div class="gz-gun-bas"><h2><span style="color:${renk}">${i + 1}. gün</span> · ${esc(anaE.a.y.ad)}</h2><span>${gunUzun(x.g.d)}</span></div>
+      <div class="bg-cipler">${h ? `<span class="gz-c">${havaYazi(h)[0].toLocaleUpperCase("tr-TR") + havaYazi(h).slice(1)}, en çok ${h.c}°C</span>` : `<span class="gz-c">Tahmin yok (7 günden uzak)</span>`}
+        <span class="gz-c">Gün batımı ${ss(x.batim)}</span></div>
+      <ol class="gz-akis">${x.akis.map(e => satir(e, renk)).join("")}</ol>
+      <a class="gz-yol" href="${yol}" target="_blank" rel="noopener">Bu günün yol tarifi &rarr;</a></section>`;
+  }).join("");
+  $("#detayout").innerHTML = `
+    <div class="dhero">${f ? `<img src="${esc(f[0])}" alt="${esc(H.ad)}">` : `<img src="${kareSvg(H.ad.length, 12)}" alt="">`}
+      <button class="back" aria-label="Geri">&larr;</button>
+      <div class="dhero-alt"><div class="dtarih">Gezi planı · ${tarihYazi}</div><h1>${esc(H.ad)}, ${n === 1 ? "günübirlik" : n + " gün"}</h1></div>
+      ${f ? `<a class="yd-kredi" href="${esc(f[3])}" target="_blank" rel="noopener">Foto: ${esc(f[1])} · ${esc(f[2])}</a>` : ""}</div>
+    <div class="dstats gz-3"><div><b>${kmYaz(P.km)} km</b><span>yürüyüş</span></div><div><b>≈${P.tir} m</b><span>tırmanış</span></div><div><b>≈${sureYazi(P.surusDk / 60)}</b><span>araba</span></div></div>
+    <section class="bg-ozet gz-neden"><h2>Neden böyle kurduk</h2><ul>${P.nedenler.map(t => `<li>${tik}<span>${esc(t)}</span></li>`).join("")}</ul></section>
+    <div class="kesif-harita" style="margin-top:16px"><div id="gzHarita" style="height:320px"></div></div>
+    <div class="gz-lejant">${P.gunler.map((x, i) => `<span><i style="background:${GUN_RENK[i % 4]}"></i>${i + 1}. gün</span>`).join("")}</div>
+    ${gunHtml}
+    ${P.elenen.length ? `<section class="bg-elenen"><h3>Plana almadıklarımız</h3><ul>${P.elenen.map(a => `<li><b>${esc(a.y.ad)}:</b> ${esc(a.neden)}</li>`).join("")}</ul></section>` : ""}
+    <div class="bg-dugmeler gz-alt"><button class="btn" id="gzKaydet">Planı kaydet</button><button class="btn primary" id="gzPaylas">Bağlantıyı kopyala</button></div>
+    <p class="bg-kaynak">Parkurlar: © OpenStreetMap katkıcıları (ODbL). Yükselti: AWS Terrain Tiles. Hava: NWS${P.gunluk ? "" : " (şu an alınamadı)"}. Araba süreleri ${P.osrm ? "OSRM yol verisinden" : "kuş uçuşu mesafeden"} hesaplanır, yaklaşıktır. Park yolları, geçitler ve kamp alanları mevsimlik kapanabilir; plan bunları henüz bilmiyor. Yola çıkmadan NPS ve WSDOT sayfalarını kontrol et.</p>`;
+  $("#detayout .back").addEventListener("click", () => geziFormu());
+  document.querySelectorAll("#detayout [data-yerid]").forEach(b => {
+    b.addEventListener("click", () => yerDetay(b.dataset.yerid));
+    b.addEventListener("keydown", e => { if (e.key === "Enter") yerDetay(b.dataset.yerid); });
+  });
+  $("#gzKaydet").addEventListener("click", (e) => {
+    const k = geziKayitlar().filter(p => p.hash !== geziHash());
+    k.unshift({ hash: geziHash(), ad: `${H.ad}, ${n === 1 ? "günübirlik" : n + " gün"}`, alt: `${tarihYazi} · ${TEMPO[GEZI.tempo].ad} tempo`, t: Date.now() });
+    try { localStorage.setItem("ormaio:planlar", JSON.stringify(k.slice(0, 20))); e.target.textContent = "Kaydedildi"; } catch { e.target.textContent = "Kaydedilemedi"; }
+  });
+  $("#gzPaylas").addEventListener("click", async (e) => {
+    const url = location.origin + location.pathname + geziHash();
+    try { await navigator.clipboard.writeText(url); e.target.textContent = "Bağlantı kopyalandı"; } catch { prompt("Bağlantı:", url); }
+  });
+  if (window.L) {
+    const BOS = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+    const m = L.map("gzHarita", { scrollWheelZoom: false });
+    L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
+      { maxZoom: 17, attribution: "Esri · © OpenStreetMap katkıcıları", errorTileUrl: BOS }).addTo(m);
+    const sinir = [];
+    P.gunler.forEach((x, i) => {
+      const renk = GUN_RENK[i % 4];
+      for (const e of x.akis) {
+        if (e.tur === "ana") {
+          if (e.r && e.r.cizgi) { const cz = L.polyline(e.r.cizgi.map(c => c.map(([lo, la]) => [la, lo])), { color: renk, weight: 4 }).addTo(m); sinir.push(...cz.getLatLngs().flat()); }
+          L.marker([e.a.y.lat, e.a.y.lon], { icon: L.divIcon({ className: "gz-pin", html: `<span style="background:${renk}">${e.no}</span>`, iconSize: [24, 24] }) }).addTo(m).bindTooltip(e.a.y.ad);
+          sinir.push(L.latLng(e.a.y.lat, e.a.y.lon));
+        } else if (e.tur === "durak" || e.tur === "kisa") {
+          L.marker([e.lat, e.lon], { icon: L.divIcon({ className: "gz-pin", html: `<span style="background:${renk}">${e.no}</span>`, iconSize: [24, 24] }) }).addTo(m).bindTooltip(e.ad || e.a.y.ad);
+          sinir.push(L.latLng(e.lat, e.lon));
+        } else if (e.tur === "gece" && e.kamp) {
+          L.circleMarker([e.lat, e.lon], { radius: 7, color: "#fff", weight: 2, fillColor: "#14170f", fillOpacity: 1 }).addTo(m).bindTooltip(e.kamp.ad);
+          sinir.push(L.latLng(e.lat, e.lon));
+        }
+      }
+    });
+    if (sinir.length) { const b = L.latLngBounds(sinir); m.fitBounds(b, { padding: [24, 24] }); setTimeout(() => { m.invalidateSize(); m.fitBounds(b, { padding: [24, 24] }); }, 250); }
+    else m.setView([H.lat, H.lon], 11);
+  }
+}
+async function geziBaglantisi() {
+  const m = /^#plan(?:\/([a-z0-9]+))?(?:\/([1-4])\/(rahat|orta|zorlu)\/(kamp|otel|hava)\/(eniyi|haftasonu|tarih)(?:\/(\d{4}-\d{2}-\d{2}))?)?$/.exec(location.hash || "");
+  if (!m) return false;
+  await yerleriYukle();
+  GEZI.hedef = m[1] ? YERLER.find(y => y.id === m[1]) || null : null;
+  if (m[2]) { GEZI.gun = +m[2]; GEZI.tempo = m[3]; GEZI.gece = m[4]; GEZI.zaman = m[5]; GEZI.tarih = m[6] || ""; }
+  if (m[2] && GEZI.hedef) { ONCEKI_SEKME = "kesfet"; geziSonuc(); } else geziFormu();
+  return true;
 }
 
 async function kesfetCiz() {
@@ -2050,7 +2661,7 @@ async function kesfetCiz() {
 let ONCEKI_SEKME = "akis";
 function detayGoster() {
   document.body.classList.remove("hero-ust", "ana-acik");
-  for (const v of ["akis","kesfet","gunlerim","harita","profil"]) $("#view-" + v).hidden = true;
+  for (const v of ["ana","akis","kesfet","gunlerim","harita","profil"]) $("#view-" + v).hidden = true;
   $("#view-detay").hidden = false;
 }
 function sekmeyeDon() {
@@ -3605,7 +4216,7 @@ if (SB) {
   SB.auth.getSession().then(({ data }) => {
     if (data.session) { girisSonrasi(data.session).then(() => { if (!/^#@/.test(location.hash) && !$("#view-gunlerim").hidden) $('#nav button[data-v="akis"]').click(); }); }
     else { ME = null; lsSet("me", null); ustBar(); if (!/^#@/.test(location.hash)) anaGoster(); }
-    profilBaglantisi(); yerBaglantisi();
+    profilBaglantisi(); yerBaglantisi(); geziBaglantisi();
   });
 } else {
   ME = ME || { name: "Misafir" };
