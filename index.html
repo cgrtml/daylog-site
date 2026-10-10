@@ -2835,7 +2835,7 @@ async function kesfetCiz() {
     else html += `<div class="ucards">${sirali.map(u => `
       <div class="ucard"><span class="avatar" data-profil="${u.id}" style="cursor:pointer">${esc((u.name || u.username || "g")[0])}</span>
         <div class="who" data-profil="${u.id}"><b>${esc(u.name || u.username)}${u.is_creator ? '<span class="badge">üretici</span>' : ""}</b>
-        <span>${takipciSay.get(u.id) || 0} takipçi</span></div>
+        <span>${girisli() ? `${takipciSay.get(u.id) || 0} takipçi` : (u.bio ? esc(u.bio).slice(0, 60) : "Gezgin")}</span></div>
         <button class="btn ${takipte(u.id) ? "" : "primary"}" data-takip="${u.id}">
           ${takipte(u.id) ? "Takiptesin" : "Takip et"}</button></div>`).join("")}</div>`;
     // populer yerler: her yer icin bir kapak + gun sayisi
@@ -2981,7 +2981,7 @@ function profilHtml(u, gunler, o) {
   for (const g of gunler) { const t = gunTurleri(g); turu.set(g.id, t); t.forEach(k => kat[k] = (kat[k] || 0) + 1); }
   const trips = gunler.map(t => ({ place: t.place, km: +t.km || 0, photos: t.photo_count || 0, lat: t.lat || 0, lon: t.lon || 0 }));
   const m = rozetMetrik(trips), kazanilan = ROZETLER.filter(r => r.test(m));
-  const satir = [u.username ? "@" + esc(u.username) : "", u.location ? esc(u.location) : "", `<b>${o.takipci || 0}</b> takipçi`].filter(Boolean).join(" · ");
+  const satir = [u.username ? "@" + esc(u.username) : "", u.location ? esc(u.location) : "", girisli() ? `<b>${o.takipci || 0}</b> takipçi` : ""].filter(Boolean).join(" · ");
   const web = u.website ? (/^https?:\/\//i.test(u.website) ? u.website : "https://" + u.website) : "";
   const aylar = new Map();
   for (const g of gunler) { const d = tarihOku(g.date), k = d.getFullYear() * 12 + d.getMonth(); if (!aylar.has(k)) aylar.set(k, { ad: `${AYLAR[d.getMonth()]} ${d.getFullYear()}`, gun: [] }); aylar.get(k).gun.push(g); }
