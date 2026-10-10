@@ -8,7 +8,7 @@ CC BY-SA görsellerin küçültülmüş kopyaları aynı lisansla paylaşılır.
 
 Harita ve yer verisi © OpenStreetMap katkıcıları, Open Database License (ODbL) ile: https://www.openstreetmap.org/copyright.
 Uygulamanın yayınladığı data/wa/ dosyaları bu verinin türevidir ve aynı ODbL lisansıyla sunulur.
-Yükselti: AWS Terrain Tiles (Mapzen). Hava: ABD Ulusal Hava Servisi (NWS), yedek Open-Meteo (CC BY 4.0).
+Harita karoları: USGS The National Map (USGSTopo, USGSImageryTopo), ABD hükümeti eseri, kamu malı. Yükselti: AWS Terrain Tiles (Mapzen). Hava: ABD Ulusal Hava Servisi (NWS), yedek Open-Meteo (CC BY 4.0).
 
 ## Tanıtım sayfası
 - **ana-hero-wa.jpg**: Colchuck Lake.jpg — Delaney Majors — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:Colchuck_Lake.jpg
