@@ -1,6 +1,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ormaio</title>
+<title>ormaio · Fotoğraflarından gezi günlüğü, Washington parkurları</title>
+<meta name="description" content="Fotoğraflarını bırak, gezi günün kendini yazsın. Washington'da bugün nereye gidileceğini hava ve gün ışığına göre önerir, birkaç günlük gezi planlar.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ormaio">
+<meta property="og:title" content="ormaio · Fotoğraflarından gezi günlüğü">
+<meta property="og:description" content="Fotoğrafların günlere dönüşür. Washington'da bugün nereye gideceğini ve gezini planlar.">
+<meta property="og:image" content="https://ormaio.com/og-ormaio.jpg">
+<meta property="og:url" content="https://ormaio.com/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://ormaio.com/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -367,6 +376,15 @@ body{overflow-x:hidden}
 .ana-adimlar span{font-family:var(--mono);font-size:.8rem;color:var(--blaze)}
 .ana-adimlar h3{margin:10px 0 0;font-size:1.3rem;font-weight:700;letter-spacing:-.025em}
 .ana-adimlar p{margin:8px 0 0;color:var(--ink2);font-size:.95rem;line-height:1.55}
+.ayar-liste{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.ayar-satir{display:flex;align-items:center;gap:12px;padding:14px 16px;border:0;border-top:1px solid var(--line);background:none;font:inherit;color:var(--ink);text-align:left;text-decoration:none;width:100%}
+.ayar-satir:first-child{border-top:0}.ayar-git{cursor:pointer;min-height:56px}.ayar-git:hover{background:var(--bg)}
+.ayar-yazi{flex:1;min-width:0}.ayar-yazi b{display:block;font-size:.95rem}.ayar-yazi span{display:block;font-size:.82rem;color:var(--mut);line-height:1.4;margin-top:2px}
+.ayar-satir .btn{flex:none;padding:9px 14px;font-size:.84rem}.ayar-satir>span[aria-hidden]{font-size:1.3rem;color:var(--mut)}
+.ayar-tehlike b{color:#9a3412}
+.dip-link{color:var(--pine);display:inline-block;padding:12px 6px;margin:-12px -6px}
+.brand{min-height:44px;display:inline-flex;align-items:center}
+body.ana-acik .ana-linkler a{display:inline-flex;align-items:center;min-height:44px}
 .ana-link{border:0;background:none;font:inherit;font-weight:600;color:var(--pine);cursor:pointer;min-height:44px}
 .ana-vitrin{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:26px}
 .ana-vitrin-kart{position:relative;height:300px;border-radius:22px;overflow:hidden;border:0;padding:0;cursor:pointer;background:var(--chipbg);text-align:left;font:inherit}
@@ -749,6 +767,7 @@ body.ana-acik .ust-menu{display:none}
 @media (max-width:700px){body.hero-ust .ana-hero-ic{padding-top:110px}}
 /* kisisel ana sayfa */
 .ev-hero{min-height:560px}
+@media (max-width:899px){.ev-hero{padding-bottom:88px}}
 .btn.ana-btn3{background:transparent;border-color:transparent;color:#faf8f3;padding:15px 12px;font-size:1rem}
 .btn.ana-btn3:hover{background:rgba(250,248,243,.12)}
 a.btn.ana-btn,a.btn.ana-btn2{text-decoration:none;display:inline-flex;align-items:center}
@@ -1074,7 +1093,7 @@ footer{color:var(--mut);font-size:.8rem;text-align:center;margin-top:40px;line-h
 
 <div id="view-gunlerim">
   <section class="og-giris" id="ogGiris">
-    <div class="og-hero"><img src="olustur-zion.jpg" alt="Zion kanyonu">
+    <div class="og-hero"><img src="olustur-wa.jpg" alt="Picture Lake'ten Mount Shuksan">
       <span class="og-logo" role="img" aria-label="ormaio">orma<svg class="logo-i" viewBox="24 3 50 94" aria-hidden="true" focusable="false"><path d="M31 90 L39.5 75.5 L47 61 L55 75 L62 90" stroke-width="12.5"/><path d="M47 61 L51.5 33" stroke-width="12.5"/><path d="M35.5 56 L42 46.5 L50 39 L57.5 47.5 L66 51.5" stroke-width="12.5"/><circle cx="53" cy="18" r="9.5"/></svg>o</span></div>
     <h1>Fotoğraflarını seç,<br>gezin kendini yazsın.</h1>
     <p class="og-alt">Not almana, rota kaydetmene gerek yok. Telefonundaki kareler yeterli.</p>
@@ -1098,7 +1117,7 @@ footer{color:var(--mut);font-size:.8rem;text-align:center;margin-top:40px;line-h
 <footer>ormaio çalışma prototipi. Fotoğraf işleme tamamen bu sayfanın içinde olur;
 kaydettiğin günlerin fotoğrafları konum bilgisi silinerek hesabının özel deposunda saklanır, kimin göreceğini sen seçersin.
 <br><span style="opacity:.8">Örnek gün fotoğrafları Wikimedia Commons katkıda bulunanlarındır (CC BY / CC BY-SA).
-<a href="/ATTRIBUTIONS.md" style="color:var(--pine)">Kaynaklar</a>.</span></footer>
+<a href="/ATTRIBUTIONS.md" class="dip-link">Kaynaklar</a>.</span></footer>
 </main>
 
 <div id="login" hidden>
@@ -1152,16 +1171,9 @@ const CITIES = [
  ["Albuquerque",35.08,-106.65],["Tucson",32.22,-110.97],["Sacramento",38.58,-121.49],
  ["Milwaukee",43.04,-87.91],["Hartford",41.76,-72.67],["Providence",41.82,-71.41],
  ["Albany",42.65,-73.75],["Knoxville",35.96,-83.92],["Asheville",35.60,-82.55],
- ["Gatlinburg",35.71,-83.51],
- ["Istanbul",41.01,28.98],["Ankara",39.93,32.86],["Izmir",38.42,27.14],
- ["Antalya",36.90,30.70],["Bursa",40.19,29.06],["Adana",37.00,35.32],
- ["Gaziantep",37.07,37.38],["Sanliurfa",37.17,38.79],["Mardin",37.31,40.74],
- ["Diyarbakir",37.91,40.24],["Adiyaman",37.76,38.28],["Nemrut Dagi",37.98,38.74],
- ["Malatya",38.35,38.31],["Kahramanmaras",37.58,36.93],["Antakya",36.20,36.16],
- ["Mersin",36.81,34.64],["Konya",37.87,32.48],["Nevsehir",38.62,34.71],
- ["Kayseri",38.72,35.49],["Samsun",41.29,36.33],["Trabzon",41.00,39.72],
- ["Erzurum",39.90,41.27],["Kars",40.60,43.10],["Van",38.49,43.38],
- ["Dogubayazit",39.55,44.08],["Batman",37.88,41.13],["Eskisehir",39.77,30.52]];
+ ["Gatlinburg",35.71,-83.51],["Tacoma",47.25,-122.44],["Bellevue",47.61,-122.20],["Everett",47.98,-122.20],["Olympia",47.04,-122.90],
+ ["Spokane",47.66,-117.43],["Bellingham",48.75,-122.48],["Wenatchee",47.42,-120.31],["Leavenworth",47.60,-120.66],
+ ["Yakima",46.60,-120.51],["Port Angeles",48.12,-123.43],["Vancouver WA",45.64,-122.66]];
 const AYLAR = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz",
                "Ağustos","Eylül","Ekim","Kasım","Aralık"];
 const $ = (s) => document.querySelector(s);
@@ -1298,7 +1310,7 @@ if (ENV && !window.supabase) {
 }
 
 /* ---------- me, follows, wishlist, archives ---------- */
-let PROF_ALAN = "username,name,is_creator,avatar_url";  // avatar_url yoksa asagida duser
+let PROF_ALAN = "username,name,is_creator,avatar_url,tagline";  // avatar_url yoksa asagida duser
 let ME = ls("me", null);          // {id?, name} ; id varsa gercek hesap
 let SRV_FOLLOWS = [];             // sunucu kipinde takip edilen profil id'leri
 
@@ -1321,12 +1333,30 @@ async function srvGunYaz(g) {
   if (error) { console.warn("gun yazma:", error.message); return null; }
   return data;
 }
+// Ev konumu (cihazda saklanir): paylasilan gunlerde eve 800 m'den yakin duraklarin koordinati silinir
+function evKonum() { try { const e = JSON.parse(localStorage.getItem("ormaio:ev") || "null"); return e && isFinite(e.lat) ? e : null; } catch { return null; } }
+const evYakin = (lat, lon) => { const e = evKonum(); return !!(e && lat != null && lon != null && hav(e.lat, e.lon, lat, lon) < 800); };
+async function gunuEvdenArindir(dayId) {
+  if (!SB || !dayId || !evKonum()) return;
+  const { data: d } = await SB.from("days").select("privacy,timeline,lat,lon").eq("id", dayId).single();
+  if (!d || d.privacy === "ozel") return;
+  let degisti = false;
+  const tl = (d.timeline || []).map(t => { if (t.type === "stop" && evYakin(t.lat, t.lon)) { degisti = true; return { ...t, lat: null, lon: null, evGizli: true }; } return t; });
+  const kalan = tl.find(t => t.type === "stop" && t.lat != null);
+  const ust = evYakin(d.lat, d.lon) ? (kalan ? { lat: kalan.lat, lon: kalan.lon } : { lat: 0, lon: 0 }) : null;
+  if (!degisti && !ust) return;
+  await SB.from("days").update({ timeline: tl, ...(ust || {}), ...(kalan ? {} : { has_gps: false }) }).eq("id", dayId);
+}
 async function srvPriv(date, place, priv) {
   if (!SB || !ME || !ME.id) return;
   await SB.from("days").update({ privacy: priv })
     .eq("user_id", ME.id).eq("date", date).eq("place", place);
   // herkes / arkadaslar yapildiysa, o gunun fotograflarini sunucuya yukle
-  if (priv !== "ozel") fotograflariYukle(date, place);
+  if (priv !== "ozel") {
+    await fotograflariYukle(date, place);
+    const { data: g } = await SB.from("days").select("id").eq("user_id", ME.id).eq("date", date).eq("place", place).limit(1);
+    if (g && g[0]) await gunuEvdenArindir(g[0].id);
+  }
 }
 
 // yuklenen gunun File nesneleri DB.byDate'te durur; gun id'sini sunucudan al
@@ -1361,6 +1391,7 @@ async function fotograflariYukle(date, place) {
         paths: t.photos.map(p => p.storagePath).filter(Boolean) });
   await SB.from("days").update({ cover_path: coverPath, timeline })
     .eq("id", gun.id);
+  await gunuEvdenArindir(gun.id);
   console.log(`${yuklenen} fotograf yuklendi`);
 }
 
@@ -1465,18 +1496,18 @@ function kareSvg(seed, hour) {
 
 /* ---------- example social content (fictional, design-time data) ---------- */
 const USERS = [
-  {id: "deniz", ad: "Deniz K.", rol: "Gezgin", seed: 3, gun: {
-    yer: "Kackar Daglari", tarih: "27 Eylul", km: 14.2, durak: 4, foto: 86, saat: 17,
-    duraklar: ["Olgunlar", "Dilberduzu Kampi", "Deniz Golu"]}},
-  {id: "mert", ad: "Mert A.", rol: "İçerik üretici · 12,4B takipçi", seed: 7, gun: {
-    yer: "Likya Yolu", tarih: "3 Ekim", km: 19.0, durak: 5, foto: 64, saat: 12,
-    duraklar: ["Oludeniz", "Kabak Koyu", "Faralya"]}},
-  {id: "selin", ad: "Selin Y.", rol: "İçerik üretici · 31B takipçi", seed: 11, gun: {
-    yer: "Kapadokya", tarih: "28 Eylul", km: 6.8, durak: 3, foto: 112, saat: 18,
-    duraklar: ["Kizilcukur Vadisi", "Cavusin", "Gunbatimi Tepesi"]}},
-  {id: "arda", ad: "Arda T.", rol: "Gezgin", seed: 5, gun: {
-    yer: "Mount Rainier", tarih: "14 Ağustos", km: 8.8, durak: 6, foto: 51, saat: 11,
-    duraklar: ["Myrtle Falls", "Panorama Point", "Sluiskin Falls"]}},
+  {id: "maya", ad: "Maya C.", rol: "Örnek hesap", seed: 3, gun: {
+    yer: "Rattlesnake Ledge", tarih: "5 Ekim", km: 6.4, durak: 2, foto: 2, saat: 9,
+    duraklar: ["Rattlesnake Lake", "Rattlesnake Ledge"]}},
+  {id: "jordan", ad: "Jordan R.", rol: "Örnek hesap", seed: 7, gun: {
+    yer: "Mount Rainier · Paradise", tarih: "4 Ekim", km: 9.4, durak: 4, foto: 4, saat: 9,
+    duraklar: ["Christine Falls", "Narada Falls", "Myrtle Falls"]}},
+  {id: "priya", ad: "Priya N.", rol: "Örnek hesap", seed: 11, gun: {
+    yer: "North Cascades · Diablo Lake", tarih: "28 Eylül", km: 7.6, durak: 4, foto: 4, saat: 9,
+    duraklar: ["Gorge Lake", "Diablo Lake", "Ross Lake"]}},
+  {id: "sam", ad: "Sam W.", rol: "Örnek hesap", seed: 5, gun: {
+    yer: "Lake Crescent ve Marymere Falls", tarih: "21 Eylül", km: 8.3, durak: 3, foto: 3, saat: 9,
+    duraklar: ["Lake Crescent", "Marymere Falls", "Mount Storm King"]}},
 ];
 
 function feedKart(u) {
@@ -1621,7 +1652,7 @@ const TRASH = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
 function gunFeedKart(d) {
   const p = d.profiles || {};
   const ad = p.name || p.username || "gezgin";
-  const rol = p.is_creator ? "İçerik üretici" : "Gezgin";
+  const rol = p.tagline === "Örnek hesap" ? "Örnek hesap" : p.is_creator ? "İçerik üretici" : "Gezgin";
   const stoplar = (d.timeline || []).filter(t => t.type === "stop");
   const dd = new Date(d.date);
   const seed = [...String(d.id)].reduce((a, c) => a + c.charCodeAt(0), 0) % 97;
@@ -1688,7 +1719,7 @@ function evHeroHtml() {
   const ad = ((ME && ME.name) || "").split(" ")[0];
   const tarih = new Date().toLocaleDateString("tr-TR", { day: "numeric", month: "long" }).toLocaleUpperCase("tr-TR");
   return `<section class="ana-hero ev-hero">
-    <img src="ana-hero.jpg" alt="" class="ana-hero-img" id="evHeroImg">
+    <img src="ana-hero-wa.jpg" alt="" class="ana-hero-img" id="evHeroImg">
     <div class="ana-hero-ic">
       <div class="ana-sol">
         <div class="ana-koord" id="evUst">BUGÜN · ${tarih}</div>
@@ -1750,7 +1781,9 @@ async function evDoldur() {
   const diger = yakin ? h.uygun.slice(1, 3) : [];
   const { data: w } = await SB.from("wishlist").select("place").eq("user_id", ME.id).limit(5);
   const { data: ps } = await SB.from("profiles").select("id,name,username,avatar_url").neq("id", ME.id).limit(20);
-  const oner = (ps || []).filter(p => !takipte(p.id) && !ENGELLI.has(p.id)).slice(0, 3);
+  const { data: aktif } = await SB.from("days").select("user_id").eq("privacy", "herkes").limit(500);
+  const gunuOlan = new Set((aktif || []).map(x => x.user_id));
+  const oner = (ps || []).filter(p => !takipte(p.id) && !ENGELLI.has(p.id) && gunuOlan.has(p.id)).slice(0, 3);
   yan.innerHTML = `
     ${diger.length ? `<section class="ev-yan-kart koyu"><b>${h.plan.yarin ? "Yarın" : "Bugün"} için diğer öneriler</b>${diger.map(r => `
       <button class="ev-oneri" ${r.yerId ? `data-yerid="${r.yerId}"` : `data-evgit="kesfet"`}><img src="${r.t.photo || kareSvg(r.t.name.length, 12)}" alt="">
@@ -1786,7 +1819,7 @@ async function akisCiz() {
     };
     let { data: ds, error } = await feedSorgu(true);
     // bulut semasi henuz guncellenmemisse (review_status yok) filtresiz tekrar dene
-    if (error && /avatar_url/i.test(error.message || "")) { PROF_ALAN = "username,name,is_creator"; ({ data: ds, error } = await feedSorgu(true)); }
+    if (error && /avatar_url|tagline/i.test(error.message || "")) { PROF_ALAN = "username,name,is_creator"; ({ data: ds, error } = await feedSorgu(true)); }
     if (error && /review_status/i.test(error.message || "")) ({ data: ds, error } = await feedSorgu(false));
     if (!error) ds = (ds || []).filter(d => gorunur(d.user_id, d.id));
     if (error) html += `<p class="err">Akış yüklenemedi: ${esc(error.message)}</p>`;
@@ -2786,7 +2819,9 @@ async function kesfetCiz() {
     const { data: fol } = await SB.from("follows").select("followee");
     const takipciSay = new Map();
     for (const f of fol || []) takipciSay.set(f.followee, (takipciSay.get(f.followee) || 0) + 1);
-    const sirali = (ps || []).filter(p => !ENGELLI.has(p.id)).sort((a, b) => (takipciSay.get(b.id) || 0) - (takipciSay.get(a.id) || 0));
+    const { data: aktif } = await SB.from("days").select("user_id").eq("privacy", "herkes").limit(500);
+    const gunuOlan = new Set((aktif || []).map(x => x.user_id));
+    const sirali = (ps || []).filter(p => !ENGELLI.has(p.id) && gunuOlan.has(p.id)).sort((a, b) => (takipciSay.get(b.id) || 0) - (takipciSay.get(a.id) || 0));
     html += `<h2 class="sec">Öne çıkan gezginler</h2>`;
     if (!sirali.length) html += `<div class="empty">Senden başka kayıtlı gezgin yok.</div>`;
     else html += `<div class="ucards">${sirali.map(u => `
@@ -2817,9 +2852,8 @@ async function kesfetCiz() {
     return;
   }
   const yerler = [
-    ["Kackar Daglari", "4 gezgin bu ay"], ["Likya Yolu", "9 gezgin bu ay"],
-    ["Kapadokya", "14 gezgin bu ay"], ["Gobeklitepe", "6 gezgin bu ay"],
-    ["Nemrut Dağı", "3 gezgin bu ay"], ["Mount Rainier", "2 gezgin bu ay"]];
+    ["Mount Rainier", "örnek"], ["North Cascades", "örnek"], ["Olympic", "örnek"],
+    ["Mount Baker", "örnek"], ["Colchuck Lake", "örnek"], ["Palouse Falls", "örnek"]];
   $("#view-kesfet").innerHTML = `<h1>Keşfet</h1>
     <div class="sub">Öne çıkan gezginler ve yerler. <span class="sample-flag">örnek içerik &middot; sunucu bağlı değil</span></div>
     <h2 class="sec">Gezginler</h2>
@@ -2897,8 +2931,9 @@ function avatarHtml(u, cls = "", ek = "") {
 }
 function ulkeAdi(t) {
   if (!t.lat && !t.lon) return null;
+  if (t.lat > 18 && t.lat < 72 && t.lon > -170 && t.lon < -66) return "ABD";
   if (!yurtDisiMi(t)) return "Türkiye";
-  return t.lon < -50 ? "ABD" : "Yurt dışı";
+  return "Diğer ülke";
 }
 function onceYazi(iso) {
   const n = Math.max(0, Math.round((Date.now() - new Date(iso)) / 864e5));
@@ -2985,7 +3020,18 @@ function profilHtml(u, gunler, o) {
     ${gunler.length ? `<details class="p3-gizlilik"><summary>Günlerinin gizliliği</summary>${gunler.map(g => `<div class="ucard" style="margin-bottom:8px"><div class="who"><b>${esc(g.place)}</b>
       <span>${new Date(g.date).getDate()} ${AYLAR[new Date(g.date).getMonth()]}</span></div>${["ozel", "arkadaslar", "herkes"].map(pr => `
       <button class="privchip" aria-pressed="${g.privacy === pr}" data-pid="${g.id}" data-ppr="${pr}">${PRIV_AD[pr]}</button>`).join("")}</div>`).join("")}
-      <p class="privline">Değerlendirmelerin her zaman herkese açıktır; yalnızca fotoğraf ve gün detayları gizliliğe göre görünür.</p></details>` : ""}` : ""}`;
+      <p class="privline">Değerlendirmelerin her zaman herkese açıktır; yalnızca fotoğraf ve gün detayları gizliliğe göre görünür.</p></details>` : ""}
+  <h2 class="sec" id="ayarlar">Ayarlar</h2>
+  <div class="ayar-liste">
+    <div class="ayar-satir"><span class="ayar-yazi"><b>Fotoğraf tanıma ${aiFotoAcik() ? "açık" : "kapalı"}</b><span>Açıkken gün oluştururken ilk 3 kare küçültülüp tanıma servisine gider; aktiviteyi ve yeri önerir. Kaydedilmez.</span></span>
+      <button class="btn" data-ayar="aifoto">${aiFotoAcik() ? "Kapat" : "Aç"}</button></div>
+    <div class="ayar-satir"><span class="ayar-yazi"><b>Ev konumunu gizle ${evKonum() ? "açık" : "kapalı"}</b><span>${evKonum() ? "Paylaştığın günlerde evine 800 m'den yakın duraklar haritada gösterilmez." : "Evini ayarlarsan, paylaştığın günlerde evine 800 m'den yakın duraklar haritada gösterilmez."} Konum yalnızca bu cihazda saklanır.</span></span>
+      <button class="btn" data-ayar="ev">${evKonum() ? "Kaldır" : "Şu anki konumum ev"}</button></div>
+    <button class="ayar-satir ayar-git" data-ayar="duzenle"><span class="ayar-yazi"><b>Profili düzenle</b><span>Ad, kullanıcı adı, biyografi, fotoğraf</span></span><span aria-hidden="true">&rsaquo;</span></button>
+    <a class="ayar-satir ayar-git" href="/ATTRIBUTIONS.md"><span class="ayar-yazi"><b>Kaynaklar ve lisanslar</b><span>Fotoğraf, harita ve veri kaynakları</span></span><span aria-hidden="true">&rsaquo;</span></a>
+    <button class="ayar-satir ayar-git" data-ayar="cikis"><span class="ayar-yazi"><b>Çıkış yap</b></span><span aria-hidden="true">&rsaquo;</span></button>
+    <button class="ayar-satir ayar-git ayar-tehlike" data-ayar="sil"><span class="ayar-yazi"><b>Hesabımı sil</b><span>Bütün günlerin, fotoğrafların ve profilin kalıcı olarak silinir.</span></span><span aria-hidden="true">&rsaquo;</span></button>
+  </div>` : ""}`;
 }
 function profilBagla(kok, u, gunler, o) {
   const q = (s) => kok.querySelector(s), qa = (s) => kok.querySelectorAll(s);
@@ -3019,8 +3065,22 @@ function profilBagla(kok, u, gunler, o) {
     else { const w = ls("wishlist", []).filter(x => x.place !== b.dataset.wdel); lsSet("wishlist", w); }
     profilCiz();
   }));
+  qa("[data-ayar]").forEach(b => b.addEventListener("click", async () => {
+    const a = b.dataset.ayar;
+    if (a === "aifoto") { aiFotoAyarla(!aiFotoAcik()); profilCiz(); }
+    else if (a === "ev") {
+      if (evKonum()) { try { localStorage.removeItem("ormaio:ev"); } catch {} profilCiz(); return; }
+      if (!navigator.geolocation) return;
+      b.textContent = "Konum alınıyor…"; b.disabled = true;
+      navigator.geolocation.getCurrentPosition(p => { try { localStorage.setItem("ormaio:ev", JSON.stringify({ lat: +p.coords.latitude.toFixed(5), lon: +p.coords.longitude.toFixed(5) })); } catch {} profilCiz(); },
+        () => { b.textContent = "Konum izni verilmedi"; b.disabled = false; }, { timeout: 10000, maximumAge: 6e5 });
+    }
+    else if (a === "duzenle") profilDuzenle();
+    else if (a === "cikis") { if (SB) await SB.auth.signOut(); localStorage.removeItem("me"); location.reload(); }
+    else if (a === "sil") { await profilDuzenle(); const k = $(".pe-sil"); if (k) { k.scrollIntoView({ block: "center" }); $("#peSilOnay").focus(); } }
+  }));
   qa(".privchip").forEach(b => b.addEventListener("click", async () => {
-    if (SB) await SB.from("days").update({ privacy: b.dataset.ppr }).eq("id", b.dataset.pid);
+    if (SB) { await SB.from("days").update({ privacy: b.dataset.ppr }).eq("id", b.dataset.pid); if (b.dataset.ppr !== "ozel") await gunuEvdenArindir(b.dataset.pid); }
     profilCiz();
   }));
   qa("[data-modgor]").forEach(b => b.addEventListener("click", () => gunGoster(b.dataset.modgor)));
@@ -3280,7 +3340,7 @@ async function gunGoster(dayId) {
   $("#detayout").innerHTML = `<button class="back">&larr; Geri</button>${iskeletKart()}`;
   $("#detayout .back").addEventListener("click", sekmeyeDon);
   let { data: d, error: dErr } = await SB.from("days").select(`*, profiles!days_user_id_fkey(${PROF_ALAN})`).eq("id", dayId).single();
-  if (dErr && /avatar_url/i.test(dErr.message || "")) { PROF_ALAN = "username,name,is_creator"; ({ data: d } = await SB.from("days").select(`*, profiles!days_user_id_fkey(${PROF_ALAN})`).eq("id", dayId).single()); }
+  if (dErr && /avatar_url|tagline/i.test(dErr.message || "")) { PROF_ALAN = "username,name,is_creator"; ({ data: d } = await SB.from("days").select(`*, profiles!days_user_id_fkey(${PROF_ALAN})`).eq("id", dayId).single()); }
   if (!d) { $("#detayout").innerHTML = `<button class="back">&larr; Geri</button><div class="empty">Gün bulunamadı.</div>`;
     $("#detayout .back").addEventListener("click", sekmeyeDon); return; }
   const dd = new Date(d.date);
@@ -3322,7 +3382,7 @@ async function gunGoster(dayId) {
     <a class="dyerlink" data-yer="${esc(d.place)}">Yer sayfasına git &rarr;</a>
     <div class="dstats">
       <div><b>${String(d.km).replace(".", ",")} km</b><span>Mesafe</span></div>
-      <div><b>${sure || d.stop_count}</b><span>${sure ? "Saat" : "Durak"}</span></div>
+      <div><b>${sure || d.stop_count}</b><span>${sure ? "Süre" : "Durak"}</span></div>
       <div><b>${d.photo_count}</b><span>Fotoğraf</span></div>
       <div><b>${d.like_count || 0}</b><span>Beğeni</span></div></div>
     <div class="actions">
@@ -4115,6 +4175,7 @@ async function elleKaydet() {
     const timeline = stops.map(s => ({ type: "stop", name: s.name, foto: (noktaPaths[s.name] || []).length,
       lat: s.lat ?? merkez[0], lon: s.lon ?? merkez[1], paths: noktaPaths[s.name] || [] }));
     await SB.from("days").update({ cover_path: coverPath, timeline }).eq("id", gun.id);
+    if (ELLE.priv !== "ozel") await gunuEvdenArindir(gun.id);
     // ADIM 4: embedding korpusu. Kapak vektoru saklanir (ayni-yer tespiti/kumeleme
     // bunun uzerine kurulur). Anahtar yoksa atlanir; kayit zaten tamam, bloklamaz.
     // Ozel gunlerden kayit sonrasi AI'ya kare gitmez; paylasilan gunde benzerlik vektoru yalnizca tanima aciksa
@@ -4159,10 +4220,10 @@ function ornekGun() {
 }
 
 /* ---------- passport / badges ---------- */
-const US_PARKLAR = ["Rainier", "Yosemite", "Zion", "Olympic", "Grand Canyon", "Shenandoah", "Acadia"];
+const US_PARKLAR = ["Rainier", "North Cascades", "Olympic", "Mount St. Helens", "Yosemite", "Zion", "Grand Canyon"];
 function parkMi(place) {
   return /national park|milli park/i.test(place) || US_PARKLAR.some(p => place.includes(p))
-    || /Nemrut|Gobeklitepe|Kackar/i.test(place);
+    || /Paradise|Diablo Lake|Hurricane|Sol Duc|Lake Crescent|Mowich|Tolmie/i.test(place);
 }
 function yurtDisiMi(t) {
   // kabaca: TR kutusu disindaki noktalar
@@ -4266,10 +4327,10 @@ async function anaCiz() {
   const el = $("#view-ana");
   el.innerHTML = `
   <section class="ana-hero">
-    <img src="ana-hero.jpg" alt="Glacier Point'ten Yosemite vadisi" class="ana-hero-img">
+    <img src="ana-hero-wa.jpg" alt="Enchantments'ta Colchuck Lake ve granit zirveler" class="ana-hero-img">
     <div class="ana-hero-ic">
       <div class="ana-sol">
-        <div class="ana-koord">37°43′K 119°34′B · GLACIER POINT</div>
+        <div class="ana-koord">47°29′K 120°50′B · COLCHUCK LAKE, WA</div>
         <h1>Fotoğrafların, gezinin hikâyesini kendi yazsın.</h1>
         <p>Kareleri bırak. Duraklar, rota, mesafe ve süre saniyeler içinde bir güne dönüşür. Yazmak yok, kayıt tuşu yok.</p>
         <div class="ana-cta">
@@ -4278,10 +4339,10 @@ async function anaCiz() {
         </div>
       </div>
       <div class="ana-kart" aria-label="Örnek gün">
-        <div class="ana-kart-ust"><img src="ana-zion.jpg" alt="Zion">
-          <div><div class="ana-mono">19 TEM · 71 FOTOĞRAFTAN</div><b>Zion</b></div></div>
-        <div class="ana-kart-say"><div><span>Mesafe</span><b>13 km</b></div><div><span>Durak</span><b>4</b></div><div><span>Süre</span><b>6:40</b></div></div>
-        <ol class="ana-kart-durak"><li>Angels Landing</li><li>The Narrows</li><li>Emerald Pools</li></ol>
+        <div class="ana-kart-ust"><img src="ana-kart-wa.jpg" alt="Göle yansıyan Mount Rainier">
+          <div><div class="ana-mono">4 EKİ · 4 FOTOĞRAFTAN</div><b>Mount Rainier</b></div></div>
+        <div class="ana-kart-say"><div><span>Mesafe</span><b>9,4 km</b></div><div><span>Durak</span><b>4</b></div><div><span>Süre</span><b>2:45</b></div></div>
+        <ol class="ana-kart-durak"><li>Christine Falls</li><li>Narada Falls</li><li>Myrtle Falls</li></ol>
       </div>
     </div>
   </section>
@@ -4320,10 +4381,10 @@ async function anaCiz() {
   $("#anaAkis").addEventListener("click", akisaGit);
   // vitrin: gercek (Wikimedia Commons) fotografli dort yer; tiklayinca o yerin herkese acik gunu acilir
   const VITRIN = [
-    { yer: "Ölüdeniz", db: "Oludeniz", kim: "MERT AYDIN", km: "4,3", foto: "vitrin-oludeniz.jpg" },
-    { yer: "Nemrut Dağı", db: "Nemrut Dagi", kim: "ECE DEMİR", km: "3,2", foto: "vitrin-nemrut.jpg" },
-    { yer: "Ihlara Vadisi", db: "Ihlara Vadisi", kim: "SELİN YILMAZ", km: "9,4", foto: "vitrin-ihlara.jpg" },
-    { yer: "Mount Rainier", db: "Mount Rainier", kim: "ARDA TOPRAK", km: "8,8", foto: "vitrin-rainier.jpg" }];
+    { yer: "Mount Rainier · Paradise", db: "Mount Rainier · Paradise", kim: "JORDAN REYES", km: "9,4", foto: "vitrin-paradise.jpg" },
+    { yer: "Diablo Lake", db: "North Cascades · Diablo Lake", kim: "PRIYA NAIR", km: "7,6", foto: "vitrin-diablo.jpg" },
+    { yer: "Lake Crescent", db: "Lake Crescent ve Marymere Falls", kim: "SAM WHITAKER", km: "8,3", foto: "vitrin-crescent.jpg" },
+    { yer: "Colchuck Lake", db: "Colchuck Lake", kim: "DIEGO MORALES", km: "13,4", foto: "vitrin-colchuck.jpg" }];
   $("#anaVitrin").innerHTML = VITRIN.map(v => `
     <button class="ana-vitrin-kart" data-vyer="${esc(v.db)}"><img src="${v.foto}" alt="${esc(v.yer)}">
       <span class="ana-vitrin-alt"><span class="ana-mono">${v.kim} · ${v.km} KM</span><b>${esc(v.yer)}</b></span></button>`).join("");
@@ -4415,6 +4476,7 @@ function ustBar() {
           <div class="um-who"><b>${esc(ME.name)}</b>${ME.username ? `<span>@${esc(ME.username)}</span>` : ""}</div></div>
         <button class="um-item" data-um="ana"><svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg>Ana sayfa</button>
         <button class="um-item" data-um="profil"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg>Profilim</button>
+        <button class="um-item" data-um="ayarlar"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3.9a7 7 0 0 0-2-1.2L14.3 3h-4l-.4 2.6a7 7 0 0 0-2 1.2l-2.3-.9-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-.9a7 7 0 0 0 2 1.2l.4 2.6h4l.4-2.6a7 7 0 0 0 2-1.2l2.3.9 2-3.4-2-1.5c.1-.4.1-.8.1-1.2z"/></svg>Ayarlar</button>
         <button class="um-item" data-um="gunlerim"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>Gün ekle</button>
         <div class="um-sep"></div>
         <button class="um-item um-cikis" data-um="cikis"><svg viewBox="0 0 24 24"><path d="M14 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-2M10 12h10M17 9l3 3-3 3"/></svg>Çıkış yap</button>
@@ -4429,6 +4491,7 @@ function ustBar() {
       const v = it.dataset.um;
       if (v === "cikis") { if (SB) await SB.auth.signOut(); localStorage.removeItem("me"); location.reload(); }
       else if (v === "ana") { anaGoster(); window.scrollTo(0, 0); }
+      else if (v === "ayarlar") { $('#nav button[data-v="profil"]').click(); const bekle = (n) => { const a = $("#ayarlar"); if (a) a.scrollIntoView({ block: "start" }); else if (n) setTimeout(() => bekle(n - 1), 300); }; bekle(15); }
       else { const nb = document.querySelector(`#nav button[data-v="${v}"]`); if (nb) nb.click(); }
     }));
   } else {

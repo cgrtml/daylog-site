@@ -1,84 +1,82 @@
-# ormaio demo fotograf kaynaklari
+# ormaio fotoğraf ve veri kaynakları
 
-Bu uygulamadaki ornek (demo) gun kapaklari ve durak fotograflari, Wikimedia Commons'tan alinan
-gercek, serbest lisansli fotograflardir. Asagida her yer icin fotograf, fotografci ve lisans bilgisi verilmistir.
-Lisanslar CC BY / CC BY-SA kapsaminda olup atif (attribution) gerektirir.
+ormaio'daki örnek (demo) günlerin fotoğrafları, tanıtım sayfası görselleri ve parkur fotoğrafları Wikimedia Commons'tan alınan
+serbest lisanslı fotoğraflardır. Aşağıda her fotoğrafın yazarı ve lisansı verilmiştir. CC BY ve CC BY-SA lisansları atıf gerektirir;
+CC BY-SA görsellerin küçültülmüş kopyaları aynı lisansla paylaşılır.
 
-## Kackar Daglari
-- **Kaçkar Dağları - Yedigöller - 1.jpg** — Tohnjitor — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:Ka%C3%A7kar_Da%C4%9Flar%C4%B1_-_Yedig%C3%B6ller_-_1.jpg
-- **Kaçkar Dağları - Yedigöller - 2.jpg** — Tohnjitor — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:Ka%C3%A7kar_Da%C4%9Flar%C4%B1_-_Yedig%C3%B6ller_-_2.jpg
-- **Kaçkar mountains.JPG** — Ouitos — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Ka%C3%A7kar_mountains.JPG
-- **Kaçkar Dağları - Yedigöller.jpg** — Tohnjitor — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:Ka%C3%A7kar_Da%C4%9Flar%C4%B1_-_Yedig%C3%B6ller.jpg
+Örnek günler, uygulamanın nasıl göründüğünü göstermek için hazırlanmış "Örnek hesap" profillerine aittir; gerçek kullanıcı paylaşımı değildir.
 
-## Ayder Yaylasi
-- **Rize, Ayder Yaylası.jpg** — Phoenix2351 — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:Rize,_Ayder_Yaylas%C4%B1.jpg
-- **Ayder, August 2019 (3).jpg** — BSRF — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:Ayder,_August_2019_(3).jpg
-- **Ayder, August 2019 (1).jpg** — BSRF — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:Ayder,_August_2019_(1).jpg
-- **Ayder, August 2019 (2).jpg** — BSRF — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:Ayder,_August_2019_(2).jpg
+Harita ve yer verisi © OpenStreetMap katkıcıları, Open Database License (ODbL) ile: https://www.openstreetmap.org/copyright.
+Uygulamanın yayınladığı data/wa/ dosyaları bu verinin türevidir ve aynı ODbL lisansıyla sunulur.
+Yükselti: AWS Terrain Tiles (Mapzen). Hava: ABD Ulusal Hava Servisi (NWS), yedek Open-Meteo (CC BY 4.0).
 
-## Likya Yolu
-- **Lycian Way 1.JPG** — Maurice07 — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Lycian_Way_1.JPG
-- **Lycian Way 3.JPG** — Maurice07 — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Lycian_Way_3.JPG
-- **Lycian Way 2.JPG** — Maurice07 — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Lycian_Way_2.JPG
-- **Lycian tombs Fethiye IMGP8536.jpg** — Nikodem Nijaki — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Lycian_tombs_Fethiye_IMGP8536.jpg
+## Tanıtım sayfası
+- **ana-hero-wa.jpg**: Colchuck Lake.jpg — Delaney Majors — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:Colchuck_Lake.jpg
+- **ana-kart-wa.jpg**: Mount Rainier and lake reflection.jpg — US National Park Service — Public domain — https://commons.wikimedia.org/wiki/File:Mount_Rainier_and_lake_reflection.jpg
+- **olustur-wa.jpg**: 2026-10-03, Mount Shuksan from Picture Lake (Heather Meadows Recreation Area), 135057.jpg — Steven Pavlov — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:2026-10-03,_Mount_Shuksan_from_Picture_Lake_(Heather_Meadows_Recreation_Area),_135057.jpg
+- **vitrin-paradise.jpg**: Mount Rainier National Park - 53024017635.jpg — Roller Coaster Philosophy — CC BY 2.0 — https://commons.wikimedia.org/wiki/File:Mount_Rainier_National_Park_-_53024017635.jpg
+- **vitrin-diablo.jpg**: Diablo Lake.JPG — Josh Lewis — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Diablo_Lake.JPG
+- **vitrin-crescent.jpg**: Lake Crescent (2).jpg — Kashyap Hosdurga — CC BY 2.0 — https://commons.wikimedia.org/wiki/File:Lake_Crescent_(2).jpg
+- **vitrin-colchuck.jpg**: Lake Colchuck from below Aasgard Pass (24 September 2007).jpg — mountainamoeba from Portland — CC BY 2.0 — https://commons.wikimedia.org/wiki/File:Lake_Colchuck_from_below_Aasgard_Pass_(24_September_2007).jpg
 
-## Oludeniz
-- **Ölüdeniz Beach - panoramio.jpg** — Tevfik Teker — CC BY 3.0 — https://commons.wikimedia.org/wiki/File:%C3%96l%C3%BCdeniz_Beach_-_panoramio.jpg
-- **Ölüdeniz Beach - 2014.10 - panoramio.jpg** — rheins — CC BY 3.0 — https://commons.wikimedia.org/wiki/File:%C3%96l%C3%BCdeniz_Beach_-_2014.10_-_panoramio.jpg
-- **Ölüdeniz Beach - panoramio (1).jpg** — Tevfik Teker — CC BY 3.0 — https://commons.wikimedia.org/wiki/File:%C3%96l%C3%BCdeniz_Beach_-_panoramio_(1).jpg
-- **Panoramic view of Bozyiğit Burnu Park and Ölüdeniz Beach in Turkey (49070747646).jpg** — dronepicr — CC BY 2.0 — https://commons.wikimedia.org/wiki/File:Panoramic_view_of_Bozyi%C4%9Fit_Burnu_Park_and_%C3%96l%C3%BCdeniz_Beach_in_Turkey_(49070747646).jpg
+- **og-ormaio.jpg** (paylaşım görseli): ana-hero-wa.jpg'nin kırpılmış kopyası, üzerine ormaio yazısı — Delaney Majors — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:Colchuck_Lake.jpg
 
-## Kapadokya
-- **Cappadocia Aerial View Landscape.jpg** — Benh LIEU SONG (Flickr) — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:Cappadocia_Aerial_View_Landscape.jpg
-- **Cappadocia Chimneys Wikimedia Commons.jpg** — Benh LIEU SONG — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Cappadocia_Chimneys_Wikimedia_Commons.jpg
-- **View of Cappadocia edit.jpg** — Brocken Inaglory Edit by CillanXC — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:View_of_Cappadocia_edit.jpg
-- **Göreme Valley in Cappadocia edit1.jpg** — Brocken Inaglory — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:G%C3%B6reme_Valley_in_Cappadocia_edit1.jpg
+## Örnek günler (Washington)
+### Rattlesnake Ledge
+- **Rattlesnake Lake** (Rattlesnake-Lake-seen-from-Lower-Ledge-3970.jpg) — User:Vmenkov — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Rattlesnake-Lake-seen-from-Lower-Ledge-3970.jpg
+- **Rattlesnake Ledge** () — Zincopper11 — CC BY-SA 4.0 — https://www.wta.org/go-hiking/hikes/rattlesnake-ledge
 
-## Ihlara Vadisi
-- **Ihlara Valley, Turkey.jpg** — Andrada Boldis — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:Ihlara_Valley,_Turkey.jpg
-- **Ihlara Valley in summer.jpg** — Andrada Boldis — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:Ihlara_Valley_in_summer.jpg
-- **Ihlara.jpg** — The original uploader was Morphosis at Turkish Wikipedia. — Public domain — https://commons.wikimedia.org/wiki/File:Ihlara.jpg
-- **Bar in Ihlara valley 02.jpg** — Codas — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:Bar_in_Ihlara_valley_02.jpg
+### Franklin Falls ve Snow Lake
+- **Franklin Falls** () — Steven Pavlov — CC BY-SA 4.0 — https://www.wta.org/go-hiking/hikes/franklin-falls
+- **Snow Lake** () — Mattsjc — CC BY 4.0 — https://www.wta.org/go-hiking/hikes/snow-lake
 
-## Mount Rainier
-- **Rainier Aerial West Close Washington Mar23 R16 07149.jpg** — This Photo was taken by Timothy A. Gonsalves.  Feel free to use my photos, but please mention me as the author.  I would much appreciate if you send me an email tagooty@yahoo.com or write on my talk page, for my information.  Please contact me before commercial use.
+### Mount Rainier · Paradise
+- **Christine Falls** (Christine Falls - panoramio.jpg) — Doss Imaging — CC BY 3.0 — https://commons.wikimedia.org/wiki/File:Christine_Falls_-_panoramio.jpg
+- **Narada Falls** (Narada Falls.jpg) — Mr.Z-man — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Narada_Falls.jpg
+- **Myrtle Falls** (Myrtle Falls and Mount Rainier.jpg) — NPS Photo — Public domain — https://commons.wikimedia.org/wiki/File:Myrtle_Falls_and_Mount_Rainier.jpg
+- **Skyline Trail, Panorama Point** (Mount Rainier National Park - 53024017635.jpg) — Roller Coaster Philosophy — CC BY 2.0 — https://commons.wikimedia.org/wiki/File:Mount_Rainier_National_Park_-_53024017635.jpg
 
+### Mowich Lake ve Tolmie Peak
+- **Mowich Lake** (Mowich Lake 20975.JPG) — Walter Siegmund — CC BY 2.5 — https://commons.wikimedia.org/wiki/File:Mowich_Lake_20975.JPG
+- **Eunice Lake** (Eunice Lake.jpg) — Ricardo Martins — CC BY 2.0 — https://commons.wikimedia.org/wiki/File:Eunice_Lake.jpg
+- **Tolmie Peak** (Tolmie Peak.jpg) — Ricardo Martins from Gent, Belgium — CC BY 2.0 — https://commons.wikimedia.org/wiki/File:Tolmie_Peak.jpg
 
+### North Cascades · Diablo Lake
+- **Gorge Lake** (Gorge Lake, Ross Lake National Recreation Area, Washington.jpg) — Judy Gallagher — CC BY 4.0 — https://commons.wikimedia.org/wiki/File:Gorge_Lake,_Ross_Lake_National_Recreation_Area,_Washington.jpg
+- **Diablo Lake** (Diablo Lake.JPG) — Josh Lewis — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Diablo_Lake.JPG
+- **Ross Lake** (Ross Lake morning.jpg) — Original uploader was MattAshman at en.wikipedia — Public domain — https://commons.wikimedia.org/wiki/File:Ross_Lake_morning.jpg
+- **Liberty Bell Mountain** (Washington Pass and Liberty Bell Mountain.JPG) — Jsayre64 — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Washington_Pass_and_Liberty_Bell_Mountain.JPG
 
-Please do not upload an edited image here without consulting me.  I would like to make corrections only at my own source to ensure that the changes improve the image and are preserved.Otherwise you may upload an edited image with a new name. Please use one of the templates derivative or extract. — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:Rainier_Aerial_West_Close_Washington_Mar23_R16_07149.jpg
-- **Flickr - The U.S. Army - Jump over Mt. Rainier.jpg** — The U.S. Army — Public domain — https://commons.wikimedia.org/wiki/File:Flickr_-_The_U.S._Army_-_Jump_over_Mt._Rainier.jpg
-- **Rainier20200906.jpg** — Caleb Riston — CC0 — https://commons.wikimedia.org/wiki/File:Rainier20200906.jpg
-- **Mount Rainier from the Silver Queen Peak.jpg** — Dllu — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:Mount_Rainier_from_the_Silver_Queen_Peak.jpg
+### Mount Baker · Picture Lake
+- **Nooksack Falls** (Nooksack Falls.JPG) — Benjamin Cody — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Nooksack_Falls.JPG
+- **Picture Lake** (Mount Shuksan, Picture Lake (2362739742).jpg) — Michal Osmenda from Brussels, Belgium — CC BY-SA 2.0 — https://commons.wikimedia.org/wiki/File:Mount_Shuksan,_Picture_Lake_(2362739742).jpg
+- **Mount Shuksan** (Mount Shuksan tarn.jpg) — Frank Kovalchek from Anchorage, Alaska, USA — CC BY 2.0 — https://commons.wikimedia.org/wiki/File:Mount_Shuksan_tarn.jpg
 
-## Olympic National Park
-- **Rock face, Ruby Beach, Olympic National Park, Washington State, 1992.JPG** — Michael Gäbler — CC BY 3.0 — https://commons.wikimedia.org/wiki/File:Rock_face,_Ruby_Beach,_Olympic_National_Park,_Washington_State,_1992.JPG
-- **Olympic national park 1949.jpg** — US Department of Interior National Park Service — Public domain — https://commons.wikimedia.org/wiki/File:Olympic_national_park_1949.jpg
-- **Exterior of Olympic National Park Visitor Center - Wilderness Information Center.jpg** — DeVos Max — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:Exterior_of_Olympic_National_Park_Visitor_Center_-_Wilderness_Information_Center.jpg
-- **Olympic National Park - 53204849627.jpg** — John Manard — CC BY-SA 2.0 — https://commons.wikimedia.org/wiki/File:Olympic_National_Park_-_53204849627.jpg
+### Lake Crescent ve Marymere Falls
+- **Lake Crescent** (Lake Crescent (2).jpg) — Kashyap Hosdurga — CC BY 2.0 — https://commons.wikimedia.org/wiki/File:Lake_Crescent_(2).jpg
+- **Marymere Falls** (MarymereFalls May2013.JPG) — Zandcee — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:MarymereFalls_May2013.JPG
+- **Mount Storm King** () — Jefftaylor@xwb.com (talk) — CC BY-SA 3.0 — https://www.wta.org/go-hiking/hikes/mount-storm-king
 
-## Nemrut Dagi
-- **Nemrut Dağı 01.jpg** — Bernard Gagnon — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Nemrut_Da%C4%9F%C4%B1_01.jpg
-- **Mount Nemrut (3).JPG** — Zhengan — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:Mount_Nemrut_(3).JPG
-- **Kommagene Kingdom Mount Nemrut Ruins.jpg** — Theugursevinc — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:Kommagene_Kingdom_Mount_Nemrut_Ruins.jpg
-- **Nemrut Mountain Peak.JPG** — Bjørn Christian Tørrissen — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Nemrut_Mountain_Peak.JPG
+### Hurricane Hill ve Sol Duc Falls
+- **Hurricane Hill** () — Dave Sizer — CC BY 2.0 — https://www.wta.org/go-hiking/hikes/hurricane-hill
+- **Sol Duc Falls** (Sol Duc Falls 3.jpg) — Kimon Berlin — CC BY-SA 2.0 — https://commons.wikimedia.org/wiki/File:Sol_Duc_Falls_3.jpg
 
-## Gobeklitepe
-- **Göbekli Tepe, Urfa.jpg** — Teomancimit — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:G%C3%B6bekli_Tepe,_Urfa.jpg
-- **Göbekli Tepe.jpg** — Creator:Rolfcosar — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:G%C3%B6bekli_Tepe.jpg
-- **Stratigraphy of Göbekli Tepe.png** — Not specified. See authors of the article (Dietrich L, Meister J, Dietrich O, Notroff J, Kiep J, Heeb J, et al.). — CC BY 4.0 — https://commons.wikimedia.org/wiki/File:Stratigraphy_of_G%C3%B6bekli_Tepe.png
-- **Göbekli Tepe - 100525.jpg** — Rolf Cosar — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:G%C3%B6bekli_Tepe_-_100525.jpg
+### Wallace Falls ve Lake Serene
+- **Wallace Falls** () — Zincopper11 — CC BY-SA 4.0 — https://www.wta.org/go-hiking/hikes/wallace-falls
+- **Lake Serene** () — Spengy — CC BY-SA 4.0 — https://www.wta.org/go-hiking/hikes/lake-serene
+- **Heybrook Lookout** () — garrett parker garrettpsystems — CC0 — https://www.wta.org/go-hiking/hikes/heybrook-lookout
 
-## Yosemite
-- **Panoramic Overview from Glacier Point over Yosemite Valley 2013 Alternative.jpg** — Tuxyso — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Panoramic_Overview_from_Glacier_Point_over_Yosemite_Valley_2013_Alternative.jpg
-- **Valley View Yosemite August 2013 002.jpg** — King of Hearts — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Valley_View_Yosemite_August_2013_002.jpg
-- **Tunnel View, Yosemite Valley, Yosemite NP - Diliff.jpg** — Diliff — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Tunnel_View,_Yosemite_Valley,_Yosemite_NP_-_Diliff.jpg
-- **Yosemite meadows 2004-09-04.jpg** — Jon Sullivan — Public domain — https://commons.wikimedia.org/wiki/File:Yosemite_meadows_2004-09-04.jpg
+### Mount St. Helens
+- **Coldwater Lake** (Cold lake with Mt.StHellens in background.jpg) — Bilinmiyor — Public domain — https://commons.wikimedia.org/wiki/File:Cold_lake_with_Mt.StHellens_in_background.jpg
+- **Spirit Lake** (Rainier05 mount rainier from st helens crater 02-03-05 med.jpg) — Matt Logan — Public domain — https://commons.wikimedia.org/wiki/File:Rainier05_mount_rainier_from_st_helens_crater_02-03-05_med.jpg
 
-## Zion National Park
-- **Kolob Canyons part of Zion National Park.JPG** — Michael Gäbler — CC BY 3.0 — https://commons.wikimedia.org/wiki/File:Kolob_Canyons_part_of_Zion_National_Park.JPG
-- **Navajo Sandstone formations in Zion National Park, Utah.- (USA 2016).jpg** — Pierre André Leclercq — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:Navajo_Sandstone_formations_in_Zion_National_Park,_Utah.-_(USA_2016).jpg
-- **Angels Landing.jpg** — Tobias Alt — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:Angels_Landing.jpg
-- **Mountains in Zion National Park, Utah.jpg** — “Jon Zander(digon3)” — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Mountains_in_Zion_National_Park,_Utah.jpg
+### Colchuck Lake
+- **Colchuck Lake** (Lake Colchuck from below Aasgard Pass (24 September 2007).jpg) — mountainamoeba from Portland — CC BY 2.0 — https://commons.wikimedia.org/wiki/File:Lake_Colchuck_from_below_Aasgard_Pass_(24_September_2007).jpg
+- **Dragontail Peak** (Dragontail Peak 7819.JPG) — Walter Siegmund (talk) — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Dragontail_Peak_7819.JPG
+
+### Palouse Falls ve Steptoe Butte
+- **Palouse Falls** (Водопад Палаус.jpg) — Стивен Лю — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:%D0%92%D0%BE%D0%B4%D0%BE%D0%BF%D0%B0%D0%B4_%D0%9F%D0%B0%D0%BB%D0%B0%D1%83%D1%81.jpg
+- **Steptoe Butte** (Steptoe butte.jpg) — Dsdugan — CC0 — https://commons.wikimedia.org/wiki/File:Steptoe_butte.jpg
 
 ## Washington parkurları (Bugün nereye?)
 - **Rattlesnake Ledge** (View from Rattlesnake Ledge in late Oct 2021.jpg) — Zincopper11 — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:View_from_Rattlesnake_Ledge_in_late_Oct_2021.jpg
@@ -109,8 +107,3 @@ Please do not upload an edited image here without consulting me.  I would like t
 - **Mount Storm King** (Mount Storm King Feb2002.jpg) — Jefftaylor@xwb.com (talk) — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Mount_Storm_King_Feb2002.jpg
 - **Rialto Beach and Hole-in-the-Wall** (Rialto Beach.jpg) — DimiTalen — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Rialto_Beach.jpg
 - **Mount Ellinor** (Mount Ellinor, Mount Washington Panorama.jpg) — Gregg M. Erickson (talk · contribs) — CC BY 3.0 — https://commons.wikimedia.org/wiki/File:Mount_Ellinor,_Mount_Washington_Panorama.jpg
-
-## Ana sayfa vitrini
-- Ölüdeniz, Nemrut Dağı, Ihlara Vadisi ve Mount Rainier vitrin görselleri yukarıdaki ilgili bölümlerde listelenen Wikimedia Commons fotoğraflarının küçültülmüş kopyalarıdır (vitrin-*.jpg).
-- Ana sayfa kahraman görseli (ana-hero.jpg): "Panoramic Overview from Glacier Point over Yosemite Valley 2013 Alternative" — Tuxyso — CC BY-SA 3.0
-- Zion örnek kartı ve gün oluşturma ekranı (ana-zion.jpg, olustur-zion.jpg): "Kolob Canyons part of Zion National Park" — Michael Gäbler — CC BY 3.0

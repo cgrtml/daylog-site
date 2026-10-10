@@ -1,7 +1,7 @@
 // ormaio servis calisani: cevrimdisi kabuk ve statik veri onbellegi.
 // HTML ve env.js once agdan (guncel surum), statik veri ve gorseller once onbellekten (arkada tazelenir).
 // Supabase, hava ve yol servisleri onbellege alinmaz.
-const SURUM = "ormaio-v1";
+const SURUM = "ormaio-v2";
 const KABUK = ["./", "index.html", "env.js", "manifest.webmanifest", "favicon.svg", "favicon-32.png", "apple-touch-icon.png", "icon-192.png"];
 const DIS_ONBELLEK = /^https:\/\/(fonts\.googleapis\.com|fonts\.gstatic\.com|cdnjs\.cloudflare\.com|cdn\.jsdelivr\.net)\//;
 
