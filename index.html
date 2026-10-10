@@ -1709,6 +1709,7 @@ async function bugunHesapla() {
       const n = yerNorm(r.t.name.replace(/\(.*\)/, ""));
       const e = YERLER.filter(y => (y.tur === "r" || y.tur === "b") && y.ara.startsWith(n) && hav(y.lat, y.lon, r.t.lat, r.t.lon) < 3000).sort((a, b) => (b.p || 0) - (a.p || 0))[0];
       if (e) r.yerId = e.id;
+      if (!r.t.photo) r.foto = await parkurFotoBul(r.t, e);
     }
   } catch {}
   return { plan, uygun, yerelHava };
@@ -1773,7 +1774,7 @@ async function evDoldur() {
     $("#evUst").textContent = `${gun.toLocaleUpperCase("tr-TR")} · ${h.plan.b.toLocaleDateString("tr-TR", { day: "numeric", month: "long" }).toLocaleUpperCase("tr-TR")}${durum ? " · " + durum : ""}`;
     $("#evBaslik").textContent = `${selam}${ad ? " " + ad : ""}. ${en.puan >= 60 ? `${gun} ${t.name} için iyi bir gün.` : `${gun} en iyi seçenek ${t.name}.`}`;
     $("#evAlt").textContent = `${sureYazi(en.surus)} sürüş · ${kmYaz(t.lengthKm)} km · ${t.gainM} m tırmanış. ${ss(h.plan.b)}'da çıkarsan ${ss(en.donus)} civarı dönersin${en.sonraYagmur ? `; yağmur ${ss(en.sonraYagmur)} civarı başlıyor` : ""}.`;
-    if (t.photo) { const im = $("#evHeroImg"); im.src = t.photo; im.alt = t.name; }
+    if (t.photo || en.foto) { const im = $("#evHeroImg"); im.src = t.photo || en.foto; im.alt = t.name; }
     $("#evCta").innerHTML = `<a class="btn ana-btn" href="https://www.google.com/maps/dir/?api=1&destination=${t.lat},${t.lon}" target="_blank" rel="noopener">Yol tarifi</a>
       ${en.yerId ? `<button class="btn ana-btn2" data-yerid="${en.yerId}">Parkur sayfası</button>` : ""}
       <button class="btn ana-btn3" data-evgit="kesfet">Başka öneriler &rarr;</button>`;
@@ -1793,7 +1794,7 @@ async function evDoldur() {
   const oner = (ps || []).filter(p => !takipte(p.id) && gorunur(p.id) && gunuOlan.has(p.id)).slice(0, 3);
   yan.innerHTML = `
     ${diger.length ? `<section class="ev-yan-kart koyu"><b>${h.plan.yarin ? "Yarın" : "Bugün"} için diğer öneriler</b>${diger.map(r => `
-      <button class="ev-oneri" ${r.yerId ? `data-yerid="${r.yerId}"` : `data-evgit="kesfet"`}><img src="${r.t.photo || kareSvg(r.t.name.length, 12)}" alt="">
+      <button class="ev-oneri" ${r.yerId ? `data-yerid="${r.yerId}"` : `data-evgit="kesfet"`}><img src="${r.t.photo || r.foto || kareSvg(r.t.name.length, 12)}" alt="">
         <span><b>${esc(r.t.name)}</b><span>${sureYazi(r.surus)} sürüş · ${kmYaz(r.t.lengthKm)} km</span></span></button>`).join("")}</section>` : ""}
     <section class="ev-yan-kart"><b>Gitmek istediklerin</b>${(w || []).length ? `<ul class="ev-liste">${w.map(x => `<li><button data-yer="${esc(x.place)}">${esc(x.place)}</button></li>`).join("")}</ul>`
       : `<p class="sub" style="margin:8px 0 0">Bir günün altındaki "Gitmek istiyorum" ile buraya eklenir.</p>`}</section>
@@ -2008,6 +2009,7 @@ async function bugunCiz() {
       const n = yerNorm(r.t.name.replace(/\(.*\)/, ""));
       const e = YERLER.filter(y => (y.tur === "r" || y.tur === "b") && y.ara.startsWith(n) && hav(y.lat, y.lon, r.t.lat, r.t.lon) < 3000).sort((a, b) => (b.p || 0) - (a.p || 0))[0];
       if (e) r.yerId = e.id;
+      if (!r.t.photo) r.foto = await parkurFotoBul(r.t, e);
     }
   } catch {}
   const elenen = hepsi.filter(x => !x.uygun).sort((a, b) => a.km - b.km);
@@ -2030,7 +2032,7 @@ async function bugunCiz() {
   }
   const serit = yerelHava ? yerelHava.filter(x => x.t >= plan.b.getTime() - 18e5).filter((x, i) => i % 2 === 0).slice(0, 5) : [];
   const kart = (r, i) => {
-    const t = r.t, foto = t.photo || kareSvg(t.name.length, 12);
+    const t = r.t, foto = t.photo || r.foto || kareSvg(t.name.length, 12);
     const chips = [...r.yesil.map(c => `<span class="bg-c yesil">${esc(c)}</span>`), ...r.sari.map(c => `<span class="bg-c sari">${esc(c)}</span>`)].join("");
     const neden = `${ss(plan.b)}'da çıkarsan ${ss(r.varis)}'da parkurdasın, ${ss(r.donus)} civarı evde olursun.` + (r.sonraYagmur ? ` Yağmur ${ss(r.sonraYagmur)} civarı başlıyor; öncesinde inmiş olursun.` : "");
     const yol = `https://www.google.com/maps/dir/?api=1&destination=${t.lat},${t.lon}`;
@@ -2096,6 +2098,16 @@ async function yerleriYukle() {
   const d = await (await fetch("data/wa/index.json")).json();
   YERLER = d.yerler.map(([id, tur, ad, lat, lon, ek]) => ({ id, tur, ad, lat, lon, ...ek, ara: yerNorm(ad) }));
   return YERLER;
+}
+// kurasyonlu parkurun kendi fotografi yoksa: eslesen rotanin ya da 1,5 km icindeki gol/selale/zirve/seyir noktasinin lisansli fotografi
+async function parkurFotoBul(t, e) {
+  try {
+    const f = await yerFotolari();
+    if (e && e.wd && f[e.wd]) return f[e.wd][0];
+    const y = YERLER.filter(y => y.wd && f[y.wd] && "sgzv".includes(y.tur) && hav(y.lat, y.lon, t.lat, t.lon) < 1500)
+      .sort((a, b) => hav(a.lat, a.lon, t.lat, t.lon) - hav(b.lat, b.lon, t.lat, t.lon))[0];
+    return y ? f[y.wd][0] : null;
+  } catch { return null; }
 }
 async function yerFotolari() {
   if (YER_FOTO) return YER_FOTO;
