@@ -5,6 +5,11 @@
 <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#1e3b2c">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="ormaio">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <script src="https://cdn.jsdelivr.net/npm/exifr@7.1.3/dist/full.umd.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1/dist/umd/supabase.min.js"></script>
@@ -654,6 +659,28 @@ body.ana-acik .userchip{background:rgba(250,248,243,.95);border-color:transparen
 .og-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(241,238,230,0) 55%,var(--bg) 100%)}
 .og-logo{position:absolute;top:16px;left:20px;z-index:1;display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:19px;background:rgba(250,248,243,.94);font-weight:800;letter-spacing:-.04em;font-size:1.05rem;color:var(--logo-ink)}
 .og-logo{gap:0}
+.ikon-menu{width:40px;height:40px;flex:none;border-radius:20px;border:0;background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--mut);margin-left:2px}
+.ikon-menu:hover{background:var(--chipbg)}.ikon-menu svg{width:20px;height:20px;fill:currentColor}
+.p3-ikon.ikon-menu{border:1px solid var(--line2);background:var(--paper);margin:0}
+.dyazar .ikon-menu{margin-left:auto;color:inherit}
+.sheet-arka{position:fixed;inset:0;z-index:1300;background:rgba(10,14,9,.45);display:flex;align-items:flex-end;justify-content:center}
+.sheet{width:100%;max-width:520px;background:var(--paper);color:var(--ink);border-radius:22px 22px 0 0;padding:18px 16px calc(16px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:6px;max-height:88vh;overflow:auto}
+@media (min-width:900px){.sheet-arka{align-items:center}.sheet{border-radius:22px}}
+.sheet-baslik{font-size:1.05rem;margin:2px 4px 8px}
+.sheet-satir{min-height:50px;border:0;border-radius:14px;background:var(--bg);color:var(--ink);font:inherit;font-weight:600;text-align:left;padding:0 16px;cursor:pointer}
+.sheet-satir.tehlike{color:#9a3412}.sheet-vazgec{text-align:center;background:transparent;color:var(--mut)}
+.sheet-metin{margin:0 4px 8px;font-size:.92rem;color:var(--ink2);line-height:1.45}
+.sheet-nedenler{display:flex;flex-direction:column;gap:4px}
+.sheet-neden{display:flex;align-items:center;gap:10px;min-height:46px;padding:0 12px;border-radius:12px;background:var(--bg);font-size:.92rem;cursor:pointer}
+.sheet-neden input{width:18px;height:18px;accent-color:#1e3b2c}
+.sheet-not{display:flex;flex-direction:column;gap:6px;margin-top:8px;font-size:.85rem;color:var(--ink2)}
+.sheet-not textarea{font:inherit;padding:10px 12px;border-radius:12px;border:1px solid var(--line2);background:var(--bg);color:var(--ink);resize:vertical}
+.sheet-gonder{margin-top:8px;padding:14px}
+.sheet-adim{margin:0 4px 10px;padding-left:20px;display:flex;flex-direction:column;gap:10px;font-size:.95rem}
+.sheet-adim svg{width:18px;height:18px;vertical-align:-3px;fill:none;stroke:#2f5fd0;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.yukle-bant{position:fixed;left:12px;right:12px;bottom:calc(92px + env(safe-area-inset-bottom,0px));z-index:1150;display:flex;align-items:center;gap:10px;padding:10px 10px 10px 12px;border-radius:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:0 10px 30px rgba(10,14,9,.18)}
+.yukle-bant img{border-radius:11px;flex:none}.yukle-bant>span{flex:1;min-width:0;font-size:.8rem;color:var(--ink2);line-height:1.3}.yukle-bant b{display:block;font-size:.9rem;color:var(--ink)}
+.yukle-bant .btn{flex:none;padding:9px 14px;font-size:.85rem}.yukle-kapat{flex:none;width:36px;height:36px;border:0;background:none;font-size:1.4rem;color:var(--mut);cursor:pointer}
 .pe-sil{margin-top:28px;padding:16px;border:1px solid #e6c2b3;border-radius:16px;background:var(--paper)}
 .pe-sil>b{color:#9a3412}.pe-sil p{margin:6px 0 10px;font-size:.86rem;color:var(--ink2)}.pe-sil label{font-size:.84rem}
 .pe-sil-satir{display:flex;gap:8px;margin-top:6px}.pe-sil-satir input{flex:1;min-width:0;font:inherit;padding:10px 12px;border-radius:12px;border:1px solid var(--line2);background:var(--bg);color:var(--ink)}
@@ -1481,7 +1508,100 @@ const iskeletAkis = (n = 2) => `<h1>Akış</h1><div class="sub">Yükleniyor&hell
 let LIKED = new Set();   // benim begendigim gun id'leri
 let SAVED = new Set();   // listemdeki yer adlari
 
+/* ---------- sikayet et / engelle (magaza kurali: kullanici icerigi icin bildirim ve engelleme) ---------- */
+let ENGELLI = new Set(), GIZLI_GUN = new Set();
+const SIKAYET_NEDEN = [["uygunsuz", "Uygunsuz ya da müstehcen içerik"], ["taciz", "Taciz ya da nefret söylemi"], ["spam", "Spam ya da reklam"],
+  ["yaniltici", "Yanıltıcı ya da sahte bilgi"], ["guvenlik", "Birinin güvenliğini tehlikeye atıyor"], ["diger", "Diğer"]];
+async function engelDurumuYukle() {
+  try { GIZLI_GUN = new Set(JSON.parse(localStorage.getItem("ormaio:gizliGun") || "[]")); } catch { GIZLI_GUN = new Set(); }
+  ENGELLI = new Set();
+  if (SB && girisli()) {
+    const { data, error } = await SB.from("blocks").select("blocked").eq("blocker", ME.id);
+    if (!error && data) ENGELLI = new Set(data.map(x => x.blocked));
+  }
+}
+const gorunur = (userId, dayId) => !ENGELLI.has(userId) && !(dayId && GIZLI_GUN.has(dayId));
+function menuDugme(dayId, userId, ad) {
+  if (!userId || (girisli() && userId === ME.id)) return "";
+  return `<button class="ikon-menu" data-icmenu="${dayId || ""}" data-icuser="${userId}" data-icad="${esc(ad || "")}" aria-label="Diğer seçenekler">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="19" cy="12" r="1.7"/></svg></button>`;
+}
+function sayfaAc(html) {
+  sayfaKapat();
+  const arka = document.createElement("div"); arka.className = "sheet-arka"; arka.id = "sheetArka";
+  arka.innerHTML = `<div class="sheet" role="dialog" aria-modal="true">${html}</div>`;
+  arka.addEventListener("click", (e) => { if (e.target === arka) sayfaKapat(); });
+  document.body.appendChild(arka);
+  const ilk = arka.querySelector("button,textarea,input"); if (ilk) ilk.focus();
+  return arka.querySelector(".sheet");
+}
+function sayfaKapat() { const a = $("#sheetArka"); if (a) a.remove(); }
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") sayfaKapat(); });
+function icerikMenusu(dayId, userId, ad) {
+  const engelli = ENGELLI.has(userId);
+  const sh = sayfaAc(`<b class="sheet-baslik">${esc(ad || "Seçenekler")}</b>
+    ${dayId ? `<button class="sheet-satir" data-sh="gun">Bu günü şikayet et</button>` : `<button class="sheet-satir" data-sh="kisi">Kullanıcıyı şikayet et</button>`}
+    <button class="sheet-satir ${engelli ? "" : "tehlike"}" data-sh="engel">${engelli ? "Engeli kaldır" : `${esc(ad || "Kullanıcıyı")} engelle`}</button>
+    <button class="sheet-satir sheet-vazgec" data-sh="vazgec">Vazgeç</button>`);
+  sh.querySelector('[data-sh="vazgec"]').addEventListener("click", sayfaKapat);
+  const g = sh.querySelector('[data-sh="gun"],[data-sh="kisi"]');
+  g.addEventListener("click", () => sikayetFormu(dayId || null, userId));
+  sh.querySelector('[data-sh="engel"]').addEventListener("click", () => engelli ? engelKaldir(userId) : engelle(userId, ad));
+}
+function sikayetFormu(dayId, userId) {
+  if (!girisli()) { sayfaKapat(); return authGoster("Şikayet etmek için üyelik gerekli."); }
+  const sh = sayfaAc(`<b class="sheet-baslik">${dayId ? "Bu günü neden şikayet ediyorsun?" : "Bu kullanıcıyı neden şikayet ediyorsun?"}</b>
+    <div class="sheet-nedenler" role="radiogroup">${SIKAYET_NEDEN.map(([k, y]) => `<label class="sheet-neden"><input type="radio" name="skNeden" value="${k}"> ${y}</label>`).join("")}</div>
+    <label class="sheet-not">Eklemek istediğin bir şey var mı? (isteğe bağlı)<textarea id="skNot" maxlength="500" rows="3"></textarea></label>
+    <p class="err" id="skHata" hidden></p>
+    <button class="btn primary sheet-gonder" id="skGonder" disabled>Şikayeti gönder</button>
+    <button class="sheet-satir sheet-vazgec" data-sh="vazgec">Vazgeç</button>`);
+  sh.querySelector('[data-sh="vazgec"]').addEventListener("click", sayfaKapat);
+  sh.querySelectorAll('[name="skNeden"]').forEach(r => r.addEventListener("change", () => { $("#skGonder").disabled = false; }));
+  $("#skGonder").addEventListener("click", async () => {
+    const neden = (sh.querySelector('[name="skNeden"]:checked') || {}).value;
+    $("#skGonder").disabled = true; $("#skGonder").textContent = "Gönderiliyor…";
+    const { error } = await SB.from("reports").insert({ reporter: ME.id, day_id: dayId, target_user: userId, reason: neden, note: $("#skNot").value.trim() || null });
+    if (error && error.code !== "23505") { $("#skHata").textContent = "Gönderilemedi: " + error.message; $("#skHata").hidden = false; $("#skGonder").disabled = false; $("#skGonder").textContent = "Şikayeti gönder"; return; }
+    if (dayId) { GIZLI_GUN.add(dayId); try { localStorage.setItem("ormaio:gizliGun", JSON.stringify([...GIZLI_GUN])); } catch {} ; icerikGizle(null, dayId); }
+    const son = sayfaAc(`<b class="sheet-baslik">Teşekkürler, şikayetin alındı</b>
+      <p class="sheet-metin">En kısa sürede inceleyeceğiz. ${dayId ? "Bu gün artık sana görünmeyecek. " : ""}İstersen bu kişiyi engelleyerek hiçbir içeriğini görmeyebilirsin.</p>
+      ${ENGELLI.has(userId) ? "" : `<button class="sheet-satir tehlike" data-sh="engel">Engelle</button>`}
+      <button class="sheet-satir sheet-vazgec" data-sh="vazgec">Kapat</button>`);
+    son.querySelector('[data-sh="vazgec"]').addEventListener("click", sayfaKapat);
+    const e = son.querySelector('[data-sh="engel"]'); if (e) e.addEventListener("click", () => engelle(userId, ""));
+  });
+}
+function icerikGizle(userId, dayId) {
+  document.querySelectorAll(".feedcard").forEach(k => {
+    if ((dayId && k.dataset.card === dayId) || (userId && k.querySelector(`[data-profil="${userId}"]`))) k.remove();
+  });
+  document.querySelectorAll(".ev-kisi, .ucard").forEach(k => { if (userId && k.querySelector(`[data-profil="${userId}"]`)) k.remove(); });
+}
+async function engelle(userId, ad) {
+  if (!girisli()) { sayfaKapat(); return authGoster("Engellemek için üyelik gerekli."); }
+  const { error } = await SB.from("blocks").insert({ blocker: ME.id, blocked: userId });
+  if (error && error.code !== "23505") { sayfaAc(`<b class="sheet-baslik">Engellenemedi</b><p class="sheet-metin">${esc(error.message)}</p><button class="sheet-satir sheet-vazgec" onclick="sayfaKapat()">Kapat</button>`); return; }
+  await SB.from("follows").delete().eq("follower", ME.id).eq("followee", userId);
+  ENGELLI.add(userId); icerikGizle(userId, null);
+  const sh = sayfaAc(`<b class="sheet-baslik">${esc(ad || "Kullanıcı")} engellendi</b>
+    <p class="sheet-metin">Günlerini ve profilini artık görmeyeceksin, takip de kaldırıldı. Profilinden istediğin zaman engeli kaldırabilirsin.</p>
+    <button class="sheet-satir sheet-vazgec" data-sh="vazgec">Tamam</button>`);
+  sh.querySelector('[data-sh="vazgec"]').addEventListener("click", () => { sayfaKapat(); if (!$("#view-detay").hidden && document.querySelector(`#detayout [data-icuser="${userId}"]`)) sekmeyeDon(); });
+}
+async function engelKaldir(userId) {
+  await SB.from("blocks").delete().eq("blocker", ME.id).eq("blocked", userId);
+  ENGELLI.delete(userId); sayfaKapat();
+  if (!$("#view-detay").hidden && $("#detayout .engel-not")) profilGoster(userId);
+}
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-icmenu]"); if (!b) return;
+  e.stopPropagation(); e.preventDefault();
+  icerikMenusu(b.dataset.icmenu || null, b.dataset.icuser, b.dataset.icad);
+}, true);
+
 async function sosyalDurumYukle() {
+  await engelDurumuYukle();
   LIKED = new Set(); SAVED = new Set();
   if (SB && girisli()) {
     const { data: l } = await SB.from("likes").select("day_id").eq("user_id", ME.id);
@@ -1515,7 +1635,7 @@ function gunFeedKart(d) {
     <div class="fhead">${avatarHtml({ ...p, name: ad }, "", `data-profil="${d.user_id}" style="cursor:pointer"`)}
       <div class="who link" data-profil="${d.user_id}"><b>${esc(ad)}${p.is_creator ? '<span class="badge">üretici</span>' : ""}</b><span>${dd.getDate()} ${AYLAR[dd.getMonth()]} &middot; ${rol}</span></div>
       ${(!girisli() || d.user_id !== ME.id) ? `<button class="btn ${takipte(d.user_id) ? "" : "primary"}" data-takip="${d.user_id}">
-        ${takipte(d.user_id) ? "Takiptesin" : "Takip et"}</button>` : ""}</div>
+        ${takipte(d.user_id) ? "Takiptesin" : "Takip et"}</button>` : ""}${menuDugme(d.id, d.user_id, ad)}</div>
     <div class="fcov"><img class="cover" src="${kareSvg(seed, 12)}" alt="${esc(d.place)}" data-day="${d.id}"${d.cover_path ? ` data-cover="${esc(d.cover_path)}"` : ""}>
       ${d.photo_count ? `<span class="fbadge"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="15" rx="3"/><path d="m3 16 5-5 4 4 3-3 6 6"/></svg>${d.photo_count} fotoğraftan oluştu</span>` : ""}</div>
     <div class="fbody">
@@ -1630,7 +1750,7 @@ async function evDoldur() {
   const diger = yakin ? h.uygun.slice(1, 3) : [];
   const { data: w } = await SB.from("wishlist").select("place").eq("user_id", ME.id).limit(5);
   const { data: ps } = await SB.from("profiles").select("id,name,username,avatar_url").neq("id", ME.id).limit(20);
-  const oner = (ps || []).filter(p => !takipte(p.id)).slice(0, 3);
+  const oner = (ps || []).filter(p => !takipte(p.id) && !ENGELLI.has(p.id)).slice(0, 3);
   yan.innerHTML = `
     ${diger.length ? `<section class="ev-yan-kart koyu"><b>${h.plan.yarin ? "Yarın" : "Bugün"} için diğer öneriler</b>${diger.map(r => `
       <button class="ev-oneri" ${r.yerId ? `data-yerid="${r.yerId}"` : `data-evgit="kesfet"`}><img src="${r.t.photo || kareSvg(r.t.name.length, 12)}" alt="">
@@ -1668,6 +1788,7 @@ async function akisCiz() {
     // bulut semasi henuz guncellenmemisse (review_status yok) filtresiz tekrar dene
     if (error && /avatar_url/i.test(error.message || "")) { PROF_ALAN = "username,name,is_creator"; ({ data: ds, error } = await feedSorgu(true)); }
     if (error && /review_status/i.test(error.message || "")) ({ data: ds, error } = await feedSorgu(false));
+    if (!error) ds = (ds || []).filter(d => gorunur(d.user_id, d.id));
     if (error) html += `<p class="err">Akış yüklenemedi: ${esc(error.message)}</p>`;
     else if (!ds.length) html += `<div class="empty"><b>Akış şimdilik boş.</b><br>
       Henüz herkese açık gün paylaşan yok. İlk paylaşan sen ol:
@@ -2665,7 +2786,7 @@ async function kesfetCiz() {
     const { data: fol } = await SB.from("follows").select("followee");
     const takipciSay = new Map();
     for (const f of fol || []) takipciSay.set(f.followee, (takipciSay.get(f.followee) || 0) + 1);
-    const sirali = (ps || []).sort((a, b) => (takipciSay.get(b.id) || 0) - (takipciSay.get(a.id) || 0));
+    const sirali = (ps || []).filter(p => !ENGELLI.has(p.id)).sort((a, b) => (takipciSay.get(b.id) || 0) - (takipciSay.get(a.id) || 0));
     html += `<h2 class="sec">Öne çıkan gezginler</h2>`;
     if (!sirali.length) html += `<div class="empty">Senden başka kayıtlı gezgin yok.</div>`;
     else html += `<div class="ucards">${sirali.map(u => `
@@ -2828,7 +2949,8 @@ function profilHtml(u, gunler, o) {
   <header class="p3-bas">${avatarHtml(u, "p3-av")}
     <div class="p3-kim"><h1>${esc(u.name || u.username || "Gezgin")}${u.is_creator ? '<span class="badge">üretici</span>' : ""}</h1><div class="p3-satir">${satir}</div></div>
     ${o.ben ? `<button class="p3-ikon" id="prDuzenle" aria-label="Profili düzenle"><svg viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16z"/></svg></button>` : `<button class="btn ${takipte(u.id) ? "" : "primary"}" id="pfollow">${takipte(u.id) ? "Takiptesin" : "Takip et"}</button>`}
-    <button class="p3-ikon" id="prPaylas" aria-label="Profili paylaş"><svg viewBox="0 0 24 24"><path d="M12 15V3M7 8l5-5 5 5"/><path d="M5 13v7h14v-7"/></svg></button></header>
+    <button class="p3-ikon" id="prPaylas" aria-label="Profili paylaş"><svg viewBox="0 0 24 24"><path d="M12 15V3M7 8l5-5 5 5"/><path d="M5 13v7h14v-7"/></svg></button>
+    ${o.ben ? "" : menuDugme(null, u.id, u.name || u.username).replace('class="ikon-menu"', 'class="ikon-menu p3-ikon"')}</header>
   ${u.bio || u.tagline || web ? `<p class="p3-bio">${u.tagline ? `<b>${esc(u.tagline)}</b> ` : ""}${u.bio ? esc(u.bio) : ""}${web ? ` <a href="${esc(web)}" target="_blank" rel="noopener">${esc(u.website.replace(/^https?:\/\//i, ""))}</a>` : ""}</p>` : ""}
   <p class="pr-bilgi" id="prBilgi" hidden></p>
   ${o.ben && !u.avatar_url ? `<button class="pr-uyari" id="prFotoEkle">Profil fotoğrafı ekle: gezginler seni böyle tanır &rarr;</button>` : ""}
@@ -2903,6 +3025,11 @@ function profilBagla(kok, u, gunler, o) {
   }));
   qa("[data-modgor]").forEach(b => b.addEventListener("click", () => gunGoster(b.dataset.modgor)));
   qa("[data-modok]").forEach(b => b.addEventListener("click", async () => { await SB.from("days").update({ review_status: "ok", review_reason: null }).eq("id", b.dataset.modok); profilCiz(); }));
+  qa("[data-skkaldir]").forEach(b => b.addEventListener("click", async () => {
+    await SB.from("days").update({ review_status: "rejected", review_reason: "Şikayet üzerine kaldırıldı" }).eq("id", b.dataset.skgun);
+    await SB.from("reports").update({ status: "islem" }).eq("day_id", b.dataset.skgun).eq("status", "acik"); profilCiz(); }));
+  qa("[data-skyoksay]").forEach(b => b.addEventListener("click", async () => { await SB.from("reports").update({ status: "yoksay" }).eq("id", b.dataset.skyoksay); profilCiz(); }));
+  qa("[data-skprofil]").forEach(b => b.addEventListener("click", () => profilGoster(b.dataset.skprofil)));
   qa("[data-modred]").forEach(b => b.addEventListener("click", async () => { await SB.from("days").update({ review_status: "rejected" }).eq("id", b.dataset.modred); profilCiz(); }));
 }
 
@@ -2943,6 +3070,24 @@ async function profilCiz() {
           <button class="btn" data-modred="${d.id}">Reddet</button></div></div>`; }).join("") + `</div>`;
     }
   }
+  if (ME.isModerator) {
+    const { data: rp, error: rpE } = await SB.from("reports").select("id,reason,note,day_id,target_user,created_at").eq("status", "acik").order("created_at", { ascending: false }).limit(50);
+    if (!rpE && rp && rp.length) {
+      const gids = [...new Set(rp.map(r => r.day_id).filter(Boolean))], uids = [...new Set(rp.map(r => r.target_user).filter(Boolean))];
+      const { data: gd } = gids.length ? await SB.from("days").select("id,place").in("id", gids) : { data: [] };
+      const { data: ud } = uids.length ? await SB.from("profiles").select("id,name,username").in("id", uids) : { data: [] };
+      const gAd = new Map((gd || []).map(x => [x.id, x.place])), uAd = new Map((ud || []).map(x => [x.id, x.name || x.username]));
+      const nAd = Object.fromEntries(SIKAYET_NEDEN);
+      modHtml += `<div class="pr-mod"><h2 class="sec" style="margin-top:4px">Şikayetler <span class="badge">${rp.length}</span></h2>
+        <p class="sub">Kullanıcıların bildirdiği içerikler. Kaldır günü herkesten gizler, Yoksay şikayeti kapatır.</p>` +
+        rp.map(r => `<div class="pr-mod-satir"><div style="min-width:0"><b>${r.day_id ? esc(gAd.get(r.day_id) || "Gün") : "Profil"}</b>
+          <span class="sub">&middot; ${esc(uAd.get(r.target_user) || "?")} &middot; ${esc(nAd[r.reason] || r.reason)}</span>
+          ${r.note ? `<div class="sub">"${esc(r.note)}"</div>` : ""}</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap">${r.day_id ? `<button class="btn" data-modgor="${r.day_id}">Gör</button>` : `<button class="btn" data-skprofil="${r.target_user}">Gör</button>`}
+          ${r.day_id ? `<button class="btn primary" data-skkaldir="${r.id}" data-skgun="${r.day_id}">Kaldır</button>` : ""}
+          <button class="btn" data-skyoksay="${r.id}">Yoksay</button></div></div>`).join("") + `</div>`;
+    }
+  }
   const prof = { ...(u || {}), id: ME.id, name: (u && u.name) || ME.name, username: (u && u.username) || ME.username };
   const gunler = g || [];
   const o = { ben: true, ...sayi, wish: (w || []).map(x => ({ place: x.place, from: x.source || "" })), modHtml };
@@ -2961,6 +3106,13 @@ async function profilGoster(uid) {
   const { data: g } = await SB.from("days").select("id,place,date,km,cover_path,photo_count,stop_count,lat,lon,activity")
     .eq("user_id", uid).order("date", { ascending: false });
   try { await yerleriYukle(); } catch {}
+  if (ENGELLI.has(uid)) {
+    $("#detayout").innerHTML = `<button class="back">&larr; Geri</button><div class="empty engel-not"><b>${esc(u.name || u.username || "Bu kullanıcı")} engelli.</b><br>Günlerini ve profilini görmüyorsun.
+      <div style="margin-top:14px"><button class="btn" id="engelKaldirBtn">Engeli kaldır</button></div></div>`;
+    $("#detayout .back").addEventListener("click", sekmeyeDon);
+    $("#engelKaldirBtn").addEventListener("click", () => engelKaldir(uid));
+    return;
+  }
   const sayi = await takipSayilari(uid);
   const o = { ben: girisli() && uid === ME.id, geri: true, ...sayi };
   $("#detayout").innerHTML = profilHtml(u, g || [], o);
@@ -3011,7 +3163,7 @@ async function hesabiSil() {
     await depoKlasorSil("avatars", ME.id);
     const { error } = await SB.rpc("hesabimi_sil");
     if (error) throw error;
-    await SB.auth.signOut();
+    // kullanici artik yok: sunucuya cikis istegi atma (403); oturum yerel depoyla birlikte asagida temizlenir
     ME = null; try { localStorage.clear(); } catch {}
     $("#detayout").innerHTML = `<div class="empty" style="margin-top:40px"><b>Hesabın silindi.</b><br>Bütün günlerin ve fotoğrafların kaldırıldı.</div>`;
     setTimeout(() => location.replace(location.pathname), 2500);
@@ -3158,7 +3310,8 @@ async function gunGoster(dayId) {
   const haritaVar = !!(d.has_gps && stoplar.some(s => s.lat && s.lon));
   const tarihUst = dd.toLocaleDateString("tr-TR", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
   const yazar = `<div class="dyazar">${avatarHtml(p, "", `data-profil="${d.user_id}"`)}
-      <span class="who link" data-profil="${d.user_id}"><b>${esc(p.name || p.username || "gezgin")}</b>${p.is_creator ? '<span class="badge">üretici</span>' : ""}</span></div>`;
+      <span class="who link" data-profil="${d.user_id}"><b>${esc(p.name || p.username || "gezgin")}</b>${p.is_creator ? '<span class="badge">üretici</span>' : ""}</span>
+      ${menuDugme(d.id, d.user_id, p.name || p.username)}</div>`;
   $("#detayout").innerHTML = `
     ${haritaVar
       ? `<div class="dhero dhero-harita"><div id="gunHarita" class="uydu"></div><button class="back" aria-label="Geri">&larr;</button></div>
@@ -4338,6 +4491,35 @@ $("#login").addEventListener("click", (e) => { if (e.target.id === "login") auth
 
 ustBar();
 
+/* ---------- PWA: cevrimdisi kabuk + ana ekrana ekle onerisi ---------- */
+if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+}
+let YUKLE_OLAYI = null;
+const kurulu = () => matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+const iosSafari = () => /iphone|ipad|ipod/i.test(navigator.userAgent) && !/crios|fxios|edgios/i.test(navigator.userAgent);
+window.addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); YUKLE_OLAYI = e; yukleOnerisi(); });
+window.addEventListener("appinstalled", () => { YUKLE_OLAYI = null; const x = $("#yukleBant"); if (x) x.remove(); try { localStorage.setItem("ormaio:yukleKapat", "kuruldu"); } catch {} });
+function yukleOnerisi() {
+  if (kurulu() || $("#yukleBant") || innerWidth > 899) return;
+  let kapali = null; try { kapali = localStorage.getItem("ormaio:yukleKapat"); } catch {}
+  if (kapali && (kapali === "kuruldu" || Date.now() - +kapali < 7 * 864e5)) return;
+  if (!YUKLE_OLAYI && !iosSafari()) return;
+  const bant = document.createElement("div"); bant.id = "yukleBant"; bant.className = "yukle-bant"; bant.setAttribute("role", "dialog"); bant.setAttribute("aria-label", "Uygulamayı yükle");
+  bant.innerHTML = `<img src="apple-touch-icon.png" alt="" width="44" height="44"><span><b>ormaio'yu telefonuna ekle</b><span>Tek dokunuşla açılır, internet yokken de son günlerin görünür.</span></span>
+    <button class="btn primary" id="yukleEvet">${YUKLE_OLAYI ? "Yükle" : "Nasıl?"}</button><button class="yukle-kapat" id="yukleHayir" aria-label="Kapat">&times;</button>`;
+  document.body.appendChild(bant);
+  $("#yukleHayir").addEventListener("click", () => { bant.remove(); try { localStorage.setItem("ormaio:yukleKapat", String(Date.now())); } catch {} });
+  $("#yukleEvet").addEventListener("click", async () => {
+    if (YUKLE_OLAYI) { YUKLE_OLAYI.prompt(); const r = await YUKLE_OLAYI.userChoice.catch(() => ({})); YUKLE_OLAYI = null; bant.remove(); if (r.outcome !== "accepted") try { localStorage.setItem("ormaio:yukleKapat", String(Date.now())); } catch {} ; return; }
+    const sh = sayfaAc(`<b class="sheet-baslik">iPhone'da ana ekrana ekle</b>
+      <ol class="sheet-adim"><li>Safari'nin altındaki <b>Paylaş</b> simgesine dokun <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3M7 8l5-5 5 5"/><path d="M5 13v7h14v-7"/></svg></li>
+      <li>Listeyi kaydırıp <b>Ana Ekrana Ekle</b>'yi seç</li><li>Sağ üstteki <b>Ekle</b>'ye dokun</li></ol>
+      <button class="sheet-satir sheet-vazgec" data-sh="vazgec">Anladım</button>`);
+    sh.querySelector('[data-sh="vazgec"]').addEventListener("click", () => { sayfaKapat(); bant.remove(); try { localStorage.setItem("ormaio:yukleKapat", String(Date.now())); } catch {} });
+  });
+}
+setTimeout(yukleOnerisi, 15000);
 $("#logoBtn").addEventListener("click", (e) => { e.preventDefault(); anaGoster(); window.scrollTo(0, 0); });
 $("#ogOrnek").addEventListener("click", () => { ornekGun(); document.getElementById("out").scrollIntoView({ behavior: "smooth" }); });
 </script>
